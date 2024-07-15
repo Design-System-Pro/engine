@@ -17,9 +17,11 @@
   "files": [
     "dist"
   ],
+  "prettier": "@vercel/style-guide/prettier",
   "scripts": {
     "build": "tsc && vite build && pnpm build:tailwind",
-    "build:tailwind": "NODE_ENV=production npx tailwindcss -i ./src/globals.css -o ./dist/globals.css --postcss --minify"
+    "build:tailwind": "NODE_ENV=production npx tailwindcss -i ./src/globals.css -o ./dist/globals.css --postcss --minify",
+    "lint": "eslint --max-warnings=0 ."
   },
   "keywords": [],
   "author": "",
@@ -28,7 +30,10 @@
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^20.14.10",
     "@types/react": "^18.2.61",
+    "@vercel/style-guide": "^5.2.0",
     "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "eslint-plugin-unused-imports": "^4.0.0",
     "postcss": "^8.4.39",
