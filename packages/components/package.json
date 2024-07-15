@@ -1,0 +1,52 @@
+{
+  "name": "@ds-project/components",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./globals.css": "./dist/globals.css"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build && pnpm build:tailwind",
+    "build:tailwind": "NODE_ENV=production npx tailwindcss -i ./src/globals.css -o ./dist/globals.css --postcss --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.2.61",
+    "autoprefixer": "^10.4.19",
+    "eslint-plugin-tailwindcss": "^3.17.4",
+    "eslint-plugin-unused-imports": "^4.0.0",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.408.0",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}
