@@ -1,0 +1,9 @@
+{
+  "api": "1.0.0",
+  "editorType": [
+    "figma"
+  ],
+  "id": "1254182310197842774",
+  "name": "Style Dictionary to Variables",
+  "main": "build/main.js"
+}
