@@ -1,60 +1,47 @@
 {
-  "name": "Project-DS",
+  "name": "ds-project-plugin",
   "private": true,
   "version": "1.0.0",
-  "description": "Your Figma Plugin",
-  "figma-plugin": {
-    "editorType": [
-      "figma"
-    ],
-    "id": "1254182310197842774",
-    "name": "Style Dictionary to Variables",
-    "main": "src/main.ts"
-  },
+  "type": "module",
   "scripts": {
-    "build:figma": "build-figma-plugin --typecheck --minify",
-    "watch:figma": "build-figma-plugin --typecheck --watch",
-    "build": "vite build",
-    "watch": "vite build --mode=development",
-    "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
-    "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix ."
+    "start": "run-s dev",
+    "dev": "run-s watch",
+    "dev:ui-only": "vite -c ./vite.config.ui.ts",
+    "watch": "run-p watch:*",
+    "watch:ui": "npm run build:ui -- --watch --mode=development",
+    "watch:plugin": "npm run build:plugin -- --watch --mode=development",
+    "clean": "rimraf dist/*",
+    "types": "run-s types:*",
+    "types:src": "tsc",
+    "types:node": "tsc -P tsconfig.node.json",
+    "build": "run-s build:*",
+    "prebuild": "run-s types clean",
+    "build:ui": "vite build -c ./vite.config.ui.ts",
+    "build:plugin": "vite build -c ./vite.config.plugin.ts"
   },
-  "author": "",
-  "license": "",
-  "devDependencies": {
-    "@create-figma-plugin/build": "^3.2.0",
-    "@create-figma-plugin/tsconfig": "^3.2.0",
-    "@figma/eslint-plugin-figma-plugins": "*",
-    "@figma/plugin-typings": "*",
-    "@typescript-eslint/eslint-plugin": "^6.12.0",
-    "@typescript-eslint/parser": "^6.12.0",
-    "deepmerge": "^4.3.1",
-    "eslint": "^8.54.0",
+  "dependencies": {
+    "monorepo-networker": "^1.5.2",
     "rambda": "^9.2.1",
-    "style-dictionary": "^4.0.0",
-    "typescript": "^5.3.2",
-    "vite": "^5.3.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "style-dictionary": "^4.0.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@figma/figma-plugins/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    },
-    "root": true,
-    "rules": {
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_",
-          "caughtErrorsIgnorePattern": "^_"
-        }
-      ]
-    }
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.83.0",
+    "@types/node": "^18.15.11",
+    "@types/postcss-url": "^10.0.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.2.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.21",
+    "postcss-url": "^10.1.3",
+    "rimraf": "^5.0.5",
+    "sass": "^1.60.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.11",
+    "vite-plugin-generate-file": "^0.1.1",
+    "vite-plugin-react-rich-svg": "^1.0.0",
+    "vite-plugin-singlefile": "^0.13.5"
   }
 }

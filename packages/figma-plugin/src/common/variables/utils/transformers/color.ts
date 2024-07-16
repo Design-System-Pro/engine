@@ -1,16 +1,30 @@
 import { DesignToken } from "style-dictionary/types";
 
+export function rgbToHex({ r, g, b, ...rest }: RGB | RGBA) {
+  const a = "a" in rest ? rest.a : 1;
+
+  const toHex = (value: number) => {
+    const hex = Math.round(value * 255).toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  };
+
+  const hex = [toHex(r), toHex(g), toHex(b)].join("");
+  return `#${hex}` + (a !== 1 ? toHex(a) : "");
+}
+
 function color(value: VariableValue): string {
   if (typeof value === "string") {
     return value;
   }
 
+  console.log({ value });
+
   if (typeof value === "object" && "a" in value) {
-    return `rgba(${value.r},${value.g},${value.b},${value.a})`;
+    return rgbToHex(value);
   }
 
   if (typeof value === "object" && !("a" in value) && "r" in value) {
-    return `rgb(${value.r},${value.g},${value.b})`;
+    return rgbToHex(value);
   }
 
   if (
@@ -39,7 +53,7 @@ export function colorVariable(variable: Variable, modeId: string): DesignToken {
     // Set the value at the lowest leaf of the structure
     if (Object.keys(accumulator).length === 0) {
       return {
-        [variableKey]: { value: color(variable.valuesByMode[modeId]) },
+        [variableKey]: { $value: color(variable.valuesByMode[modeId]) },
       };
     }
 
