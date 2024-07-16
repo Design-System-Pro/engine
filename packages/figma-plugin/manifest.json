@@ -1,0 +1,9 @@
+{
+  "name": "DS-Project_Dev",
+  "id": "",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "permissions": [],
+  "main": "dist/plugin.js",
+  "ui": "dist/index.html"
+}
