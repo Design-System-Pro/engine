@@ -1,0 +1,45 @@
+{
+  "color": {
+    "background": {
+      "primary": {
+        "value": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "secondary": {
+        "value": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "value": {
+      "type": "VARIABLE_ALIAS",
+      "id": "VariableID:76:27"
+    }
+  },
+  "Radius": {
+    "value": 8
+  },
+  "Label": {
+    "value": "Brand"
+  },
+  "Clicked": {
+    "value": true
+  },
+  "button": {
+    "active": {
+      "background": {
+        "value": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:76:27"
+        }
+      }
+    }
+  }
+}

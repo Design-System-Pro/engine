@@ -5,6 +5,7 @@ export interface DesignToken {
         [subItem: string]: {
           [state: string]: {
             value: string;
+            [attributes: string]: string;
           };
         };
       };

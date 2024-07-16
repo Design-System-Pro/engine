@@ -1,0 +1,16 @@
+{
+  "source": ["./tokens/**/*.json"],
+  "platforms": {
+    "scss": {
+      "transformGroup": "scss",
+      "buildPath": "./dist/",
+      "prefix": "token",
+      "files": [
+        {
+          "destination": "variables.css",
+          "format": "css/variables"
+        }
+      ]
+    }
+  }
+}
