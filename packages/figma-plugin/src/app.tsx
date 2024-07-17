@@ -1,41 +1,54 @@
-import { useRef, useEffect } from "react";
-import logoPng from "./assets/logo.png";
-import logoSvg from "./assets/logo.svg?raw";
-import "./App.sass";
+import "@ds-project/components/globals.css";
+import "react-json-view-lite/dist/index.css";
+import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite";
+import { useEffect, useState } from "react";
+import { Button } from "@ds-project/components";
 
 function App() {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [tokens, setTokens] = useState(null);
+  const [tokensHref, setTokensHref] = useState<string>();
 
-  const onCreate = () => {
-    const count = Number(inputRef.current?.value || 0);
-    parent.postMessage(
-      { pluginMessage: { type: "export-design-token-json", count } },
-      "*"
-    );
-  };
+  useEffect(() => {
+    if (tokens) {
+      setTokensHref(
+        URL.createObjectURL(
+          new Blob([JSON.stringify(tokens, null, 2)], { type: "text/json" })
+        )
+      );
+    }
+  }, [tokens]);
 
-  const onCancel = () => {
-    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-  };
+  useEffect(() => {
+    parent.postMessage({ pluginMessage: { type: "ui-ready" } }, "*");
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("message", (event) => {
+      if (event.data.pluginMessage.type === "export-design-token-json") {
+        const tokens = event.data.pluginMessage.tokens;
+        console.log({ tokens });
+        setTokens(tokens);
+      }
+    });
+  }, []);
 
   return (
     <main>
       <header>
-        <img src={logoPng} />
-        &nbsp;
-        <img src={`data:image/svg+xml;utf8,${logoSvg}`} />
-        <h2>Hello You 😎</h2>
+        <h1>DS-Project</h1>
       </header>
-      <section>
-        <input id="input" type="number" min="0" ref={inputRef} value={10} />
-        <label htmlFor="input">Make Rectangles 🧱</label>
-      </section>
-      <footer>
-        <button className="brand" onClick={onCreate}>
-          Create
-        </button>
-        <button onClick={onCancel}>Cancel</button>
-      </footer>
+      {tokens ? (
+        <JsonView
+          data={tokens}
+          shouldExpandNode={allExpanded}
+          style={defaultStyles}
+        />
+      ) : null}
+      <Button asChild>
+        <a href={tokensHref} download="tokens.json">
+          Save Tokens
+        </a>
+      </Button>
     </main>
   );
 }
