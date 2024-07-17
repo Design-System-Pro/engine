@@ -16,8 +16,8 @@
     "prettier": "^3.2.5",
     "turbo": "^2.0.6"
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.4.0",
   "engines": {
-    "pnpm": "9.5.0"
+    "pnpm": "9.4.0"
   }
 }
