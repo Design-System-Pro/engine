@@ -1,10 +1,10 @@
 import { Button } from "@ds-project/components";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { config } from "../config";
-import { Octokit } from "octokit";
+import { useGithub } from "./github";
 
 export function SignInWithGithub() {
-  const [githubToken, setGithubToken] = useState<string>();
+  const { setToken, isReady, listRepositories } = useGithub();
 
   const initSignIn = useCallback(() => {
     // Announce intention to authenticate and grab the read and write keys
@@ -28,7 +28,11 @@ export function SignInWithGithub() {
             .then((data) => data.json())
             .then(({ token }) => {
               if (token) {
-                setGithubToken(token);
+                setToken?.(token);
+                parent.postMessage(
+                  { pluginMessage: { type: "store-github-token", token } },
+                  "https://www.figma.com"
+                );
                 clearInterval(interval);
               }
             })
@@ -41,29 +45,22 @@ export function SignInWithGithub() {
   }, []);
 
   useEffect(() => {
-    if (!githubToken) {
-      console.log("No token found. Skipping GitHub call.");
+    if (!listRepositories) {
+      console.log("Github module not available");
       return;
     }
 
-    const octokit = new Octokit({
-      auth: githubToken,
+    listRepositories().then((result) => {
+      console.log("gh result", { result });
     });
+  }, []);
 
-    octokit
-      .request("GET /users/{username}/repos", {
-        username: "tomasfrancisco",
-        headers: {
-          "X-GitHub-Api-Version": "2022-11-28",
-        },
-      })
-      .then((result) => {
-        console.log("gh result", { result });
-      });
-  }, [githubToken]);
+  const logout = useCallback(() => {
+    console.warn("Logout not yet implemented");
+  }, []);
 
-  return githubToken ? (
-    <Button>Logout</Button>
+  return isReady ? (
+    <Button onClick={logout}>Logout</Button>
   ) : (
     <Button onClick={initSignIn}>Sign in with GitHub</Button>
   );

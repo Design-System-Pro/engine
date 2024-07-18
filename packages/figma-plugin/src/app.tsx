@@ -5,10 +5,12 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@ds-project/components";
 import { Octokit } from "octokit";
 import { SignInWithGithub } from "./modules/sign-in-with-github";
+import { useGithub } from "./modules/github";
 
 function App() {
   const [tokens, setTokens] = useState(null);
   const [tokensHref, setTokensHref] = useState<string>();
+  const { setToken } = useGithub();
 
   useEffect(() => {
     if (tokens) {
@@ -26,9 +28,18 @@ function App() {
 
   useEffect(() => {
     window.addEventListener("message", (event) => {
-      if (event.data.pluginMessage.type === "export-design-token-json") {
-        const tokens = event.data.pluginMessage.tokens;
-        setTokens(tokens);
+      switch (event.data.pluginMessage.type) {
+        case "export-design-token-json": {
+          const tokens = event.data.pluginMessage.tokens;
+          setTokens(tokens);
+          break;
+        }
+
+        case "github-token": {
+          console.log("got the github token", event.data.pluginMessage.token);
+          setToken(event.data.pluginMessage.token);
+          break;
+        }
       }
     });
   }, []);
