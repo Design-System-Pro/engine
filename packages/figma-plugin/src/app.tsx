@@ -3,6 +3,7 @@ import "react-json-view-lite/dist/index.css";
 import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@ds-project/components";
+import { Octokit } from "octokit";
 
 function App() {
   const [tokens, setTokens] = useState(null);
@@ -97,6 +98,19 @@ function App() {
 
   console.log({ githubToken });
 
+  const fetchRepos = useCallback(async () => {
+    const octokit = new Octokit({
+      auth: githubToken,
+    });
+
+    await octokit.request("GET /users/{username}/repos", {
+      username: "tomasfrancisco",
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+    });
+  }, [githubToken]);
+
   return (
     <main>
       <header>
@@ -122,6 +136,7 @@ function App() {
         Login with GitHub
       </Button>
       <Button onClick={readToken}>Read GitHub Token</Button>
+      <Button onClick={fetchRepos}>Fetch Repos</Button>
     </main>
   );
 }
