@@ -1,5 +1,4 @@
 import { DesignTokens } from "style-dictionary/types";
-import { transform } from "./transformers";
 import { figmaVariable } from "./transformers/figma-variable";
 import * as R from "rambda";
 

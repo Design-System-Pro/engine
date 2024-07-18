@@ -4,15 +4,11 @@ import { JsonView, allExpanded, defaultStyles } from "react-json-view-lite";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@ds-project/components";
 import { Octokit } from "octokit";
+import { SignInWithGithub } from "./modules/sign-in-with-github";
 
 function App() {
   const [tokens, setTokens] = useState(null);
   const [tokensHref, setTokensHref] = useState<string>();
-  const [writeKey, setWriteKey] = useState<string>();
-  const [readKey, setReadKey] = useState<string>();
-  const [githubToken, setGithubToken] = useState<string>();
-
-  console.log({ writeKey, readKey });
 
   useEffect(() => {
     if (tokens) {
@@ -32,84 +28,10 @@ function App() {
     window.addEventListener("message", (event) => {
       if (event.data.pluginMessage.type === "export-design-token-json") {
         const tokens = event.data.pluginMessage.tokens;
-        console.log({ tokens });
         setTokens(tokens);
       }
     });
   }, []);
-
-  useEffect(() => {
-    fetch("https://localhost:3000/api/auth/figma/init", { method: "POST" })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        setWriteKey(data.writeKey);
-        setReadKey(data.readKey);
-      })
-      .catch((e) => {
-        console.error("Error init", { e });
-      });
-  }, []);
-
-  // useEffect(() => {
-  //   const readInterval = setInterval(() => {
-  //     fetch("https://localhost:3000/api/auth/figma/read", {
-  //       method: "DELETE",
-  //       body: JSON.stringify({ key: readKey }),
-  //     })
-  //       .then((response) => {
-  //         if (response.ok) {
-  //           return response.json();
-  //         }
-  //       })
-  //       .then(({ token }) => {
-  //         setGithubToken(token);
-  //         clearInterval(readInterval);
-  //       })
-  //       .catch((e) => {
-  //         console.error("Error read", { e });
-  //       });
-  //   }, 1000); // every 1 second
-  // }, []);
-
-  const readToken = useCallback(() => {
-    if (!readKey) {
-      console.error("no read key available");
-      return;
-    }
-
-    fetch("https://localhost:3000/api/auth/figma/read", {
-      method: "DELETE",
-      body: JSON.stringify({ key: readKey }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(({ token }) => {
-        setGithubToken(token);
-      })
-      .catch((e) => {
-        console.error("Error read", { e });
-      });
-  }, [readKey]);
-
-  console.log({ githubToken });
-
-  const fetchRepos = useCallback(async () => {
-    const octokit = new Octokit({
-      auth: githubToken,
-    });
-
-    await octokit.request("GET /users/{username}/repos", {
-      username: "tomasfrancisco",
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    });
-  }, [githubToken]);
 
   return (
     <main>
@@ -128,15 +50,7 @@ function App() {
           Save Tokens
         </a>
       </Button>
-      <Button
-        onClick={() => {
-          window.open(`https://localhost:3000/authenticate?key=${writeKey}`);
-        }}
-      >
-        Login with GitHub
-      </Button>
-      <Button onClick={readToken}>Read GitHub Token</Button>
-      <Button onClick={fetchRepos}>Fetch Repos</Button>
+      <SignInWithGithub />
     </main>
   );
 }

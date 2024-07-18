@@ -17,8 +17,6 @@ function color(value: VariableValue): string {
     return value;
   }
 
-  console.log({ value });
-
   if (typeof value === "object" && "a" in value) {
     return rgbToHex(value);
   }

@@ -1,7 +1,7 @@
 "use client";
 
-import { setKey } from "@/app/authenticate/set-key";
-import { signInWithGithub } from "@/sign-in";
+import { signInWithGithub } from "@/app/actions/sign-in-with-github";
+import { setWriteKey } from "@/lib/store";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
@@ -13,7 +13,7 @@ export function SignIn() {
   useEffect(() => {
     if (key) {
       // TODO: Review, For some reason, server action needs to be called with a then 🤷🏻‍♂️
-      setKey(key).then();
+      setWriteKey(key).then();
       formRef.current?.requestSubmit();
     }
   }, [key]);

@@ -25,7 +25,7 @@ export async function figmaVariable(
       // TODO: add other variants
 
       default:
-        console.log("unknown type", variable?.resolvedType);
+        console.warn("unknown type", variable?.resolvedType);
         return accumulator;
     }
   }, {});

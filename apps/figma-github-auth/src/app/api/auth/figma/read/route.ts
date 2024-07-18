@@ -1,8 +1,8 @@
 import { kv } from "@vercel/kv";
 import { NextRequest } from "next/server";
 
-export async function DELETE(request: NextRequest) {
-  const { key: readKey } = await request.json();
+export async function POST(request: NextRequest) {
+  const { readKey } = await request.json();
 
   const keyValue = await kv.getdel<{ token: string }>(readKey);
 
@@ -10,5 +10,6 @@ export async function DELETE(request: NextRequest) {
     return Response.json({ token: keyValue.token });
   }
 
-  return new Response("Not found", { status: 404 });
+  // If the key doesn't exist, return an empty response
+  return Response.json({});
 }
