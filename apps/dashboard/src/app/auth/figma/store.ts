@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await -- These are server actions, it's required to be async */
 'use server';
 
 import { cookies } from 'next/headers';

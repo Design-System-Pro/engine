@@ -1,27 +1,13 @@
-'use client';
-import { useSearchParams } from 'next/navigation';
 import { Icons } from '@ds-project/components';
-import { useEffect } from 'react';
-import { storeWriteKey } from './store';
 import { MagicLinkForm } from './magic-link-form';
+import { ReadStoreWriteKey } from './read-store-write-key';
 
-export default async function Page() {
-  const searchParams = useSearchParams();
-  const writeKey = searchParams.get('key');
-
-  useEffect(() => {
-    if (!writeKey) {
-      // TODO: Review, For some reason, server action needs to be called with a then 🤷🏻‍♂️
-      throw new Error('No write key provided');
-    }
-
-    storeWriteKey(writeKey).then();
-  }, [writeKey]);
-
+export default function Page() {
   return (
     <section className="flex max-w-sm flex-col items-center gap-6">
-      <Icons.EnterIcon width={64} height={64} />
+      <Icons.EnterIcon height={64} width={64} />
       <MagicLinkForm />
+      <ReadStoreWriteKey />
     </section>
   );
 }

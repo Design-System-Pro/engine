@@ -14,17 +14,16 @@ export const Message = ({
 }: {
   visible?: boolean;
   email?: string;
-}) => {
-  return (
+}) => (
     <AnimatePresence>
       {visible ? (
-        <Alert variant={'info'} asChild={true}>
+        <Alert asChild variant="info">
           <motion.div
-            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
           >
-            <Icons.EnvelopeOpenIcon className="h-4 w-4" />
+            <Icons.EnvelopeOpenIcon className="size-4" />
             <AlertTitle>Check your inbox</AlertTitle>
             <AlertDescription>
               An email has been sent to {email} with a magic link.
@@ -34,4 +33,3 @@ export const Message = ({
       ) : null}
     </AnimatePresence>
   );
-};

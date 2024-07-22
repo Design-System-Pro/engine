@@ -1,5 +1,5 @@
 'use client';
-
+// eslint-disable-next-line import/named -- TODO: Review
 import { useFormStatus } from 'react-dom';
 import { Button, Icons } from '@ds-project/components';
 
@@ -8,16 +8,16 @@ export const SubmitButton = () => {
 
   return (
     <Button
-      type="submit"
       aria-disabled={formStatus.pending}
-      aria-pressed={true}
       aria-label="Get magic link"
+      aria-pressed
+      type="submit"
     >
       <>
         {formStatus.pending ? (
-          <Icons.SymbolIcon className="mr-2 h-4 w-4 animate-spin" />
+          <Icons.SymbolIcon className="mr-2 size-4 animate-spin" />
         ) : null}
-        <Icons.Link2Icon className="mr-2 h-4 w-4" /> Get magic link
+        <Icons.Link2Icon className="mr-2 size-4" /> Get magic link
       </>
     </Button>
   );

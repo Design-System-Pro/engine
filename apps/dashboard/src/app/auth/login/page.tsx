@@ -1,10 +1,10 @@
-import { MagicLinkForm } from './magic-link-form';
 import { Icons } from '@ds-project/components';
+import { MagicLinkForm } from './magic-link-form';
 
-export default async function Page() {
+export default function Page() {
   return (
     <section className="flex max-w-sm flex-col items-center gap-6">
-      <Icons.EnterIcon width={64} height={64} />
+      <Icons.EnterIcon height={64} width={64} />
       <MagicLinkForm />
     </section>
   );

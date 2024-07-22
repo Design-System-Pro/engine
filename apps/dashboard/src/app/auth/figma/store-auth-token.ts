@@ -1,5 +1,5 @@
-import { getWriteKey } from '@/app/auth/figma/store';
 import { kv } from '@vercel/kv';
+import { getWriteKey } from '@/app/auth/figma/store';
 
 export async function storeAuthToken(token: string) {
   const writeKey = await getWriteKey();

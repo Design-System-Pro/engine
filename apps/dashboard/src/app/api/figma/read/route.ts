@@ -1,10 +1,15 @@
-import { kv } from "@vercel/kv";
-import { NextRequest } from "next/server";
+import { kv } from '@vercel/kv';
+import type { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const { readKey } = await request.json();
+  const result = (await request.json()) as object;
 
-  const keyValue = await kv.getdel<{ token: string }>(readKey);
+  if (!('readKey' in result) || typeof result.readKey !== 'string') {
+    // If the readKey is missing or not a string, return an empty response
+    return Response.json({});
+  }
+
+  const keyValue = await kv.getdel<{ token: string }>(result.readKey);
 
   if (keyValue) {
     return Response.json({ token: keyValue.token });

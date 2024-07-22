@@ -1,8 +1,8 @@
 'use server';
 
+import { z } from 'zod';
 import { config } from '@/config';
 import { createClient } from '@/lib/supabase/server';
-import { z } from 'zod';
 
 const schema = z.object({
   email: z.string().email(),
@@ -32,10 +32,10 @@ export async function loginUser(previousState: unknown, formData: FormData) {
     return {
       error: error.message,
     };
-  } else {
+  } 
     return {
       email: validatedFields.data.email,
       ok: true,
     };
-  }
+  
 }

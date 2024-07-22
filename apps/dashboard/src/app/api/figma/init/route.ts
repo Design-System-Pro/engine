@@ -1,5 +1,5 @@
+import crypto from "node:crypto";
 import { kv } from "@vercel/kv";
-import crypto from "crypto";
 
 export async function POST() {
   const readKey = crypto.randomBytes(64).toString("hex");
