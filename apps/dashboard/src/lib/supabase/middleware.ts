@@ -41,7 +41,6 @@ export async function updateSession(request: NextRequest) {
 
   if (
     !user &&
-    !request.nextUrl.pathname.startsWith('/auth/login') &&
     !request.nextUrl.pathname.startsWith('/auth/figma') &&
     !request.nextUrl.pathname.startsWith('/auth/auth')
   ) {
