@@ -32,10 +32,9 @@ export async function loginUser(previousState: unknown, formData: FormData) {
     return {
       error: error.message,
     };
-  } 
-    return {
-      email: validatedFields.data.email,
-      ok: true,
-    };
-  
+  }
+  return {
+    email: validatedFields.data.email,
+    ok: true,
+  };
 }

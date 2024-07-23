@@ -19,3 +19,7 @@ export async function storeWriteKey(key: string): Promise<void> {
 export async function getWriteKey(): Promise<string | undefined> {
   return cookies().get(WRITE_KEY)?.value;
 }
+
+export async function deleteWriteKey(): Promise<void> {
+  cookies().delete(WRITE_KEY);
+}

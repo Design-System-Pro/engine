@@ -42,11 +42,12 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/auth/login') &&
+    !request.nextUrl.pathname.startsWith('/auth/figma') &&
     !request.nextUrl.pathname.startsWith('/auth/auth')
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
-    url.pathname = '/auth/login';
+    url.pathname = '/auth/figma';
     return NextResponse.redirect(url);
   }
 

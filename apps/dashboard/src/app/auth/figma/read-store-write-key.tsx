@@ -1,21 +1,25 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
-import { storeWriteKey } from './store';
+import { getWriteKey, storeWriteKey } from './store';
 
 function ReadStoreWriteKeyUnwrapped() {
   const searchParams = useSearchParams();
   const writeKey = searchParams.get('key');
+  const router = useRouter();
 
   useEffect(() => {
     if (!writeKey) {
-      // TODO: Review, For some reason, server action needs to be called with a then 🤷🏻‍♂️
-      throw new Error('No write key provided');
+      void getWriteKey().then((key) => {
+        if (!key) throw new Error('No write key provided');
+      });
+      return;
     }
 
     void storeWriteKey(writeKey);
-  }, [writeKey]);
+    router.replace('/auth/figma');
+  }, [router, writeKey]);
 
   return null;
 }
