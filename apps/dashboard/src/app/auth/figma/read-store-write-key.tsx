@@ -12,13 +12,12 @@ function ReadStoreWriteKeyUnwrapped() {
   useEffect(() => {
     if (!writeKey) {
       // eslint-disable-next-line no-console -- TODO: Review
-      console.warn('No write key provided. Redirecting to root.');
-      router.push('/');
+      console.warn('No write key provided. Auth will fail.');
       return;
     }
 
     void storeWriteKey(writeKey);
-    router.replace('/auth/figma');
+    // router.replace('/auth/figma');
   }, [router, writeKey]);
 
   return null;

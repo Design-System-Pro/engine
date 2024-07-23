@@ -38,7 +38,7 @@ export function SignInWithGithub() {
               }
             })
             .catch(() => console.error('Error polling for GitHub token.'));
-        }, 1000); // Poll every second
+        }, config.READ_INTERVAL);
       })
       .catch(() => {
         console.error('Error initializing GitHub authentication.');
