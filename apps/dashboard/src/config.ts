@@ -10,7 +10,7 @@ export const config = {
     switch (vercelEnv) {
       case 'production':
         // TODO: add production url
-        return '';
+        return 'https://ds-project.tfrancisco.dev';
       case 'preview':
         return `https://${vercelUrl}`;
       default:
