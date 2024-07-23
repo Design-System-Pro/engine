@@ -1,10 +1,10 @@
 import { kv } from '@vercel/kv';
 import { deleteWriteKey, getWriteKey } from '@/app/auth/figma/store';
 
-export async function storeAuthToken(token: string) {
+export async function storeAuthToken(token: string): Promise<boolean> {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- It's expected to be async, but finally only accepts sync function
   const writeKey = await getWriteKey().finally(deleteWriteKey);
-  if (!writeKey) return new Response('No write key', { status: 500 });
+  if (!writeKey) throw new Error('No write key provided');
 
   const keyValue = await kv.getdel<{ readKey: string }>(writeKey);
 
@@ -19,11 +19,11 @@ export async function storeAuthToken(token: string) {
         }
       )
     ) {
-      return new Response('OK', { status: 200 });
+      return true;
     }
 
-    return new Response('Unexpected error', { status: 500 });
+    return false;
   }
 
-  return new Response('Not found', { status: 404 });
+  return false;
 }
