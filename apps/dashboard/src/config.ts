@@ -19,4 +19,5 @@ export const config = {
   })(),
   supabaseUrl,
   supabaseAnonKey,
+  WRITE_KEY: 'figma.key',
 } as const;

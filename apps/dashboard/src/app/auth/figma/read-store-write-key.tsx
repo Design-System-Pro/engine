@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
-import { getWriteKey, storeWriteKey } from './store';
+import { storeWriteKey } from './store';
 
 function ReadStoreWriteKeyUnwrapped() {
   const searchParams = useSearchParams();
@@ -11,9 +11,9 @@ function ReadStoreWriteKeyUnwrapped() {
 
   useEffect(() => {
     if (!writeKey) {
-      void getWriteKey().then((key) => {
-        if (!key) throw new Error('No write key provided');
-      });
+      // eslint-disable-next-line no-console -- TODO: Review
+      console.warn('No write key provided. Redirecting to root.');
+      router.push('/');
       return;
     }
 

@@ -1,9 +1,10 @@
 import { kv } from '@vercel/kv';
-import { deleteWriteKey, getWriteKey } from '@/app/auth/figma/store';
+import { cookies } from 'next/headers';
+import { config } from '@/config';
 
 export async function storeAuthToken(token: string): Promise<boolean> {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises -- It's expected to be async, but finally only accepts sync function
-  const writeKey = await getWriteKey().finally(deleteWriteKey);
+  const writeKey = cookies().get(config.WRITE_KEY)?.value;
+  cookies().delete(config.WRITE_KEY);
   if (!writeKey) throw new Error('No write key provided');
 
   const keyValue = await kv.getdel<{ readKey: string }>(writeKey);
