@@ -14,7 +14,7 @@ export const config = {
       case 'preview':
         return `https://${vercelUrl}`;
       default:
-        return 'http://localhost:3000';
+        return 'https://localhost:3000';
     }
   })(),
   supabaseUrl,
