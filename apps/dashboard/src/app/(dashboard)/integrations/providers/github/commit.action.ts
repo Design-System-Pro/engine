@@ -85,7 +85,7 @@ export async function commitToRepository() {
     );
 
     await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
-      ref: `refs/heads/main`,
+      ref: `refs/heads/${repo.name}`,
       sha: commitData.sha,
       owner: repo.owner.login,
       repo: repo.name,

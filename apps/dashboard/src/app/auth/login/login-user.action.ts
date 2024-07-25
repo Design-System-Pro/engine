@@ -24,7 +24,7 @@ export async function loginUser(previousState: unknown, formData: FormData) {
     email: validatedFields.data.email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: `${config.pageUrl}/auth/figma/callback`,
+      emailRedirectTo: `${config.pageUrl}/auth/callback`,
     },
   });
 

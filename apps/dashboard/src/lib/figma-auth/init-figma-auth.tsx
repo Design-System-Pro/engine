@@ -4,29 +4,34 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 import { storeWriteKey } from './store';
 
-function ReadStoreWriteKeyUnwrapped() {
+/**
+ * Responsible for handling Figma auth flow in case a figma key is provided to the login endpoint
+ * @returns
+ */
+function AttemptFigmaAuth() {
   const searchParams = useSearchParams();
-  const writeKey = searchParams.get('key');
+  const writeKey = searchParams.get('figma_key');
   const router = useRouter();
 
   useEffect(() => {
     if (!writeKey) {
       // eslint-disable-next-line no-console -- TODO: Review
-      console.warn('No write key provided. Auth will fail.');
+      console.warn(
+        'No write key provided. No figma authentication will be performed'
+      );
       return;
     }
 
     void storeWriteKey(writeKey);
-    // router.replace('/auth/figma');
   }, [router, writeKey]);
 
   return null;
 }
 
-export function ReadStoreWriteKey() {
+export function InitFigmaAuth() {
   return (
     <Suspense>
-      <ReadStoreWriteKeyUnwrapped />
+      <AttemptFigmaAuth />
     </Suspense>
   );
 }

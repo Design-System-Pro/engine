@@ -14,7 +14,9 @@ export function SignInWithGithub() {
       })
       .then((data) => {
         // Opens the GitHub authentication page
-        window.open(`${config.AUTH_API_HOST}/auth/figma?key=${data.writeKey}`);
+        window.open(
+          `${config.AUTH_API_HOST}/auth/login?figma_key=${data.writeKey}`
+        );
 
         return data.readKey;
       })
@@ -67,6 +69,6 @@ export function SignInWithGithub() {
   return isReady ? (
     <Button onClick={logout}>Logout</Button>
   ) : (
-    <Button onClick={initSignIn}>Sign in with GitHub</Button>
+    <Button onClick={initSignIn}>Sign in with DS</Button>
   );
 }

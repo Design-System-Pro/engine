@@ -13,10 +13,9 @@ import Link from 'next/link';
 import { config } from '@/config';
 import { getInstallation } from './installation.action';
 import { selectRepository } from './select-repository.action';
-import { commitToRepository } from './commit.action';
 
 export async function GithubProvider() {
-  await commitToRepository();
+  // await commitToRepository();
 
   const app = new App({
     appId: config.github.appId,
