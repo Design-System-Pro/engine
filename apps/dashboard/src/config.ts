@@ -34,7 +34,7 @@ export const config = {
   })(),
   supabaseUrl,
   supabaseAnonKey,
-  WRITE_KEY: 'figma.key',
+  FIGMA_KEY: 'figma.key',
   github: {
     appId: githubAppId,
     appPrivateKey: Buffer.from(githubAppPrivateKey, 'base64').toString('ascii'),

@@ -1,9 +1,8 @@
-import { type NextRequest } from 'next/server';
-import { updateSession } from './lib/supabase/middleware';
+import { authenticationMiddleware } from './lib/supabase/middleware';
+import { compose } from './lib/middleware/compose';
+import { figmaMiddleware } from './lib/middleware/figma/middleware';
 
-export function middleware(request: NextRequest) {
-  return updateSession(request);
-}
+export default compose([figmaMiddleware, authenticationMiddleware]);
 
 export const config = {
   matcher: [
