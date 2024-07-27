@@ -1,25 +1,25 @@
-import path from "node:path";
-import { defineConfig } from "vite";
-import { viteSingleFile } from "vite-plugin-singlefile";
+import path from 'node:path';
+import { defineConfig } from 'vite';
+import { viteSingleFile } from 'vite-plugin-singlefile';
 
 export default defineConfig(({ mode }) => ({
   plugins: [viteSingleFile()],
   build: {
-    minify: mode === "production",
-    sourcemap: mode !== "production" ? "inline" : false,
-    target: "es2017",
+    minify: mode === 'production',
+    sourcemap: mode !== 'production' ? 'inline' : false,
+    target: 'es2017',
     emptyOutDir: false,
-    outDir: path.resolve("dist"),
+    outDir: path.resolve('dist'),
     rollupOptions: {
-      input: path.resolve("plugin/plugin.ts"),
+      input: path.resolve('src/plugin/plugin.ts'),
       output: {
-        entryFileNames: "plugin.js",
+        entryFileNames: 'plugin.js',
       },
     },
   },
   resolve: {
     alias: {
-      "@plugin": path.resolve("src/plugin"),
+      '@plugin': path.resolve('src/plugin'),
     },
   },
 }));

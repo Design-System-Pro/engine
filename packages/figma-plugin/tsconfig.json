@@ -21,7 +21,7 @@
     "jsx": "react-jsx",
     "typeRoots": ["./node_modules/@figma"],
   },
-  "include": ["src", "plugin/variables", "plugin"],
+  "include": ["src", "src/plugin/variables", "src/plugin"],
   "references": [
     {
       "path": "./tsconfig.node.json"

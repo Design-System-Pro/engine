@@ -2,7 +2,6 @@
   "name": "ds-project-plugin",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "main": "vite build -c ./vite.config.plugin.ts",
     "ui": "tsc && vite build --minify esbuild",
@@ -24,15 +23,18 @@
     "react-dom": "^18.2.0",
     "react-json-view-lite": "^1.4.0",
     "sass": "^1.60.0",
-    "style-dictionary": "^4.0.0"
+    "style-dictionary": "^4.0.0",
+    "tailwindcss": "^3.4.7"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.58.0",
+    "@repo/eslint-config": "workspace:*",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "concurrently": "^8.0.1",
     "esbuild": "^0.17.15",
+    "eslint": "^8",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
     "vite-plugin-singlefile": "^0.13.5"
