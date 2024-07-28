@@ -10,6 +10,7 @@ import { config } from './config';
 function App() {
   const [_, setStyleDictionary] = useState<DesignTokens>();
   const [accessToken, setAccessToken] = useState<string>();
+  const [waitingForToken, setWaitingForToken] = useState(false);
 
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: MessageType.UIReady } }, '*');
@@ -50,6 +51,7 @@ function App() {
   }, []);
 
   const initSignIn = useCallback(() => {
+    setWaitingForToken(true);
     // Announce intention to authenticate and grab the read and write keys
     fetch(`${config.AUTH_API_HOST}/api/figma/init`, { method: 'POST' })
       .then((data) => data.json())
@@ -84,21 +86,28 @@ function App() {
             .catch(() => {
               // eslint-disable-next-line no-console -- TODO: replace with monitoring
               console.error('Error polling for GitHub token.');
+            })
+            .finally(() => {
+              setWaitingForToken(false);
             });
         }, config.READ_INTERVAL);
       })
       .catch(() => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error initializing GitHub authentication.');
+        setWaitingForToken(false);
       });
   }, []);
 
   return (
     <main className="flex size-full items-center justify-center">
+      {/* eslint-disable-next-line no-nested-ternary -- Intentional */}
       {accessToken ? (
         <Button onClick={logout}>
           <Icons.ExitIcon className="mr-2" /> Logout
         </Button>
+      ) : waitingForToken ? (
+        <p>Authenticating in the browser...</p>
       ) : (
         <Button onClick={initSignIn}>
           <DSLogo className="mr-2" /> Sign in with DS
