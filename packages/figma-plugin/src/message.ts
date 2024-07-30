@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- TODO: replace with monitoring and logging system */
 import hash from 'object-hash';
 import type {
   AsyncMessageChannelHandlers,
@@ -81,15 +82,11 @@ export class AsyncMessage {
       }) => {
         // This appears to be related to the monaco editor being opened. It appears to post a message to the window message event listener with no data.
         if (!msg.id || !msg.message || msg.message.type !== type) {
-          // eslint-disable-next-line no-console -- TODO: replace with monitoring
           console.warn('🧩 Invalid message received', msg);
           return undefined;
         }
 
         try {
-          // @README need to cast to any to make this work
-          // it causes a complex type which can not be resolved due to its depth
-
           const result = await callback(msg.message);
           const payload = { ...result, type: msg.message.type };
 
@@ -111,7 +108,6 @@ export class AsyncMessage {
             );
           }
         } catch (err) {
-          // eslint-disable-next-line no-console -- TODO: replace with monitoring
           console.error('🧩 Plugin Error', err);
           if (this.channel === 'plugin') {
             figma.ui.postMessage({
@@ -142,7 +138,7 @@ export class AsyncMessage {
     const messageId = hash({
       message,
       datetime: Date.now(),
-    }) as string;
+    });
 
     const promise = new Promise<
       AsyncMessageResponses & { type: Message['type'] }
@@ -180,27 +176,4 @@ export class AsyncMessage {
 
     return promise;
   }
-
-  // /**
-  //  * Sends a message without expecting a reply
-  //  */
-  // public send<Message extends AsyncMessageRequests>(
-  //   message: IncomingMessageEvent<
-  //     AsyncMessageResponses & { type: Message['type'] }
-  //   >['data']['pluginMessage']
-  // ): void {
-  //   if (this.channel === 'plugin') {
-  //     figma.ui.postMessage(message);
-  //     console.log(`🧩 Plugin Message type", ${message.type}, was sent.`);
-  //     return;
-  //   }
-
-  //   parent.postMessage(
-  //     {
-  //       pluginMessage: message,
-  //     },
-  //     'https://www.figma.com'
-  //   );
-  //   console.log(`💅 UI Plugin Message type", ${message.type}, was sent.`);
-  // }
 }
