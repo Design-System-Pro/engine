@@ -3,51 +3,30 @@ import 'react-json-view-lite/dist/index.css';
 import { useCallback, useEffect, useState } from 'react';
 import type { DesignTokens } from 'style-dictionary/types';
 import { Button, DSLogo, Icons } from '@ds-project/components';
-import type { PluginMessageEvent } from '../types';
-import { MessageType } from '../types';
+import { AsyncMessageTypes } from '../types';
+import { AsyncMessage } from '../message';
 import { config } from './config';
 
 function App() {
-  const [_, setStyleDictionary] = useState<DesignTokens>();
+  const [styleDictionary, setStyleDictionary] = useState<DesignTokens>();
   const [accessToken, setAccessToken] = useState<string>();
   const [waitingForToken, setWaitingForToken] = useState(false);
 
   useEffect(() => {
-    parent.postMessage({ pluginMessage: { type: MessageType.UIReady } }, '*');
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('message', (event: PluginMessageEvent) => {
-      switch (event.data.pluginMessage.type) {
-        case MessageType.LoadStyleDictionary: {
-          setStyleDictionary(event.data.pluginMessage.styleDictionary);
-          break;
-        }
-
-        case MessageType.LoadAccessToken: {
-          setAccessToken(event.data.pluginMessage.token);
-          break;
-        }
-
-        case MessageType.SetAccessToken:
-        case MessageType.DeleteAccessToken:
-        case MessageType.UIReady:
-        default: {
-          // eslint-disable-next-line no-console -- TODO: replace with monitoring
-          console.log(
-            `💅 Plugin UI Message type: ${event.data.pluginMessage.type} was ignored.`
-          );
-        }
-      }
-    });
+    AsyncMessage.ui
+      .request({ type: AsyncMessageTypes.GetAccessToken })
+      .then(({ accessToken: _accessToken }) => {
+        setAccessToken(_accessToken);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console -- TODO: replace with monitoring
+        console.error('Error requesting access token', error);
+      });
   }, []);
 
   const logout = useCallback(() => {
     setAccessToken(undefined);
-    parent.postMessage(
-      { pluginMessage: { type: MessageType.DeleteAccessToken } },
-      'https://www.figma.com'
-    );
+    // AsyncMessage.ui.send({ type: AsyncMessageTypes.DeleteAccessToken });
   }, []);
 
   const initSignIn = useCallback(() => {
@@ -74,12 +53,10 @@ function App() {
             .then(({ token }: { token: string }) => {
               if (token) {
                 setAccessToken(token);
-                parent.postMessage(
-                  {
-                    pluginMessage: { type: MessageType.SetAccessToken, token },
-                  },
-                  'https://www.figma.com'
-                );
+                void AsyncMessage.ui.request({
+                  type: AsyncMessageTypes.SetAccessToken,
+                  accessToken: token,
+                });
                 clearInterval(interval);
               }
             })
@@ -98,6 +75,19 @@ function App() {
         setWaitingForToken(false);
       });
   }, []);
+
+  useEffect(() => {
+    if (!styleDictionary) {
+      // Ignore this step
+      return;
+    }
+
+    void fetch(`${config.AUTH_API_HOST}/api/tokens/set`, {
+      body: JSON.stringify({
+        styleDictionary,
+      }),
+    });
+  });
 
   return (
     <main className="flex size-full items-center justify-center">

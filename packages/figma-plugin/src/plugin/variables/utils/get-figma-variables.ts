@@ -1,6 +1,6 @@
-import { DesignTokens } from "style-dictionary/types";
-import { figmaVariable } from "./transformers/figma-variable";
-import * as R from "rambda";
+import type { DesignTokens } from 'style-dictionary/types';
+import * as R from 'rambda';
+import { figmaVariable } from './transformers/figma-variable';
 
 /**
  * Sizing
