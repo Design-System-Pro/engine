@@ -7,7 +7,7 @@ import type {
   AsyncMessageResponses,
   AsyncMessageTypes,
   IncomingMessageEvent,
-} from './types';
+} from './message.types';
 
 type Channel = 'plugin' | 'ui';
 
@@ -107,18 +107,17 @@ export class AsyncMessage {
               `💅 UI Plugin Message type", ${payload.type}, was sent.`
             );
           }
-        } catch (err) {
-          console.error('🧩 Plugin Error', err);
+        } catch (error) {
           if (this.channel === 'plugin') {
             figma.ui.postMessage({
               id: msg.id,
-              error: err,
+              error,
             });
-            console.log(`🧩 Plugin Error Message was sent.`);
+            console.log(`🧩 Plugin Error Message was sent.`, error);
           } else {
             parent.postMessage(
               {
-                pluginMessage: { id: msg.id, error: err },
+                pluginMessage: { id: msg.id, error },
               },
               '*'
             );

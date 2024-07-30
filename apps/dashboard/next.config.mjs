@@ -3,8 +3,12 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/figma/:path*',
+        source: '/api/:path*',
         headers: [
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          },
           {
             key: 'Access-Control-Allow-Origin',
             value: '*', // TODO: Perhaps set figma origin instead?
@@ -15,7 +19,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Headers',
-            value: 'Content-Type',
+            value: 'Content-Type, Authorization',
           },
         ],
       },

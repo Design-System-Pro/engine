@@ -1,14 +1,13 @@
 import '@ds-project/components/globals.css';
 import 'react-json-view-lite/dist/index.css';
 import { useCallback, useEffect, useState } from 'react';
-import type { DesignTokens } from 'style-dictionary/types';
 import { Button, DSLogo, Icons } from '@ds-project/components';
-import { AsyncMessageTypes } from '../types';
+import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';
 import { config } from './config';
+import { api } from './lib/api';
 
 function App() {
-  const [styleDictionary, setStyleDictionary] = useState<DesignTokens>();
   const [accessToken, setAccessToken] = useState<string>();
   const [waitingForToken, setWaitingForToken] = useState(false);
 
@@ -26,15 +25,15 @@ function App() {
 
   const logout = useCallback(() => {
     setAccessToken(undefined);
-    // AsyncMessage.ui.send({ type: AsyncMessageTypes.DeleteAccessToken });
+    void AsyncMessage.ui.request({ type: AsyncMessageTypes.DeleteAccessToken });
   }, []);
 
   const initSignIn = useCallback(() => {
     setWaitingForToken(true);
     // Announce intention to authenticate and grab the read and write keys
-    fetch(`${config.AUTH_API_HOST}/api/figma/init`, { method: 'POST' })
-      .then((data) => data.json())
-      .then((data: { writeKey: string; readKey: string }) => {
+    api
+      .getNewKeys()
+      .then((data) => {
         // Opens the GitHub authentication page
         window.open(
           `${config.AUTH_API_HOST}/auth/login?figma_key=${data.writeKey}`
@@ -45,18 +44,11 @@ function App() {
       .then((readKey) => {
         // Polls for the authentication token
         const interval = setInterval(() => {
-          fetch(`${config.AUTH_API_HOST}/api/figma/read`, {
-            method: 'POST',
-            body: JSON.stringify({ readKey }),
-          })
-            .then((data) => data.json())
-            .then(({ token }: { token: string }) => {
-              if (token) {
-                setAccessToken(token);
-                void AsyncMessage.ui.request({
-                  type: AsyncMessageTypes.SetAccessToken,
-                  accessToken: token,
-                });
+          api
+            .getAccessToken(readKey)
+            .then(({ accessToken: _accessToken }) => {
+              if (_accessToken) {
+                setAccessToken(_accessToken);
                 clearInterval(interval);
               }
             })
@@ -77,17 +69,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!styleDictionary) {
-      // Ignore this step
-      return;
-    }
+    // This is an authenticated request
+    if (!accessToken) return;
 
-    void fetch(`${config.AUTH_API_HOST}/api/tokens/set`, {
-      body: JSON.stringify({
-        styleDictionary,
-      }),
-    });
+    AsyncMessage.ui
+      .request({
+        type: AsyncMessageTypes.GetStyleDictionary,
+      })
+      .then(({ styleDictionary: _styleDictionary }) => {
+        void api.setStyleDictionary(_styleDictionary);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console -- TODO: replace with monitoring
+        console.error('Error requesting style dictionary', error);
+      });
   });
+
+  useEffect(() => {
+    // Sends the authorization token to the Plugin and sets the API headers
+    if (!accessToken) return;
+
+    void AsyncMessage.ui.request({
+      type: AsyncMessageTypes.SetAccessToken,
+      accessToken,
+    });
+
+    api.setAuthorizationToken(accessToken);
+  }, [accessToken]);
 
   return (
     <main className="flex size-full items-center justify-center">

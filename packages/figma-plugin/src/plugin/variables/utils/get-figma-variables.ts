@@ -28,7 +28,7 @@ import { figmaVariable } from './transformers/figma-variable';
  * Number
  * Other
  */
-export const getFigmaVariables = async () => {
+export const getFigmaVariables = async (): Promise<DesignTokens> => {
   const collections = await figma.variables.getLocalVariableCollectionsAsync();
 
   const collectionVariablesPromises = collections.map(

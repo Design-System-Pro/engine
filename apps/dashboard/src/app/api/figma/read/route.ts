@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const keyValue = await kv.getdel<{ token: string }>(result.readKey);
 
   if (keyValue) {
-    return Response.json({ token: keyValue.token });
+    return Response.json({ accessToken: keyValue.token });
   }
 
   // If the key doesn't exist, return an empty response
