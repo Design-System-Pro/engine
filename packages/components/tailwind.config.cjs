@@ -73,5 +73,12 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwindcss-fluid-type")({
+      settings: {
+        prefix: "fluid-"
+      }
+    })
+],
 };

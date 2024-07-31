@@ -6,6 +6,7 @@ const {
 } = loadEnvConfig(process.cwd(), true, console);
 
 export default defineConfig({
+  schemaFilter: ['public'],
   schema: './src/lib/database/schema.ts',
   out: './src/lib/database/migrations',
   dialect: 'postgresql',

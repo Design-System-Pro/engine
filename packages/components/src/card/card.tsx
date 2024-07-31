@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { Text } from "@/text"
 
 const Card = React.forwardRef<
   HTMLDivElement,
@@ -29,27 +30,25 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, children, ...props }, ref) => (
-  <h3
-    className={cn(
-      "ds-text-2xl ds-font-semibold ds-leading-none ds-tracking-tight",
-      className
-    )}
+  HTMLElement,
+  React.ComponentProps<typeof Text>
+>(({ children, ...props }, ref) => (
+  <Text
+    size="2xl"
+    weight="semibold"
     ref={ref}
     {...props}
   >
     {children}
-  </h3>
+  </Text>
 ))
 CardTitle.displayName = "CardTitle"
 
 const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  HTMLElement,
+  React.ComponentProps<typeof Text>
 >(({ className, ...props }, ref) => (
-  <p
+  <Text
     className={cn("ds-text-sm ds-text-muted-foreground", className)}
     ref={ref}
     {...props}

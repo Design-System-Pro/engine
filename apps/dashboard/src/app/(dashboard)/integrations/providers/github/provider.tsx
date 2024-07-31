@@ -52,7 +52,7 @@ export async function GithubProvider() {
         <p className="text-muted-foreground text-sm">Synchronize your tokens</p>
       </div>
 
-      <form action={selectRepository}>
+      <form action={selectRepository} className="flex gap-2">
         <Select
           defaultValue={installation?.repositoryId?.toString()}
           name="repositoryId"

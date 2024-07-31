@@ -1,2 +1,3 @@
+export * from './schema/accounts';
 export * from './schema/integrations';
-export * from './schema/tokens';
+export * from './schema/design-systems';

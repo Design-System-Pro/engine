@@ -1,6 +1,5 @@
 import type { NextRequest } from 'next/server';
-import * as z from 'zod';
-import { isAuthenticated } from '@/lib/supabase/utils';
+import { isAuthenticated, updateDesignTokens } from '@/lib/supabase/utils';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {
@@ -9,21 +8,12 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const Body = z.object({
-    tokens: z.object({}),
-  });
-
-  const parsedBody = Body.safeParse(await request.json());
-
-  if (!parsedBody.success) {
-    return new Response(null, {
-      status: 400,
-    });
+  try {
+    await updateDesignTokens(request);
+  } catch (error) {
+    // eslint-disable-next-line no-console -- TODO: replace with monitoring
+    console.error('Error setting tokens', error);
   }
-
-  const { tokens } = parsedBody.data;
-
-  console.log({ tokens });
 
   return new Response(null, {
     status: 200,

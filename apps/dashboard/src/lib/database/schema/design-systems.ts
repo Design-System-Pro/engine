@@ -1,11 +1,13 @@
-import { pgTable, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
-export const designTokensTable = pgTable('design_tokens', {
+export const designSystemsTable = pgTable('design_systems', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
+  name: text('name'),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
     .notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
     .notNull(),
+  tokens: json('tokens'),
 });
