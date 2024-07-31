@@ -32,7 +32,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['node_modules/', 'dist/'],
+  ignorePatterns: ['node_modules/', 'dist/', 'vite.config.ts'],
   rules: {
     'unused-imports/no-unused-imports': 'error',
 
