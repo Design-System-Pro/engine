@@ -29,7 +29,6 @@ export async function loginUser(previousState: unknown, formData: FormData) {
   });
 
   if (error) {
-    console.log(JSON.stringify(error, null, 2));
     return {
       error: error.message,
     };

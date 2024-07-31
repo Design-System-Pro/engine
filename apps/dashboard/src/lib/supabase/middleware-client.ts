@@ -17,6 +17,7 @@ export const middlewareSupabaseClient = (
           request.cookies.set(name, value)
         );
         cookiesToSet.forEach(({ name, value, options }) =>
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- It should be fine to pass on options
           response.cookies.set(name, value, options)
         );
       },

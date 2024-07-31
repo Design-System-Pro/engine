@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
-import { createOAuthAppAuth } from '@octokit/auth-oauth-app';
-import { config } from '@/config';
 import { database } from '@/lib/database';
 import { integrationsTable } from '@/lib/database/schema';
 
-const auth = createOAuthAppAuth({
-  clientType: 'github-app',
-  clientId: config.github.appClientId,
-  clientSecret: config.github.appClientSecret,
-});
+// const auth = createOAuthAppAuth({
+//   clientType: 'github-app',
+//   clientId: config.github.appClientId,
+//   clientSecret: config.github.appClientSecret,
+// });
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);

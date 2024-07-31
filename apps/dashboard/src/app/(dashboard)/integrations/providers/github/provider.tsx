@@ -8,6 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Text,
 } from '@ds-project/components';
 import Link from 'next/link';
 import { config } from '@/config';
@@ -46,10 +47,14 @@ export async function GithubProvider() {
 
   return (
     <div className=" flex items-center space-x-4 rounded-md border p-4">
-      <Icons.GitHubLogoIcon />
+      <Icons.GitHubLogoIcon height={54} width={54} />
       <div className="flex-1 space-y-1">
-        <p className="text-sm font-medium leading-none">GitHub</p>
-        <p className="text-muted-foreground text-sm">Synchronize your tokens</p>
+        <Text size="base" weight="medium">
+          <h2>GitHub</h2>
+        </Text>
+        <Text mood="muted" size="sm">
+          <p>Synchronize your tokens</p>
+        </Text>
       </div>
 
       <form action={selectRepository} className="flex gap-2">

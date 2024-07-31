@@ -39,6 +39,12 @@ const textVariations = cva('', {
     family: {
       sans: 'ds-font-sans',
     },
+    mood: {
+      default: "ds-text-foreground",
+      info: 'ds-text-yellow-500',
+      destructive:"ds-text-destructive",
+      muted: 'ds-text-muted-foreground'
+    },
   },
 });
 
@@ -53,10 +59,10 @@ type TextProps = VariantProps<typeof textVariations> & {
 export const Text = forwardRef<
 HTMLElement,
 TextProps
->(({ size, weight, family, className, children }, ref) => {
+>(({ size, weight, family, mood, className, children }, ref) => {
 
   return (
-    <Slot ref={ref} className={cn(textVariations({ size, weight, family, className }))}>{children}</Slot>
+    <Slot ref={ref} className={cn(textVariations({ size, weight, family, mood, className }))}>{children}</Slot>
   );
 })
 

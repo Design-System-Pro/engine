@@ -12,8 +12,12 @@ export default function Page() {
     <main className="flex min-h-screen w-full flex-col items-center p-24">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Integrations</CardTitle>
-          <CardDescription>Authorize and manage integrations</CardDescription>
+          <CardTitle size="2xl" weight="medium">
+            <h1>Integrations</h1>
+          </CardTitle>
+          <CardDescription>
+            <p>Authorize and manage integrations</p>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <GithubProvider />

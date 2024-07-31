@@ -15,18 +15,14 @@ export default async function Tokens() {
     <main className="flex min-h-screen w-full flex-col items-center p-24">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>
-            <Text size="4xl" weight="medium">
-              <h1>Tokens</h1>
-            </Text>
+          <CardTitle size="2xl" weight="medium">
+            <h1>Tokens</h1>
           </CardTitle>
           <CardDescription>
-            <Text size="base">
-              <p>
-                This is a list of all tokens used in Figma converted to Style
-                Dictionary format.
-              </p>
-            </Text>
+            <p>
+              This is a list of all tokens used in Figma converted to Style
+              Dictionary format.
+            </p>
           </CardDescription>
         </CardHeader>
         <CardContent>
