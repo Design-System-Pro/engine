@@ -24,7 +24,8 @@
     "build:tailwind": "NODE_ENV=production tailwindcss -i ./src/globals.css -o ./dist/globals.css --postcss --minify",
     "dev:tailwind": "tailwindcss -i ./src/globals.css -o ./dist/globals.css --postcss --watch",
     "dev": "concurrently -n react,tailwind \"pnpm run build:react --watch\" \"pnpm dev:tailwind\"",
-    "lint": "eslint --max-warnings=0 ."
+    "lint": "eslint --max-warnings=0 .",
+    "type-check": "tsc"
   },
   "keywords": [],
   "author": "",
