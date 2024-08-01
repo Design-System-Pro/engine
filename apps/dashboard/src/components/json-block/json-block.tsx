@@ -13,8 +13,6 @@ const DynamicReactJson = dynamic(() => import('react-json-view'), {
   ),
 });
 
-export function JsonBlock({
-  ...props
-}: ComponentProps<typeof DynamicReactJson>) {
+export function JsonBlock(props: ComponentProps<typeof DynamicReactJson>) {
   return <DynamicReactJson {...props} />;
 }

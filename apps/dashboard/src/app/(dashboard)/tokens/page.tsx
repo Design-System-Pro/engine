@@ -2,15 +2,23 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
   Text,
 } from '@ds-project/components';
-import { JsonBlock } from '@/components';
-import { getTokens } from './tokens.actions';
+import { equals } from 'rambda';
+import { DiffBlock } from '@/components/diff-block/diff-block';
+import { requestTokens } from '../integrations/providers/github/request-tokens.action';
+import { getTokens } from './tokens.action';
+import { PushButton } from './_components/push-button';
 
 export default async function Tokens() {
   const tokens = await getTokens();
+  const githubTokens = await requestTokens();
+
+  const areTokensEqual = equals(tokens, githubTokens);
+
   return (
     <main className="flex min-h-screen w-full flex-col items-center p-24">
       <Card className="w-full">
@@ -26,14 +34,25 @@ export default async function Tokens() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {tokens ? (
-            <JsonBlock src={tokens} />
+          <Text>
+            <p>
+              {areTokensEqual ? 'Tokens are equal' : 'Tokens are not equal'}
+            </p>
+          </Text>
+          {Boolean(tokens) && Boolean(githubTokens) ? (
+            <DiffBlock
+              newValue={JSON.stringify(githubTokens, null, 2)}
+              oldValue={JSON.stringify(tokens, null, 2)}
+            />
           ) : (
             <Text>
               <p>No tokens found</p>
             </Text>
           )}
         </CardContent>
+        <CardFooter className="justify-end">
+          {!areTokensEqual && tokens ? <PushButton tokens={tokens} /> : null}
+        </CardFooter>
       </Card>
     </main>
   );

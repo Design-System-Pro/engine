@@ -2,22 +2,13 @@
 
 import type { DesignTokens } from 'style-dictionary/types';
 import { eq } from 'drizzle-orm';
-import { createClient } from '@/lib/supabase/server';
 import { database } from '@/lib/database';
+import { getAccount } from '@/lib/database/utils';
 
 export async function getTokens() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const account = await getAccount();
 
-  if (!user) return;
-
-  const account = await database.query.accountsTable.findFirst({
-    where: (accounts) => eq(accounts.userId, user.id),
-  });
-
-  if (!account) return;
+  if (!account) throw new Error('No account found');
   const designSystemId = account.designSystemId;
   if (!designSystemId) return;
 
