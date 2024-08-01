@@ -34,11 +34,6 @@ export default async function Tokens() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Text>
-            <p>
-              {areTokensEqual ? 'Tokens are equal' : 'Tokens are not equal'}
-            </p>
-          </Text>
           {Boolean(tokens) && Boolean(githubTokens) ? (
             <DiffBlock
               newValue={JSON.stringify(githubTokens, null, 2)}

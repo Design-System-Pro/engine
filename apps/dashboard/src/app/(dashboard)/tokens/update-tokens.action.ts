@@ -2,6 +2,7 @@
 
 import { btoa } from 'node:buffer';
 import type { DesignTokens } from 'style-dictionary/types';
+import { revalidatePath } from 'next/cache';
 import { pushFile } from '@/lib/github';
 
 export async function updateTokens(newTokens: DesignTokens) {
@@ -11,4 +12,6 @@ export async function updateTokens(newTokens: DesignTokens) {
     encoding: 'base64',
     name: 'tokens.json',
   });
+
+  revalidatePath('/tokens');
 }

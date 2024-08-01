@@ -15,5 +15,16 @@ const ReactDiffViewer = dynamic(() => import('react-diff-viewer'), {
 });
 
 export function DiffBlock(props: ComponentProps<typeof ReactDiffViewer>) {
-  return <ReactDiffViewer compareMethod={DiffMethod.LINES} {...props} />;
+  return (
+    <ReactDiffViewer
+      // eslint-disable-next-line react/no-unstable-nested-components -- ReactDiffViewer doesn't accept component type, even though it looks like it
+      codeFoldMessageRenderer={(numberOfLines) => (
+        <Text size="xs" weight="medium">
+          <p>Syncronized. Expand {numberOfLines} of lines...</p>
+        </Text>
+      )}
+      compareMethod={DiffMethod.LINES}
+      {...props}
+    />
+  );
 }
