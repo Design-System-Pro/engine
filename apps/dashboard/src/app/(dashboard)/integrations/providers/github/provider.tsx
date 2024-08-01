@@ -87,6 +87,10 @@ export async function GithubProvider() {
           {isInstallationActive ? 'Configure' : 'Authorize'}
         </Link>
       </Button>
+
+      <Button>
+        <Link href="/integrations/providers/github">Tokens</Link>
+      </Button>
     </div>
   );
 }

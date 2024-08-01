@@ -1,3 +1,5 @@
+import 'server-only';
+
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
 import type { DesignTokens } from 'style-dictionary/types';
@@ -5,8 +7,8 @@ import { database } from '../database';
 import { designSystemsTable } from '../database/schema';
 import { createClient } from './server';
 
-export async function isAuthenticated(request: NextRequest) {
-  const authorizationHeader = request.headers.get('Authorization');
+export async function isAuthenticated(request?: NextRequest) {
+  const authorizationHeader = request?.headers.get('Authorization');
   const authorizationToken = authorizationHeader?.replace('Bearer ', '');
 
   const supabase = createClient();

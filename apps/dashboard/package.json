@@ -21,6 +21,7 @@
     "@vercel/kv": "^2.0.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.32.0",
+    "drizzle-zod": "^0.5.1",
     "framer-motion": "^11.3.7",
     "next": "14.2.5",
     "postgres": "^3.4.4",
@@ -28,6 +29,7 @@
     "react-dom": "^18.3.1",
     "react-json-view": "^1.21.3",
     "react-json-view-lite": "^1.4.0",
+    "server-only": "^0.0.1",
     "style-dictionary": "^4.0.0",
     "tailwind-merge": "^2.4.0",
     "zod": "^3.23.8"
