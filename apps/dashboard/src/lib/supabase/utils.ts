@@ -3,6 +3,7 @@ import 'server-only';
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
 import type { DesignTokens } from 'style-dictionary/types';
+import { updateTokens } from '@/app/(dashboard)/tokens/update-tokens.action';
 import { database } from '../database';
 import { designSystemsTable } from '../database/schema';
 import { createClient } from './server';
@@ -57,4 +58,6 @@ export async function updateDesignTokens(request: NextRequest) {
     .update(designSystemsTable)
     .set({ tokens: styleDictionary })
     .where(eq(designSystemsTable.id, designSystemId));
+
+  await updateTokens(styleDictionary);
 }
