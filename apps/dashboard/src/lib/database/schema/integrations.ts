@@ -42,3 +42,16 @@ export const integrationsTable = pgTable('integrations', {
 });
 
 export type SelectIntegration = typeof integrationsTable.$inferSelect;
+export type SelectGithubIntegration = Omit<
+  typeof integrationsTable.$inferSelect,
+  'data'
+> & {
+  data: GithubIntegration;
+};
+
+export type SelectFigmaIntegration = Omit<
+  typeof integrationsTable.$inferSelect,
+  'data'
+> & {
+  data: FigmaIntegration;
+};

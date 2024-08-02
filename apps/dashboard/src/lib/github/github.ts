@@ -4,7 +4,10 @@ import { App } from '@octokit/app';
 import { eq } from 'drizzle-orm';
 import { config } from '@/config';
 import { database } from '../database';
-import type { SelectIntegration } from '../database/schema';
+import type {
+  GithubIntegration,
+  SelectGithubIntegration,
+} from '../database/schema';
 import { integrationType } from '../database/schema';
 
 const githubApp = new App({
@@ -21,16 +24,21 @@ export async function getGithubIntegration() {
     where: (integrations) => eq(integrations.type, integrationType.Enum.github),
   });
 
-  if (!integration) {
+  if (
+    integration?.type !== integrationType.Enum.github &&
+    integration?.data?.type !== integrationType.Enum.github
+  ) {
     throw new Error('No GitHub integration found');
   }
 
-  return integration;
+  return { ...integration, data: integration.data as GithubIntegration };
 }
 
-export async function getGithubInstallation(integration: SelectIntegration) {
+export async function getGithubInstallation(
+  integration: SelectGithubIntegration
+) {
   const octokit = await githubApp.getInstallationOctokit(
-    integration.installationId
+    integration.data.installationId
   );
 
   return octokit;
@@ -45,7 +53,7 @@ export async function getGithubRepository() {
     'GET /installation/repositories'
   );
   const repository = repositories.data.repositories.find(
-    (_repository) => _repository.id === integration.repositoryId
+    (_repository) => _repository.id === integration.data.repositoryId
   );
 
   if (!repository) throw new Error('No repository found');
