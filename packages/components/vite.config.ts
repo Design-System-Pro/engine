@@ -4,6 +4,7 @@ import dts from "vite-plugin-dts";
 import { resolve } from "path";
 import { peerDependencies, dependencies } from "./package.json";
 import tailwindcss from "tailwindcss";
+import preserveDirectives from "rollup-preserve-directives";
 
 export default defineConfig({
   plugins: [
@@ -29,11 +30,13 @@ export default defineConfig({
       fileName: (ext) => `index.${ext}.js`,
     },
     rollupOptions: {
+      plugins: [preserveDirectives()],
       external: [
         ...Object.keys(peerDependencies),
         ...Object.keys(dependencies),
       ],
       output: {
+        preserveModules: true,
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
