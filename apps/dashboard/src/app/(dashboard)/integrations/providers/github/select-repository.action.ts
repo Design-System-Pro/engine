@@ -2,7 +2,11 @@
 
 import { eq } from 'drizzle-orm';
 import { database } from '@/lib/database';
-import { integrationsTable } from '@/lib/database/schema';
+import {
+  integrationDataSchema,
+  integrationsTable,
+  integrationType,
+} from '@/lib/database/schema';
 import { createClient } from '@/lib/supabase/server';
 
 export async function selectRepository(formData: FormData) {
@@ -17,13 +21,19 @@ export async function selectRepository(formData: FormData) {
   const installationId = parseInt(formData.get('installationId') as string);
   const repositoryId = parseInt(formData.get('repositoryId') as string);
 
+  const validatedData = integrationDataSchema.parse({
+    type: integrationType.enum.github,
+    installationId,
+    repositoryId,
+  });
+
   try {
     await database
       .update(integrationsTable)
       .set({
-        repositoryId,
+        data: validatedData,
       })
-      .where(eq(integrationsTable.installationId, installationId));
+      .where(eq(integrationsTable.type, integrationType.Enum.github));
   } catch (error) {
     // eslint-disable-next-line no-console -- TODO: replace with monitoring
     console.error('Error updating installation', error);

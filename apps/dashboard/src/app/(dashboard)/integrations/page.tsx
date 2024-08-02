@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from '@ds-project/components';
 import { GithubProvider } from './providers/github/provider';
+import { FigmaProvider } from './providers/figma/provider';
 
 export default function Page() {
   return (
@@ -19,8 +20,9 @@ export default function Page() {
             <p>Authorize and manage integrations</p>
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex flex-col gap-4">
           <GithubProvider />
+          <FigmaProvider />
         </CardContent>
       </Card>
     </main>

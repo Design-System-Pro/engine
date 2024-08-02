@@ -6,6 +6,8 @@ const githubAppId = process.env.GITHUB_APP_ID;
 const githubAppPrivateKey = process.env.GITHUB_APP_PRIVATE_KEY;
 const githubAppClientId = process.env.GITHUB_APP_CLIENT_ID;
 const githubAppClientSecret = process.env.GITHUB_APP_CLIENT_SECRET;
+const figmaAppClientId = process.env.FIGMA_APP_CLIENT_ID;
+const figmaAppClientSecret = process.env.FIGMA_APP_CLIENT_SECRET;
 const databaseUrl = process.env.DATABASE_URL;
 
 if (!supabaseUrl || !supabaseAnonKey)
@@ -20,18 +22,24 @@ if (
   !githubAppClientSecret
 )
   throw new Error('GitHub app credentials missing');
+
+if (!figmaAppClientId || !figmaAppClientSecret)
+  throw new Error('Figma app credentials missing');
+
+const pageUrl = (() => {
+  switch (vercelEnv) {
+    case 'production':
+      return 'https://ds-project.tfrancisco.dev';
+    case 'preview':
+      return `https://${vercelUrl}`;
+    default:
+      return 'https://localhost:3000';
+  }
+})();
+
 export const config = {
   environment: process.env.NODE_ENV,
-  pageUrl: (() => {
-    switch (vercelEnv) {
-      case 'production':
-        return 'https://ds-project.tfrancisco.dev';
-      case 'preview':
-        return `https://${vercelUrl}`;
-      default:
-        return 'https://localhost:3000';
-    }
-  })(),
+  pageUrl,
   supabaseUrl,
   supabaseAnonKey,
   FIGMA_KEY: 'figma.key',
@@ -42,4 +50,9 @@ export const config = {
     appClientSecret: githubAppClientSecret,
   },
   databaseUrl,
+  figma: {
+    appClientId: figmaAppClientId,
+    appClientSecret: figmaAppClientSecret,
+    redirectUri: `${pageUrl}/integrations/providers/figma/callback`,
+  },
 } as const;

@@ -2,7 +2,7 @@
 
 import { eq } from 'drizzle-orm';
 import { database } from '@/lib/database';
-import type { GithubIntegration } from '@/lib/database/schema';
+import type { FigmaIntegration } from '@/lib/database/schema';
 import { integrationType } from '@/lib/database/schema';
 import { createClient } from '@/lib/supabase/server';
 
@@ -15,11 +15,14 @@ export async function getInstallation() {
   if (!user) return;
 
   const result = await database.query.integrationsTable.findFirst({
-    where: (integrations) => eq(integrations.type, integrationType.Enum.github),
+    where: (integrations) => eq(integrations.type, integrationType.Enum.figma),
   });
 
-  if (result?.type === integrationType.Enum.github) {
-    return { ...result, data: result.data as GithubIntegration };
+  if (result?.type === integrationType.Enum.figma) {
+    return {
+      ...result,
+      data: result.data as FigmaIntegration,
+    };
   }
 
   return null;

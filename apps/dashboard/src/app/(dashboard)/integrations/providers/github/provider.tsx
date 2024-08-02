@@ -35,7 +35,7 @@ export async function GithubProvider() {
   const repositories = await (async () => {
     if (installation) {
       const octokit = await app.getInstallationOctokit(
-        installation.installationId
+        installation.data.installationId
       );
 
       const { data } = await octokit.request('GET /installation/repositories');
@@ -43,7 +43,7 @@ export async function GithubProvider() {
     }
   })();
 
-  const isInstallationActive = Boolean(installation?.installationId);
+  const isInstallationActive = Boolean(installation?.data.installationId);
 
   return (
     <div className=" flex items-center space-x-4 rounded-md border p-4">
@@ -59,7 +59,7 @@ export async function GithubProvider() {
 
       <form action={selectRepository} className="flex gap-2">
         <Select
-          defaultValue={installation?.repositoryId?.toString()}
+          defaultValue={installation?.data.repositoryId?.toString()}
           name="repositoryId"
         >
           <SelectTrigger className="w-[180px]">
@@ -76,7 +76,7 @@ export async function GithubProvider() {
         <Input
           name="installationId"
           type="hidden"
-          value={installation?.installationId}
+          value={installation?.data.installationId}
         />
 
         <Button type="submit">Update</Button>

@@ -43,6 +43,13 @@
       "when": 1722507430576,
       "tag": "0005_fine_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1722604663141,
+      "tag": "0006_acoustic_vargas",
+      "breakpoints": true
     }
   ]
 }
