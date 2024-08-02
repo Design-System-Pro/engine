@@ -31,7 +31,14 @@ module.exports = {
       callees: ['cn', 'clsx', 'cva'],
     },
   },
-  ignorePatterns: ['node_modules/', 'dist/', '.eslintrc.js', '**/*.css'],
+  ignorePatterns: [
+    'node_modules/',
+    'dist/',
+    '.eslintrc.js',
+    '**/*.css',
+    'vite.config.ts',
+    'vite.config.plugin.ts',
+  ],
   rules: {
     'import/no-default-export': 'off',
     'no-unused-vars': 'off',

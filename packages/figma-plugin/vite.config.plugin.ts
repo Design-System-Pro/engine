@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import { viteSingleFile } from 'vite-plugin-singlefile';
+import preserveDirectives from 'rollup-preserve-directives';
 
 export default defineConfig(({ mode }) => ({
   plugins: [viteSingleFile()],
@@ -11,6 +12,7 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: false,
     outDir: path.resolve('dist'),
     rollupOptions: {
+      plugins: [preserveDirectives()],
       input: path.resolve('src/plugin/plugin.ts'),
       output: {
         entryFileNames: 'plugin.js',
