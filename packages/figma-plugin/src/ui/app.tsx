@@ -10,6 +10,7 @@ import { api } from './lib/api';
 function App() {
   const [accessToken, setAccessToken] = useState<string>();
   const [waitingForToken, setWaitingForToken] = useState(false);
+  const [state, setState] = useState<'IN-SYNC' | 'OUT-OF-SYNC'>();
 
   useEffect(() => {
     AsyncMessage.ui
@@ -68,7 +69,7 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
+  const requestStatus = useCallback(() => {
     // This is an authenticated request
     if (!accessToken) return;
 
@@ -76,14 +77,36 @@ function App() {
       .request({
         type: AsyncMessageTypes.GetStyleDictionary,
       })
-      .then(({ styleDictionary: _styleDictionary }) => {
-        void api.setStyleDictionary(_styleDictionary);
-      })
+      .then(({ styleDictionary: _styleDictionary }) =>
+        api
+          .statusStyleDictionary(_styleDictionary)
+          .then(({ state: _state }) => {
+            setState(_state);
+          })
+      )
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
-        console.error('Error requesting style dictionary', error);
+        console.error('Error requesting status of style dictionary', error);
       });
-  });
+  }, [accessToken]);
+
+  const updateTokens = useCallback(() => {
+    // This is an authenticated request
+    if (!accessToken) return;
+
+    AsyncMessage.ui
+      .request({
+        type: AsyncMessageTypes.SetAccessToken,
+        accessToken,
+      })
+      .then(({ styleDictionary: _styleDictionary }) =>
+        api.setStyleDictionary(_styleDictionary)
+      )
+      .catch((error) => {
+        // eslint-disable-next-line no-console -- TODO: replace with monitoring
+        console.error('Error updating style dictionary', error);
+      });
+  }, [accessToken]);
 
   useEffect(() => {
     // Sends the authorization token to the Plugin and sets the API headers
@@ -98,7 +121,13 @@ function App() {
   }, [accessToken]);
 
   return (
-    <main className="flex size-full items-center justify-center">
+    <main className="flex size-full flex-col items-center justify-center gap-4">
+      <Button onClick={state === 'IN-SYNC' ? requestStatus : updateTokens}>
+        <Icons.UpdateIcon className="mr-2" />{' '}
+        {state === 'IN-SYNC'
+          ? 'Up-to-date. Check status.'
+          : 'Out-of-date. Update.'}
+      </Button>
       {/* eslint-disable-next-line no-nested-ternary -- Intentional */}
       {accessToken ? (
         <Button onClick={logout}>

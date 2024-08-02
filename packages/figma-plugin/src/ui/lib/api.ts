@@ -64,4 +64,19 @@ export const api = {
 
     return true;
   },
+  statusStyleDictionary: async (
+    styleDictionary: DesignTokens
+  ): Promise<{ state: 'IN-SYNC' | 'OUT-OF-SYNC' }> => {
+    const response = await fetchApi('/api/style-dictionary/state', {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({ styleDictionary }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    return response.json() as Promise<{ state: 'IN-SYNC' | 'OUT-OF-SYNC' }>;
+  },
 };

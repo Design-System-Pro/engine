@@ -10,11 +10,11 @@ import {
 import { equals } from 'rambda';
 import { DiffBlock } from '@/components/diff-block/diff-block';
 import { requestTokens } from '../integrations/providers/github/request-tokens.action';
-import { getTokens } from './tokens.action';
+import { fetchTokens } from './tokens.action';
 import { PushButton } from './_components/push-button';
 
 export default async function Tokens() {
-  const tokens = await getTokens();
+  const tokens = await fetchTokens();
   const githubTokens = await requestTokens();
 
   const areTokensEqual = equals(tokens, githubTokens);
