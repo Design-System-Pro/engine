@@ -1,8 +1,14 @@
 'use server';
+
 import crypto from 'node:crypto';
 import { kv } from '@vercel/kv';
+import { isAuthenticated } from '@/lib/supabase/utils';
 
 export async function getState() {
+  if (!(await isAuthenticated())) {
+    throw new Error('Not authenticated');
+  }
+
   const state = crypto.randomBytes(64).toString('hex');
 
   if (

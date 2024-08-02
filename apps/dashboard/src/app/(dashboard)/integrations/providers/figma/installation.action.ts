@@ -4,15 +4,12 @@ import { eq } from 'drizzle-orm';
 import { database } from '@/lib/database';
 import type { FigmaIntegration } from '@/lib/database/schema';
 import { integrationType } from '@/lib/database/schema';
-import { createClient } from '@/lib/supabase/server';
+import { isAuthenticated } from '@/lib/supabase/utils';
 
 export async function getInstallation() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) return;
+  if (!(await isAuthenticated())) {
+    throw new Error('Not authenticated');
+  }
 
   const result = await database.query.integrationsTable.findFirst({
     where: (integrations) => eq(integrations.type, integrationType.Enum.figma),
