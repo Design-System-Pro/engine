@@ -1,12 +1,12 @@
 import { Button, Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
-import { config } from '@/config';
+import { figma } from '@/lib/figma';
 import { getState } from './state.action';
 import { getInstallation } from './installation.action';
 
 export async function FigmaProvider() {
   const state = await getState();
-  const installationUrl = `https://www.figma.com/oauth?client_id=${config.figma.appClientId}&redirect_uri=${config.figma.redirectUri}&scope=files:read,file_variables:read,file_variables:write&state=${state}&response_type=code`;
+  const installationUrl = figma.getInstallationUrl(state);
 
   const installation = await getInstallation();
 

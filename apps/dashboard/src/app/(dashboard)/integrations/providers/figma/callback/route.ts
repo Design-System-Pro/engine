@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
-import { config } from '@/config';
 import { database } from '@/lib/database';
 import {
   figmaIntegrationSchema,
   integrationsTable,
   integrationType,
 } from '@/lib/database/schema';
+import { figma } from '@/lib/figma';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -30,31 +30,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    const result = await fetch('https://www.figma.com/api/oauth/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `client_id=${encodeURIComponent(config.figma.appClientId)}&client_secret=${encodeURIComponent(config.figma.appClientSecret)}&redirect_uri=${encodeURIComponent(config.figma.redirectUri)}&code=${encodeURIComponent(code)}&grant_type=authorization_code`,
-    });
-
-    if (!result.ok) {
-      throw new Error('Error exchanging code');
-    }
-
-    const figmaOAuthResponse = (await result.json()) as {
-      user_id: string;
-      access_token: string;
-      expires_in: string;
-      refresh_token: string;
-    };
+    const figmaOAuthResponse = await figma.exchangeCode(code);
 
     const validatedData = figmaIntegrationSchema.parse({
       type: integrationType.Enum.figma,
-      accessToken: figmaOAuthResponse.access_token,
-      refreshToken: figmaOAuthResponse.refresh_token,
-      userId: figmaOAuthResponse.user_id,
-      expiresIn: figmaOAuthResponse.expires_in,
+      ...figmaOAuthResponse,
     });
 
     await database.insert(integrationsTable).values({
