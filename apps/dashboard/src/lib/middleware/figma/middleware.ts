@@ -67,7 +67,6 @@ export const figmaMiddleware: MiddlewareFactory =
     const figmaKey = request.cookies.get(config.FIGMA_KEY)?.value;
 
     if (!figmaKey) {
-      console.log('🔐 Figma: No Figma key available. Skipping.');
       return middleware(request, event, response);
     }
 

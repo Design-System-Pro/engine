@@ -10,7 +10,6 @@ import { formatDistance, subDays } from 'date-fns';
 import Image from 'next/image';
 
 interface FigmaFileProps {
-  fileKey: string;
   name: string;
   lastModified?: string;
   thumbnailUrl?: string;
