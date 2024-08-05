@@ -6,6 +6,12 @@ Open source solutions for design systems.
 
 ds-project.tfrancisco.dev is the open source platform to help design and implement design systems by individuals and teams.
 
+Often as a Frontend developer, I have found myself either integrating half initiated design system projects, or having to create them from scratch.
+The amount of time I spent creating code repositories, with the same or very similar tech stacks to reach one simple thing: consistency and reusability across multiple projects me or teams had to maintain. In all design systems I have spent countless hours setting things from scratch, to only be able to deliver a button that can be reused across projects.
+
+DS Project aims to speed up the process of setting up a new Design System with a highly opinionated workflow that gets you with a ready to distribute design system - code, design, documentation in couple of clicks and close to very little technical setup.
+Projects and teams have different needs and requirements, and that's the reason DS Project is open source and self hosted so you can configure your own workflow if this one doesn't work for your team.
+
 ## Features
 
 - Figma Variables Synchronization - TODO: add link here
