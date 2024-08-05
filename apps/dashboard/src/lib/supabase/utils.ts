@@ -3,7 +3,7 @@ import 'server-only';
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
 import type { DesignTokens } from 'style-dictionary/types';
-import { updateTokens } from '@/app/(dashboard)/tokens/update-tokens.action';
+import { updateTokens } from '@/app/(dashboard)/tokens/_actions/update-tokens.action';
 import { database } from '../database';
 import { designSystemsTable } from '../database/schema';
 import { createClient } from './server';

@@ -3,7 +3,7 @@
 import { Button } from '@ds-project/components';
 import { useCallback } from 'react';
 import type { DesignTokens } from 'style-dictionary/types';
-import { updateTokens } from '../update-tokens.action';
+import { updateTokens } from '../_actions/update-tokens.action';
 
 export function PushButton({ tokens }: { tokens: DesignTokens }) {
   const onClickHandler = useCallback(() => {

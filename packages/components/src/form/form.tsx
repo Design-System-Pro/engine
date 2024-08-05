@@ -6,7 +6,8 @@ import { Slot } from "@radix-ui/react-slot"
 import type {
   ControllerProps,
   FieldPath,
-  FieldValues} from "react-hook-form";
+  FieldValues,
+  FormProviderProps} from "react-hook-form";
 import {
   Controller,
   FormProvider,
@@ -15,7 +16,8 @@ import {
 import { cn } from "@/lib/utils"
 import { Label } from "@/label";
 
-const Form: React.FC<React.ComponentPropsWithRef<typeof FormProvider>> = FormProvider
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- For some reason typescript loses the inferred type when exporting this component
+const Form: <TFieldValues extends FieldValues, TContext = any, TTransformedValues extends FieldValues | undefined = undefined>(props: FormProviderProps<TFieldValues, TContext, TTransformedValues>) => React.JSX.Element = FormProvider
 
 interface FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,

@@ -13,9 +13,9 @@ import {
 } from '@ds-project/components';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { registerFile } from '../_actions';
 import type { DataSchema } from '../_schemas/schema';
 import { dataSchema } from '../_schemas/schema';
-import { registerFile } from '../_actions';
 import { FilePreview } from './file-preview';
 
 export function FilesForm() {
@@ -36,7 +36,7 @@ export function FilesForm() {
           name="figmaFileUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel />
+              <FormLabel>Figma File URL</FormLabel>
               <FormControl>
                 <Input
                   placeholder="https://www.figma.com/design/..."

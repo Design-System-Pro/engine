@@ -1,6 +1,5 @@
 'use server';
 
-import { btoa } from 'node:buffer';
 import type { DesignTokens } from 'style-dictionary/types';
 import { revalidatePath } from 'next/cache';
 import { pushFile } from '@/lib/github';
