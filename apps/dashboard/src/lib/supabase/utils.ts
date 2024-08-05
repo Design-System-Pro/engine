@@ -3,9 +3,9 @@ import 'server-only';
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
 import type { DesignTokens } from 'style-dictionary/types';
-import { updateTokens } from '@/app/(dashboard)/tokens/_actions/update-tokens.action';
 import { database } from '../database';
 import { designSystemsTable } from '../database/schema';
+import { pushFile } from '../github';
 import { createClient } from './server';
 
 export async function isAuthenticated(request?: NextRequest) {
@@ -67,5 +67,10 @@ export async function updateDesignTokens(request: NextRequest) {
     .set({ tokens: styleDictionary })
     .where(eq(designSystemsTable.id, designSystemId));
 
-  await updateTokens(styleDictionary);
+  const base64Content = btoa(JSON.stringify(styleDictionary, null, 2));
+  await pushFile({
+    content: base64Content,
+    encoding: 'base64',
+    name: 'tokens.json',
+  });
 }
