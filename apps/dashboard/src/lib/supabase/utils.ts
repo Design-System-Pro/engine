@@ -20,8 +20,8 @@ export async function isAuthenticated(request?: NextRequest) {
   return Boolean(user);
 }
 
-export async function getUser(request: NextRequest) {
-  const authorizationHeader = request.headers.get('Authorization');
+export async function getUser(request?: NextRequest) {
+  const authorizationHeader = request?.headers.get('Authorization');
   const authorizationToken = authorizationHeader?.replace('Bearer ', '');
 
   const supabase = createClient();
@@ -32,7 +32,7 @@ export async function getUser(request: NextRequest) {
   return user;
 }
 
-export async function getUserAccount(request: NextRequest) {
+export async function getUserAccount(request?: NextRequest) {
   const user = await getUser(request);
 
   if (!user) return;
@@ -42,6 +42,14 @@ export async function getUserAccount(request: NextRequest) {
   });
 
   return account;
+}
+
+export async function getDesignSystemId(request?: NextRequest) {
+  const account = await getUserAccount(request);
+
+  if (!account) return;
+  const designSystemId = account.designSystemId;
+  return designSystemId;
 }
 
 export async function updateDesignTokens(request: NextRequest) {

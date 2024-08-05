@@ -79,4 +79,17 @@ export const api = {
 
     return response.json() as Promise<{ state: 'IN-SYNC' | 'OUT-OF-SYNC' }>;
   },
+  registerFile: async (fileKey: string) => {
+    const response = await fetchApi('/api/figma/register-file', {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({ fileKey }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    return true;
+  },
 };

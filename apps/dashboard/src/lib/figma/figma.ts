@@ -1,6 +1,7 @@
 import { config } from '@/config';
 
 const figmaUrl = 'https://www.figma.com';
+const apiFigmaUrl = 'https://api.figma.com';
 
 export const figma = {
   getInstallationUrl: (state?: string | null) =>
@@ -31,5 +32,24 @@ export const figma = {
       userId: figmaOAuthResponse.user_id,
       expiresIn: figmaOAuthResponse.expires_in,
     };
+  },
+  getFile: async (fileKey: string, accessToken: string) => {
+    const result = await fetch(`${apiFigmaUrl}/v1/files/${fileKey}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!result.ok)
+      throw new Error(`Error fetching file: ${result.statusText}`);
+
+    const fileResponse = (await result.json()) as {
+      thumbnailUrl: string;
+      name: string;
+      lastModified: string;
+    };
+
+    return fileResponse;
   },
 };

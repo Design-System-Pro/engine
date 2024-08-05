@@ -31,7 +31,7 @@ export async function FigmaProvider() {
       </Button>
 
       <Button>
-        <Link href="/integrations/providers/figma">Tokens</Link>
+        <Link href="/integrations/providers/figma/files">Files</Link>
       </Button>
     </div>
   );

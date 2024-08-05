@@ -7,10 +7,6 @@ export enum AsyncMessageTypes {
   DeleteAccessToken = 'delete-access-token',
 }
 
-// export interface AsyncMessageRequest<MessageType extends AsyncMessageType> {
-//   type: MessageType;
-// }
-
 export type AsyncMessage<
   MessageType extends AsyncMessageTypes,
   MessageResponse = unknown,

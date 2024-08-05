@@ -20,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn('flex flex-col items-center', inter.className)}>
         <Navigation className="mt-6" />
-        {children}
+        <main className="flex min-h-screen w-full flex-col items-center p-24">
+          {children}
+        </main>
       </body>
     </html>
   );

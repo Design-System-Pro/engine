@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ds-project/components": "workspace:*",
+    "@hookform/resolvers": "^3.9.0",
     "@octokit/app": "^15.1.0",
     "@octokit/auth-oauth-app": "^8.1.1",
     "@octokit/core": "^6.1.2",
@@ -20,6 +21,7 @@
     "@supabase/supabase-js": "^2.44.4",
     "@vercel/kv": "^2.0.0",
     "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
     "drizzle-orm": "^0.32.0",
     "drizzle-zod": "^0.5.1",
     "framer-motion": "^11.3.7",
@@ -30,6 +32,7 @@
     "react": "^18.3.1",
     "react-diff-viewer": "^3.1.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.2",
     "react-json-view": "^1.21.3",
     "react-json-view-lite": "^1.4.0",
     "server-only": "^0.0.1",

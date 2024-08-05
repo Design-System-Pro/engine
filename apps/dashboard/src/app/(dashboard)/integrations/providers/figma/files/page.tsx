@@ -5,23 +5,21 @@ import {
   CardHeader,
   CardTitle,
 } from '@ds-project/components';
-import { GithubProvider } from './providers/github/provider';
-import { FigmaProvider } from './providers/figma/provider';
+import { FilesForm } from './_components/files-form';
 
-export default function Page() {
+export default function Files() {
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle size="2xl" weight="medium">
-          <h1>Integrations</h1>
+          <h1>Figma files</h1>
         </CardTitle>
         <CardDescription>
-          <p>Authorize and manage integrations</p>
+          <p>Connect your figma files</p>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        <GithubProvider />
-        <FigmaProvider />
+        <FilesForm />
       </CardContent>
     </Card>
   );

@@ -87,6 +87,7 @@ export class AsyncMessage {
         }
 
         try {
+          // eslint-disable-next-line @typescript-eslint/await-thenable -- callback can in fact be a promise. In the cases it's not, await doesn't have any harm.
           const result = await callback(msg.message);
           const payload = { ...result, type: msg.message.type };
 
