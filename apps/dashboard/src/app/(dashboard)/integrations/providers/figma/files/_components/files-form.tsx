@@ -13,27 +13,45 @@ import {
 } from '@ds-project/components';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerFile } from '../_actions';
+import { useEffect } from 'react';
+import { getFilePreview, registerFile } from '../_actions';
 import type { DataSchema } from '../_schemas/schema';
-import { dataSchema } from '../_schemas/schema';
+import { figmaFileSchema } from '../_schemas/schema';
 import { FilePreview } from './file-preview';
 
 export function FilesForm() {
   const form = useForm<DataSchema>({
-    resolver: zodResolver(dataSchema),
+    resolver: zodResolver(figmaFileSchema),
     defaultValues: {
-      figmaFileUrl: '',
+      url: '',
     },
   });
 
-  const figmaFileUrl = form.watch('figmaFileUrl');
+  const url = form.watch('url');
+
+  useEffect(() => {
+    if (!url) return;
+
+    getFilePreview({ url })
+      .then((file) => {
+        if (!file) return;
+
+        form.setValue('name', file.name);
+        form.setValue('lastModified', file.lastModified);
+        form.setValue('thumbnailUrl', file.thumbnailUrl);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console -- TODO: replace with monitoring
+        console.error('Failed to get file preview', error);
+      });
+  }, [form, url]);
 
   return (
     <Form {...form}>
       <form action={registerFile}>
         <FormField
           control={form.control}
-          name="figmaFileUrl"
+          name="url"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Figma File URL</FormLabel>
@@ -48,7 +66,44 @@ export function FilesForm() {
             </FormItem>
           )}
         />
-        <FilePreview figmaFileUrl={figmaFileUrl} />
+        {/* Hidden Inputs - only to provide info to the submission */}
+        <FormField
+          control={form.control}
+          name="lastModified"
+          render={({ field }) => (
+            <FormItem hidden>
+              <FormLabel>Last modified</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem hidden>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="thumbnailUrl"
+          render={({ field }) => (
+            <FormItem hidden>
+              <FormLabel>Thumbnail URL</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FilePreview figmaFileUrl={url} />
         <Button type="submit">Add file</Button>
       </form>
     </Form>

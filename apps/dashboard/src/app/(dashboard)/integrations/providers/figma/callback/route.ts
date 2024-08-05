@@ -1,14 +1,17 @@
+import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
 import { database } from '@/lib/database';
 import {
   figmaIntegrationSchema,
   integrationsTable,
+  integrationsTableSchema,
   integrationType,
 } from '@/lib/database/schema';
 import { figma } from '@/lib/figma';
+import { getDesignSystemId } from '@/lib/supabase/utils';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
   const state = searchParams.get('state');
@@ -32,15 +35,31 @@ export async function GET(request: Request) {
   try {
     const figmaOAuthResponse = await figma.exchangeCode(code);
 
-    const validatedData = figmaIntegrationSchema.parse({
+    const designSystemId = await getDesignSystemId(request);
+
+    if (!designSystemId)
+      throw new Error('No design system associated with this account');
+
+    const validatedFigmaData = figmaIntegrationSchema.parse({
       type: integrationType.Enum.figma,
       ...figmaOAuthResponse,
     });
 
-    await database.insert(integrationsTable).values({
+    const validatedValues = integrationsTableSchema.parse({
       type: integrationType.Enum.figma,
-      data: validatedData,
+      designSystemId,
+      data: validatedFigmaData,
     });
+
+    await database
+      .insert(integrationsTable)
+      .values(validatedValues)
+      .onConflictDoUpdate({
+        target: [integrationsTable.type, integrationsTable.designSystemId],
+        set: {
+          data: validatedFigmaData,
+        },
+      });
   } catch (error) {
     // eslint-disable-next-line no-console -- TODO: replace with monitoring
     console.error('Error exchanging Figma code', error);

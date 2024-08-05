@@ -1,17 +1,8 @@
 'use client';
 
-import {
-  AspectRatio,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@ds-project/components';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { formatDistance, subDays } from 'date-fns';
 import { getFilePreview } from '../_actions';
+import { FigmaFile } from './figma-file';
 
 interface FilePreviewProps {
   figmaFileUrl?: string;
@@ -24,7 +15,7 @@ export function FilePreview({ figmaFileUrl }: FilePreviewProps) {
   useEffect(() => {
     if (!figmaFileUrl) return;
 
-    getFilePreview({ figmaFileUrl })
+    getFilePreview({ url: figmaFileUrl })
       .then(setFilePreviewData)
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
@@ -32,33 +23,5 @@ export function FilePreview({ figmaFileUrl }: FilePreviewProps) {
       });
   }, [figmaFileUrl]);
 
-  return filePreviewData ? (
-    <Card className="max-w-sm">
-      <CardHeader>
-        <CardTitle size="base">
-          <p>{filePreviewData.name}</p>
-        </CardTitle>
-        <CardDescription size="sm">
-          <p>
-            Last modified:{' '}
-            {formatDistance(
-              subDays(filePreviewData.lastModified, 3),
-              new Date(),
-              { addSuffix: true }
-            )}
-          </p>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <AspectRatio ratio={16 / 9}>
-          <Image
-            alt={filePreviewData.name}
-            className="size-full object-contain"
-            fill
-            src={filePreviewData.thumbnailUrl}
-          />
-        </AspectRatio>
-      </CardContent>
-    </Card>
-  ) : null;
+  return filePreviewData ? <FigmaFile {...filePreviewData} /> : null;
 }

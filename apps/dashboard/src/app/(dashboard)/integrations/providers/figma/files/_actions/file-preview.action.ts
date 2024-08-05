@@ -7,11 +7,7 @@ import { database } from '@/lib/database';
 import { integrationType } from '@/lib/database/schema';
 import { figmaUrlRegex } from '../_schemas/schema';
 
-export async function getFilePreview({
-  figmaFileUrl,
-}: {
-  figmaFileUrl: string;
-}) {
+export async function getFilePreview({ url }: { url: string }) {
   if (!(await isAuthenticated())) {
     throw new Error('Not authenticated');
   }
@@ -29,7 +25,7 @@ export async function getFilePreview({
       throw new Error('No figma integration found');
     }
 
-    const match = figmaFileUrl.match(figmaUrlRegex);
+    const match = url.match(figmaUrlRegex);
     const fileKey = match?.groups?.fileKey;
 
     if (!fileKey) {

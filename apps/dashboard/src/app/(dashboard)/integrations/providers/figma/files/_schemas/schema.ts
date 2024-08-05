@@ -2,8 +2,11 @@ import { z } from 'zod';
 
 export const figmaUrlRegex =
   /^https:\/\/www\.figma\.com\/design\/(?<fileKey>[A-Za-z0-9]+)\/[A-Za-z0-9-]+/;
-export const dataSchema = z.object({
-  figmaFileUrl: z.string().regex(figmaUrlRegex, 'Invalid Figma URL'),
+export const figmaFileSchema = z.object({
+  name: z.string(),
+  thumbnailUrl: z.string().url(),
+  url: z.string().regex(figmaUrlRegex, 'Invalid Figma URL'),
+  lastModified: z.string().datetime(),
 });
 
-export type DataSchema = z.infer<typeof dataSchema>;
+export type DataSchema = z.infer<typeof figmaFileSchema>;

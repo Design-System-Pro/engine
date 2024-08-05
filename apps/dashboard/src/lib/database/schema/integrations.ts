@@ -1,5 +1,14 @@
-import { jsonb, pgEnum, pgTable, timestamp, uuid } from 'drizzle-orm/pg-core';
+import {
+  jsonb,
+  pgEnum,
+  pgTable,
+  timestamp,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 import { z } from 'zod';
+import { createInsertSchema } from 'drizzle-zod';
+import { designSystemsTable } from './design-systems';
 
 export const integrationTypeEnum = pgEnum('integration_type', [
   'github',
@@ -29,16 +38,29 @@ export const integrationDataSchema = z.union([
 export type GithubIntegration = z.infer<typeof githubIntegrationSchema>;
 export type FigmaIntegration = z.infer<typeof figmaIntegrationSchema>;
 type IntegrationData = z.infer<typeof integrationDataSchema>;
-export const integrationsTable = pgTable('integrations', {
-  id: uuid('id').defaultRandom().primaryKey().notNull(),
-  type: integrationTypeEnum('type').notNull().default('github'),
-  createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
-    .defaultNow()
-    .notNull(),
-  data: jsonb('data').$type<IntegrationData>(),
+export const integrationsTable = pgTable(
+  'integrations',
+  {
+    id: uuid('id').defaultRandom().primaryKey().notNull(),
+    designSystemId: uuid('design_system_id')
+      .references(() => designSystemsTable.id, { onDelete: 'cascade' })
+      .notNull(),
+    type: integrationTypeEnum('type').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    data: jsonb('data').$type<IntegrationData>(),
+  },
+  (integration) => ({
+    unique: unique().on(integration.type, integration.designSystemId),
+  })
+);
+
+export const integrationsTableSchema = createInsertSchema(integrationsTable, {
+  data: () => integrationDataSchema,
 });
 
 export type SelectIntegration = typeof integrationsTable.$inferSelect;

@@ -6,8 +6,12 @@ import {
   CardTitle,
 } from '@ds-project/components';
 import { FilesForm } from './_components/files-form';
+import { FilesList } from './_components/figma-files';
+import { getFiles } from './_actions/files.action';
 
-export default function Files() {
+export default async function Page() {
+  const files = await getFiles();
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -20,6 +24,7 @@ export default function Files() {
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <FilesForm />
+        <FilesList files={files} />
       </CardContent>
     </Card>
   );

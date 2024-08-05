@@ -13,13 +13,13 @@ export const figmaFilesTable = pgTable('figma_files', {
   designSystemId: uuid('design_system_id')
     .references(() => designSystemsTable.id, { onDelete: 'cascade' })
     .notNull(),
-  name: text('name'),
+  name: text('name').notNull(),
   fileKey: text('file_key').unique().notNull(),
-  thumbnailUrl: text('thumbnail_url'),
+  thumbnailUrl: text('thumbnail_url').notNull(),
   lastModified: timestamp('last_modified', {
     withTimezone: true,
     mode: 'string',
-  }),
+  }).notNull(),
 });
 
 export const insertFigmaFileSchema = createInsertSchema(figmaFilesTable);
