@@ -51,7 +51,8 @@ export const integrationsTable = pgTable(
       .notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
       .defaultNow()
-      .notNull(),
+      .notNull()
+      .$onUpdate(() => new Date().toISOString()),
     data: jsonb('data').$type<IntegrationData>(),
   },
   (integration) => ({

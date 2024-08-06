@@ -8,6 +8,7 @@ export const designSystemsTable = pgTable('design_systems', {
     .notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
-    .notNull(),
+    .notNull()
+    .$onUpdate(() => new Date().toISOString()),
   tokens: json('tokens'),
 });

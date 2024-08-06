@@ -9,7 +9,8 @@ export const figmaFilesTable = pgTable('figma_files', {
     .notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
-    .notNull(),
+    .notNull()
+    .$onUpdate(() => new Date().toISOString()),
   designSystemId: uuid('design_system_id')
     .references(() => designSystemsTable.id, { onDelete: 'cascade' })
     .notNull(),

@@ -1,11 +1,11 @@
 import { Button, Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
-import { figma } from '@/lib/figma';
-import { getState, getInstallation } from '../_actions';
+import { getFigma } from '@/lib/figma';
+import { getInstallation } from '../_actions';
 
 export async function FigmaProvider() {
-  const state = await getState();
-  const installationUrl = figma.getInstallationUrl(state);
+  const figma = await getFigma();
+  const installationUrl = await figma.getInstallationUrl();
 
   const installation = await getInstallation();
 

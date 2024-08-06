@@ -46,6 +46,10 @@ export function FilesForm() {
       });
   }, [form, url]);
 
+  const name = form.watch('name');
+  const lastModified = form.watch('lastModified');
+  const thumbnailUrl = form.watch('thumbnailUrl');
+
   return (
     <Form {...form}>
       <form action={registerFile}>
@@ -103,7 +107,11 @@ export function FilesForm() {
             </FormItem>
           )}
         />
-        <FilePreview figmaFileUrl={url} />
+        <FilePreview
+          lastModified={lastModified}
+          name={name}
+          thumbnailUrl={thumbnailUrl}
+        />
         <Button type="submit">Add file</Button>
       </form>
     </Form>
