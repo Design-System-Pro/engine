@@ -1,13 +1,11 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import {
-  getDesignSystemId,
-  getUserAccount,
-  isAuthenticated,
-} from '@/lib/supabase/utils';
-import { database } from '@/lib/database';
-import { figmaFilesTable, insertFigmaFileSchema } from '@/lib/database/schema';
+import { database } from '@/lib/drizzle';
+import { figmaFilesTable, insertFigmaFileSchema } from '@/lib/drizzle/schema';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+import { getUserAccount } from '@/lib/supabase/server/utils/get-user-account';
+import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
 import { figmaFileSchema, figmaUrlRegex } from '../_schemas/schema';
 
 export async function registerFile(formData: FormData) {

@@ -1,15 +1,15 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
-import { database } from '@/lib/database';
+import { database } from '@/lib/drizzle';
 import {
   figmaIntegrationSchema,
   integrationsTable,
   integrationsTableSchema,
   integrationType,
-} from '@/lib/database/schema';
+} from '@/lib/drizzle/schema';
 import { figma } from '@/lib/figma';
-import { getDesignSystemId } from '@/lib/supabase/utils';
+import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);

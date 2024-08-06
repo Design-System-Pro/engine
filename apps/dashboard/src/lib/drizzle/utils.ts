@@ -3,14 +3,14 @@
 import { eq } from 'drizzle-orm';
 import type { NextRequest } from 'next/server';
 import type { DesignTokens } from 'style-dictionary/types';
-import { createClient } from '../supabase/server';
+import { createServerClient } from '../supabase/server/client';
 import { database } from '.';
 
 export async function getAccount(request?: NextRequest) {
   const authorizationHeader = request?.headers.get('Authorization');
   const authorizationToken = authorizationHeader?.replace('Bearer ', '');
 
-  const supabase = createClient();
+  const supabase = createServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser(authorizationToken);

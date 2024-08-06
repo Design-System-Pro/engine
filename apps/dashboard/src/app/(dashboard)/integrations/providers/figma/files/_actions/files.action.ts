@@ -1,6 +1,7 @@
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/database';
-import { getDesignSystemId, isAuthenticated } from '@/lib/supabase/utils';
+import { database } from '@/lib/drizzle';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
 
 export async function getFiles() {
   if (!(await isAuthenticated())) {

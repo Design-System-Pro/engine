@@ -1,6 +1,6 @@
 import type { InferSelectModel } from 'drizzle-orm';
 import { Text } from '@ds-project/components';
-import type { figmaFilesTable } from '@/lib/database/schema';
+import type { figmaFilesTable } from '@/lib/drizzle/schema';
 import { FigmaFile } from './figma-file';
 
 interface FilesListProps {

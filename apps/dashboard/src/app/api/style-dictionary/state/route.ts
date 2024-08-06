@@ -1,8 +1,8 @@
 import type { NextRequest } from 'next/server';
 import { equals } from 'rambda';
 import type { DesignTokens } from 'style-dictionary/types';
-import { isAuthenticated } from '@/lib/supabase/utils';
-import { getTokens } from '@/lib/database/utils';
+import { getTokens } from '@/lib/drizzle/utils';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { MiddlewareFactory } from '../middleware';
-import { middlewareSupabaseClient } from './middleware-client';
+import { middlewareSupabaseClient } from './server/middleware-client';
 
 export const authenticationMiddleware: MiddlewareFactory =
   (middleware) =>

@@ -2,7 +2,7 @@
 
 import crypto from 'node:crypto';
 import { kv } from '@vercel/kv';
-import { isAuthenticated } from '@/lib/supabase/utils';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 
 export async function getState() {
   if (!(await isAuthenticated())) {

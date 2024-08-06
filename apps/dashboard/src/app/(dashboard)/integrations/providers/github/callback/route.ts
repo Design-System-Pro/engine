@@ -1,13 +1,13 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { database } from '@/lib/database';
+import { database } from '@/lib/drizzle';
 import {
   integrationDataSchema,
   integrationsTable,
   integrationsTableSchema,
   integrationType,
-} from '@/lib/database/schema';
-import { getDesignSystemId } from '@/lib/supabase/utils';
+} from '@/lib/drizzle/schema';
+import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);

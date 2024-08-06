@@ -1,10 +1,10 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/database';
-import type { GithubIntegration } from '@/lib/database/schema';
-import { integrationType } from '@/lib/database/schema';
-import { isAuthenticated } from '@/lib/supabase/utils';
+import { database } from '@/lib/drizzle';
+import type { GithubIntegration } from '@/lib/drizzle/schema';
+import { integrationType } from '@/lib/drizzle/schema';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 
 export async function getInstallation() {
   if (!(await isAuthenticated())) {

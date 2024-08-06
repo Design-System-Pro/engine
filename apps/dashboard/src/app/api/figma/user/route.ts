@@ -1,11 +1,11 @@
 import type { NextRequest } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server/client';
 
 export async function GET(request: NextRequest) {
   const authorizationHeader = request.headers.get('Authorization');
   const authorizationToken = authorizationHeader?.replace('Bearer ', '');
 
-  const supabase = createClient();
+  const supabase = createServerClient();
   // eslint-disable-next-line no-console -- TODO: review
   console.log({
     token: (await supabase.auth.getSession()).data.session?.access_token,

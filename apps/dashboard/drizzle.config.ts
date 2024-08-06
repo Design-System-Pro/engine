@@ -7,8 +7,8 @@ const {
 
 export default defineConfig({
   schemaFilter: ['public'],
-  schema: './src/lib/database/schema.ts',
-  out: './src/lib/database/migrations',
+  schema: './src/lib/drizzle/schema.ts',
+  out: './src/lib/drizzle/migrations',
   dialect: 'postgresql',
   dbCredentials: {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- TODO: review

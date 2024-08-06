@@ -1,8 +1,9 @@
+import 'server-only';
 /* eslint-disable no-console -- TODO: replace with monitoring */
 import { kv } from '@vercel/kv';
 import { NextResponse } from 'next/server';
 import { config } from '@/config';
-import { middlewareSupabaseClient } from '@/lib/supabase/middleware-client';
+import { middlewareSupabaseClient } from '@/lib/supabase/server/middleware-client';
 import type { MiddlewareFactory } from '../compose';
 
 export const figmaMiddleware: MiddlewareFactory =

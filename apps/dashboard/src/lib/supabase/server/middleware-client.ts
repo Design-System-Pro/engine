@@ -1,7 +1,8 @@
+import 'server-only';
 import { createServerClient } from '@supabase/ssr';
 import type { NextRequest, NextResponse } from 'next/server';
 import { config } from '@/config';
-import type { Database } from './database.generated.types';
+import type { Database } from '../__generated__/database.generated.types';
 
 export const middlewareSupabaseClient = (
   request: NextRequest,

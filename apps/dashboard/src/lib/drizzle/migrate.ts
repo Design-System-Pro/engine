@@ -1,6 +1,6 @@
 import { loadEnvConfig } from '@next/env';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { connection, database } from '@/lib/database';
+import { connection, database } from '@/lib/drizzle';
 
 loadEnvConfig(process.cwd());
 

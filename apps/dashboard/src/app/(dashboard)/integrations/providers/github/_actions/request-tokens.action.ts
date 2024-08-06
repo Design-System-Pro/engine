@@ -6,7 +6,7 @@ import {
   getGithubIntegration,
   getGithubRepository,
 } from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/utils';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 
 export async function requestTokens() {
   if (!(await isAuthenticated())) {

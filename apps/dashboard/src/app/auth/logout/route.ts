@@ -1,8 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server/client';
 
 export async function GET(req: NextRequest) {
-  const supabase = createClient();
+  const supabase = createServerClient();
 
   const {
     data: { session },

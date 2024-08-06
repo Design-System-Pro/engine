@@ -1,10 +1,10 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
-import { isAuthenticated } from '@/lib/supabase/utils';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { figma } from '@/lib/figma';
-import { database } from '@/lib/database';
-import { integrationType } from '@/lib/database/schema';
+import { database } from '@/lib/drizzle';
+import { integrationType } from '@/lib/drizzle/schema';
 import { figmaUrlRegex } from '../_schemas/schema';
 
 export async function getFilePreview({ url }: { url: string }) {

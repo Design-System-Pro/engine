@@ -1,8 +1,8 @@
 import type { NextRequest } from 'next/server';
-import { isAuthenticated } from '@/lib/supabase/utils';
-import { database } from '@/lib/database';
-import { figmaFilesTable, insertFigmaFileSchema } from '@/lib/database/schema';
-import { getAccount } from '@/lib/database/utils';
+import { database } from '@/lib/drizzle';
+import { figmaFilesTable, insertFigmaFileSchema } from '@/lib/drizzle/schema';
+import { getAccount } from '@/lib/drizzle/utils';
+import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {
