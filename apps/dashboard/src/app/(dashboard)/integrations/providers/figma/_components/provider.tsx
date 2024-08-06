@@ -1,8 +1,7 @@
 import { Button, Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
 import { figma } from '@/lib/figma';
-import { getState } from './state.action';
-import { getInstallation } from './installation.action';
+import { getState, getInstallation } from '../_actions';
 
 export async function FigmaProvider() {
   const state = await getState();

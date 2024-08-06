@@ -1,7 +1,7 @@
 import { Button } from '@ds-project/components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/css';
 import logo from './logo.svg';
 
 export function HomeButton({ className }: { className?: string }) {

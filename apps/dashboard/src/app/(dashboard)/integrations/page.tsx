@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@ds-project/components';
-import { GithubProvider } from './providers/github/provider';
-import { FigmaProvider } from './providers/figma/provider';
+import { GithubProvider } from './providers/github/_components';
+import { FigmaProvider } from './providers/figma/_components';
 
 export default function Page() {
   return (

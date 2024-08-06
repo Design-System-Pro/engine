@@ -7,7 +7,7 @@ import {
   Text,
 } from '@ds-project/components';
 import { JsonBlock } from '@/components';
-import { requestTokens } from './request-tokens.action';
+import { requestTokens } from './_actions';
 
 export default async function Tokens() {
   const tokens = await requestTokens();

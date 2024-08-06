@@ -9,9 +9,9 @@ import {
 } from '@ds-project/components';
 import { equals } from 'rambda';
 import { DiffBlock } from '@/components/diff-block/diff-block';
-import { requestTokens } from '../integrations/providers/github/request-tokens.action';
-import { fetchTokens } from './tokens.action';
-import { PushButton } from './_components/push-button';
+import { requestTokens } from '../integrations/providers/github/_actions';
+import { fetchTokens } from './_actions';
+import { PushButton } from './_components';
 
 export default async function Tokens() {
   const tokens = await fetchTokens();

@@ -13,7 +13,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@ds-project/components';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/css';
 import { HomeButton } from '../home-button/home-button';
 
 export function Navigation({ className }: { className?: string }) {

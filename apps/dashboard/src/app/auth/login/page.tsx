@@ -1,5 +1,5 @@
 import { Icons } from '@ds-project/components';
-import { MagicLinkForm } from './magic-link-form';
+import { MagicLinkForm } from './_components';
 
 export default function Page() {
   return (

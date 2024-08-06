@@ -12,8 +12,7 @@ import {
 } from '@ds-project/components';
 import Link from 'next/link';
 import { config } from '@/config';
-import { getInstallation } from './installation.action';
-import { selectRepository } from './select-repository.action';
+import { getInstallation, selectRepository } from '../_actions';
 
 export async function GithubProvider() {
   // await commitToRepository();
