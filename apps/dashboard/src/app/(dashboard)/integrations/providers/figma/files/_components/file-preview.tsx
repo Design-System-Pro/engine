@@ -13,6 +13,7 @@ export function FilePreview({
 }: FilePreviewProps) {
   return lastModified && name && thumbnailUrl ? (
     <FigmaFile
+      className="max-w-sm"
       lastModified={lastModified}
       name={name}
       thumbnailUrl={thumbnailUrl}

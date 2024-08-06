@@ -6,9 +6,7 @@
     "main": "vite build -c ./vite.config.plugin.ts",
     "ui": "tsc && vite build --minify esbuild",
     "build": "concurrently -n main,ui \"npm run main\" \"npm run ui\"",
-    "watch": "concurrently -n main,ui \"npm run main -- --watch\" \"npm run ui -- --watch\"",
-    "dev": "vite",
-    "preview": "vite preview"
+    "dev": "concurrently -n main,ui \"npm run main -- --watch\" \"npm run ui -- --watch\""
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",

@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@ds-project/components';
 import { FilesForm } from './_components/files-form';
-import { FilesList } from './_components/figma-files';
+import { FilesList } from './_components/files-list';
 import { getFiles } from './_actions/files.action';
 
 export default async function Page() {

@@ -69,42 +69,18 @@ function App() {
       });
   }, []);
 
-  const requestStatus = useCallback(() => {
+  useEffect(() => {
     // This is an authenticated request
     if (!accessToken) return;
 
     AsyncMessage.ui
       .request({
-        type: AsyncMessageTypes.GetStyleDictionary,
+        type: AsyncMessageTypes.GetDesignTokens,
       })
-      .then(({ styleDictionary: _styleDictionary }) =>
-        api
-          .statusStyleDictionary(_styleDictionary)
-          .then(({ state: _state }) => {
-            setState(_state);
-          })
-      )
+      .then(api.updateDesignTokens)
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
-        console.error('Error requesting status of style dictionary', error);
-      });
-  }, [accessToken]);
-
-  const updateTokens = useCallback(() => {
-    // This is an authenticated request
-    if (!accessToken) return;
-
-    AsyncMessage.ui
-      .request({
-        type: AsyncMessageTypes.SetAccessToken,
-        accessToken,
-      })
-      .then(({ styleDictionary: _styleDictionary }) =>
-        api.setStyleDictionary(_styleDictionary)
-      )
-      .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
-        console.error('Error updating style dictionary', error);
+        console.error('Error updating design tokens', error);
       });
   }, [accessToken]);
 
@@ -122,12 +98,13 @@ function App() {
 
   return (
     <main className="flex size-full flex-col items-center justify-center gap-4">
-      <Button onClick={state === 'IN-SYNC' ? requestStatus : updateTokens}>
+      {/* <Button onClick={state === 'IN-SYNC' ? requestStatus : updateTokens}>
         <Icons.UpdateIcon className="mr-2" />{' '}
         {state === 'IN-SYNC'
           ? 'Up-to-date. Check status.'
           : 'Out-of-date. Update.'}
-      </Button>
+      </Button> */}
+      {/* <Button onClick={updateTokens}>Update tokens</Button> */}
       {/* eslint-disable-next-line no-nested-ternary -- Intentional */}
       {accessToken ? (
         <Button onClick={logout}>

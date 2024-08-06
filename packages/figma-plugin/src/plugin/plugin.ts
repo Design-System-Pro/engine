@@ -2,6 +2,7 @@ import { AsyncMessage } from '../message';
 import { AsyncMessageTypes } from '../message.types';
 import { config } from '../ui/config';
 import { storage } from './storage';
+import { getFileId } from './variables/get-file-id';
 import { getFigmaVariables } from './variables/utils/get-figma-variables';
 
 figma.showUI(__html__, {
@@ -36,10 +37,16 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.DeleteAccessToken, async () => {
   return {};
 });
 
-AsyncMessage.plugin.handle(AsyncMessageTypes.GetStyleDictionary, async () => {
+AsyncMessage.plugin.handle(AsyncMessageTypes.GetDesignTokens, async () => {
   const styleDictionary = await getFigmaVariables();
+  const fileId = await getFileId();
+
+  if (!fileId) {
+    throw new Error('No file id found');
+  }
 
   return {
-    styleDictionary,
+    fileId,
+    designTokens: styleDictionary,
   };
 });

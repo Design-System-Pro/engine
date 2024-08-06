@@ -64,6 +64,23 @@ export const api = {
 
     return true;
   },
+  updateDesignTokens: async ({
+    designTokens,
+    fileId,
+  }: {
+    fileId: string;
+    designTokens: DesignTokens;
+  }) => {
+    const response = await fetchApi('/api/figma/design-tokens', {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({ fileId, designTokens }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+  },
   statusStyleDictionary: async (
     styleDictionary: DesignTokens
   ): Promise<{ state: 'IN-SYNC' | 'OUT-OF-SYNC' }> => {

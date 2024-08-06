@@ -8,13 +8,16 @@ import {
 } from '@ds-project/components';
 import { formatDistance, subDays } from 'date-fns';
 import Image from 'next/image';
+import { cn } from '@/lib/css';
 
 interface FigmaFileProps {
   name: string;
   lastModified?: string;
   thumbnailUrl?: string;
+  className?: string;
 }
 export function FigmaFile({
+  className,
   lastModified,
   name,
   thumbnailUrl,
@@ -26,7 +29,7 @@ export function FigmaFile({
     : null;
 
   return (
-    <Card className="max-w-sm">
+    <Card className={cn('w-full', className)}>
       <CardHeader>
         <CardTitle size="base">
           <p>{name}</p>

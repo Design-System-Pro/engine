@@ -52,7 +52,7 @@ export function FilesForm() {
 
   return (
     <Form {...form}>
-      <form action={registerFile}>
+      <form action={registerFile} className="space-y-4">
         <FormField
           control={form.control}
           name="url"
@@ -107,11 +107,13 @@ export function FilesForm() {
             </FormItem>
           )}
         />
+
         <FilePreview
           lastModified={lastModified}
           name={name}
           thumbnailUrl={thumbnailUrl}
         />
+
         <Button type="submit">Add file</Button>
       </form>
     </Form>

@@ -1,4 +1,4 @@
-import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const designSystemsTable = pgTable('design_systems', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -10,5 +10,4 @@ export const designSystemsTable = pgTable('design_systems', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date().toISOString()),
-  tokens: json('tokens'),
 });

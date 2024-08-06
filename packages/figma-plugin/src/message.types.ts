@@ -3,7 +3,7 @@ import type { DesignTokens } from 'style-dictionary/types';
 export enum AsyncMessageTypes {
   SetAccessToken = 'set-access-token',
   GetAccessToken = 'get-access-token',
-  GetStyleDictionary = 'get-style-dictionary',
+  GetDesignTokens = 'get-design-tokens',
   DeleteAccessToken = 'delete-access-token',
 }
 
@@ -55,13 +55,14 @@ export type GetAccessTokenResponse = AsyncMessage<
   }
 >;
 
-export type GetStyleDictionaryRequest =
-  AsyncMessage<AsyncMessageTypes.GetStyleDictionary>;
+export type GetDesignTokensRequest =
+  AsyncMessage<AsyncMessageTypes.GetDesignTokens>;
 
-export type GetStyleDictionaryResponse = AsyncMessage<
-  AsyncMessageTypes.GetStyleDictionary,
+export type GetDesignTokensResponse = AsyncMessage<
+  AsyncMessageTypes.GetDesignTokens,
   {
-    styleDictionary: DesignTokens;
+    fileId: string;
+    designTokens: DesignTokens;
   }
 >;
 
@@ -69,11 +70,11 @@ export type AsyncMessageRequests =
   | GetAccessTokenRequest
   | SetAccessTokenRequest
   | DeleteAccessTokenRequest
-  | GetStyleDictionaryRequest;
+  | GetDesignTokensRequest;
 
 export type AsyncMessageResponses =
   | GetAccessTokenResponse
-  | GetStyleDictionaryResponse;
+  | GetDesignTokensResponse;
 
 export type AsyncMessageRequestsMap = {
   [K in AsyncMessageTypes]: Extract<AsyncMessageRequests, { type: K }>;

@@ -1,5 +1,6 @@
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
+import type { DesignTokens } from 'style-dictionary/types';
 import { designSystemsTable } from './design-systems';
 
 export const figmaFilesTable = pgTable('figma_files', {
@@ -21,6 +22,7 @@ export const figmaFilesTable = pgTable('figma_files', {
     withTimezone: true,
     mode: 'string',
   }).notNull(),
+  designTokens: json('design_tokens').$type<DesignTokens>(),
 });
 
 export const insertFigmaFileSchema = createInsertSchema(figmaFilesTable);
