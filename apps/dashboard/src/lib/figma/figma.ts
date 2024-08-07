@@ -5,6 +5,7 @@ import { and, eq } from 'drizzle-orm';
 import memoize from 'memoize';
 import { kv } from '@vercel/kv';
 import { config } from '@/config';
+import type { KVOAuthState } from '@/types/kv-types';
 import type { SelectFigmaIntegration } from '../drizzle/schema';
 import {
   figmaIntegrationSchema,
@@ -34,7 +35,7 @@ class Figma {
    * @param code - The code to exchange
    */
   public async exchangeCode({ code, state }: { code: string; state: string }) {
-    const validState = await kv.getdel<{ state: string }>(state);
+    const validState = await kv.getdel<KVOAuthState>(state);
 
     if (validState?.state !== state) {
       throw new Error('Invalid state');
@@ -224,7 +225,7 @@ class Figma {
     const state = crypto.randomBytes(64).toString('hex');
 
     if (
-      await kv.set(
+      await kv.set<KVOAuthState>(
         state,
         { state },
         {
@@ -238,9 +239,10 @@ class Figma {
         }
       )
     ) {
-      return state;
+      return `${this.url}/oauth?client_id=${config.figma.appClientId}&redirect_uri=${config.figma.redirectUri}&scope=files:read,file_variables:read,file_variables:write&state=${state}&response_type=code`;
     }
-    return `${this.url}/oauth?client_id=${config.figma.appClientId}&redirect_uri=${config.figma.redirectUri}&scope=files:read,file_variables:read,file_variables:write&state=${state}&response_type=code`;
+
+    return null;
   }
 }
 

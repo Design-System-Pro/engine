@@ -1,10 +1,14 @@
 import type { DesignTokens } from 'style-dictionary/types';
+import type { Credentials } from './types/credentials';
 
 export enum AsyncMessageTypes {
-  SetAccessToken = 'set-access-token',
-  GetAccessToken = 'get-access-token',
+  SetCredentials = 'set-credentials',
+  GetCredentials = 'get-credentials',
   GetDesignTokens = 'get-design-tokens',
-  DeleteAccessToken = 'delete-access-token',
+  DeleteCredentials = 'delete-credentials',
+  SetDesignSystem = 'set-design-system',
+  GetDesignSystem = 'get-design-system',
+  GetConfig = 'get-config',
 }
 
 export type AsyncMessage<
@@ -37,21 +41,21 @@ export interface IncomingMessageEvent<Message = unknown> {
   };
 }
 
-export type GetAccessTokenRequest =
-  AsyncMessage<AsyncMessageTypes.GetAccessToken>;
-export type SetAccessTokenRequest = AsyncMessage<
-  AsyncMessageTypes.SetAccessToken,
+export type GetCredentialsRequest =
+  AsyncMessage<AsyncMessageTypes.GetCredentials>;
+export type SetCredentialsRequest = AsyncMessage<
+  AsyncMessageTypes.SetCredentials,
   {
-    accessToken: string;
+    credentials: Credentials;
   }
 >;
-export type DeleteAccessTokenRequest =
-  AsyncMessage<AsyncMessageTypes.DeleteAccessToken>;
+export type DeleteCredentialsRequest =
+  AsyncMessage<AsyncMessageTypes.DeleteCredentials>;
 
-export type GetAccessTokenResponse = AsyncMessage<
-  AsyncMessageTypes.GetAccessToken,
+export type GetCredentialsResponse = AsyncMessage<
+  AsyncMessageTypes.GetCredentials,
   {
-    accessToken: string;
+    credentials: Credentials;
   }
 >;
 
@@ -66,15 +70,46 @@ export type GetDesignTokensResponse = AsyncMessage<
   }
 >;
 
+export type GetDesignSystemRequest =
+  AsyncMessage<AsyncMessageTypes.GetDesignSystem>;
+
+export type GetDesignSystemResponse = AsyncMessage<
+  AsyncMessageTypes.GetDesignSystem,
+  {
+    designSystemId?: string;
+  }
+>;
+
+export type SetDesignSystemRequest = AsyncMessage<
+  AsyncMessageTypes.SetDesignSystem,
+  {
+    designSystemId: string;
+  }
+>;
+
+export type GetConfigRequest = AsyncMessage<AsyncMessageTypes.GetConfig>;
+
+export type GetConfigResponse = AsyncMessage<
+  AsyncMessageTypes.GetConfig,
+  {
+    fileName: string;
+  }
+>;
+
 export type AsyncMessageRequests =
-  | GetAccessTokenRequest
-  | SetAccessTokenRequest
-  | DeleteAccessTokenRequest
-  | GetDesignTokensRequest;
+  | GetCredentialsRequest
+  | SetCredentialsRequest
+  | DeleteCredentialsRequest
+  | GetDesignTokensRequest
+  | GetDesignSystemRequest
+  | SetDesignSystemRequest
+  | GetConfigRequest;
 
 export type AsyncMessageResponses =
-  | GetAccessTokenResponse
-  | GetDesignTokensResponse;
+  | GetCredentialsResponse
+  | GetDesignTokensResponse
+  | GetDesignSystemResponse
+  | GetConfigResponse;
 
 export type AsyncMessageRequestsMap = {
   [K in AsyncMessageTypes]: Extract<AsyncMessageRequests, { type: K }>;

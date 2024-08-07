@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server';
 import type { DesignTokens } from 'style-dictionary/types';
 import { eq } from 'drizzle-orm';
 import { database } from '@/lib/drizzle';
-import { designSystemsTable } from '@/lib/drizzle/schema';
+import { designSystemsTable, figmaFilesTable } from '@/lib/drizzle/schema';
 import { pushFile } from '@/lib/github';
 import { getUserAccount } from './get-user-account';
 
@@ -16,9 +16,10 @@ export async function updateDesignTokens(request: NextRequest) {
   const designSystemId = account.designSystemId;
   if (!designSystemId) return;
 
+  // TODO: review this logic because it needs validation and error handling
   await database
-    .update(designSystemsTable)
-    .set({ tokens: styleDictionary })
+    .update(figmaFilesTable)
+    .set({ designTokens: styleDictionary })
     .where(eq(designSystemsTable.id, designSystemId));
 
   const base64Content = btoa(JSON.stringify(styleDictionary, null, 2));

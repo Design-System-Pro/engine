@@ -1,5 +1,6 @@
 import { kv } from '@vercel/kv';
 import type { NextRequest } from 'next/server';
+import type { KVCredentials } from '@/types/kv-types';
 
 export async function POST(request: NextRequest) {
   const result = (await request.json()) as object;
@@ -9,10 +10,10 @@ export async function POST(request: NextRequest) {
     return Response.json({});
   }
 
-  const keyValue = await kv.getdel<{ token: string }>(result.readKey);
+  const credentials = await kv.getdel<KVCredentials>(result.readKey);
 
-  if (keyValue) {
-    return Response.json({ accessToken: keyValue.token });
+  if (credentials) {
+    return Response.json(credentials);
   }
 
   // If the key doesn't exist, return an empty response

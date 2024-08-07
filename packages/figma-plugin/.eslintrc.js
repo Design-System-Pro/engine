@@ -1,12 +1,10 @@
 module.exports = {
-  extends: ['@repo/eslint-config/react.js'],
+  extends: [
+    '@repo/eslint-config/react.js',
+    'plugin:@figma/figma-plugins/recommended',
+  ],
   globals: {
     figma: 'readable',
     __html__: 'readable',
-    describe: 'readable',
-    it: 'readable',
-    expect: 'readable',
-    cy: 'readable',
-    jest: 'readable',
   },
 };

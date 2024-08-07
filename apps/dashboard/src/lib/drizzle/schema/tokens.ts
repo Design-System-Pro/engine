@@ -3,7 +3,7 @@ import { createInsertSchema } from 'drizzle-zod';
 import type { DesignTokens } from 'style-dictionary/types';
 import { designSystemsTable } from './design-systems';
 
-export const figmaFilesTable = pgTable('figma_files', {
+export const tokensTable = pgTable('tokens', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
@@ -17,13 +17,7 @@ export const figmaFilesTable = pgTable('figma_files', {
     .notNull()
     .unique(),
   name: text('name').notNull(),
-  fileKey: text('file_key').unique().notNull(),
-  thumbnailUrl: text('thumbnail_url').notNull(),
-  lastModified: timestamp('last_modified', {
-    withTimezone: true,
-    mode: 'string',
-  }).notNull(),
   designTokens: json('design_tokens').$type<DesignTokens>(),
 });
 
-export const insertFigmaFileSchema = createInsertSchema(figmaFilesTable);
+export const insertTokensSchema = createInsertSchema(tokensTable);

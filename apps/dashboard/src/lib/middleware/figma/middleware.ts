@@ -4,6 +4,7 @@ import { kv } from '@vercel/kv';
 import { NextResponse } from 'next/server';
 import { config } from '@/config';
 import { middlewareSupabaseClient } from '@/lib/supabase/server/middleware-client';
+import type { KVCredentials, KVCredentialsRead } from '@/types/kv-types';
 import type { MiddlewareFactory } from '../compose';
 
 export const figmaMiddleware: MiddlewareFactory =
@@ -28,22 +29,27 @@ export const figmaMiddleware: MiddlewareFactory =
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      const token = session?.access_token;
+      const accessToken = session?.access_token;
+      const refreshToken = session?.refresh_token;
+      const expiresAt = session?.expires_at;
 
-      if (token) {
+      if (accessToken) {
         console.log('🔐 Figma: User is authenticated. Exchanging key...');
-        const keyValue = await kv.getdel<{ readKey: string }>(figmaKey);
+        const keyValue = await kv.getdel<KVCredentialsRead>(figmaKey);
 
         if (keyValue) {
           if (
-            await kv.set(
+            accessToken &&
+            refreshToken &&
+            expiresAt &&
+            (await kv.set<KVCredentials>(
               keyValue.readKey,
-              { token },
+              { accessToken, refreshToken, expiresAt },
               {
                 px: 5 * 60 * 1000, // Set the 5 minutes expire time, in milliseconds (a positive integer).
                 nx: true, // Only set the key if it does not already exist.
               }
-            )
+            ))
           ) {
             response.cookies.delete(config.FIGMA_KEY);
             console.log('🔐 Figma: Key has been exchanged successfully.');
@@ -77,25 +83,30 @@ export const figmaMiddleware: MiddlewareFactory =
     const {
       data: { session },
     } = await supabase.auth.getSession();
-    const token = session?.access_token;
+    const accessToken = session?.access_token;
+    const refreshToken = session?.refresh_token;
+    const expiresAt = session?.expires_at;
 
-    if (!token) {
+    if (!accessToken) {
       console.log('🔐 Figma: User is not authenticated. Skipping.');
       return middleware(request, event, response);
     }
 
-    const keyValue = await kv.getdel<{ readKey: string }>(figmaKey);
+    const keyValue = await kv.getdel<KVCredentialsRead>(figmaKey);
 
     if (keyValue) {
       if (
-        await kv.set(
+        accessToken &&
+        refreshToken &&
+        expiresAt &&
+        (await kv.set<KVCredentials>(
           keyValue.readKey,
-          { token },
+          { accessToken, refreshToken, expiresAt },
           {
             px: 5 * 60 * 1000, // Set the 5 minutes expire time, in milliseconds (a positive integer).
             nx: true, // Only set the key if it does not already exist.
           }
-        )
+        ))
       ) {
         response.cookies.delete(config.FIGMA_KEY);
         console.log('🔐 Figma: Key has been exchanged successfully.');
