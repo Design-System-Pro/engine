@@ -99,6 +99,13 @@
       "when": 1723045520116,
       "tag": "0013_misty_black_widow",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1723122064052,
+      "tag": "0014_lucky_sunspot",
+      "breakpoints": true
     }
   ]
 }

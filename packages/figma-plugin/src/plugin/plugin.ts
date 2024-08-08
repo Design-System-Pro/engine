@@ -3,7 +3,6 @@ import { AsyncMessageTypes } from '../message.types';
 import type { Credentials } from '../types/credentials';
 import { config } from '../ui/config';
 import { storage } from './storage';
-import { getFileId } from './variables/get-file-id';
 import { getFigmaVariables } from './variables/utils/get-figma-variables';
 
 figma.showUI(__html__, {
@@ -26,6 +25,8 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.GetCredentials, async () => {
   if (!credentials) {
     throw new Error('No DS Credentials found');
   }
+
+  console.log(credentialsString);
 
   return { credentials };
 });
@@ -50,14 +51,8 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.DeleteCredentials, async () => {
 
 AsyncMessage.plugin.handle(AsyncMessageTypes.GetDesignTokens, async () => {
   const styleDictionary = await getFigmaVariables();
-  const fileId = await getFileId();
-
-  if (!fileId) {
-    throw new Error('No file id found');
-  }
 
   return {
-    fileId,
     designTokens: styleDictionary,
   };
 });

@@ -24,13 +24,15 @@ export async function FigmaProvider() {
       </div>
 
       <Button asChild variant={isInstallationActive ? 'outline' : 'default'}>
-        <Link href={installationUrl}>
-          {isInstallationActive ? 'Configure' : 'Authorize'}
-        </Link>
+        {installationUrl ? (
+          <Link href={installationUrl}>
+            {isInstallationActive ? 'Configure' : 'Authorize'}
+          </Link>
+        ) : null}
       </Button>
 
       <Button>
-        <Link href="/integrations/providers/figma/files">Files</Link>
+        <Link href="/integrations/providers/figma/resources">Resources</Link>
       </Button>
     </div>
   );

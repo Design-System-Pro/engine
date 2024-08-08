@@ -2,7 +2,6 @@
 
 import { eq } from 'drizzle-orm';
 import type { NextRequest } from 'next/server';
-import type { DesignTokens } from 'style-dictionary/types';
 import { createServerClient } from '../supabase/server/client';
 import { database } from '.';
 
@@ -31,9 +30,9 @@ export async function getTokens(request?: NextRequest) {
   const designSystemId = account.designSystemId;
   if (!designSystemId) return;
 
-  const designSystem = await database.query.designSystemsTable.findFirst({
-    where: (designSystems) => eq(designSystems.id, designSystemId),
+  const designSystem = await database.query.resourcesTable.findFirst({
+    where: (resources) => eq(resources.id, designSystemId),
   });
 
-  return designSystem?.tokens as DesignTokens | undefined;
+  return designSystem?.designTokens;
 }

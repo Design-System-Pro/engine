@@ -3,7 +3,7 @@ import { database } from '@/lib/drizzle';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
 
-export async function getFiles() {
+export async function getResources() {
   if (!(await isAuthenticated())) {
     throw new Error('Not authenticated');
   }
@@ -13,7 +13,7 @@ export async function getFiles() {
   if (!designSystemId)
     throw new Error('No design system associated with this account');
 
-  return database.query.figmaFilesTable.findMany({
-    where: (figmaFile) => eq(figmaFile.designSystemId, designSystemId),
+  return database.query.resourcesTable.findMany({
+    where: (resources) => eq(resources.designSystemId, designSystemId),
   });
 }

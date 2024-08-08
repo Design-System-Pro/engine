@@ -1,5 +1,4 @@
-export type Credentials = {
+export interface Credentials {
   accessToken: string;
-  expiresAt: number;
   refreshToken: string;
-};
+}

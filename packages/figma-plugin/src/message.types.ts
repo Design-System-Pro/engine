@@ -65,7 +65,6 @@ export type GetDesignTokensRequest =
 export type GetDesignTokensResponse = AsyncMessage<
   AsyncMessageTypes.GetDesignTokens,
   {
-    fileId: string;
     designTokens: DesignTokens;
   }
 >;

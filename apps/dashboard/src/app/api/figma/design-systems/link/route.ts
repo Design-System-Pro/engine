@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { database } from '@/lib/drizzle';
-import { tokensTable } from '@/lib/drizzle/schema/tokens';
+import { resourcesTable } from '@/lib/drizzle/schema';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     fileName: string;
   };
 
-  await database.insert(tokensTable).values({
+  await database.insert(resourcesTable).values({
     designSystemId,
     name: fileName,
   });

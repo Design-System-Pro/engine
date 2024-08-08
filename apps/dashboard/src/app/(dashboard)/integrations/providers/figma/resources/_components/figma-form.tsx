@@ -19,7 +19,7 @@ import type { DataSchema } from '../_schemas/schema';
 import { figmaFileSchema } from '../_schemas/schema';
 import { FilePreview } from './file-preview';
 
-export function FilesForm() {
+export function FigmaForm() {
   const form = useForm<DataSchema>({
     resolver: zodResolver(figmaFileSchema),
     defaultValues: {
@@ -101,6 +101,18 @@ export function FilesForm() {
           render={({ field }) => (
             <FormItem hidden>
               <FormLabel>Thumbnail URL</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="tokenId"
+          render={({ field }) => (
+            <FormItem hidden>
+              <FormLabel>Token ID</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>

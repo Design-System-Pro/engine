@@ -5,26 +5,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@ds-project/components';
-import { FilesForm } from './_components/files-form';
-import { FilesList } from './_components/files-list';
-import { getFiles } from './_actions/files.action';
+import { ResourcesList } from './_components/resources-list';
+import { getResources } from './_actions/resources.action';
 
 export default async function Page() {
-  const files = await getFiles();
+  const tokens = await getResources();
 
   return (
     <Card className="w-full">
       <CardHeader>
         <CardTitle size="2xl" weight="medium">
-          <h1>Figma files</h1>
+          <h1>Figma Tokens</h1>
         </CardTitle>
         <CardDescription>
-          <p>Connect your figma files</p>
+          <p>Connect your tokens</p>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        <FilesForm />
-        <FilesList files={files} />
+        <ResourcesList resources={tokens} />
       </CardContent>
     </Card>
   );

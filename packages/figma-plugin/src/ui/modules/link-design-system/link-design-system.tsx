@@ -6,10 +6,10 @@ import {
   SelectValue,
 } from '@ds-project/components';
 import { useCallback, useEffect, useState } from 'react';
-import { useDS } from '../providers/ds-provider';
 import { AsyncMessage } from '../../../message';
 import { AsyncMessageTypes } from '../../../message.types';
-import { useConfig } from '../providers/config-provider';
+import { useDSApi } from '../providers/ds-api-provider';
+import { useAuth } from '../providers/auth-provider';
 
 export function LinkDesignSystem() {
   const [designSystems, setDesignSystems] = useState<
@@ -17,8 +17,8 @@ export function LinkDesignSystem() {
   >([]);
   const [selectedDesignSystemId, setSelectedDesignSystemId] =
     useState<string>();
-  const { api, state } = useDS();
-  const { fileName } = useConfig();
+  const { state } = useAuth();
+  const { getDesignSystems, linkDesignSystem } = useDSApi();
 
   useEffect(() => {
     AsyncMessage.ui
@@ -36,10 +36,9 @@ export function LinkDesignSystem() {
   }, []);
 
   useEffect(() => {
-    if (state !== 'authenticated') return;
+    if (state !== 'authorized') return;
 
-    api
-      .getDesignSystems()
+    getDesignSystems()
       .then((data) => {
         setDesignSystems(data.designSystems);
       })
@@ -47,24 +46,17 @@ export function LinkDesignSystem() {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error fetching design systems', error);
       });
-  }, [api, state]);
+  }, [getDesignSystems, state]);
 
   const onValueChange = useCallback(
     (designSystemId: string) => {
-      if (!fileName) {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
-        console.error(
-          'Unable to link to design system. File name is not available.'
-        );
-        return;
-      }
-      void api.linkDesignSystem({ designSystemId, fileName });
+      void linkDesignSystem(designSystemId);
       void AsyncMessage.ui.request({
         type: AsyncMessageTypes.SetDesignSystem,
         designSystemId,
       });
     },
-    [api, fileName]
+    [linkDesignSystem]
   );
 
   return (
