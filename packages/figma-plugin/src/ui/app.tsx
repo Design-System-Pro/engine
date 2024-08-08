@@ -31,7 +31,7 @@ function App() {
 
   return (
     <main className="flex size-full flex-col items-center justify-center gap-4">
-      <LinkDesignSystem />
+      {state === 'authorized' ? <LinkDesignSystem /> : null}
       {/* eslint-disable-next-line no-nested-ternary -- Intentional */}
       {state === 'authorized' ? (
         <Button onClick={logout}>
