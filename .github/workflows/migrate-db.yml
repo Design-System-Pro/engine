@@ -31,4 +31,4 @@ jobs:
         working-directory: apps/dashboard
         run: pnpm db:migrate
         env: # Or as an environment variable
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}

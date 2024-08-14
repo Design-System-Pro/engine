@@ -8,7 +8,7 @@ const githubAppClientId = process.env.GITHUB_APP_CLIENT_ID;
 const githubAppClientSecret = process.env.GITHUB_APP_CLIENT_SECRET;
 const figmaAppClientId = process.env.FIGMA_APP_CLIENT_ID;
 const figmaAppClientSecret = process.env.FIGMA_APP_CLIENT_SECRET;
-const databaseUrl = process.env.DATABASE_URL;
+const databaseUrl = process.env.POSTGRES_URL;
 
 if (!supabaseUrl || !supabaseAnonKey)
   throw new Error('Missing Supabase credentials');
