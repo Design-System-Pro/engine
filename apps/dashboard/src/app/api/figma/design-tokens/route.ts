@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const validatedData = insertResourcesSchema
-      .pick({ designTokens: true, designSystemId: true })
+      .pick({ designTokens: true, projectId: true })
       .parse(await request.json());
 
     await database
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       .set({
         designTokens: validatedData.designTokens,
       })
-      .where(eq(resourcesTable.designSystemId, validatedData.designSystemId));
+      .where(eq(resourcesTable.projectId, validatedData.projectId));
   } catch (error) {
     return new Response(JSON.stringify(error), { status: 400 });
   }

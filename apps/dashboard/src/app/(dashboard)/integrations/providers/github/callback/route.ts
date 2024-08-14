@@ -7,7 +7,7 @@ import {
   integrationsTableSchema,
   integrationType,
 } from '@/lib/drizzle/schema';
-import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
+import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -16,9 +16,9 @@ export async function GET(request: NextRequest) {
   if (!installationId) throw new Error('No installation id provided');
 
   try {
-    const designSystemId = await getDesignSystemId(request);
+    const projectId = await getProjectId(request);
 
-    if (!designSystemId)
+    if (!projectId)
       throw new Error('No design system associated with this account');
 
     const validatedData = integrationDataSchema.parse({
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 
     const validatedValues = integrationsTableSchema.parse({
       type: integrationType.Enum.github,
-      designSystemId,
+      projectId,
       data: validatedData,
     });
 

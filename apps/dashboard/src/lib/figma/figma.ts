@@ -14,16 +14,16 @@ import {
   integrationType,
 } from '../drizzle/schema';
 import { database } from '../drizzle';
-import { getDesignSystemId } from '../supabase/server/utils/get-design-system-id';
+import { getProjectId } from '../supabase/server/utils/get-project-id';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';
   private url = 'https://www.figma.com';
   private accessToken: string | undefined;
   private retryCount = 0;
-  private state: 'ready' | 'invalid' | undefined;
+  private state: 'not-integrated' | 'ready' | 'invalid' | undefined;
 
-  constructor(private designSystemId: string) {}
+  constructor(private projectId: string) {}
 
   public async init() {
     await this.updateIntegration();
@@ -55,7 +55,7 @@ class Figma {
 
     const validatedValues = integrationsTableSchema.parse({
       type: integrationType.Enum.figma,
-      designSystemId: this.designSystemId,
+      projectId: this.projectId,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- We are making sure it gets validated by the schema, so there should not be any risk in theory
       data: {
         type: integrationType.Enum.figma,
@@ -67,7 +67,7 @@ class Figma {
       .insert(integrationsTable)
       .values(validatedValues)
       .onConflictDoUpdate({
-        target: [integrationsTable.type, integrationsTable.designSystemId],
+        target: [integrationsTable.type, integrationsTable.projectId],
         set: {
           data: validatedValues.data,
         },
@@ -126,7 +126,7 @@ class Figma {
       where: (integrations) =>
         and(
           eq(integrations.type, integrationType.Enum.figma),
-          eq(integrations.designSystemId, this.designSystemId)
+          eq(integrations.projectId, this.projectId)
         ),
     })) as SelectFigmaIntegration | undefined;
   }
@@ -139,7 +139,8 @@ class Figma {
     const integration = await this.getIntegration();
 
     if (!integration) {
-      throw new Error('No integration found');
+      this.state = 'not-integrated';
+      return;
     }
 
     if (this.isIntegrationExpired(integration)) {
@@ -246,8 +247,8 @@ class Figma {
   }
 }
 
-async function generateFigma(designSystemId: string) {
-  const figma = new Figma(designSystemId);
+async function generateFigma(projectId: string) {
+  const figma = new Figma(projectId);
   await figma.init();
   return figma;
 }
@@ -255,11 +256,11 @@ async function generateFigma(designSystemId: string) {
 const memoizedFigma = memoize(generateFigma);
 
 export async function getFigma() {
-  const designSystemId = await getDesignSystemId();
+  const projectId = await getProjectId();
 
-  if (!designSystemId) {
-    throw new Error('No design system associated with this account');
+  if (!projectId) {
+    throw new Error('No project associated with this account');
   }
 
-  return memoizedFigma(designSystemId);
+  return memoizedFigma(projectId);
 }
