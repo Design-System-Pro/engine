@@ -10,7 +10,11 @@
     "type-check": "tsc --noEmit",
     "db:types": "pnpm dlx supabase gen types --lang=typescript --linked > src/lib/supabase/__generated__/database.generated.types.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:reset": "pnpx supabase db reset",
+    "db:start": "pnpx supabase start",
+    "db:stop": "pnpx supabase stop"
   },
   "dependencies": {
     "@ds-project/components": "workspace:*",

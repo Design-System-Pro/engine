@@ -8,7 +8,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { z } from 'zod';
 import { createInsertSchema } from 'drizzle-zod';
-import { designSystemsTable } from './design-systems';
+import { projectsTable } from './projects';
 
 export const integrationTypeEnum = pgEnum('integration_type', [
   'github',
@@ -42,8 +42,8 @@ export const integrationsTable = pgTable(
   'integrations',
   {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
-    designSystemId: uuid('design_system_id')
-      .references(() => designSystemsTable.id, { onDelete: 'cascade' })
+    projectId: uuid('project_id')
+      .references(() => projectsTable.id, { onDelete: 'cascade' })
       .notNull(),
     type: integrationTypeEnum('type').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
@@ -56,7 +56,7 @@ export const integrationsTable = pgTable(
     data: jsonb('data').$type<IntegrationData>(),
   },
   (integration) => ({
-    unique: unique().on(integration.type, integration.designSystemId),
+    unique: unique().on(integration.type, integration.projectId),
   })
 );
 

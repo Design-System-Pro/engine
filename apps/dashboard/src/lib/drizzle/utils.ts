@@ -27,12 +27,24 @@ export async function getTokens(request?: NextRequest) {
   const account = await getAccount(request);
 
   if (!account) throw new Error('No account found');
-  const designSystemId = account.designSystemId;
-  if (!designSystemId) return;
 
-  const designSystem = await database.query.resourcesTable.findFirst({
-    where: (resources) => eq(resources.designSystemId, designSystemId),
+  const project = await database.query.projectsTable.findFirst({
+    columns: {
+      id: true,
+    },
+    with: {
+      accountsToProjects: {
+        where: (accountsToProjects) =>
+          eq(accountsToProjects.accountId, account.id),
+      },
+    },
   });
 
-  return designSystem?.designTokens;
+  if (!project?.id) return;
+
+  const resource = await database.query.resourcesTable.findFirst({
+    where: (resources) => eq(resources.projectId, project.id),
+  });
+
+  return resource?.designTokens;
 }

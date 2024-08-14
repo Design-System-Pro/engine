@@ -1,19 +1,28 @@
 import { eq } from 'drizzle-orm';
 import { database } from '@/lib/drizzle';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-import { getDesignSystemId } from '@/lib/supabase/server/utils/get-design-system-id';
+import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
 
 export async function getResources() {
   if (!(await isAuthenticated())) {
     throw new Error('Not authenticated');
   }
 
-  const designSystemId = await getDesignSystemId();
+  const projectId = await getProjectId();
 
-  if (!designSystemId)
-    throw new Error('No design system associated with this account');
+  if (!projectId) throw new Error('No project associated with this account');
 
   return database.query.resourcesTable.findMany({
-    where: (resources) => eq(resources.designSystemId, designSystemId),
+    with: {
+      project: {
+        with: {
+          resources: true,
+          accountsToProjects: {
+            where: (accountsToProjects) =>
+              eq(accountsToProjects.projectId, projectId),
+          },
+        },
+      },
+    },
   });
 }

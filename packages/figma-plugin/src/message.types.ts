@@ -6,8 +6,8 @@ export enum AsyncMessageTypes {
   GetCredentials = 'get-credentials',
   GetDesignTokens = 'get-design-tokens',
   DeleteCredentials = 'delete-credentials',
-  SetDesignSystem = 'set-design-system',
-  GetDesignSystem = 'get-design-system',
+  SetProjectId = 'set-project-id',
+  GetProjectId = 'get-project-id',
   GetConfig = 'get-config',
 }
 
@@ -69,20 +69,19 @@ export type GetDesignTokensResponse = AsyncMessage<
   }
 >;
 
-export type GetDesignSystemRequest =
-  AsyncMessage<AsyncMessageTypes.GetDesignSystem>;
+export type GetProjectIdRequest = AsyncMessage<AsyncMessageTypes.GetProjectId>;
 
-export type GetDesignSystemResponse = AsyncMessage<
-  AsyncMessageTypes.GetDesignSystem,
+export type GetProjectIdResponse = AsyncMessage<
+  AsyncMessageTypes.GetProjectId,
   {
-    designSystemId?: string;
+    projectId?: string;
   }
 >;
 
-export type SetDesignSystemRequest = AsyncMessage<
-  AsyncMessageTypes.SetDesignSystem,
+export type SetProjectIdRequest = AsyncMessage<
+  AsyncMessageTypes.SetProjectId,
   {
-    designSystemId: string;
+    projectId: string;
   }
 >;
 
@@ -100,14 +99,14 @@ export type AsyncMessageRequests =
   | SetCredentialsRequest
   | DeleteCredentialsRequest
   | GetDesignTokensRequest
-  | GetDesignSystemRequest
-  | SetDesignSystemRequest
+  | GetProjectIdRequest
+  | SetProjectIdRequest
   | GetConfigRequest;
 
 export type AsyncMessageResponses =
   | GetCredentialsResponse
   | GetDesignTokensResponse
-  | GetDesignSystemResponse
+  | GetProjectIdResponse
   | GetConfigResponse;
 
 export type AsyncMessageRequestsMap = {

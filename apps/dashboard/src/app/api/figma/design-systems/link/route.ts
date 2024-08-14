@@ -8,13 +8,13 @@ export async function POST(request: NextRequest) {
     return new Response('Not authenticated', { status: 401 });
   }
 
-  const { designSystemId, fileName } = (await request.json()) as {
-    designSystemId: string;
+  const { projectId, fileName } = (await request.json()) as {
+    projectId: string;
     fileName: string;
   };
 
   await database.insert(resourcesTable).values({
-    designSystemId,
+    projectId,
     name: fileName,
   });
 

@@ -4,7 +4,7 @@ import { AsyncMessageTypes } from '../../../message.types';
 
 interface ContextType {
   fileName?: string;
-  designSystemId?: string;
+  projectId?: string;
 }
 
 const Context = createContext<ContextType>({});

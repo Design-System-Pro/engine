@@ -2,7 +2,7 @@ import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import type { DesignTokens, DesignToken } from 'style-dictionary/types';
 import { z } from 'zod';
-import { designSystemsTable } from './design-systems';
+import { projectsTable } from './projects';
 
 // DesignToken schema
 const DesignTokenSchema = z
@@ -54,8 +54,8 @@ export const resourcesTable = pgTable('resources', {
     .defaultNow()
     .notNull()
     .$onUpdate(() => new Date().toISOString()),
-  designSystemId: uuid('design_system_id')
-    .references(() => designSystemsTable.id, { onDelete: 'cascade' })
+  projectId: uuid('project_id')
+    .references(() => projectsTable.id, { onDelete: 'cascade' })
     .notNull()
     .unique(),
   name: text('name').notNull(),

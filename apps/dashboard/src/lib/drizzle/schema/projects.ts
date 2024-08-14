@@ -1,8 +1,8 @@
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
-export const designSystemsTable = pgTable('design_systems', {
+export const projectsTable = pgTable('projects', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
-  name: text('name').notNull().default('Default Design System'),
+  name: text('name').notNull().default('Default Project'),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
     .notNull(),
@@ -11,3 +11,5 @@ export const designSystemsTable = pgTable('design_systems', {
     .notNull()
     .$onUpdate(() => new Date().toISOString()),
 });
+
+export type SelectProjects = typeof projectsTable.$inferSelect;

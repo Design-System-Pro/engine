@@ -2,25 +2,48 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Icons,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@ds-project/components';
 import Link from 'next/link';
 import { cn } from '@/lib/css';
-import { HomeButton } from '../home-button/home-button';
+import type { SelectProjects } from '@/lib/drizzle/schema';
+import { HomeButton } from '../home-button';
 
-export function Navigation({ className }: { className?: string }) {
+interface NavigationProps {
+  className?: string;
+  projects?: SelectProjects[];
+}
+
+export function Navigation({ className, projects }: NavigationProps) {
   return (
-    <nav className={cn(className)}>
+    <nav className={cn('flex w-full justify-start gap-2', className)}>
+      <HomeButton />
+      <DropdownMenu>
+        <DropdownMenuTrigger className="flex items-center gap-2 rounded-md border border-[hsl(var(--input))] p-2">
+          <Icons.FrameIcon /> {projects?.[0].name} <Icons.ChevronDownIcon />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          {projects?.map((project) => (
+            <DropdownMenuItem key={project.id}>
+              <Icons.FrameIcon className="mr-2" /> {project.name}
+            </DropdownMenuItem>
+          ))}
+          <DropdownMenuItem
+            aria-label="Soon you will be able to add new projects"
+            disabled
+            title="Coming Soon"
+          >
+            <Icons.PlusIcon className="mr-2" /> New Project
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <NavigationMenu>
-        <HomeButton className="mr-2" />
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link href="/tokens" legacyBehavior passHref>
@@ -35,23 +58,6 @@ export function Navigation({ className }: { className?: string }) {
                 Integrations
               </NavigationMenuLink>
             </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                asChild
-                className={navigationMenuTriggerStyle()}
-              >
-                <NavigationMenuTrigger>Account</NavigationMenuTrigger>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link href="/auth/logout">Logout</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

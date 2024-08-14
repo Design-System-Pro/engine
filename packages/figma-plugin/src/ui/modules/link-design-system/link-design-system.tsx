@@ -12,22 +12,19 @@ import { useDSApi } from '../providers/ds-api-provider';
 import { useAuth } from '../providers/auth-provider';
 
 export function LinkDesignSystem() {
-  const [designSystems, setDesignSystems] = useState<
-    { id: string; name: string }[]
-  >([]);
-  const [selectedDesignSystemId, setSelectedDesignSystemId] =
-    useState<string>();
+  const [projects, setProjects] = useState<{ id: string; name: string }[]>([]);
+  const [selectedProjectId, setSelectedProjectId] = useState<string>();
   const { state } = useAuth();
-  const { getDesignSystems, linkDesignSystem } = useDSApi();
+  const { getProjects, linkProject } = useDSApi();
 
   useEffect(() => {
     AsyncMessage.ui
       .request({
-        type: AsyncMessageTypes.GetDesignSystem,
+        type: AsyncMessageTypes.GetProjectId,
       })
-      .then(({ designSystemId }) => {
-        if (!designSystemId) return;
-        setSelectedDesignSystemId(designSystemId);
+      .then(({ projectId }) => {
+        if (!projectId) return;
+        setSelectedProjectId(projectId);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
@@ -38,34 +35,34 @@ export function LinkDesignSystem() {
   useEffect(() => {
     if (state !== 'authorized') return;
 
-    getDesignSystems()
+    getProjects()
       .then((data) => {
-        setDesignSystems(data.designSystems);
+        setProjects(data.projects);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error fetching design systems', error);
       });
-  }, [getDesignSystems, state]);
+  }, [getProjects, state]);
 
   const onValueChange = useCallback(
-    (designSystemId: string) => {
-      void linkDesignSystem(designSystemId);
+    (projectId: string) => {
+      void linkProject(projectId);
       void AsyncMessage.ui.request({
-        type: AsyncMessageTypes.SetDesignSystem,
-        designSystemId,
+        type: AsyncMessageTypes.SetProjectId,
+        projectId,
       });
     },
-    [linkDesignSystem]
+    [linkProject]
   );
 
   return (
-    <Select onValueChange={onValueChange} value={selectedDesignSystemId}>
+    <Select onValueChange={onValueChange} value={selectedProjectId}>
       <SelectTrigger className="max-w-[200px]">
-        <SelectValue placeholder="Select a design system" />
+        <SelectValue placeholder="Select a project" />
       </SelectTrigger>
       <SelectContent>
-        {designSystems.map(({ id, name }) => (
+        {projects.map(({ id, name }) => (
           <SelectItem key={id} value={id}>
             {name}
           </SelectItem>

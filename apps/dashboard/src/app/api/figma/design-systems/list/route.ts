@@ -1,33 +1,32 @@
 import type { NextRequest } from 'next/server';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { database } from '@/lib/drizzle';
-import { getUserAccount } from '@/lib/supabase/server/utils/get-user-account';
-import { designSystemsTable } from '@/lib/drizzle/schema';
+import { projectsTable } from '@/lib/drizzle/schema';
+import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
 
 export async function GET(request: NextRequest) {
   if (!(await isAuthenticated(request))) {
     return new Response('Not authenticated', { status: 401 });
   }
 
-  const userAccount = await getUserAccount(request);
-  const designSystemId = userAccount?.designSystemId;
+  const projectId = await getProjectId(request);
 
-  if (!designSystemId) {
-    return new Response('No design system associated with this account', {
+  if (!projectId) {
+    return new Response('No project associated with this account', {
       status: 404,
     });
   }
 
-  const designSystems = await database
+  const projects = await database
     .select({
-      id: designSystemsTable.id,
-      name: designSystemsTable.name,
+      id: projectsTable.id,
+      name: projectsTable.name,
     })
-    .from(designSystemsTable);
+    .from(projectsTable);
 
   return new Response(
     JSON.stringify({
-      designSystems,
+      projects,
     }),
     { status: 200 }
   );

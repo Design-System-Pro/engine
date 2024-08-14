@@ -15,21 +15,21 @@ import { useAuth } from './auth-provider';
 import { useConfig } from './config-provider';
 
 interface ContextType {
-  linkDesignSystem: (designSystemId: string) => Promise<void>;
-  getDesignSystems: () => Promise<{
-    designSystems: { id: string; name: string }[];
+  linkProject: (projectId: string) => Promise<void>;
+  getProjects: () => Promise<{
+    projects: { id: string; name: string }[];
   }>;
   updateDesignTokens: (designTokens: DesignTokens) => Promise<void>;
 }
 
 const Context = createContext<ContextType>({
-  getDesignSystems: () => Promise.resolve({ designSystems: [] }),
-  linkDesignSystem: () => Promise.resolve(),
+  getProjects: () => Promise.resolve({ projects: [] }),
+  linkProject: () => Promise.resolve(),
   updateDesignTokens: () => Promise.resolve(),
 });
 
 export function DSApiProvider({ children }: { children: React.ReactNode }) {
-  const [linkedDesignSystemId, setLinkedDesignSystemId] = useState<string>();
+  const [linkedProjectId, setLinkedProjectId] = useState<string>();
   const retryCountRef = useRef(0);
   const { fileName } = useConfig();
   const { accessToken, refreshAccessToken } = useAuth();
@@ -37,11 +37,11 @@ export function DSApiProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     AsyncMessage.ui
       .request({
-        type: AsyncMessageTypes.GetDesignSystem,
+        type: AsyncMessageTypes.GetProjectId,
       })
-      .then(({ designSystemId }) => {
-        if (!designSystemId) throw new Error('No design system linked found.');
-        setLinkedDesignSystemId(designSystemId);
+      .then(({ projectId }) => {
+        if (!projectId) throw new Error('No design system linked found.');
+        setLinkedProjectId(projectId);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring
@@ -74,7 +74,7 @@ export function DSApiProvider({ children }: { children: React.ReactNode }) {
     [accessToken, refreshAccessToken]
   );
 
-  const getDesignSystems = useCallback(async () => {
+  const getProjects = useCallback(async () => {
     const result = await apiFetch('/api/figma/design-systems/list', {
       method: 'GET',
     });
@@ -82,16 +82,16 @@ export function DSApiProvider({ children }: { children: React.ReactNode }) {
     if (!result.ok) throw new Error('Error fetching design systems');
 
     return (await result.json()) as {
-      designSystems: { id: string; name: string }[];
+      projects: { id: string; name: string }[];
     };
   }, [apiFetch]);
 
-  const linkDesignSystem = useCallback(
-    async (designSystemId: string) => {
+  const linkProject = useCallback(
+    async (projectId: string) => {
       const response = await apiFetch('/api/figma/design-systems/link', {
         method: 'POST',
         body: JSON.stringify({
-          designSystemId,
+          projectId,
           fileName,
         }),
       });
@@ -105,12 +105,10 @@ export function DSApiProvider({ children }: { children: React.ReactNode }) {
 
   const updateDesignTokens = useCallback(
     async (designTokens: DesignTokens) => {
-      console.log({ designTokens });
-
       const response = await apiFetch('/api/figma/design-tokens', {
         method: 'POST',
         body: JSON.stringify({
-          designSystemId: linkedDesignSystemId,
+          projectId: linkedProjectId,
           designTokens,
         }),
       });
@@ -119,16 +117,16 @@ export function DSApiProvider({ children }: { children: React.ReactNode }) {
         throw new Error(response.statusText);
       }
     },
-    [apiFetch, linkedDesignSystemId]
+    [apiFetch, linkedProjectId]
   );
 
   const contextValue = useMemo<ContextType>(
     () => ({
-      getDesignSystems,
-      linkDesignSystem,
+      getProjects,
+      linkProject,
       updateDesignTokens,
     }),
-    [getDesignSystems, linkDesignSystem, updateDesignTokens]
+    [getProjects, linkProject, updateDesignTokens]
   );
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;

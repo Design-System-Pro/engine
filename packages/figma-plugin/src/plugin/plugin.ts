@@ -58,19 +58,18 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.GetDesignTokens, async () => {
 });
 
 AsyncMessage.plugin.handle(
-  AsyncMessageTypes.SetDesignSystem,
-  async ({ designSystemId }) => {
-    await storage.set(config.DESIGN_SYSTEM_ID_KEY, designSystemId);
+  AsyncMessageTypes.SetProjectId,
+  async ({ projectId }) => {
+    await storage.set(config.PROJECT_ID_KEY, projectId);
 
     return {};
   }
 );
 
-AsyncMessage.plugin.handle(AsyncMessageTypes.GetDesignSystem, async () => {
-  const designSystemId =
-    (await storage.get(config.DESIGN_SYSTEM_ID_KEY)) ?? undefined;
+AsyncMessage.plugin.handle(AsyncMessageTypes.GetProjectId, async () => {
+  const projectId = (await storage.get(config.PROJECT_ID_KEY)) ?? undefined;
 
   return Promise.resolve({
-    designSystemId,
+    projectId,
   });
 });
