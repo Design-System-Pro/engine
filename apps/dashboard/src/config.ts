@@ -55,4 +55,5 @@ export const config = {
     appClientSecret: figmaAppClientSecret,
     redirectUri: `${pageUrl}/integrations/providers/figma/callback`,
   },
+  gitTokensPath: 'packages/generator/tokens',
 } as const;

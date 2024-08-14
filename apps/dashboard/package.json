@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@next/env": "^14.2.5",
+    "@octokit/types": "^13.5.0",
     "@repo/eslint-config": "workspace:*",
     "@types/node": "^22.1.0",
     "@types/object-hash": "^3.0.6",

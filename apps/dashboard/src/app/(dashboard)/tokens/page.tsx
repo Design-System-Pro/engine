@@ -36,8 +36,8 @@ export default async function Tokens() {
         <CardContent>
           {Boolean(tokens) && Boolean(githubTokens) ? (
             <DiffBlock
-              newValue={JSON.stringify(githubTokens, null, 2)}
-              oldValue={JSON.stringify(tokens, null, 2)}
+              newValue={JSON.stringify(tokens, null, 2)}
+              oldValue={JSON.stringify(githubTokens, null, 2)}
             />
           ) : (
             <Text>

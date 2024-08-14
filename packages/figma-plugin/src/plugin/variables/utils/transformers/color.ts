@@ -64,6 +64,7 @@ export function colorVariable({
           attributes: {
             modeId,
             state,
+            hiddenFromPublishing: variable.hiddenFromPublishing,
           },
         },
       };

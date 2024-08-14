@@ -31,7 +31,7 @@ export async function getTokens(request?: NextRequest) {
   if (!designSystemId) return;
 
   const designSystem = await database.query.resourcesTable.findFirst({
-    where: (resources) => eq(resources.id, designSystemId),
+    where: (resources) => eq(resources.designSystemId, designSystemId),
   });
 
   return designSystem?.designTokens;

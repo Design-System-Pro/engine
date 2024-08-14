@@ -4,6 +4,7 @@ import type { DesignTokens } from 'style-dictionary/types';
 import { revalidatePath } from 'next/cache';
 import { pushFile } from '@/lib/github';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+import { config } from '@/config';
 
 export async function updateTokens(newTokens: DesignTokens) {
   if (!(await isAuthenticated())) {
@@ -14,7 +15,7 @@ export async function updateTokens(newTokens: DesignTokens) {
   await pushFile({
     content: base64Content,
     encoding: 'base64',
-    name: 'tokens.json',
+    name: `${config.gitTokensPath}/tokens.json`,
   });
 
   revalidatePath('/tokens');
