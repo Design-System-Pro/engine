@@ -56,30 +56,32 @@ export async function GithubProvider() {
         </Text>
       </div>
 
-      <form action={selectRepository} className="flex gap-2">
-        <Select
-          defaultValue={installation?.data.repositoryId?.toString()}
-          name="repositoryId"
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Repositories" />
-          </SelectTrigger>
-          <SelectContent>
-            {repositories?.map((repository) => (
-              <SelectItem key={repository.id} value={String(repository.id)}>
-                {repository.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Input
-          name="installationId"
-          type="hidden"
-          value={installation?.data.installationId}
-        />
+      {installation ? (
+        <form action={selectRepository} className="flex gap-2">
+          <Select
+            defaultValue={installation.data.repositoryId?.toString()}
+            name="repositoryId"
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Repositories" />
+            </SelectTrigger>
+            <SelectContent>
+              {repositories?.map((repository) => (
+                <SelectItem key={repository.id} value={String(repository.id)}>
+                  {repository.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Input
+            name="installationId"
+            type="hidden"
+            value={installation.data.installationId}
+          />
 
-        <Button type="submit">Update</Button>
-      </form>
+          <Button type="submit">Update</Button>
+        </form>
+      ) : null}
 
       <Button asChild variant={isInstallationActive ? 'outline' : 'default'}>
         <Link href={installationUrl}>
@@ -87,9 +89,9 @@ export async function GithubProvider() {
         </Link>
       </Button>
 
-      <Button>
+      {/* <Button>
         <Link href="/integrations/providers/github">Tokens</Link>
-      </Button>
+      </Button> */}
     </div>
   );
 }

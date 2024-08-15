@@ -22,7 +22,12 @@ interface NavigationProps {
 
 export function Navigation({ className, projects }: NavigationProps) {
   return (
-    <nav className={cn('flex w-full justify-start gap-2', className)}>
+    <nav
+      className={cn(
+        'flex w-full justify-start gap-2 border-b border-slate-200 bg-white pb-2',
+        className
+      )}
+    >
       <HomeButton />
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center gap-2 rounded-md border border-[hsl(var(--input))] p-2">

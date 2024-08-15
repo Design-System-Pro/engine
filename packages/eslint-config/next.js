@@ -1,6 +1,6 @@
-const { resolve } = require("node:path");
+const { resolve } = require('node:path');
 
-const project = resolve(process.cwd(), "tsconfig.json");
+const project = resolve(process.cwd(), 'tsconfig.json');
 
 /*
  * This is a custom ESLint configuration for use with
@@ -13,50 +13,50 @@ const project = resolve(process.cwd(), "tsconfig.json");
 
 module.exports = {
   extends: [
-    "@vercel/style-guide/eslint/node",
-    "@vercel/style-guide/eslint/typescript",
-    "@vercel/style-guide/eslint/browser",
-    "@vercel/style-guide/eslint/react",
-    "@vercel/style-guide/eslint/next",
-    "eslint-config-turbo",
+    '@vercel/style-guide/eslint/node',
+    '@vercel/style-guide/eslint/typescript',
+    '@vercel/style-guide/eslint/browser',
+    '@vercel/style-guide/eslint/react',
+    '@vercel/style-guide/eslint/next',
+    'eslint-config-turbo',
   ].map(require.resolve),
-  plugins: ["unused-imports", "tailwindcss"],
+  plugins: ['unused-imports', 'tailwindcss'],
   parserOptions: { project },
-  globals: { React: true, JSX: true },
+  globals: { React: true, JSX: true, BufferEncoding: 'readonly' },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: { project },
-      node: { extensions: [".mjs", ".js", ".jsx", ".ts", ".tsx"] },
+      node: { extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx'] },
     },
     tailwindcss: {
-      callees: ["cn", "clsx", "cva"],
+      callees: ['cn', 'clsx', 'cva'],
     },
   },
-  ignorePatterns: ["node_modules/", "dist/", ".eslintrc.js", "**/*.css"],
+  ignorePatterns: ['node_modules/', 'dist/', '.eslintrc.js', '**/*.css'],
   rules: {
-    "import/no-default-export": "off",
-    "no-unused-vars": "off",
-    "unused-imports/no-unused-imports": "error",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-misused-promises": [
-      "error",
+    'import/no-default-export': 'off',
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-misused-promises': [
+      'error',
       { checksVoidReturn: { attributes: false } },
     ],
-    "react/jsx-boolean-value": "error",
+    'react/jsx-boolean-value': 'error',
 
-    "tailwindcss/classnames-order": "warn",
-    "tailwindcss/enforces-negative-arbitrary-values": "warn",
-    "tailwindcss/enforces-shorthand": "warn",
-    "tailwindcss/migration-from-tailwind-2": "warn",
-    "tailwindcss/no-arbitrary-value": "off",
-    "tailwindcss/no-custom-classname": "warn",
-    "tailwindcss/no-contradicting-classname": "error",
-    "tailwindcss/no-unnecessary-arbitrary-value": "warn",
+    'tailwindcss/classnames-order': 'warn',
+    'tailwindcss/enforces-negative-arbitrary-values': 'warn',
+    'tailwindcss/enforces-shorthand': 'warn',
+    'tailwindcss/migration-from-tailwind-2': 'warn',
+    'tailwindcss/no-arbitrary-value': 'off',
+    'tailwindcss/no-custom-classname': 'warn',
+    'tailwindcss/no-contradicting-classname': 'error',
+    'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
 
-    "arrow-body-style": "error",
-    "prefer-arrow-callback": "error",
-    "react/function-component-definition": "off",
+    'arrow-body-style': 'error',
+    'prefer-arrow-callback': 'error',
+    'react/function-component-definition': 'off',
 
-    "jsx-a11y/heading-has-content": [2, { components: ["CardTitle"] }],
+    'jsx-a11y/heading-has-content': [2, { components: ['CardTitle'] }],
   },
 };
