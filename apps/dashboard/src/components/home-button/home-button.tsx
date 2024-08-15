@@ -6,7 +6,11 @@ import logo from './logo.svg';
 
 export function HomeButton({ className }: { className?: string }) {
   return (
-    <Button asChild className={cn(className)} variant="ghost">
+    <Button
+      asChild
+      className={cn('border border-slate-200', className)}
+      variant="ghost"
+    >
       <Link href="/">
         <Image alt="Home" height={32} src={logo} width={32} />
       </Link>

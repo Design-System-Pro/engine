@@ -21,8 +21,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn('flex flex-col items-center', inter.className)}>
-        <Navigation className="mt-6 px-2" projects={projects} />
-        <main className="flex min-h-screen w-full flex-col items-center p-24">
+        <header className="sticky top-0 w-full">
+          <Navigation className="px-2 pt-2" projects={projects} />
+        </header>
+        <main className="flex min-h-screen w-full flex-col items-center py-2">
           {children}
         </main>
       </body>

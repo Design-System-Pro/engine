@@ -6,10 +6,6 @@ import { forwardRef } from 'react';
 import { cn } from '../lib/utils';
 
 const textVariations = cva('', {
-  defaultVariants: {
-    size: 'base',
-    family: 'sans',
-  },
   variants: {
     size: {
       xs: 'ds-fluid-text-xs',
@@ -38,6 +34,7 @@ const textVariations = cva('', {
     },
     family: {
       sans: 'ds-font-sans',
+      mono: 'ds-font-mono'
     },
     mood: {
       default: "ds-text-foreground",

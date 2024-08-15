@@ -1,2 +1,2 @@
-export * from './update-tokens.action';
+export * from './fetch-releases.action';
 export * from './tokens.action';
