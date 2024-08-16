@@ -89,6 +89,9 @@ importers:
       '@ds-project/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@ds-project/types':
+        specifier: workspace:*
+        version: link:../../packages/figma-to-design-tokens
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.52.2(react@18.3.1))
@@ -599,6 +602,9 @@ importers:
       '@ds-project/components':
         specifier: workspace:*
         version: link:../components
+      '@ds-project/types':
+        specifier: workspace:*
+        version: link:../figma-to-design-tokens
       '@octokit/core':
         specifier: ^6.1.2
         version: 6.1.2
@@ -705,6 +711,10 @@ importers:
       color2k:
         specifier: ^2.0.3
         version: 2.0.3
+    devDependencies:
+      '@figma/plugin-typings':
+        specifier: ^1.98.0
+        version: 1.98.0
       style-dictionary:
         specifier: ^4.0.1
         version: 4.0.1
@@ -2311,6 +2321,9 @@ packages:
 
   '@figma/plugin-typings@1.97.0':
     resolution: {integrity: sha512-AcmZey7TBbc43g2dO+9hjrcTbgb0UFY32do3to3rFU1OXb9hinsrmmbddyhD5105DHzRDac4oT7A5+VOow7p1Q==}
+
+  '@figma/plugin-typings@1.98.0':
+    resolution: {integrity: sha512-Bx5pBRf8XWeAFbDtKfdiUEM/UkCHyl4baOGb+7OPM0ozrzg5JNDH/BsrGA4EpuJKkS4uRmV525q3g067OX6VHg==}
 
   '@floating-ui/core@1.6.5':
     resolution: {integrity: sha512-8GrTWmoFhm5BsMZOTHeGD2/0FLKLQQHvO/ZmQga4tKempYRLz8aqJGqXVuQgisnMObq2YZ2SgkwctN1LOOxcqA==}
@@ -9048,6 +9061,8 @@ snapshots:
       - supports-color
 
   '@figma/plugin-typings@1.97.0': {}
+
+  '@figma/plugin-typings@1.98.0': {}
 
   '@floating-ui/core@1.6.5':
     dependencies:

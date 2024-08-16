@@ -14,6 +14,7 @@
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
+    "@ds-project/types": "workspace:*",
     "@apollo/client": "^3.7.11",
     "@ds-project/api": "workspace:*",
     "@ds-project/components": "workspace:*",

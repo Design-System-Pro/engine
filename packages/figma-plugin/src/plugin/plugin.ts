@@ -1,9 +1,10 @@
+import { convertFigmaVariablesToDesignTokens } from '@ds-project/types';
 import { AsyncMessage } from '../message';
 import { AsyncMessageTypes } from '../message.types';
 import type { Credentials } from '../types/credentials';
 import { config } from '../ui/config';
+import { extractVariables } from './extract-variables/extract-variables';
 import { storage } from './storage';
-import { getFigmaVariables } from './variables/utils/get-figma-variables';
 
 figma.showUI(__html__, {
   themeColors: true,
@@ -50,10 +51,10 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.DeleteCredentials, async () => {
 });
 
 AsyncMessage.plugin.handle(AsyncMessageTypes.GetDesignTokens, async () => {
-  const styleDictionary = await getFigmaVariables();
+  const variables = await extractVariables(figma);
 
   return {
-    designTokens: styleDictionary,
+    designTokens: convertFigmaVariablesToDesignTokens(variables),
   };
 });
 

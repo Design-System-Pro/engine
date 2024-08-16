@@ -6,8 +6,7 @@ import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';
 import { LinkDesignSystem } from './modules/link-design-system';
 import { useAuth } from './modules/providers/auth-provider';
-import { api } from './lib/api';
-import { useConfig } from './modules/providers/config-provider';
+import { config } from './config';
 
 function App() {
   const { login, logout, state } = useAuth();
@@ -24,8 +23,8 @@ function App() {
         type: AsyncMessageTypes.GetDesignTokens,
       })
       .then(({ designTokens }) => {
-        if (fileName) {
-          void updateDesignTokens({ designTokens, name: fileName });
+        if (config.features.shouldUpdateTokens) {
+          void updateDesignTokens(designTokens);
         }
       })
       .catch((error) => {
