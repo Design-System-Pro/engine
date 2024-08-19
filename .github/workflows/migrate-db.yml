@@ -18,9 +18,6 @@ jobs:
       - name: Setup
         uses: ./tools/github/setup
 
-      - name: Install Dependencies
-        run: pnpm install
-
       - name: Run Drizzle Migration
         working-directory: apps/dashboard
         run: pnpm db:migrate
