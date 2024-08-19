@@ -8,11 +8,11 @@ loadEnvConfig(process.cwd());
 export const env = createEnv({
   server: {
     POSTGRES_URL: z.string().url(),
-    ENVIRONMENT: z.enum(['development', 'test', 'production']),
+    NODE_ENV: z.enum(['development', 'test', 'production']),
   },
   runtimeEnv: {
     POSTGRES_URL: process.env.POSTGRES_URL,
-    ENVIRONMENT: process.env.ENVIRONMENT,
+    NODE_ENV: process.env.NODE_ENV,
   },
   emptyStringAsUndefined: true,
 });
@@ -26,6 +26,6 @@ export default defineConfig({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- TODO: review
     url: env.POSTGRES_URL,
   },
-  verbose: env.ENVIRONMENT === 'development',
+  verbose: env.NODE_ENV === 'development',
   strict: true,
 });

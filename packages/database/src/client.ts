@@ -8,5 +8,5 @@ export const connection = postgres(env.POSTGRES_URL, {
 });
 export const database = drizzle(connection, {
   schema,
-  logger: env.ENVIRONMENT === 'development',
+  logger: env.NODE_ENV === 'development',
 });
