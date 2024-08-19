@@ -22,19 +22,11 @@ export const env = createEnv({
       .optional(),
     NEXT_PUBLIC_VERCEL_URL: z.string().min(1).optional(),
   },
-  runtimeEnv: {
+  experimental__runtimeEnv: {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
     NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
-    ENVIRONMENT: process.env.ENVIRONMENT,
-    GITHUB_APP_ID: process.env.GITHUB_APP_ID,
-    GITHUB_APP_PRIVATE_KEY: process.env.GITHUB_APP_PRIVATE_KEY,
-    GITHUB_APP_CLIENT_ID: process.env.GITHUB_APP_CLIENT_ID,
-    GITHUB_APP_CLIENT_SECRET: process.env.GITHUB_APP_CLIENT_SECRET,
-    FIGMA_APP_CLIENT_ID: process.env.FIGMA_APP_CLIENT_ID,
-    FIGMA_APP_CLIENT_SECRET: process.env.FIGMA_APP_CLIENT_SECRET,
-    POSTGRES_URL: process.env.POSTGRES_URL,
   },
 });
 

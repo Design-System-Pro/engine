@@ -57,6 +57,7 @@
     "drizzle-kit": "^0.23.2",
     "eslint": "catalog:",
     "eslint-config-next": "14.2.5",
+    "jiti": "^1.21.6",
     "postcss": "^8",
     "supabase": "^1.187.10",
     "tailwindcss": "^3.4.7",

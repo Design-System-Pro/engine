@@ -180,6 +180,9 @@ importers:
       eslint-config-next:
         specifier: 14.2.5
         version: 14.2.5(eslint@8.57.0)(typescript@5.5.4)
+      jiti:
+        specifier: ^1.21.6
+        version: 1.21.6
       postcss:
         specifier: ^8
         version: 8.4.39

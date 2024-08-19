@@ -1,5 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "ENVIRONMENT",
+    "GITHUB_APP_ID",
+    "GITHUB_APP_PRIVATE_KEY",
+    "GITHUB_APP_CLIENT_ID",
+    "GITHUB_APP_CLIENT_SECRET",
+    "FIGMA_APP_CLIENT_ID",
+    "FIGMA_APP_CLIENT_SECRET",
+    "POSTGRES_URL"
+  ],
   "tasks": {
     "topo": {
       "dependsOn": ["^topo"]
