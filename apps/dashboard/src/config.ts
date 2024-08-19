@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
+    NODE_ENV: z.enum(['development', 'test', 'production']),
     GITHUB_APP_ID: z.string().min(1),
     GITHUB_APP_PRIVATE_KEY: z.string().min(1),
     GITHUB_APP_CLIENT_ID: z.string().min(1),
@@ -10,9 +11,6 @@ export const env = createEnv({
     FIGMA_APP_CLIENT_ID: z.string().min(1),
     FIGMA_APP_CLIENT_SECRET: z.string().min(1),
     POSTGRES_URL: z.string().min(1),
-    ENVIRONMENT: z
-      .enum(['development', 'test', 'production'])
-      .default('production'),
   },
   client: {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
@@ -42,7 +40,7 @@ const pageUrl = (() => {
 })();
 
 export const config = {
-  environment: process.env.NODE_ENV,
+  environment: env.NODE_ENV,
   pageUrl,
   supabaseUrl: env.NEXT_PUBLIC_SUPABASE_URL,
   supabaseAnonKey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
