@@ -7,11 +7,11 @@ loadEnvConfig(process.cwd());
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
+    POSTGRES_URL: z.string().url(),
     ENVIRONMENT: z.enum(['development', 'test', 'production']),
   },
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    POSTGRES_URL: process.env.POSTGRES_URL,
     ENVIRONMENT: process.env.ENVIRONMENT,
   },
   emptyStringAsUndefined: true,
@@ -24,7 +24,7 @@ export default defineConfig({
   dialect: 'postgresql',
   dbCredentials: {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- TODO: review
-    url: env.DATABASE_URL,
+    url: env.POSTGRES_URL,
   },
   verbose: env.ENVIRONMENT === 'development',
   strict: true,

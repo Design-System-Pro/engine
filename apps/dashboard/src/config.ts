@@ -9,7 +9,7 @@ export const env = createEnv({
     GITHUB_APP_CLIENT_SECRET: z.string().min(1),
     FIGMA_APP_CLIENT_ID: z.string().min(1),
     FIGMA_APP_CLIENT_SECRET: z.string().min(1),
-    DATABASE_URL: z.string().min(1),
+    POSTGRES_URL: z.string().min(1),
     ENVIRONMENT: z
       .enum(['development', 'test', 'production'])
       .default('production'),

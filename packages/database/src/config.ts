@@ -6,7 +6,7 @@ loadEnvConfig(process.cwd());
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
+    POSTGRES_URL: z.string().url(),
     ENVIRONMENT: z.enum(['development', 'test', 'production']),
   },
   runtimeEnv: process.env,
