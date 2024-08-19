@@ -1,0 +1,5 @@
+{
+  "extends": "@ds-project/typescript/base.json",
+  "include": ["."],
+  "exclude": ["node_modules"]
+}

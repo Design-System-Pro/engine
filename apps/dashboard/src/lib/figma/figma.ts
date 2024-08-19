@@ -6,15 +6,16 @@ import memoize from 'memoize';
 import { kv } from '@vercel/kv';
 import { config } from '@/config';
 import type { KVOAuthState } from '@/types/kv-types';
-import type { SelectFigmaIntegration } from '../drizzle/schema';
+
+import { getProjectId } from '../supabase/server/utils/get-project-id';
+import type { SelectFigmaIntegration } from '@ds-project/database/schema';
 import {
   figmaIntegrationSchema,
   integrationsTable,
   integrationsTableSchema,
   integrationType,
-} from '../drizzle/schema';
-import { database } from '../drizzle';
-import { getProjectId } from '../supabase/server/utils/get-project-id';
+} from '@ds-project/database/schema';
+import { database } from '@ds-project/database/client';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';

@@ -1,10 +1,11 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
-import type { FigmaIntegration } from '@/lib/drizzle/schema';
-import { integrationType } from '@/lib/drizzle/schema';
+
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+import { database } from '@ds-project/database/client';
+import type { FigmaIntegration } from '@ds-project/database/schema';
+import { integrationType } from '@ds-project/database/schema';
 
 export async function getInstallation() {
   if (!(await isAuthenticated())) {

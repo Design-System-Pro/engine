@@ -1,13 +1,14 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
+
+import { createServerClient } from '@/lib/supabase/server/client';
 import {
   integrationDataSchema,
   integrationsTable,
   integrationType,
-} from '@/lib/drizzle/schema';
-import { createServerClient } from '@/lib/supabase/server/client';
+} from '@ds-project/database/schema';
+import { database } from '@ds-project/database/client';
 
 export async function selectRepository(formData: FormData) {
   const supabase = createServerClient();

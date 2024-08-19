@@ -3,7 +3,7 @@
 import { eq } from 'drizzle-orm';
 import type { NextRequest } from 'next/server';
 import { createServerClient } from '../supabase/server/client';
-import { database } from '.';
+import { database } from '@ds-project/database/client';
 
 export async function getAccount(request?: NextRequest) {
   const authorizationHeader = request?.headers.get('Authorization');

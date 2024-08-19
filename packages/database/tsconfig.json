@@ -1,0 +1,5 @@
+{
+  "extends": "@ds-project/typescript/internal-package.json",
+  "include": ["src", "drizzle.config.ts"],
+  "exclude": ["node_modules"]
+}

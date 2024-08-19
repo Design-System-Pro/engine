@@ -3,12 +3,12 @@ import 'server-only';
 import { App } from '@octokit/app';
 import { eq } from 'drizzle-orm';
 import { config } from '@/config';
-import { database } from '../drizzle';
+import { database } from '@ds-project/database/client';
 import type {
   GithubIntegration,
   SelectGithubIntegration,
-} from '../drizzle/schema';
-import { integrationType } from '../drizzle/schema';
+} from '@ds-project/database/schema';
+import { integrationType } from '@ds-project/database/schema';
 
 const githubApp = new App({
   appId: config.github.appId,

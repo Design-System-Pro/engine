@@ -17,7 +17,7 @@
   "files": [
     "dist"
   ],
-  "prettier": "@vercel/style-guide/prettier",
+  "prettier": "@ds-project/prettier",
   "scripts": {
     "build": "tsc && vite build && pnpm build:tailwind",
     "build:react": "vite build",
@@ -25,19 +25,22 @@
     "dev:tailwind": "tailwindcss -i ./src/globals.css -o ./dist/globals.css --postcss --watch",
     "dev": "concurrently -n react,tailwind \"pnpm run build:react --watch\" \"pnpm dev:tailwind\"",
     "lint": "eslint --max-warnings=0 .",
-    "type-check": "tsc"
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@ds-project/prettier": "workspace:*",
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
     "@types/node": "^20.14.10",
     "@types/react": "^18.2.61",
     "@vercel/style-guide": "^5.2.0",
     "autoprefixer": "^10.4.19",
     "concurrently": "^8.0.1",
-    "eslint": "^8",
+    "eslint": "catalog:",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "eslint-plugin-unused-imports": "^4.0.0",
@@ -45,7 +48,7 @@
     "rollup-preserve-directives": "^1.1.1",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.4",
-    "vite": "^5.1.4",
+    "vite": "catalog:",
     "vite-plugin-dts": "^3.9.1"
   },
   "peerDependencies": {
@@ -64,8 +67,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-switch": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
-    "@repo/eslint-config": "workspace:*",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "catalog:",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.408.0",

@@ -12,8 +12,8 @@ import {
 } from '@ds-project/components';
 import Link from 'next/link';
 import { cn } from '@/lib/css';
-import type { SelectProjects } from '@/lib/drizzle/schema';
 import { HomeButton } from '../home-button';
+import type { SelectProjects } from '@ds-project/database/schema';
 
 interface NavigationProps {
   className?: string;

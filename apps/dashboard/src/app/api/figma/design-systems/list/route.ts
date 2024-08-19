@@ -1,8 +1,9 @@
 import type { NextRequest } from 'next/server';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-import { database } from '@/lib/drizzle';
-import { projectsTable } from '@/lib/drizzle/schema';
+
 import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
+import { database } from '@ds-project/database/client';
+import { projectsTable } from '@ds-project/database/schema';
 
 export async function GET(request: NextRequest) {
   if (!(await isAuthenticated(request))) {
