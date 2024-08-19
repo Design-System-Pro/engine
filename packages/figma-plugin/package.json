@@ -1,12 +1,17 @@
 {
-  "name": "ds-project-plugin",
+  "name": "@ds-project/figma-plugin",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
+  "prettier": "@ds-project/prettier",
   "scripts": {
     "main": "vite build -c ./vite.config.plugin.ts",
     "ui": "tsc && vite build --minify esbuild",
     "build": "concurrently -n main,ui \"npm run main\" \"npm run ui\"",
-    "dev": "concurrently -n main,ui \"npm run main -- --watch\" \"npm run ui -- --watch\""
+    "dev": "concurrently -n main,ui \"npm run main -- --watch\" \"npm run ui -- --watch\"",
+    "lint": "eslint",
+    "format": "prettier --check .",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
@@ -19,27 +24,28 @@
     "object-hash": "^3.0.0",
     "octokit": "^4.0.2",
     "rambda": "^9.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-json-view-lite": "^1.4.0",
     "sass": "^1.60.0",
-    "style-dictionary": "^4.0.0",
+    "style-dictionary": "catalog:",
     "tailwindcss": "^3.4.7"
   },
   "devDependencies": {
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/prettier": "workspace:*",
     "@figma/eslint-plugin-figma-plugins": "^0.15.0",
     "@figma/plugin-typings": "^1.97.0",
-    "@repo/eslint-config": "workspace:*",
     "@types/object-hash": "^3.0.6",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
     "concurrently": "^8.0.1",
     "esbuild": "^0.17.15",
-    "eslint": "^8",
+    "eslint": "catalog:",
     "rollup-preserve-directives": "^1.1.1",
-    "typescript": "^4.9.3",
-    "vite": "^5.1.4",
+    "typescript": "catalog:",
+    "vite": "catalog:",
     "vite-plugin-singlefile": "^0.13.5"
   }
 }

@@ -1,13 +1,14 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { database } from '@/lib/drizzle';
+
+import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
 import {
   integrationDataSchema,
   integrationsTable,
   integrationsTableSchema,
   integrationType,
-} from '@/lib/drizzle/schema';
-import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
+} from '@ds-project/database/schema';
+import { database } from '@ds-project/database/client';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -35,7 +36,6 @@ export async function GET(request: NextRequest) {
     // Register installation id
     await database.insert(integrationsTable).values(validatedValues);
   } catch (error) {
-    // eslint-disable-next-line no-console -- TODO: replace with monitoring
     console.error('Failed to connect GitHub app.');
   }
 

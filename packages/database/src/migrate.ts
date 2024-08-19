@@ -1,11 +1,8 @@
-import { loadEnvConfig } from '@next/env';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { connection, database } from '@/lib/drizzle';
-
-loadEnvConfig(process.cwd());
+import { connection, database } from './client';
 
 migrate(database, {
-  migrationsFolder: './src/lib/database/migrations',
+  migrationsFolder: './src/migrations',
 })
   .catch((error) => {
     // eslint-disable-next-line no-console -- TODO: replace with monitoring

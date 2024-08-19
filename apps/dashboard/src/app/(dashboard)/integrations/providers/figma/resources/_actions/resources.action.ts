@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
+import { database } from '@ds-project/database/client';
 
 export async function getResources() {
   if (!(await isAuthenticated())) {

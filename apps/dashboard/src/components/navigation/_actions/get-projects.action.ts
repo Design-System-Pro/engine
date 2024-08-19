@@ -1,9 +1,10 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
+
 import { getUserAccount } from '@/lib/supabase/server/utils/get-user-account';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+import { database } from '@ds-project/database/client';
 
 export async function getProjects() {
   if (!(await isAuthenticated())) {

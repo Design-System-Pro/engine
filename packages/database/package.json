@@ -1,0 +1,55 @@
+{
+  "name": "@ds-project/database",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./src/client.ts"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "default": "./src/schema.ts"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "prettier": "@ds-project/prettier",
+  "scripts": {
+    "lint": "eslint",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false",
+    "types": "pnpm dlx supabase gen types --lang=typescript --local > src/__generated__/database.types.ts",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate",
+    "studio": "drizzle-kit studio",
+    "reset": "pnpx supabase database reset",
+    "start": "pnpx supabase start",
+    "stop": "pnpx supabase stop",
+    "status": "pnpx supabase status"
+  },
+  "dependencies": {
+    "@next/env": "^14.2.5",
+    "@t3-oss/env-core": "^0.11.0",
+    "@t3-oss/env-nextjs": "^0.11.0",
+    "drizzle-kit": "^0.23.2",
+    "drizzle-orm": "^0.32.2",
+    "drizzle-zod": "^0.5.1",
+    "postgres": "^3.4.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@ds-project/prettier": "workspace:*",
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
+    "eslint": "catalog:",
+    "style-dictionary": "catalog:",
+    "typescript": "catalog:"
+  }
+}

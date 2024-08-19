@@ -1,11 +1,11 @@
-import { Button } from "@ds-project/components";
-import { Meta } from "@storybook/react";
+import { Button } from '@ds-project/components';
+import { Meta } from '@storybook/react';
 
 export default {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
   args: {
-    children: "Button",
+    children: 'Button',
   },
 } satisfies Meta<typeof Button>;
 

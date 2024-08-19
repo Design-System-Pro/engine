@@ -15,14 +15,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: 'package.json'
-          cache: 'pnpm'
+      - name: Setup
+        uses: ./tools/github/setup
 
       - name: Install Dependencies
         run: pnpm install
@@ -31,4 +25,4 @@ jobs:
         working-directory: apps/dashboard
         run: pnpm db:migrate
         env: # Or as an environment variable
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          DATABASE_URL: ${{ secrets.POSTGRES_URL }}

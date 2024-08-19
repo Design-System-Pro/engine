@@ -1,10 +1,14 @@
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
-import { insertResourcesSchema, resourcesTable } from '@/lib/drizzle/schema';
+
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { pushFile } from '@/lib/github';
 import { config } from '@/config';
+import {
+  insertResourcesSchema,
+  resourcesTable,
+} from '@ds-project/database/schema';
+import { database } from '@ds-project/database/client';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {

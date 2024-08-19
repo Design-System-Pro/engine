@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
 import { getUserAccount } from './get-user-account';
+import { database } from '@ds-project/database/client';
 
 export async function getProjectId(request?: NextRequest) {
   const account = await getUserAccount(request);

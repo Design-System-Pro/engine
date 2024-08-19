@@ -1,0 +1,25 @@
+{
+  "name": "@ds-project/eslint",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./base": "./base.js",
+    "./nextjs": "./nextjs.js",
+    "./react": "./react.js"
+  },
+  "devDependencies": {
+    "@ds-project/typescript": "workspace:*",
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.9.0",
+    "@next/eslint-plugin-next": "^14.2.5",
+    "eslint": "catalog:",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-tailwindcss": "^3.15.1",
+    "eslint-plugin-turbo": "^2.0.14",
+    "eslint-plugin-unused-imports": "^3.1.0",
+    "typescript-eslint": "^8.1.0"
+  },
+  "prettier": "@ds-project/prettier"
+}

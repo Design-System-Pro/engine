@@ -1,8 +1,8 @@
-import { Input } from "@ds-project/components";
-import { Meta } from "@storybook/react";
+import { Input } from '@ds-project/components';
+import { Meta } from '@storybook/react';
 
 export default {
-  title: "Components/Input",
+  title: 'Components/Input',
   component: Input,
   args: {},
 } satisfies Meta<typeof Input>;

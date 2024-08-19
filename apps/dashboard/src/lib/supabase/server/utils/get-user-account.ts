@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
-import { database } from '@/lib/drizzle';
+import { database } from '@ds-project/database/client';
 import { getUser } from './get-user';
 
 export async function getUserAccount(request?: NextRequest) {

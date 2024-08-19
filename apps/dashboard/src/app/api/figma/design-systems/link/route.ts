@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-import { database } from '@/lib/drizzle';
-import { resourcesTable } from '@/lib/drizzle/schema';
+import { database } from '@ds-project/database/client';
+import { resourcesTable } from '@ds-project/database/schema';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {

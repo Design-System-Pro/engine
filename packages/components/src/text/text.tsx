@@ -20,7 +20,7 @@ const textVariations = cva('', {
       '6xl': 'ds-fluid-text-6xl',
       '7xl': 'ds-fluid-text-7xl',
       '8xl': 'ds-fluid-text-8xl',
-      '9xl': 'ds-fluid-text-9xl'
+      '9xl': 'ds-fluid-text-9xl',
     },
     weight: {
       thin: 'ds-font-thin',
@@ -34,13 +34,13 @@ const textVariations = cva('', {
     },
     family: {
       sans: 'ds-font-sans',
-      mono: 'ds-font-mono'
+      mono: 'ds-font-mono',
     },
     mood: {
-      default: "ds-text-foreground",
+      default: 'ds-text-foreground',
       info: 'ds-text-yellow-500',
-      destructive:"ds-text-destructive",
-      muted: 'ds-text-muted-foreground'
+      destructive: 'ds-text-destructive',
+      muted: 'ds-text-muted-foreground',
     },
   },
 });
@@ -48,19 +48,24 @@ const textVariations = cva('', {
 type TextProps = VariantProps<typeof textVariations> & {
   children: ReactNode;
   className?: string;
-}
+};
 
 /**
  * Renders text styles to the child
  */
-export const Text = forwardRef<
-HTMLElement,
-TextProps
->(({ size, weight, family, mood, className, children }, ref) => {
-
-  return (
-    <Slot ref={ref} className={cn(textVariations({ size, weight, family, mood, className }))}>{children}</Slot>
-  );
-})
+export const Text = forwardRef<HTMLElement, TextProps>(
+  ({ size, weight, family, mood, className, children }, ref) => {
+    return (
+      <Slot
+        ref={ref}
+        className={cn(
+          textVariations({ size, weight, family, mood, className })
+        )}
+      >
+        {children}
+      </Slot>
+    );
+  }
+);
 
 Text.displayName = 'Text';

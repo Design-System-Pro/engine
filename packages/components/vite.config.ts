@@ -1,15 +1,15 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
-import { resolve } from "path";
-import { peerDependencies, dependencies } from "./package.json";
-import tailwindcss from "tailwindcss";
-import preserveDirectives from "rollup-preserve-directives";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
+import { resolve } from 'path';
+import { peerDependencies, dependencies } from './package.json';
+import tailwindcss from 'tailwindcss';
+import preserveDirectives from 'rollup-preserve-directives';
 
 export default defineConfig({
   plugins: [
     react({
-      jsxRuntime: "automatic",
+      jsxRuntime: 'automatic',
     }),
     dts({ rollupTypes: true }),
   ],
@@ -20,13 +20,13 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(__dirname, "src"),
+      '@': resolve(__dirname, 'src'),
     },
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "src", "index.ts"),
-      formats: ["es"],
+      entry: resolve(__dirname, 'src', 'index.ts'),
+      formats: ['es'],
       fileName: (ext) => `index.${ext}.js`,
     },
     rollupOptions: {
@@ -38,13 +38,13 @@ export default defineConfig({
       output: {
         preserveModules: true,
         globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          tailwindcss: "tailwindcss",
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          tailwindcss: 'tailwindcss',
         },
       },
     },
-    target: "esnext",
+    target: 'esnext',
     sourcemap: true,
     emptyOutDir: true,
   },

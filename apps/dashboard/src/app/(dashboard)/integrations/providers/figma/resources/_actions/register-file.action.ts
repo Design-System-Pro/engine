@@ -1,11 +1,14 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { database } from '@/lib/drizzle';
-import { figmaFilesTable, insertFigmaFileSchema } from '@/lib/drizzle/schema';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { getUserAccount } from '@/lib/supabase/server/utils/get-user-account';
 import { figmaFileSchema, figmaUrlRegex } from '../_schemas/schema';
+import {
+  figmaFilesTable,
+  insertFigmaFileSchema,
+} from '@ds-project/database/schema';
+import { database } from '@ds-project/database/client';
 
 export async function registerFile(formData: FormData) {
   if (!(await isAuthenticated())) {

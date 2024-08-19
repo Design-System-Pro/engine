@@ -1,0 +1,17 @@
+{
+  "name": "@ds-project/prettier",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ds-project/typescript": "workspace:*"
+  },
+  "prettier": "@ds-project/prettier"
+}
