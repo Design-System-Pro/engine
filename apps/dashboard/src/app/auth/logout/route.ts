@@ -1,5 +1,6 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server/client';
+import { createServerClient } from '@ds-project/auth/server';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const supabase = createServerClient();

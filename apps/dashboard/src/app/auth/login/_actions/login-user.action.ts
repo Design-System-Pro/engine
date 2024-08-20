@@ -2,7 +2,8 @@
 
 import { z } from 'zod';
 import { config } from '@/config';
-import { createServerClient } from '@/lib/supabase/server/client';
+import { createServerClient } from '@ds-project/auth/server';
+import type { Database } from '@ds-project/database';
 
 const schema = z.object({
   email: z.string().email(),
@@ -19,7 +20,7 @@ export async function loginUser(previousState: unknown, formData: FormData) {
     };
   }
 
-  const supabase = createServerClient();
+  const supabase = createServerClient<Database>();
   const { error } = await supabase.auth.signInWithOtp({
     email: validatedFields.data.email,
     options: {

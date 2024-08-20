@@ -2,13 +2,13 @@
 
 import { eq } from 'drizzle-orm';
 
-import { createServerClient } from '@/lib/supabase/server/client';
 import {
   integrationDataSchema,
   Integrations,
   integrationType,
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
+import { createServerClient } from '@ds-project/auth/server';
 
 export async function selectRepository(formData: FormData) {
   const supabase = createServerClient();
@@ -36,7 +36,6 @@ export async function selectRepository(formData: FormData) {
       })
       .where(eq(Integrations.type, integrationType.Enum.github));
   } catch (error) {
-    // eslint-disable-next-line no-console -- TODO: replace with monitoring
     console.error('Error updating installation', error);
   }
 }

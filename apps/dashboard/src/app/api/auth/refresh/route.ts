@@ -1,5 +1,5 @@
+import { createServerClient } from '@ds-project/auth/server';
 import type { NextRequest } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server/client';
 
 export async function POST(request: NextRequest) {
   const result = (await request.json()) as { refreshToken: string };
