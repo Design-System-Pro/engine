@@ -1,4 +1,4 @@
-import { authenticationMiddleware } from './lib/supabase/middleware';
+import { authenticationMiddleware } from './lib/auth/middleware';
 import { compose } from './lib/middleware/compose';
 import { figmaMiddleware } from './lib/middleware/figma/middleware';
 

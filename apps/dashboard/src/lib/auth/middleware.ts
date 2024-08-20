@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 import type { MiddlewareFactory } from '../middleware';
-import { middlewareSupabaseClient } from './server/middleware-client';
+import { config } from '@/config';
+import { createMiddlewareClient } from '@ds-project/auth/middleware';
 
 export const authenticationMiddleware: MiddlewareFactory =
   (middleware) =>
   async (request, event, response = NextResponse.next({ request })) => {
-    const supabase = middlewareSupabaseClient(request, response);
+    const supabase = createMiddlewareClient(request, response, {
+      supabaseAnonKey: config.supabaseAnonKey,
+      supabaseUrl: config.supabaseUrl,
+    });
 
     const {
       data: { user },

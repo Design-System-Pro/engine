@@ -2,7 +2,6 @@ import 'server-only';
 
 import crypto from 'node:crypto';
 import { and, eq } from 'drizzle-orm';
-import memoize from 'memoize';
 import { kv } from '@vercel/kv';
 import { config } from '@/config';
 import type { KVOAuthState } from '@/types/kv-types';
@@ -16,6 +15,7 @@ import {
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
 import { api } from '../trpc/server';
+import { cache } from 'react';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';
@@ -254,7 +254,7 @@ async function generateFigma(projectId: string) {
   return figma;
 }
 
-const memoizedFigma = memoize(generateFigma);
+const memoizedFigma = cache(generateFigma);
 
 export async function getFigma() {
   const project = await api.projects.current();
