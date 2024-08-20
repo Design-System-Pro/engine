@@ -24,6 +24,9 @@ catalogs:
     eslint:
       specifier: ^8.57.0
       version: 8.57.0
+    next:
+      specifier: ^14.2.5
+      version: 14.2.5
     prettier:
       specifier: ^3.3.3
       version: 3.3.3
@@ -129,7 +132,7 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       next:
-        specifier: 14.2.5
+        specifier: 'catalog:'
         version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
       postgres:
         specifier: ^3.4.4
@@ -310,9 +313,21 @@ importers:
       '@ds-project/database':
         specifier: workspace:*
         version: link:../database
+      '@tanstack/react-query':
+        specifier: ^5.51.24
+        version: 5.51.24(react@18.3.1)
+      '@trpc/react-query':
+        specifier: 'catalog:'
+        version: 11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: 'catalog:'
         version: 11.0.0-rc.482
+      next:
+        specifier: 'catalog:'
+        version: 14.2.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
+      react:
+        specifier: 'catalog:'
+        version: 18.3.1
       superjson:
         specifier: ^2.2.1
         version: 2.2.1
@@ -329,6 +344,9 @@ importers:
       '@ds-project/typescript':
         specifier: workspace:*
         version: link:../../tools/typescript
+      '@types/react':
+        specifier: 'catalog:'
+        version: 18.3.3
       eslint:
         specifier: 'catalog:'
         version: 8.57.0
@@ -11999,7 +12017,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.13.1
       is-glob: 4.0.3

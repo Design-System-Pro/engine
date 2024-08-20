@@ -8,7 +8,7 @@ import {
   integrationType,
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
-import { api } from '@/lib/trpc/server';
+import { api } from '@ds-project/api/rsc';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);

@@ -6,6 +6,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
+    },
+    "./rsc": {
+      "types": "./dist/rsc.d.ts",
+      "default": "./src/rsc.ts"
     }
   },
   "prettier": "@ds-project/prettier",
@@ -20,7 +24,11 @@
   "dependencies": {
     "@ds-project/auth": "workspace:*",
     "@ds-project/database": "workspace:*",
+    "@tanstack/react-query": "^5.51.24",
+    "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
     "superjson": "^2.2.1",
     "zod": "catalog:"
   },
@@ -30,6 +38,7 @@
     "@ds-project/typescript": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/react": "catalog:"
   }
 }

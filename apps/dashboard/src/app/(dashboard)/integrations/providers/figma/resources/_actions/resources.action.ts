@@ -1,4 +1,4 @@
-import { api } from '@/lib/trpc/server';
+import { api } from '@ds-project/api/rsc';
 
 export async function getResources() {
   const project = await api.projects.current();

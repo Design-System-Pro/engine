@@ -1,6 +1,6 @@
 import { database } from '@ds-project/database/client';
 import { Projects } from '@ds-project/database/schema';
-import { api } from '@/lib/trpc/server';
+import { api } from '@ds-project/api/rsc';
 
 export async function GET() {
   const project = await api.projects.current();

@@ -1,7 +1,7 @@
 'use server';
 
 import type { GithubIntegration } from '@ds-project/database/schema';
-import { api } from '@/lib/trpc/server';
+import { api } from '@ds-project/api/rsc';
 
 export async function getInstallation() {
   const integration = await api.integrations.byType('github');

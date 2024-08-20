@@ -9,7 +9,7 @@ import {
   FigmaResources,
   insertFigmaResourcesSchema,
 } from '@ds-project/database/schema';
-import { api } from '@/lib/trpc/server';
+import { api } from '@ds-project/api/rsc';
 
 export async function registerFile(formData: FormData) {
   const validatedData = figmaFileSchema.parse(

@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import '../globals.css';
 import { Navigation } from '@/components';
 import { cn } from '@/lib/css';
-import { api } from '@/lib/trpc/server';
+import { api } from '@ds-project/api/rsc';
 
 const inter = Inter({ subsets: ['latin'] });
 

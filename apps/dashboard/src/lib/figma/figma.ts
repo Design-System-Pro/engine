@@ -5,6 +5,7 @@ import { and, eq } from 'drizzle-orm';
 import { kv } from '@vercel/kv';
 import { config } from '@/config';
 import type { KVOAuthState } from '@/types/kv-types';
+import { api } from '@ds-project/api/rsc';
 
 import type { SelectFigmaIntegration } from '@ds-project/database/schema';
 import {
@@ -14,7 +15,6 @@ import {
   integrationType,
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
-import { api } from '../trpc/server';
 import { cache } from 'react';
 
 class Figma {
