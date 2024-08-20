@@ -1,14 +1,14 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
 import {
   integrationDataSchema,
-  integrationsTable,
-  integrationsTableSchema,
+  Integrations,
+  InsertIntegrationsSchema,
   integrationType,
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
+import { api } from '@/lib/trpc/server';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -17,9 +17,9 @@ export async function GET(request: NextRequest) {
   if (!installationId) throw new Error('No installation id provided');
 
   try {
-    const projectId = await getProjectId(request);
+    const project = await api.projects.current();
 
-    if (!projectId)
+    if (!project?.id)
       throw new Error('No design system associated with this account');
 
     const validatedData = integrationDataSchema.parse({
@@ -27,14 +27,14 @@ export async function GET(request: NextRequest) {
       installationId: parseInt(installationId),
     });
 
-    const validatedValues = integrationsTableSchema.parse({
+    const validatedValues = InsertIntegrationsSchema.parse({
       type: integrationType.Enum.github,
-      projectId,
+      projectId: project.id,
       data: validatedData,
     });
 
     // Register installation id
-    await database.insert(integrationsTable).values(validatedValues);
+    await database.insert(Integrations).values(validatedValues);
   } catch (error) {
     console.error('Failed to connect GitHub app.');
   }

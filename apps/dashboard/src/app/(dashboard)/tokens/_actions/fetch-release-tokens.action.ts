@@ -6,7 +6,6 @@ import {
   getGithubIntegration,
   getGithubRepository,
 } from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { config } from '@/config';
 
 async function searchFileSha({
@@ -54,10 +53,6 @@ async function searchFileSha({
 }
 
 export async function fetchReleaseTokens(releaseId: number) {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
-
   const repository = await getGithubRepository();
   const integration = await getGithubIntegration();
   const installation = await getGithubInstallation(integration);

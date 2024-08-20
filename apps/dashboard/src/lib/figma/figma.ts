@@ -7,15 +7,15 @@ import { kv } from '@vercel/kv';
 import { config } from '@/config';
 import type { KVOAuthState } from '@/types/kv-types';
 
-import { getProjectId } from '../supabase/server/utils/get-project-id';
 import type { SelectFigmaIntegration } from '@ds-project/database/schema';
 import {
   figmaIntegrationSchema,
-  integrationsTable,
-  integrationsTableSchema,
+  Integrations,
+  InsertIntegrationsSchema,
   integrationType,
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
+import { api } from '../trpc/server';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';
@@ -54,7 +54,7 @@ class Figma {
       throw new Error('Error exchanging code');
     }
 
-    const validatedValues = integrationsTableSchema.parse({
+    const validatedValues = InsertIntegrationsSchema.parse({
       type: integrationType.Enum.figma,
       projectId: this.projectId,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- We are making sure it gets validated by the schema, so there should not be any risk in theory
@@ -65,10 +65,10 @@ class Figma {
     });
 
     await database
-      .insert(integrationsTable)
+      .insert(Integrations)
       .values(validatedValues)
       .onConflictDoUpdate({
-        target: [integrationsTable.type, integrationsTable.projectId],
+        target: [Integrations.type, Integrations.projectId],
         set: {
           data: validatedValues.data,
         },
@@ -106,11 +106,11 @@ class Figma {
     });
 
     const [updatedIntegration] = (await database
-      .update(integrationsTable)
+      .update(Integrations)
       .set({
         data: figmaIntegrationData,
       })
-      .where(eq(integrationsTable.id, integration.id))
+      .where(eq(Integrations.id, integration.id))
       .returning()) as SelectFigmaIntegration[];
 
     this.accessToken = updatedIntegration.data.accessToken;
@@ -123,7 +123,7 @@ class Figma {
    * @returns
    */
   private async getIntegration() {
-    return (await database.query.integrationsTable.findFirst({
+    return (await database.query.Integrations.findFirst({
       where: (integrations) =>
         and(
           eq(integrations.type, integrationType.Enum.figma),
@@ -257,11 +257,11 @@ async function generateFigma(projectId: string) {
 const memoizedFigma = memoize(generateFigma);
 
 export async function getFigma() {
-  const projectId = await getProjectId();
+  const project = await api.projects.current();
 
-  if (!projectId) {
+  if (!project?.id) {
     throw new Error('No project associated with this account');
   }
 
-  return memoizedFigma(projectId);
+  return memoizedFigma(project.id);
 }

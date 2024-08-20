@@ -1,23 +1,38 @@
 import { z } from 'zod';
 
-import { desc, eq } from '@ds-project/database';
+import { eq } from '@ds-project/database';
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { InsertResourcesSchema, Resources } from '@ds-project/database/schema';
 
 export const resourcesRouter = createTRPCRouter({
-  all: protectedProcedure.query(({ ctx }) => {
-    return ctx.database.query.Resources.findMany({
-      orderBy: desc(Resources.id),
-      limit: 10,
-    });
-  }),
-
-  byId: publicProcedure
+  byId: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.database.query.Resources.findFirst({
         where: eq(Resources.id, input.id),
+      });
+    }),
+
+  byProjectId: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.database.query.Resources.findMany({
+        with: {
+          project: {
+            with: {
+              resources: true,
+              accountsToProjects: {
+                where: (accountsToProjects) =>
+                  eq(accountsToProjects.projectId, input.projectId),
+              },
+            },
+          },
+        },
       });
     }),
 
@@ -27,7 +42,9 @@ export const resourcesRouter = createTRPCRouter({
       return ctx.database.insert(Resources).values(input);
     }),
 
-  delete: protectedProcedure.input(z.string()).mutation(({ ctx, input }) => {
-    return ctx.database.delete(Resources).where(eq(Resources.id, input));
-  }),
+  delete: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.database.delete(Resources).where(eq(Resources.id, input.id));
+    }),
 });

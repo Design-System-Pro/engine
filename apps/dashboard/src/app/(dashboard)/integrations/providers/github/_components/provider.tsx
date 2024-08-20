@@ -15,8 +15,6 @@ import { config } from '@/config';
 import { getInstallation, selectRepository } from '../_actions';
 
 export async function GithubProvider() {
-  // await commitToRepository();
-
   const app = new App({
     appId: config.github.appId,
     privateKey: config.github.appPrivateKey,
@@ -29,7 +27,6 @@ export async function GithubProvider() {
   const installationUrl = await app.getInstallationUrl();
 
   const installation = await getInstallation();
-  // console.log({ installationId: installation?.installationId });
 
   const repositories = await (async () => {
     if (installation) {

@@ -8,7 +8,6 @@ import {
   getGithubIntegration,
   getGithubRepository,
 } from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { config } from '@/config';
 
 async function getRef({
@@ -44,10 +43,6 @@ async function getRef({
 }
 
 export async function requestTokens() {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
-
   try {
     const githubIntegration = await getGithubIntegration();
     const repository = await getGithubRepository();
@@ -83,7 +78,6 @@ export async function requestTokens() {
         : (JSON.parse(response.data.content) as DesignTokens);
     }
   } catch (error) {
-    // eslint-disable-next-line no-console --  TODO: replace with monitoring
     console.error('Error requesting tokens', error);
     return null;
   }

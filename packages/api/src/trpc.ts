@@ -9,12 +9,13 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
-import type { User } from '@ds-project/auth/server';
 import { createServerClient, validateToken } from '@ds-project/auth/server';
 
 // import type { Session } from '@acme/auth';
 // import { auth, validateToken } from '@acme/auth';
 import { database } from '@ds-project/database/client';
+import { eq } from '@ds-project/database';
+import type { Account } from '@ds-project/database/schema';
 import type { Database } from '@ds-project/database';
 
 /**
@@ -46,7 +47,7 @@ async function isomorphicGetUser(authToken: string | null) {
  */
 export const createTRPCContext = async (opts: {
   headers: Headers;
-  user: User | null;
+  account: Account | null;
 }) => {
   const authToken = opts.headers.get('Authorization') ?? null;
   const user = await isomorphicGetUser(authToken);
@@ -55,9 +56,13 @@ export const createTRPCContext = async (opts: {
   console.log(`>>> tRPC Request from ${source} by ${user?.id}`);
 
   return {
-    user,
     database,
     token: authToken,
+    account: user?.id
+      ? await database.query.Accounts.findFirst({
+          where: (accounts) => eq(accounts.userId, user.id),
+        })
+      : null,
   };
 };
 
@@ -77,6 +82,12 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
     },
   }),
 });
+
+/**
+ * Create a server-side caller
+ * @see https://trpc.io/docs/server/server-side-calls
+ */
+export const createCallerFactory = t.createCallerFactory;
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
@@ -134,12 +145,12 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.user) {
+    if (!ctx.account) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
     return next({
       ctx: {
-        user: ctx.user,
+        account: ctx.account,
       },
     });
   });

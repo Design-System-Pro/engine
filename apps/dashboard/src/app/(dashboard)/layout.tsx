@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import '../globals.css';
 import { Navigation } from '@/components';
 import { cn } from '@/lib/css';
-import { getProjects } from '@/components/navigation/_actions/get-projects.action';
+import { api } from '@/lib/trpc/server';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +17,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const projects = await getProjects();
+  const projects = await api.projects.byAccount();
+
   return (
     <html lang="en">
       <body className={cn('flex flex-col items-center', inter.className)}>

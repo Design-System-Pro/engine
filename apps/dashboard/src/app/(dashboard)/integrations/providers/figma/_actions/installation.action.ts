@@ -1,25 +1,15 @@
 'use server';
 
-import { eq } from 'drizzle-orm';
-
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-import { database } from '@ds-project/database/client';
 import type { FigmaIntegration } from '@ds-project/database/schema';
-import { integrationType } from '@ds-project/database/schema';
+import { api } from '@/lib/trpc/server';
 
 export async function getInstallation() {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
+  const integration = await api.integrations.byType('figma');
 
-  const result = await database.query.integrationsTable.findFirst({
-    where: (integrations) => eq(integrations.type, integrationType.Enum.figma),
-  });
-
-  if (result?.type === integrationType.Enum.figma) {
+  if (integration?.type === 'figma') {
     return {
-      ...result,
-      data: result.data as FigmaIntegration,
+      ...integration,
+      data: integration.data as FigmaIntegration,
     };
   }
 

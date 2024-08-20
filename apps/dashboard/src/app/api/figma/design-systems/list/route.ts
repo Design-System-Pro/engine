@@ -1,18 +1,11 @@
-import type { NextRequest } from 'next/server';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-
-import { getProjectId } from '@/lib/supabase/server/utils/get-project-id';
 import { database } from '@ds-project/database/client';
-import { projectsTable } from '@ds-project/database/schema';
+import { Projects } from '@ds-project/database/schema';
+import { api } from '@/lib/trpc/server';
 
-export async function GET(request: NextRequest) {
-  if (!(await isAuthenticated(request))) {
-    return new Response('Not authenticated', { status: 401 });
-  }
+export async function GET() {
+  const project = await api.projects.current();
 
-  const projectId = await getProjectId(request);
-
-  if (!projectId) {
+  if (!project?.id) {
     return new Response('No project associated with this account', {
       status: 404,
     });
@@ -20,10 +13,10 @@ export async function GET(request: NextRequest) {
 
   const projects = await database
     .select({
-      id: projectsTable.id,
-      name: projectsTable.name,
+      id: Projects.id,
+      name: Projects.name,
     })
-    .from(projectsTable);
+    .from(Projects);
 
   return new Response(
     JSON.stringify({

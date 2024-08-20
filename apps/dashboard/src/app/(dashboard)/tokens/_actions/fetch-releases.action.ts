@@ -4,13 +4,8 @@ import {
   getGithubIntegration,
   getGithubRepository,
 } from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 
 export async function fetchReleases() {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
-
   const repository = await getGithubRepository();
   const integration = await getGithubIntegration();
   const installation = await getGithubInstallation(integration);

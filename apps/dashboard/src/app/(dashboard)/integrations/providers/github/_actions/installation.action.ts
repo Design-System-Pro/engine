@@ -1,23 +1,13 @@
 'use server';
 
-import { eq } from 'drizzle-orm';
-
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-import { database } from '@ds-project/database/client';
 import type { GithubIntegration } from '@ds-project/database/schema';
-import { integrationType } from '@ds-project/database/schema';
+import { api } from '@/lib/trpc/server';
 
 export async function getInstallation() {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
+  const integration = await api.integrations.byType('github');
 
-  const result = await database.query.integrationsTable.findFirst({
-    where: (integrations) => eq(integrations.type, integrationType.Enum.github),
-  });
-
-  if (result?.type === integrationType.Enum.github) {
-    return { ...result, data: result.data as GithubIntegration };
+  if (integration?.type === 'github') {
+    return { ...integration, data: integration.data as GithubIntegration };
   }
 
   return null;

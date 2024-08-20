@@ -2,7 +2,7 @@ import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { Resources } from './resources';
 
-export const figmaResourcesTable = pgTable('figma_resources', {
+export const FigmaResources = pgTable('figma_resources', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
@@ -18,5 +18,4 @@ export const figmaResourcesTable = pgTable('figma_resources', {
   name: text('name').notNull(),
 });
 
-export const insertFigmaResourcesSchema =
-  createInsertSchema(figmaResourcesTable);
+export const insertFigmaResourcesSchema = createInsertSchema(FigmaResources);

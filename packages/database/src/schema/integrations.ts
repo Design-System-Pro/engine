@@ -8,7 +8,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { z } from 'zod';
 import { createInsertSchema } from 'drizzle-zod';
-import { projectsTable } from './projects';
+import { Projects } from './projects';
 
 export const integrationTypeEnum = pgEnum('integration_type', [
   'github',
@@ -38,12 +38,12 @@ export const integrationDataSchema = z.union([
 export type GithubIntegration = z.infer<typeof githubIntegrationSchema>;
 export type FigmaIntegration = z.infer<typeof figmaIntegrationSchema>;
 type IntegrationData = z.infer<typeof integrationDataSchema>;
-export const integrationsTable = pgTable(
+export const Integrations = pgTable(
   'integrations',
   {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
     projectId: uuid('project_id')
-      .references(() => projectsTable.id, { onDelete: 'cascade' })
+      .references(() => Projects.id, { onDelete: 'cascade' })
       .notNull(),
     type: integrationTypeEnum('type').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
@@ -60,20 +60,20 @@ export const integrationsTable = pgTable(
   })
 );
 
-export const integrationsTableSchema = createInsertSchema(integrationsTable, {
+export const InsertIntegrationsSchema = createInsertSchema(Integrations, {
   data: () => integrationDataSchema,
 });
 
-export type SelectIntegration = typeof integrationsTable.$inferSelect;
+export type SelectIntegration = typeof Integrations.$inferSelect;
 export type SelectGithubIntegration = Omit<
-  typeof integrationsTable.$inferSelect,
+  typeof Integrations.$inferSelect,
   'data'
 > & {
   data: GithubIntegration;
 };
 
 export type SelectFigmaIntegration = Omit<
-  typeof integrationsTable.$inferSelect,
+  typeof Integrations.$inferSelect,
   'data'
 > & {
   data: FigmaIntegration;

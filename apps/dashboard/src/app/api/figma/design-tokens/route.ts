@@ -1,17 +1,12 @@
 import type { NextRequest } from 'next/server';
 import { eq } from 'drizzle-orm';
 
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { pushFile } from '@/lib/github';
 import { config } from '@/config';
 import { InsertResourcesSchema, Resources } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
 
 export async function POST(request: NextRequest) {
-  if (!(await isAuthenticated(request))) {
-    return new Response('Not authenticated', { status: 401 });
-  }
-
   try {
     const validatedData = InsertResourcesSchema.pick({
       designTokens: true,

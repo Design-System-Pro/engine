@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 import { createServerClient } from '@/lib/supabase/server/client';
 import {
   integrationDataSchema,
-  integrationsTable,
+  Integrations,
   integrationType,
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
@@ -30,11 +30,11 @@ export async function selectRepository(formData: FormData) {
 
   try {
     await database
-      .update(integrationsTable)
+      .update(Integrations)
       .set({
         data: validatedData,
       })
-      .where(eq(integrationsTable.type, integrationType.Enum.github));
+      .where(eq(Integrations.type, integrationType.Enum.github));
   } catch (error) {
     // eslint-disable-next-line no-console -- TODO: replace with monitoring
     console.error('Error updating installation', error);

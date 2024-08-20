@@ -20,7 +20,7 @@ const githubApp = new App({
 });
 
 export async function getGithubIntegration() {
-  const integration = await database.query.integrationsTable.findFirst({
+  const integration = await database.query.Integrations.findFirst({
     where: (integrations) => eq(integrations.type, integrationType.Enum.github),
   });
 

@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ds-project/api": "workspace:*",
+    "@ds-project/auth": "workspace:*",
     "@ds-project/components": "workspace:*",
     "@ds-project/database": "workspace:*",
     "@hookform/resolvers": "^3.9.0",
@@ -23,6 +24,8 @@
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.0",
     "@t3-oss/env-nextjs": "^0.11.0",
+    "@tanstack/react-query": "^5.51.24",
+    "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
     "@vercel/kv": "^2.0.0",
     "clsx": "^2.1.1",
@@ -43,6 +46,7 @@
     "react-json-view-lite": "^1.4.0",
     "server-only": "^0.0.1",
     "style-dictionary": "catalog:",
+    "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
     "zod": "^3.23.8"
   },

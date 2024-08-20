@@ -1,34 +1,21 @@
 'server-only';
 
 import { eq } from 'drizzle-orm';
-import type { NextRequest } from 'next/server';
-import { createServerClient } from '../supabase/server/client';
 import { database } from '@ds-project/database/client';
+import { api } from '../trpc/server';
 
-export async function getAccount(request?: NextRequest) {
-  const authorizationHeader = request?.headers.get('Authorization');
-  const authorizationToken = authorizationHeader?.replace('Bearer ', '');
-
-  const supabase = createServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser(authorizationToken);
-
-  if (!user) throw new Error('Not authenticated');
-
-  const account = await database.query.accountsTable.findFirst({
-    where: (accounts) => eq(accounts.userId, user.id),
-  });
+export async function getAccount() {
+  const account = await api.accounts.current();
 
   return account;
 }
 
-export async function getTokens(request?: NextRequest) {
-  const account = await getAccount(request);
+export async function getTokens() {
+  const account = await getAccount();
 
   if (!account) throw new Error('No account found');
 
-  const project = await database.query.projectsTable.findFirst({
+  const project = await database.query.Projects.findFirst({
     columns: {
       id: true,
     },
