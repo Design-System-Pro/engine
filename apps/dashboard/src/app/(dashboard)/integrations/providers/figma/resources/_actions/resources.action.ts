@@ -12,7 +12,7 @@ export async function getResources() {
 
   if (!projectId) throw new Error('No project associated with this account');
 
-  return database.query.resourcesTable.findMany({
+  return database.query.Resources.findMany({
     with: {
       project: {
         with: {

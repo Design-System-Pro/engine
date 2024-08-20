@@ -2,13 +2,13 @@ import { relations } from 'drizzle-orm';
 import { pgTable, uuid } from 'drizzle-orm/pg-core';
 import { projectsTable } from './projects';
 import { accountsTable } from './accounts';
-import { resourcesTable } from './resources';
+import { Resources } from './resources';
 import { integrationsTable } from './integrations';
 import { usersTable } from './_auth/users';
 
 export const projectsRelations = relations(projectsTable, ({ many }) => ({
   accountsToProjects: many(accountsToProjects),
-  resources: many(resourcesTable),
+  resources: many(Resources),
   integrations: many(integrationsTable),
 }));
 
@@ -40,9 +40,9 @@ export const accountsToProjectsRelations = relations(
   })
 );
 
-export const resourcesRelations = relations(resourcesTable, ({ one }) => ({
+export const resourcesRelations = relations(Resources, ({ one }) => ({
   project: one(projectsTable, {
-    fields: [resourcesTable.projectId],
+    fields: [Resources.projectId],
     references: [projectsTable.id],
   }),
 }));

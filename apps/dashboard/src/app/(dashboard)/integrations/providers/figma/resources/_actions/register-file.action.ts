@@ -4,11 +4,12 @@ import { revalidatePath } from 'next/cache';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { getUserAccount } from '@/lib/supabase/server/utils/get-user-account';
 import { figmaFileSchema, figmaUrlRegex } from '../_schemas/schema';
-import {
-  figmaFilesTable,
-  insertFigmaFileSchema,
-} from '@ds-project/database/schema';
+
 import { database } from '@ds-project/database/client';
+import {
+  figmaResourcesTable,
+  insertFigmaResourcesSchema,
+} from '@ds-project/database/schema';
 
 export async function registerFile(formData: FormData) {
   if (!(await isAuthenticated())) {
@@ -28,12 +29,12 @@ export async function registerFile(formData: FormData) {
 
   if (!account) throw new Error('No account found');
 
-  const validatedFigmaFile = insertFigmaFileSchema.parse({
+  const validatedFigmaFile = insertFigmaResourcesSchema.parse({
     fileKey,
     ...validatedData,
   });
 
-  await database.insert(figmaFilesTable).values(validatedFigmaFile);
+  await database.insert(figmaResourcesTable).values(validatedFigmaFile);
 
   revalidatePath('/integrations/figma/files');
 }

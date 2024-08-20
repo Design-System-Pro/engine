@@ -2,10 +2,10 @@ import type { InferSelectModel } from 'drizzle-orm';
 import { Text } from '@ds-project/components';
 import Link from 'next/link';
 import { FigmaFile } from './figma-file';
-import type { resourcesTable } from '@ds-project/database/schema';
+import type { Resources } from '@ds-project/database/schema';
 
 interface ResourcesListProps {
-  resources: InferSelectModel<typeof resourcesTable>[];
+  resources: InferSelectModel<typeof Resources>[];
 }
 export function ResourcesList({ resources }: ResourcesListProps) {
   return (

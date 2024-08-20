@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { database } from '@ds-project/database/client';
-import { resourcesTable } from '@ds-project/database/schema';
+import { Resources } from '@ds-project/database/schema';
 
 export async function POST(request: NextRequest) {
   if (!(await isAuthenticated(request))) {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     fileName: string;
   };
 
-  await database.insert(resourcesTable).values({
+  await database.insert(Resources).values({
     projectId,
     name: fileName,
   });

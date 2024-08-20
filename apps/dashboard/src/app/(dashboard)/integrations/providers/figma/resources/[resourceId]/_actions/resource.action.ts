@@ -9,7 +9,7 @@ export async function getResource(resourceId: string) {
     throw new Error('Not authenticated');
   }
 
-  return database.query.resourcesTable.findFirst({
+  return database.query.Resources.findFirst({
     where: (resource) => eq(resource.id, resourceId),
   });
 }

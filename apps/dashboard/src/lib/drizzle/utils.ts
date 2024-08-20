@@ -42,7 +42,7 @@ export async function getTokens(request?: NextRequest) {
 
   if (!project?.id) return;
 
-  const resource = await database.query.resourcesTable.findFirst({
+  const resource = await database.query.Resources.findFirst({
     where: (resources) => eq(resources.projectId, project.id),
   });
 

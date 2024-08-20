@@ -2,7 +2,7 @@ import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import type { DesignTokens, DesignToken } from 'style-dictionary/types';
 import { z } from 'zod';
-import { projectsTable } from './projects';
+import { projectsTable } from '../projects';
 
 // DesignToken schema
 const DesignTokenSchema = z
@@ -45,7 +45,7 @@ const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> = z.lazy(
 /**
  * Represents the resources linked to a design system.
  */
-export const resourcesTable = pgTable('resources', {
+export const Resources = pgTable('resources', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
     .defaultNow()
@@ -63,6 +63,6 @@ export const resourcesTable = pgTable('resources', {
     json('design_tokens').$type<z.infer<typeof DesignTokensSchema>>(),
 });
 
-export const insertResourcesSchema = createInsertSchema(resourcesTable, {
+export const InsertResourcesSchema = createInsertSchema(Resources, {
   designTokens: () => PreprocessedTokensSchema,
 });

@@ -4,10 +4,7 @@ import { eq } from 'drizzle-orm';
 import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
 import { pushFile } from '@/lib/github';
 import { config } from '@/config';
-import {
-  insertResourcesSchema,
-  resourcesTable,
-} from '@ds-project/database/schema';
+import { InsertResourcesSchema, Resources } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
 
 export async function POST(request: NextRequest) {
@@ -16,17 +13,18 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const validatedData = insertResourcesSchema
-      .pick({ designTokens: true, projectId: true })
-      .parse(await request.json());
+    const validatedData = InsertResourcesSchema.pick({
+      designTokens: true,
+      projectId: true,
+    }).parse(await request.json());
 
     // Update database
     await database
-      .update(resourcesTable)
+      .update(Resources)
       .set({
         designTokens: validatedData.designTokens,
       })
-      .where(eq(resourcesTable.projectId, validatedData.projectId));
+      .where(eq(Resources.projectId, validatedData.projectId));
 
     // Update Github - TODO: turn into "update integrations" actions
     const base64Content = btoa(
