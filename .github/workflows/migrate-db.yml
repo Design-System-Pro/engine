@@ -19,7 +19,7 @@ jobs:
         uses: ./tools/github/setup
 
       - name: Run Drizzle Migration
-        working-directory: apps/dashboard
-        run: pnpm db:migrate
+        working-directory: packages/database
+        run: pnpm migrate
         env: # Or as an environment variable
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
