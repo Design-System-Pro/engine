@@ -16,7 +16,7 @@ export const getGithubApp = ({
   privateKey?: string;
   clientId?: string;
   clientSecret?: string;
-} = {}) => {
+} = {}): App => {
   return (githubApp ??= new App({
     appId,
     privateKey,

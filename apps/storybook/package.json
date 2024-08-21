@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint",
     "type-check": "tsc --noEmit --emitDeclarationOnly false",
-    "format": "prettier --check .",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

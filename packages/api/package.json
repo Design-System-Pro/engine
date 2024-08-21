@@ -19,7 +19,7 @@
   "prettier": "@ds-project/prettier",
   "scripts": {
     "lint": "eslint",
-    "format": "prettier --check .",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "keywords": [],

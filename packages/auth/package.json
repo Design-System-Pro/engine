@@ -19,7 +19,7 @@
   "prettier": "@ds-project/prettier",
   "scripts": {
     "lint": "eslint",
-    "format": "prettier --check .",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "keywords": [],
@@ -40,7 +40,7 @@
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",
-    "@types/node": "^22.4.1",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"

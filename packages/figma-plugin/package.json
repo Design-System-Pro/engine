@@ -10,7 +10,7 @@
     "build": "concurrently -n main,ui \"npm run main\" \"npm run ui\"",
     "dev": "concurrently -n main,ui \"npm run main -- --watch\" \"npm run ui -- --watch\"",
     "lint": "eslint",
-    "format": "prettier --check .",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
@@ -34,7 +34,7 @@
     "sass": "^1.60.0",
     "style-dictionary": "catalog:",
     "superjson": "^2.2.1",
-    "tailwindcss": "^3.4.7"
+    "tailwindcss": "catalog:"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
