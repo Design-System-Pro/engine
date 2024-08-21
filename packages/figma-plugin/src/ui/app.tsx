@@ -6,7 +6,8 @@ import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';
 import { LinkDesignSystem } from './modules/link-design-system';
 import { useAuth } from './modules/providers/auth-provider';
-import { config } from './config';
+import { api } from '@ds-project/api/react';
+import { useConfig } from './modules/providers/config-provider';
 
 function App() {
   const { login, logout, state } = useAuth();
@@ -15,16 +16,13 @@ function App() {
     api.resources.updateDesignTokens.useMutation();
 
   useEffect(() => {
-    // This is an authenticated request
-    if (state !== 'authorized') return;
-
     AsyncMessage.ui
       .request({
         type: AsyncMessageTypes.GetDesignTokens,
       })
       .then(({ designTokens }) => {
-        if (config.features.shouldUpdateTokens) {
-          void updateDesignTokens(designTokens);
+        if (fileName) {
+          void updateDesignTokens({ designTokens, name: fileName });
         }
       })
       .catch((error) => {

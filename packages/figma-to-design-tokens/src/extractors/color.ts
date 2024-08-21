@@ -2,6 +2,20 @@ import { DesignToken } from 'style-dictionary/types';
 import { toHex } from 'color2k';
 import { FigmaExtractedVariable } from '../types';
 
+const convertChannel = (value: number): number => {
+  return Math.round(value * 255);
+};
+
+const toRgba = (value: RGB | RGBA): string => {
+  if ('a' in value) {
+    // RGBA
+    return `rgba(${convertChannel(value.r)},${convertChannel(value.g)},${convertChannel(value.b)},${convertChannel(value.a)})`;
+  }
+
+  // RGB
+  return `rgb(${convertChannel(value.r)},${convertChannel(value.g)},${convertChannel(value.b)})`;
+};
+
 export function extractColor(
   variable: FigmaExtractedVariable,
   modeId: string
@@ -19,14 +33,9 @@ export function extractColor(
 
   const extractedValue = (() => {
     // RGB | RGBA | VariableAlias
-    if ('a' in value) {
+    if ('a' in value || 'r' in value) {
       // RGBA
-      return toHex(`rgba(${value.r},${value.g},${value.b},${value.a})`);
-    }
-
-    if ('b' in value) {
-      // RGB
-      return toHex(`rgb(${value.r},${value.g},${value.b})`);
+      return toHex(toRgba(value));
     }
 
     if ('id' in value && value.type === 'VARIABLE_ALIAS') {

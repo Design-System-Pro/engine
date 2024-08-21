@@ -2,9 +2,9 @@ import { convertFigmaVariablesToDesignTokens } from './converter';
 
 const designTokens = convertFigmaVariablesToDesignTokens([
   {
-    id: 'VariableCollectionId:0:3',
     defaultModeId: '0:0',
     hiddenFromPublishing: false,
+    id: 'VariableCollectionId:0:3',
     key: '3f006b7a91efbc3c1e9d79f5401ebdd09757b762',
     modes: [
       {
@@ -20,6 +20,7 @@ const designTokens = convertFigmaVariablesToDesignTokens([
       'VariableID:351:3',
       'VariableID:351:4',
       'VariableID:433:2',
+      'VariableID:2221:8',
     ],
     variables: [
       {
@@ -30,9 +31,9 @@ const designTokens = convertFigmaVariablesToDesignTokens([
         resolvedType: 'COLOR',
         valuesByMode: {
           '0:0': {
-            r: 1,
-            g: 0,
-            b: 0,
+            r: 0,
+            g: 0.03333333507180214,
+            b: 1,
             a: 1,
           },
         },
@@ -107,12 +108,27 @@ const designTokens = convertFigmaVariablesToDesignTokens([
         scopes: ['ALL_SCOPES'],
         variableCollectionId: 'VariableCollectionId:0:3',
       },
+      {
+        publishStatus: 'UNPUBLISHED',
+        description: '',
+        hiddenFromPublishing: false,
+        name: 'Number',
+        resolvedType: 'FLOAT',
+        valuesByMode: {
+          '0:0': 16,
+        },
+        id: 'VariableID:2221:8',
+        key: 'd9f849744bd7d5cf2e2a1e41e2bdb607421cec92',
+        remote: false,
+        scopes: ['LETTER_SPACING'],
+        variableCollectionId: 'VariableCollectionId:0:3',
+      },
     ],
   },
   {
-    id: 'VariableCollectionId:367:2',
     defaultModeId: '367:0',
     hiddenFromPublishing: false,
+    id: 'VariableCollectionId:367:2',
     key: 'da800af164d583defb046c7bf6b786e59bca4682',
     modes: [
       {
@@ -165,9 +181,9 @@ const designTokens = convertFigmaVariablesToDesignTokens([
     ],
   },
   {
-    id: 'VariableCollectionId:1476:2',
     defaultModeId: '1476:0',
     hiddenFromPublishing: true,
+    id: 'VariableCollectionId:1476:2',
     key: '97a9ba6fa48acdfd2c2b6f24f47818771fef268f',
     modes: [
       {
