@@ -60,7 +60,7 @@ export const Resources = pgTable('resources', {
     .unique(),
   name: text('name').notNull(),
   designTokens:
-    json('design_tokens').$type<z.infer<typeof DesignTokensSchema>>(),
+    json('design_tokens').$type<z.infer<typeof PreprocessedTokensSchema>>(),
 });
 
 export const InsertResourcesSchema = createInsertSchema(Resources, {
