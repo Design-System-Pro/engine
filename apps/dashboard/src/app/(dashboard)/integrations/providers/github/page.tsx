@@ -7,10 +7,10 @@ import {
   Text,
 } from '@ds-project/components';
 import { JsonBlock } from '@/components';
-import { requestTokens } from './_actions';
+import { api } from '@ds-project/api/rsc';
 
 export default async function Tokens() {
-  const tokens = await requestTokens();
+  const tokens = await api.github.tokens();
   return (
     <Card className="w-full">
       <CardHeader>

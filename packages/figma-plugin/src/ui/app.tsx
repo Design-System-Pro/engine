@@ -4,13 +4,16 @@ import { useEffect } from 'react';
 import { Button, DSLogo, Icons } from '@ds-project/components';
 import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';
-import { useDSApi } from './modules/providers/ds-api-provider';
 import { LinkDesignSystem } from './modules/link-design-system';
 import { useAuth } from './modules/providers/auth-provider';
+import { api } from './lib/api';
+import { useConfig } from './modules/providers/config-provider';
 
 function App() {
   const { login, logout, state } = useAuth();
-  const { updateDesignTokens } = useDSApi();
+  const { fileName } = useConfig();
+  const { mutate: updateDesignTokens } =
+    api.resources.updateDesignTokens.useMutation();
 
   useEffect(() => {
     // This is an authenticated request
@@ -21,7 +24,9 @@ function App() {
         type: AsyncMessageTypes.GetDesignTokens,
       })
       .then(({ designTokens }) => {
-        void updateDesignTokens(designTokens);
+        if (fileName) {
+          void updateDesignTokens({ designTokens, name: fileName });
+        }
       })
       .catch((error) => {
         // eslint-disable-next-line no-console -- TODO: replace with monitoring

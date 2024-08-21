@@ -26,6 +26,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "style-dictionary": "catalog:",
+    "@ds-project/services": "workspace:*",
     "@ds-project/auth": "workspace:*",
     "@ds-project/database": "workspace:*",
     "@tanstack/react-query": "^5.51.24",

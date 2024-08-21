@@ -17,6 +17,7 @@ import { database } from '@ds-project/database/client';
 import { eq } from '@ds-project/database';
 import type { Account } from '@ds-project/database/schema';
 import type { Database } from '@ds-project/database';
+import type { DSContext } from './types/context';
 
 /**
  * Isomorphic Session getter for API requests
@@ -49,20 +50,22 @@ export const createTRPCContext = async (opts: {
   headers: Headers;
   account: Account | null;
 }) => {
-  const authToken = opts.headers.get('Authorization') ?? null;
-  const user = await isomorphicGetUser(authToken);
+  const token = opts.headers.get('Authorization') ?? null;
+  const user = await isomorphicGetUser(token);
 
   const source = opts.headers.get('x-trpc-source') ?? 'unknown';
   console.log(`>>> tRPC Request from ${source} by ${user?.id}`);
 
+  const account = user?.id
+    ? ((await database.query.Accounts.findFirst({
+        where: (accounts) => eq(accounts.userId, user.id),
+      })) ?? null)
+    : null;
+
   return {
     database,
-    token: authToken,
-    account: user?.id
-      ? await database.query.Accounts.findFirst({
-          where: (accounts) => eq(accounts.userId, user.id),
-        })
-      : null,
+    token,
+    account,
   };
 };
 
@@ -148,9 +151,11 @@ export const protectedProcedure = t.procedure
     if (!ctx.account) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
+
     return next({
       ctx: {
+        ...ctx,
         account: ctx.account,
-      },
+      } as DSContext,
     });
   });

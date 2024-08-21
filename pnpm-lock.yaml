@@ -328,6 +328,9 @@ importers:
       '@ds-project/database':
         specifier: workspace:*
         version: link:../database
+      '@ds-project/services':
+        specifier: workspace:*
+        version: link:../services
       '@tanstack/react-query':
         specifier: ^5.51.24
         version: 5.51.24(react@18.3.1)
@@ -346,6 +349,9 @@ importers:
       react:
         specifier: 'catalog:'
         version: 18.3.1
+      style-dictionary:
+        specifier: 'catalog:'
+        version: 4.0.1
       superjson:
         specifier: ^2.2.1
         version: 2.2.1
