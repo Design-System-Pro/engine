@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@trpc/client':
+      specifier: 11.0.0-rc.482
+      version: 11.0.0-rc.482
     '@trpc/react-query':
       specifier: 11.0.0-rc.482
       version: 11.0.0-rc.482
@@ -103,7 +106,7 @@ importers:
         version: 5.51.24(react@18.3.1)
       '@trpc/react-query':
         specifier: 'catalog:'
-        version: 11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@11.0.0-rc.482(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: 'catalog:'
         version: 11.0.0-rc.482
@@ -180,6 +183,9 @@ importers:
       '@ds-project/prettier':
         specifier: workspace:*
         version: link:../../tools/prettier
+      '@ds-project/services':
+        specifier: workspace:*
+        version: link:../../packages/services
       '@ds-project/typescript':
         specifier: workspace:*
         version: link:../../tools/typescript
@@ -316,9 +322,12 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.51.24
         version: 5.51.24(react@18.3.1)
+      '@trpc/client':
+        specifier: 'catalog:'
+        version: 11.0.0-rc.482(@trpc/server@11.0.0-rc.482)
       '@trpc/react-query':
         specifier: 'catalog:'
-        version: 11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@11.0.0-rc.482(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@trpc/server':
         specifier: 'catalog:'
         version: 11.0.0-rc.482
@@ -578,6 +587,9 @@ importers:
       '@apollo/client':
         specifier: ^3.7.11
         version: 3.10.8(@types/react@18.3.3)(graphql@16.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ds-project/api':
+        specifier: workspace:*
+        version: link:../api
       '@ds-project/components':
         specifier: workspace:*
         version: link:../components
@@ -590,6 +602,15 @@ importers:
       '@octokit/types':
         specifier: ^13.5.0
         version: 13.5.0
+      '@tanstack/react-query':
+        specifier: ^5.51.24
+        version: 5.51.24(react@18.3.1)
+      '@trpc/client':
+        specifier: 'catalog:'
+        version: 11.0.0-rc.482(@trpc/server@11.0.0-rc.482)
+      '@trpc/react-query':
+        specifier: 'catalog:'
+        version: 11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@11.0.0-rc.482(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       crypto-hash:
         specifier: ^3.1.0
         version: 3.1.0
@@ -620,6 +641,9 @@ importers:
       style-dictionary:
         specifier: 'catalog:'
         version: 4.0.1
+      superjson:
+        specifier: ^2.2.1
+        version: 2.2.1
       tailwindcss:
         specifier: ^3.4.7
         version: 3.4.7
@@ -684,6 +708,34 @@ importers:
       tsx:
         specifier: ^4.17.0
         version: 4.17.0
+
+  packages/services:
+    dependencies:
+      '@octokit/app':
+        specifier: ^15.1.0
+        version: 15.1.0
+      '@octokit/core':
+        specifier: ^6.1.2
+        version: 6.1.2
+    devDependencies:
+      '@ds-project/eslint':
+        specifier: workspace:*
+        version: link:../../tools/eslint
+      '@ds-project/prettier':
+        specifier: workspace:*
+        version: link:../../tools/prettier
+      '@ds-project/typescript':
+        specifier: workspace:*
+        version: link:../../tools/typescript
+      '@octokit/types':
+        specifier: ^13.5.0
+        version: 13.5.0
+      eslint:
+        specifier: 'catalog:'
+        version: 8.57.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.5.4
 
   tools/eslint:
     devDependencies:
@@ -3402,10 +3454,10 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
-  '@trpc/client@10.45.2':
-    resolution: {integrity: sha512-ykALM5kYWTLn1zYuUOZ2cPWlVfrXhc18HzBDyRhoPYN0jey4iQHEFSEowfnhg1RvYnrAVjNBgHNeSAXjrDbGwg==}
+  '@trpc/client@11.0.0-rc.482':
+    resolution: {integrity: sha512-G08bQe8zSSK6baavNTzlsGIXUuUJyRmbC7YCwIg/eYh01nah/loxh4Cg8NDtTLzOvwmUOyQaU3XcMyhywwC4/g==}
     peerDependencies:
-      '@trpc/server': 10.45.2
+      '@trpc/server': 11.0.0-rc.482+930e652bf
 
   '@trpc/react-query@11.0.0-rc.482':
     resolution: {integrity: sha512-pmXStCkoxs7AJoP8oM9hnEXoYYYQbp/5kbA507R4Hd/P2tniBFe6aKFg4bXqeV+bWOi7qPNGSa5+IDH64WPRBg==}
@@ -10281,14 +10333,14 @@ snapshots:
     dependencies:
       '@testing-library/dom': 10.1.0
 
-  '@trpc/client@10.45.2(@trpc/server@11.0.0-rc.482)':
+  '@trpc/client@11.0.0-rc.482(@trpc/server@11.0.0-rc.482)':
     dependencies:
       '@trpc/server': 11.0.0-rc.482
 
-  '@trpc/react-query@11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@10.45.2(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@trpc/react-query@11.0.0-rc.482(@tanstack/react-query@5.51.24(react@18.3.1))(@trpc/client@11.0.0-rc.482(@trpc/server@11.0.0-rc.482))(@trpc/server@11.0.0-rc.482)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/react-query': 5.51.24(react@18.3.1)
-      '@trpc/client': 10.45.2(@trpc/server@11.0.0-rc.482)
+      '@trpc/client': 11.0.0-rc.482(@trpc/server@11.0.0-rc.482)
       '@trpc/server': 11.0.0-rc.482
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

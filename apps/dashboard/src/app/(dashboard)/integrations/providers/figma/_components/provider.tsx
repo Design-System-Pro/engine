@@ -1,15 +1,15 @@
 import { Button, Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
 import { getFigma } from '@/lib/figma';
-import { getInstallation } from '../_actions';
+import { api } from '@ds-project/api/rsc';
 
 export async function FigmaProvider() {
   const figma = await getFigma();
   const installationUrl = await figma.getInstallationUrl();
 
-  const installation = await getInstallation();
+  const figmaIntegration = await api.integrations.figma();
 
-  const isInstallationActive = Boolean(installation?.data.accessToken);
+  const isInstallationActive = Boolean(figmaIntegration?.data.accessToken);
 
   return (
     <div className=" flex items-center space-x-4 rounded-md border p-4">

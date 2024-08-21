@@ -36,6 +36,23 @@ export const resourcesRouter = createTRPCRouter({
       });
     }),
 
+  link: protectedProcedure
+    .input(InsertResourcesSchema.pick({ name: true, projectId: true }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.database.insert(Resources).values(input);
+    }),
+
+  updateDesignTokens: protectedProcedure
+    .input(InsertResourcesSchema.pick({ designTokens: true, name: true }))
+    .mutation(async ({ ctx, input }) => {
+      const result = await ctx.database
+        .update(Resources)
+        .set(input)
+        .where(eq(Resources.name, input.name));
+      // TODO: Run update to Integration here ---> GitHub
+      return result;
+    }),
+
   create: protectedProcedure
     .input(InsertResourcesSchema)
     .mutation(({ ctx, input }) => {

@@ -17,7 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const projects = await api.projects.byAccount();
+  const projects = await api.projects.account();
 
   return (
     <html lang="en">

@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { headers } from 'next/headers';
 import { createHydrationHelpers } from '@trpc/react-query/rsc';
 
-import type { AppRouter } from './';
+import type { AppRouter } from './root';
 import { createCaller, createTRPCContext } from './';
 
 import { createQueryClient } from './query-client';

@@ -1,9 +1,5 @@
 {
   "extends": "@ds-project/typescript/internal-package.json",
-  "compilerOptions": {
-    "lib": ["DOM"],
-    "jsx": "preserve"
-  },
   "include": ["src"],
   "exclude": ["node_modules"]
 }

@@ -64,17 +64,23 @@ export const InsertIntegrationsSchema = createInsertSchema(Integrations, {
   data: () => integrationDataSchema,
 });
 
-export type SelectIntegration = typeof Integrations.$inferSelect;
 export type SelectGithubIntegration = Omit<
   typeof Integrations.$inferSelect,
-  'data'
+  'data' | 'type'
 > & {
+  type: 'github';
   data: GithubIntegration;
 };
 
 export type SelectFigmaIntegration = Omit<
   typeof Integrations.$inferSelect,
-  'data'
+  'data' | 'type'
 > & {
+  type: 'figma';
   data: FigmaIntegration;
 };
+
+export interface SelectIntegration {
+  github: SelectGithubIntegration;
+  figma: SelectFigmaIntegration;
+}

@@ -10,6 +10,10 @@
     "./rsc": {
       "types": "./dist/rsc.d.ts",
       "default": "./src/rsc.ts"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./src/react.tsx"
     }
   },
   "prettier": "@ds-project/prettier",
@@ -25,6 +29,7 @@
     "@ds-project/auth": "workspace:*",
     "@ds-project/database": "workspace:*",
     "@tanstack/react-query": "^5.51.24",
+    "@trpc/client": "catalog:",
     "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
     "next": "catalog:",
@@ -36,9 +41,9 @@
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",
+    "@types/react": "catalog:",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:",
-    "@types/react": "catalog:"
+    "typescript": "catalog:"
   }
 }

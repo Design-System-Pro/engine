@@ -14,21 +14,71 @@ export const integrationsRouter = createTRPCRouter({
       });
     }),
 
-  byType: protectedProcedure
-    .input(z.enum(['github', 'figma']))
-    .query(async ({ ctx, input }) => {
-      return ctx.database.query.Integrations.findFirst({
-        where: (integrations) => eq(integrations.type, input),
-        with: {
-          project: {
-            with: {
-              accountsToProjects: {
-                where: (accountsToProjects) =>
-                  eq(accountsToProjects.accountId, ctx.account.id),
+  github: protectedProcedure.query(async ({ ctx }) => {
+    const queryResult = await ctx.database.query.Integrations.findFirst({
+      columns: {
+        data: true,
+      },
+      where: (integrations) => eq(integrations.type, 'github'),
+      with: {
+        project: {
+          columns: {
+            id: true,
+          },
+          with: {
+            accountsToProjects: {
+              columns: {
+                projectId: true,
               },
+              where: (accountsToProjects) =>
+                eq(accountsToProjects.accountId, ctx.account.id),
             },
           },
         },
-      });
-    }),
+      },
+    });
+
+    if (queryResult?.data?.type === 'github') {
+      return {
+        ...queryResult,
+        data: queryResult.data,
+      };
+    }
+
+    return undefined;
+  }),
+
+  figma: protectedProcedure.query(async ({ ctx }) => {
+    const queryResult = await ctx.database.query.Integrations.findFirst({
+      columns: {
+        data: true,
+      },
+      where: (integrations) => eq(integrations.type, 'figma'),
+      with: {
+        project: {
+          columns: {
+            id: true,
+          },
+          with: {
+            accountsToProjects: {
+              columns: {
+                projectId: true,
+              },
+              where: (accountsToProjects) =>
+                eq(accountsToProjects.accountId, ctx.account.id),
+            },
+          },
+        },
+      },
+    });
+
+    if (queryResult?.data?.type === 'figma') {
+      return {
+        ...queryResult,
+        data: queryResult.data,
+      };
+    }
+
+    return undefined;
+  }),
 });

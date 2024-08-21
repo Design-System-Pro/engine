@@ -7,7 +7,7 @@
  * The pieces you will need to use are documented accordingly near the end
  */
 import { initTRPC, TRPCError } from '@trpc/server';
-import superjson from 'superjson';
+import SuperJSON from 'superjson';
 import { ZodError } from 'zod';
 import { createServerClient, validateToken } from '@ds-project/auth/server';
 
@@ -73,7 +73,7 @@ export const createTRPCContext = async (opts: {
  * transformer
  */
 const t = initTRPC.context<typeof createTRPCContext>().create({
-  transformer: superjson,
+  transformer: SuperJSON,
   errorFormatter: ({ shape, error }) => ({
     ...shape,
     data: {

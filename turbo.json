@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": [
+  "globalPassThroughEnv": [
     "GITHUB_APP_ID",
     "GITHUB_APP_PRIVATE_KEY",
     "GITHUB_APP_CLIENT_ID",

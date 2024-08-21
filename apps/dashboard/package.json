@@ -51,6 +51,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@ds-project/services": "workspace:*",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",

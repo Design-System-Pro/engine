@@ -26,8 +26,8 @@ export const figmaMiddleware: MiddlewareFactory =
       );
 
       const supabase = createMiddlewareClient(request, response, {
-        supabaseAnonKey: config.supabaseUrl,
-        supabaseUrl: config.supabaseAnonKey,
+        supabaseAnonKey: config.supabaseAnonKey,
+        supabaseUrl: config.supabaseUrl,
       });
       const {
         data: { session },

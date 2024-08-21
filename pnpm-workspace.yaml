@@ -17,5 +17,6 @@ catalog:
   "@vitejs/plugin-react": ^4.3.1
   "@trpc/react-query": 11.0.0-rc.482
   "@trpc/server": 11.0.0-rc.482
+  "@trpc/client": 11.0.0-rc.482
   zod: ^3.23.8
 
