@@ -5,7 +5,6 @@ import { and, eq } from 'drizzle-orm';
 import { kv } from '@vercel/kv';
 import { config } from '@/config';
 import type { KVOAuthState } from '@/types/kv-types';
-import { api } from '@ds-project/api/rsc';
 
 import type { SelectFigmaIntegration } from '@ds-project/database/schema';
 import {
@@ -16,6 +15,7 @@ import {
 } from '@ds-project/database/schema';
 import { database } from '@ds-project/database/client';
 import { cache } from 'react';
+import { api } from '@ds-project/api/rsc';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';

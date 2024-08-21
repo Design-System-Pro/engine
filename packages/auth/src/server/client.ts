@@ -1,4 +1,3 @@
-import 'server-only';
 import { createServerClient as createClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';

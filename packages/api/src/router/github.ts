@@ -1,48 +1,12 @@
-'use server';
-
-import type { DesignTokens } from 'style-dictionary/types';
-import type { Octokit } from '@octokit/core';
-import type { RequestError } from '@octokit/types';
-
-import { config } from '@/config';
-import { api } from '@ds-project/api/rsc';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { getInstallationOctokit } from '@ds-project/services/github';
+import { getRef } from '../../../services/src/github/utils/get-ref';
+import type { DesignTokens } from 'style-dictionary/types';
+import { selectGithubIntegration } from '../queries/integrations';
 
-async function getRef({
-  branchName,
-  mainBranch,
-  octokit,
-  owner,
-  repo,
-}: {
-  mainBranch: string;
-  branchName: string;
-  octokit: Octokit;
-  owner: string;
-  repo: string;
-}) {
-  // Check if the branch exists
-  try {
-    await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
-      owner,
-      repo,
-      ref: `heads/${branchName}`,
-    });
-
-    // If the branch exists, use it
-    return branchName;
-  } catch (error) {
-    if ((error as RequestError).status !== 404) {
-      throw error; // Re-throw if it's not a 404 error
-    }
-    // If the branch does not exist, default to the main branch
-    return mainBranch;
-  }
-}
-
-export async function requestTokens() {
-  try {
-    const githubIntegration = await api.integrations.github();
+export const githubRouter = createTRPCRouter({
+  tokens: protectedProcedure.query(async ({ ctx }) => {
+    const githubIntegration = await selectGithubIntegration({ ctx });
 
     if (!githubIntegration) {
       throw new Error('No GitHub integration found');
@@ -63,8 +27,8 @@ export async function requestTokens() {
     if (!repository) throw new Error('No repository found');
 
     const ref = await getRef({
-      branchName: 'ds-project/sync-tokens',
-      mainBranch: 'main',
+      targetBranchName: 'ds-project/sync-tokens',
+      baseBranchName: 'main',
       octokit: octokit,
       owner: repository.owner.login,
       repo: repository.name,
@@ -75,7 +39,7 @@ export async function requestTokens() {
       {
         owner: repository.owner.login,
         repo: repository.name,
-        path: `${config.gitTokensPath}/tokens.json`,
+        path: `packages/generator/tokens/tokens.json`,
         ref,
       }
     );
@@ -91,8 +55,5 @@ export async function requestTokens() {
           ) as DesignTokens)
         : (JSON.parse(response.data.content) as DesignTokens);
     }
-  } catch (error) {
-    console.error('Error requesting tokens', error);
-    return null;
-  }
-}
+  }),
+});
