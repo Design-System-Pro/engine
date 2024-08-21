@@ -1,6 +1,6 @@
-import { DesignToken } from 'style-dictionary/types';
+import type { DesignToken } from 'style-dictionary/types';
 import { toHex } from 'color2k';
-import { FigmaExtractedVariable } from '../types';
+import type { FigmaExtractedVariable } from '../types';
 
 const convertChannel = (value: number): number => {
   return Math.round(value * 255);
@@ -32,13 +32,13 @@ export function extractColor(
   }
 
   const extractedValue = (() => {
-    // RGB | RGBA | VariableAlias
     if ('a' in value || 'r' in value) {
-      // RGBA
+      // RGB | RGBA
       return toHex(toRgba(value));
     }
 
-    if ('id' in value && value.type === 'VARIABLE_ALIAS') {
+    if ('id' in value) {
+      // VariableAlias
       return value.id;
     }
   })();
