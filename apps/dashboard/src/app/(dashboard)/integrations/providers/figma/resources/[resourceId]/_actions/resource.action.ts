@@ -1,15 +1,7 @@
 'use server';
 
-import { eq } from 'drizzle-orm';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
-import { database } from '@ds-project/database/client';
+import { api } from '@ds-project/api/rsc';
 
 export async function getResource(resourceId: string) {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
-
-  return database.query.resourcesTable.findFirst({
-    where: (resource) => eq(resource.id, resourceId),
-  });
+  return api.resources.byId({ id: resourceId });
 }

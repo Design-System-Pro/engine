@@ -3,13 +3,10 @@
 import type { DesignTokens } from 'style-dictionary/types';
 import type { Octokit } from '@octokit/core';
 import type { RequestError } from '@octokit/types';
-import {
-  getGithubInstallation,
-  getGithubIntegration,
-  getGithubRepository,
-} from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+
 import { config } from '@/config';
+import { api } from '@ds-project/api/rsc';
+import { getInstallationOctokit } from '@ds-project/services/github';
 
 async function getRef({
   branchName,
@@ -44,24 +41,36 @@ async function getRef({
 }
 
 export async function requestTokens() {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
-  }
-
   try {
-    const githubIntegration = await getGithubIntegration();
-    const repository = await getGithubRepository();
-    const installation = await getGithubInstallation(githubIntegration);
+    const githubIntegration = await api.integrations.github();
+
+    if (!githubIntegration) {
+      throw new Error('No GitHub integration found');
+    }
+
+    const octokit = await getInstallationOctokit(
+      githubIntegration.data.installationId
+    );
+
+    const repositories = await octokit.request(
+      'GET /installation/repositories'
+    );
+
+    const repository = repositories.data.repositories.find(
+      (_repository) => _repository.id === githubIntegration.data.repositoryId
+    );
+
+    if (!repository) throw new Error('No repository found');
 
     const ref = await getRef({
       branchName: 'ds-project/sync-tokens',
       mainBranch: 'main',
-      octokit: installation,
+      octokit: octokit,
       owner: repository.owner.login,
       repo: repository.name,
     });
 
-    const response = await installation.request(
+    const response = await octokit.request(
       'GET /repos/{owner}/{repo}/contents/{path}',
       {
         owner: repository.owner.login,
@@ -83,7 +92,6 @@ export async function requestTokens() {
         : (JSON.parse(response.data.content) as DesignTokens);
     }
   } catch (error) {
-    // eslint-disable-next-line no-console --  TODO: replace with monitoring
     console.error('Error requesting tokens', error);
     return null;
   }

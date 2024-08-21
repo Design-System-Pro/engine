@@ -1,30 +1,27 @@
 'use server';
 import type { DesignTokens } from 'style-dictionary/types';
 import type { Octokit } from '@octokit/core';
-import {
-  getGithubInstallation,
-  getGithubIntegration,
-  getGithubRepository,
-} from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+
 import { config } from '@/config';
+import { api } from '@ds-project/api/rsc';
+import { getInstallationOctokit } from '@ds-project/services/github';
 
 async function searchFileSha({
-  installation,
+  octokit,
   owner,
   path,
   repo,
   treeSha,
   index = 0,
 }: {
-  installation: Octokit;
+  octokit: Octokit;
   owner: string;
   repo: string;
   treeSha: string;
   path: string[];
   index?: number;
 }) {
-  const { data: treeData } = await installation.request(
+  const { data: treeData } = await octokit.request(
     'GET /repos/{owner}/{repo}/git/trees/{tree_sha}',
     {
       owner,
@@ -44,7 +41,7 @@ async function searchFileSha({
   }
 
   return searchFileSha({
-    installation,
+    octokit,
     owner,
     repo,
     treeSha: treeOrFile.sha,
@@ -54,15 +51,25 @@ async function searchFileSha({
 }
 
 export async function fetchReleaseTokens(releaseId: number) {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
+  const githubIntegration = await api.integrations.github();
+
+  if (!githubIntegration) {
+    throw new Error('GitHub installation not found');
   }
 
-  const repository = await getGithubRepository();
-  const integration = await getGithubIntegration();
-  const installation = await getGithubInstallation(integration);
+  const octokit = await getInstallationOctokit(
+    githubIntegration.data.installationId
+  );
 
-  const { data: release } = await installation.request(
+  const repositories = await octokit.request('GET /installation/repositories');
+
+  const repository = repositories.data.repositories.find(
+    (_repository) => _repository.id === githubIntegration.data.repositoryId
+  );
+
+  if (!repository) throw new Error('No repository found');
+
+  const { data: release } = await octokit.request(
     'GET /repos/{owner}/{repo}/releases/{release_id}',
     {
       owner: repository.owner.login,
@@ -71,7 +78,7 @@ export async function fetchReleaseTokens(releaseId: number) {
     }
   );
 
-  const { data: tagName } = await installation.request(
+  const { data: tagName } = await octokit.request(
     'GET /repos/{owner}/{repo}/git/ref/{ref}',
     {
       owner: repository.owner.login,
@@ -81,7 +88,7 @@ export async function fetchReleaseTokens(releaseId: number) {
   );
 
   // First, get the file sha from the commit
-  const { data: tagSha } = await installation.request(
+  const { data: tagSha } = await octokit.request(
     'GET /repos/{owner}/{repo}/git/tags/{tag_sha}',
     {
       owner: repository.owner.login,
@@ -90,7 +97,7 @@ export async function fetchReleaseTokens(releaseId: number) {
     }
   );
 
-  const { data: commitSha } = await installation.request(
+  const { data: commitSha } = await octokit.request(
     'GET /repos/{owner}/{repo}/git/commits/{commit_sha}',
     {
       owner: repository.owner.login,
@@ -101,7 +108,7 @@ export async function fetchReleaseTokens(releaseId: number) {
 
   const tokensPath = [...config.gitTokensPath.split('/'), 'tokens.json'];
   const fileSha = await searchFileSha({
-    installation,
+    octokit,
     owner: repository.owner.login,
     treeSha: commitSha.tree.sha,
     repo: repository.name,
@@ -112,7 +119,7 @@ export async function fetchReleaseTokens(releaseId: number) {
     throw new Error('File not found');
   }
 
-  const { data: file } = await installation.request(
+  const { data: file } = await octokit.request(
     'GET /repos/{owner}/{repo}/git/blobs/{file_sha}',
     {
       owner: repository.owner.login,

@@ -1,5 +1,6 @@
+import { createServerClient } from '@ds-project/auth/server';
+import type { Database } from '@ds-project/database';
 import { NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase/server/client';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
   const next = searchParams.get('next') ?? '/';
 
   if (code) {
-    const supabase = createServerClient();
+    const supabase = createServerClient<Database>();
     const { error, data } = await supabase.auth.exchangeCodeForSession(code);
     const accessToken = data.session?.access_token;
     if (!accessToken) {

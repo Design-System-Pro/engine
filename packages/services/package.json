@@ -1,0 +1,32 @@
+{
+  "name": "@ds-project/services",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./github": {
+      "types": "./dist/github/index.d.ts",
+      "default": "./src/github/index.ts"
+    }
+  },
+  "prettier": "@ds-project/prettier",
+  "scripts": {
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "type-check": "tsc",
+    "lint": "eslint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/prettier": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
+    "@octokit/types": "^13.5.0",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@octokit/app": "^15.1.0",
+    "@octokit/core": "^6.1.2"
+  }
+}

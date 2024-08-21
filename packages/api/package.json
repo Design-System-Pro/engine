@@ -1,0 +1,49 @@
+{
+  "name": "@ds-project/api",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./rsc": {
+      "types": "./dist/rsc.d.ts",
+      "default": "./src/rsc.ts"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./src/react.tsx"
+    }
+  },
+  "prettier": "@ds-project/prettier",
+  "scripts": {
+    "lint": "eslint",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ds-project/auth": "workspace:*",
+    "@ds-project/database": "workspace:*",
+    "@tanstack/react-query": "^5.51.24",
+    "@trpc/client": "catalog:",
+    "@trpc/react-query": "catalog:",
+    "@trpc/server": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "superjson": "^2.2.1",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/prettier": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
+    "@types/react": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "catalog:"
+  }
+}

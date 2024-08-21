@@ -1,58 +1,55 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, uuid } from 'drizzle-orm/pg-core';
-import { projectsTable } from './projects';
-import { accountsTable } from './accounts';
-import { resourcesTable } from './resources';
-import { integrationsTable } from './integrations';
+import { Projects } from './projects';
+import { Accounts } from './accounts';
+import { Resources } from './resources';
+import { Integrations } from './integrations';
 import { usersTable } from './_auth/users';
 
-export const projectsRelations = relations(projectsTable, ({ many }) => ({
-  accountsToProjects: many(accountsToProjects),
-  resources: many(resourcesTable),
-  integrations: many(integrationsTable),
+export const ProjectsRelations = relations(Projects, ({ many }) => ({
+  accountsToProjects: many(AccountsToProjects),
+  resources: many(Resources),
+  integrations: many(Integrations),
 }));
 
-export const accountsRelations = relations(accountsTable, ({ many, one }) => ({
-  accountsToProjects: many(accountsToProjects),
+export const AccountsRelations = relations(Accounts, ({ many, one }) => ({
+  accountsToProjects: many(AccountsToProjects),
   user: one(usersTable),
 }));
 
-export const accountsToProjects = pgTable('accounts_to_projects', {
+export const AccountsToProjects = pgTable('accounts_to_projects', {
   accountId: uuid('account_id')
     .notNull()
-    .references(() => accountsTable.id, { onDelete: 'cascade' }),
+    .references(() => Accounts.id, { onDelete: 'cascade' }),
   projectId: uuid('project_id')
     .notNull()
-    .references(() => projectsTable.id, { onDelete: 'cascade' }),
+    .references(() => Projects.id, { onDelete: 'cascade' }),
 });
 
-export const accountsToProjectsRelations = relations(
-  accountsToProjects,
+export const AccountsToProjectsRelations = relations(
+  AccountsToProjects,
   ({ one }) => ({
-    account: one(accountsTable, {
-      fields: [accountsToProjects.accountId],
-      references: [accountsTable.id],
+    account: one(Accounts, {
+      fields: [AccountsToProjects.accountId],
+      references: [Accounts.id],
     }),
-    project: one(projectsTable, {
-      fields: [accountsToProjects.projectId],
-      references: [projectsTable.id],
+    project: one(Projects, {
+      fields: [AccountsToProjects.projectId],
+      references: [Projects.id],
     }),
   })
 );
 
-export const resourcesRelations = relations(resourcesTable, ({ one }) => ({
-  project: one(projectsTable, {
-    fields: [resourcesTable.projectId],
-    references: [projectsTable.id],
+export const ResourcesRelations = relations(Resources, ({ one }) => ({
+  project: one(Projects, {
+    fields: [Resources.projectId],
+    references: [Projects.id],
   }),
 }));
 
-export const integrationsRelations = relations(
-  integrationsTable,
-  ({ one }) => ({
-    project: one(projectsTable, {
-      fields: [integrationsTable.projectId],
-      references: [projectsTable.id],
-    }),
-  })
-);
+export const IntegrationsRelations = relations(Integrations, ({ one }) => ({
+  project: one(Projects, {
+    fields: [Integrations.projectId],
+    references: [Projects.id],
+  }),
+}));

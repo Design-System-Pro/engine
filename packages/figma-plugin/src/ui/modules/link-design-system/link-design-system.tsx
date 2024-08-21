@@ -8,14 +8,15 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { AsyncMessage } from '../../../message';
 import { AsyncMessageTypes } from '../../../message.types';
-import { useDSApi } from '../providers/ds-api-provider';
-import { useAuth } from '../providers/auth-provider';
+import { api } from '@ds-project/api/react';
+import { useConfig } from '../providers/config-provider';
 
 export function LinkDesignSystem() {
-  const [projects, setProjects] = useState<{ id: string; name: string }[]>([]);
+  const { fileName } = useConfig();
   const [selectedProjectId, setSelectedProjectId] = useState<string>();
-  const { state } = useAuth();
-  const { getProjects, linkProject } = useDSApi();
+  const { data: projects, isLoading: isProjectsLoading } =
+    api.projects.account.useQuery();
+  const { mutate: linkResource } = api.resources.link.useMutation();
 
   useEffect(() => {
     AsyncMessage.ui
@@ -32,37 +33,25 @@ export function LinkDesignSystem() {
       });
   }, []);
 
-  useEffect(() => {
-    if (state !== 'authorized') return;
-
-    getProjects()
-      .then((data) => {
-        setProjects(data.projects);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
-        console.error('Error fetching design systems', error);
-      });
-  }, [getProjects, state]);
-
-  const onValueChange = useCallback(
-    (projectId: string) => {
-      void linkProject(projectId);
-      void AsyncMessage.ui.request({
-        type: AsyncMessageTypes.SetProjectId,
-        projectId,
-      });
-    },
-    [linkProject]
-  );
+  const onValueChange = useCallback((projectId: string) => {
+    if (projectId && fileName) {
+      linkResource({ projectId, name: fileName });
+    }
+    void AsyncMessage.ui.request({
+      type: AsyncMessageTypes.SetProjectId,
+      projectId,
+    });
+  }, []);
 
   return (
     <Select onValueChange={onValueChange} value={selectedProjectId}>
       <SelectTrigger className="max-w-[200px]">
-        <SelectValue placeholder="Select a project" />
+        <SelectValue
+          placeholder={isProjectsLoading ? 'Loading...' : 'Select a project'}
+        />
       </SelectTrigger>
       <SelectContent>
-        {projects.map(({ id, name }) => (
+        {projects?.map(({ id, name }) => (
           <SelectItem key={id} value={id}>
             {name}
           </SelectItem>

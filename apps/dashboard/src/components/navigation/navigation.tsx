@@ -17,7 +17,7 @@ import type { SelectProjects } from '@ds-project/database/schema';
 
 interface NavigationProps {
   className?: string;
-  projects?: SelectProjects[];
+  projects?: Pick<SelectProjects, 'id' | 'name'>[];
 }
 
 export function Navigation({ className, projects }: NavigationProps) {

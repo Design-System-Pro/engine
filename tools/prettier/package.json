@@ -11,7 +11,8 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@ds-project/typescript": "workspace:*"
+    "@ds-project/typescript": "workspace:*",
+    "typescript": "catalog:"
   },
   "prettier": "@ds-project/prettier"
 }

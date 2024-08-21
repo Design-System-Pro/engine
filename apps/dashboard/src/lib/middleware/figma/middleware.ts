@@ -1,11 +1,11 @@
 import 'server-only';
-/* eslint-disable no-console -- TODO: replace with monitoring */
+
 import { kv } from '@vercel/kv';
 import { NextResponse } from 'next/server';
 import { config } from '@/config';
-import { middlewareSupabaseClient } from '@/lib/supabase/server/middleware-client';
 import type { KVCredentials, KVCredentialsRead } from '@/types/kv-types';
 import type { MiddlewareFactory } from '../compose';
+import { createMiddlewareClient } from '@ds-project/auth/middleware';
 
 export const figmaMiddleware: MiddlewareFactory =
   (middleware) =>
@@ -25,7 +25,10 @@ export const figmaMiddleware: MiddlewareFactory =
         '🔐 Figma: Is Figma authentication. Starting authentication...'
       );
 
-      const supabase = middlewareSupabaseClient(request, response);
+      const supabase = createMiddlewareClient(request, response, {
+        supabaseAnonKey: config.supabaseAnonKey,
+        supabaseUrl: config.supabaseUrl,
+      });
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -79,7 +82,10 @@ export const figmaMiddleware: MiddlewareFactory =
 
     console.log('🔐 Figma: Figma key detected. Finishing authentication...');
 
-    const supabase = middlewareSupabaseClient(request, response);
+    const supabase = createMiddlewareClient(request, response, {
+      supabaseAnonKey: config.supabaseUrl,
+      supabaseUrl: config.supabaseAnonKey,
+    });
     const {
       data: { session },
     } = await supabase.auth.getSession();

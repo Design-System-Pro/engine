@@ -10,15 +10,19 @@
     "build": "concurrently -n main,ui \"npm run main\" \"npm run ui\"",
     "dev": "concurrently -n main,ui \"npm run main -- --watch\" \"npm run ui -- --watch\"",
     "lint": "eslint",
-    "format": "prettier --check .",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
+    "@ds-project/api": "workspace:*",
     "@ds-project/components": "workspace:*",
     "@octokit/core": "^6.1.2",
     "@octokit/request": "^9.1.3",
     "@octokit/types": "^13.5.0",
+    "@tanstack/react-query": "^5.51.24",
+    "@trpc/client": "catalog:",
+    "@trpc/react-query": "catalog:",
     "crypto-hash": "^3.1.0",
     "graphql": "^16.6.0",
     "object-hash": "^3.0.0",
@@ -29,7 +33,8 @@
     "react-json-view-lite": "^1.4.0",
     "sass": "^1.60.0",
     "style-dictionary": "catalog:",
-    "tailwindcss": "^3.4.7"
+    "superjson": "^2.2.1",
+    "tailwindcss": "catalog:"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",

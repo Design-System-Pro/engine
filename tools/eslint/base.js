@@ -6,6 +6,7 @@ import eslint from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import turboPlugin from 'eslint-plugin-turbo';
 import tseslint from 'typescript-eslint';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 /**
  * All packages that leverage t3-env should use this rule
@@ -46,6 +47,7 @@ export default tseslint.config(
     plugins: {
       import: importPlugin,
       turbo: turboPlugin,
+      'unused-imports': unusedImports,
     },
     extends: [
       eslint.configs.recommended,
@@ -55,9 +57,16 @@ export default tseslint.config(
     ],
     rules: {
       ...turboPlugin.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      '@typescript-eslint/no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
       ],
       '@typescript-eslint/consistent-type-imports': [
         'warn',

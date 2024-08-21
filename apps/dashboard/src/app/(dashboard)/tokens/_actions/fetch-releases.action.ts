@@ -1,27 +1,31 @@
 'use server';
-import {
-  getGithubInstallation,
-  getGithubIntegration,
-  getGithubRepository,
-} from '@/lib/github';
-import { isAuthenticated } from '@/lib/supabase/server/utils/is-authenticated';
+
+import { api } from '@ds-project/api/rsc';
+import { getInstallationOctokit } from '@ds-project/services/github';
 
 export async function fetchReleases() {
-  if (!(await isAuthenticated())) {
-    throw new Error('Not authenticated');
+  const githubIntegration = await api.integrations.github();
+
+  if (!githubIntegration) {
+    throw new Error('No GitHub integration found');
   }
 
-  const repository = await getGithubRepository();
-  const integration = await getGithubIntegration();
-  const installation = await getGithubInstallation(integration);
-
-  const { data } = await installation.request(
-    'GET /repos/{owner}/{repo}/releases',
-    {
-      owner: repository.owner.login,
-      repo: repository.name,
-    }
+  const octokit = await getInstallationOctokit(
+    githubIntegration.data.installationId
   );
+
+  const repositories = await octokit.request('GET /installation/repositories');
+
+  const repository = repositories.data.repositories.find(
+    (_repository) => _repository.id === githubIntegration.data.repositoryId
+  );
+
+  if (!repository) throw new Error('No repository found');
+
+  const { data } = await octokit.request('GET /repos/{owner}/{repo}/releases', {
+    owner: repository.owner.login,
+    repo: repository.name,
+  });
 
   return data;
 }

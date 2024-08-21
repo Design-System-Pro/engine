@@ -1,4 +1,3 @@
-import { App } from '@octokit/app';
 import {
   Button,
   Icons,
@@ -11,38 +10,31 @@ import {
   Text,
 } from '@ds-project/components';
 import Link from 'next/link';
-import { config } from '@/config';
-import { getInstallation, selectRepository } from '../_actions';
+import { selectRepository } from '../_actions';
+import {
+  getGithubApp,
+  getInstallationOctokit,
+} from '@ds-project/services/github';
+import { api } from '@ds-project/api/rsc';
 
 export async function GithubProvider() {
-  // await commitToRepository();
+  const githubApp = getGithubApp();
 
-  const app = new App({
-    appId: config.github.appId,
-    privateKey: config.github.appPrivateKey,
-    oauth: {
-      clientId: config.github.appClientId,
-      clientSecret: config.github.appClientSecret,
-    },
-  });
+  const installationUrl = await githubApp.getInstallationUrl();
 
-  const installationUrl = await app.getInstallationUrl();
-
-  const installation = await getInstallation();
-  // console.log({ installationId: installation?.installationId });
+  const githubIntegration = await api.integrations.github();
 
   const repositories = await (async () => {
-    if (installation) {
-      const octokit = await app.getInstallationOctokit(
-        installation.data.installationId
+    if (githubIntegration) {
+      const octokit = await getInstallationOctokit(
+        githubIntegration.data.installationId
       );
-
       const { data } = await octokit.request('GET /installation/repositories');
       return data.repositories;
     }
   })();
 
-  const isInstallationActive = Boolean(installation?.data.installationId);
+  const isInstallationActive = Boolean(githubIntegration?.data.installationId);
 
   return (
     <div className=" flex items-center space-x-4 rounded-md border p-4">
@@ -56,10 +48,10 @@ export async function GithubProvider() {
         </Text>
       </div>
 
-      {installation ? (
+      {githubIntegration ? (
         <form action={selectRepository} className="flex gap-2">
           <Select
-            defaultValue={installation.data.repositoryId?.toString()}
+            defaultValue={githubIntegration.data.repositoryId?.toString()}
             name="repositoryId"
           >
             <SelectTrigger className="w-[180px]">
@@ -76,7 +68,7 @@ export async function GithubProvider() {
           <Input
             name="installationId"
             type="hidden"
-            value={installation.data.installationId}
+            value={githubIntegration.data.installationId}
           />
 
           <Button type="submit">Update</Button>
