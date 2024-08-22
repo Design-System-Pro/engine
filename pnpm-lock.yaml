@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@figma/plugin-typings':
+      specifier: ^1.98.0
+      version: 1.98.0
     '@trpc/client':
       specifier: 11.0.0-rc.482
       version: 11.0.0-rc.482
@@ -670,8 +673,8 @@ importers:
         specifier: ^0.15.0
         version: 0.15.0(eslint@8.57.0)
       '@figma/plugin-typings':
-        specifier: ^1.97.0
-        version: 1.97.0
+        specifier: 'catalog:'
+        version: 1.98.0
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
@@ -719,7 +722,7 @@ importers:
         specifier: workspace:*
         version: link:../../tools/prettier
       '@figma/plugin-typings':
-        specifier: ^1.98.0
+        specifier: 'catalog:'
         version: 1.98.0
       eslint:
         specifier: 'catalog:'
@@ -2327,9 +2330,6 @@ packages:
 
   '@figma/eslint-plugin-figma-plugins@0.15.0':
     resolution: {integrity: sha512-ol/v6qje8sxE2npvjCbOQUGlTx++RdYcq98jKaNokL/qN1IF7Y6Y7jgj2wiAYmT2V+aABvtX7MNtKKJ2fbcfWA==}
-
-  '@figma/plugin-typings@1.97.0':
-    resolution: {integrity: sha512-AcmZey7TBbc43g2dO+9hjrcTbgb0UFY32do3to3rFU1OXb9hinsrmmbddyhD5105DHzRDac4oT7A5+VOow7p1Q==}
 
   '@figma/plugin-typings@1.98.0':
     resolution: {integrity: sha512-Bx5pBRf8XWeAFbDtKfdiUEM/UkCHyl4baOGb+7OPM0ozrzg5JNDH/BsrGA4EpuJKkS4uRmV525q3g067OX6VHg==}
@@ -9068,8 +9068,6 @@ snapshots:
     transitivePeerDependencies:
       - eslint
       - supports-color
-
-  '@figma/plugin-typings@1.97.0': {}
 
   '@figma/plugin-typings@1.98.0': {}
 

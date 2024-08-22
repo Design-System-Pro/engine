@@ -41,7 +41,7 @@
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@figma/eslint-plugin-figma-plugins": "^0.15.0",
-    "@figma/plugin-typings": "^1.97.0",
+    "@figma/plugin-typings": "catalog:",
     "@types/object-hash": "^3.0.6",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

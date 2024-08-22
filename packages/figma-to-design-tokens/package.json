@@ -18,7 +18,7 @@
   "devDependencies": {
     "@ds-project/prettier": "workspace:*",
     "@ds-project/eslint": "workspace:*",
-    "@figma/plugin-typings": "^1.98.0",
+    "@figma/plugin-typings": "catalog:",
     "style-dictionary": "^4.0.1",
     "tsup": "^8.2.4",
     "tsx": "^4.17.0",
