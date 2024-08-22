@@ -111,6 +111,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setCredentials(_credentials);
       setState('authorized');
       setShouldUpdatePlugin(true);
+    } else {
+      setCredentials(undefined);
+      setState('unauthorized');
+      setShouldUpdatePlugin(true);
     }
   }, [credentials]);
 

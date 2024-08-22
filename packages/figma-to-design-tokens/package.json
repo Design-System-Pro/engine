@@ -18,6 +18,7 @@
   "devDependencies": {
     "@ds-project/prettier": "workspace:*",
     "@ds-project/eslint": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
     "@figma/plugin-typings": "catalog:",
     "style-dictionary": "^4.0.1",
     "tsup": "^8.2.4",
@@ -25,6 +26,7 @@
     "eslint": "catalog:"
   },
   "dependencies": {
+    "@ds-project/database": "workspace:*",
     "color2k": "^2.0.3"
   }
 }

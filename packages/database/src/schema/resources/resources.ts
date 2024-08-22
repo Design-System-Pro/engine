@@ -30,7 +30,7 @@ const DesignTokensSchema: z.ZodType<DesignTokens> = z.lazy(() =>
     .catchall(
       z.union([
         DesignTokenSchema,
-        DesignTokensSchema,
+        z.lazy(() => DesignTokensSchema),
         z.string(),
         z.undefined(),
       ])
@@ -38,9 +38,8 @@ const DesignTokensSchema: z.ZodType<DesignTokens> = z.lazy(() =>
 );
 
 // PreprocessedTokens schema
-const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> = z.lazy(
-  () => z.union([DesignTokenSchema, PreprocessedTokensSchema])
-);
+export const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> =
+  z.lazy(() => z.union([DesignTokenSchema, PreprocessedTokensSchema]));
 
 /**
  * Represents the resources linked to a design system.

@@ -715,6 +715,9 @@ importers:
 
   packages/figma-to-design-tokens:
     dependencies:
+      '@ds-project/database':
+        specifier: workspace:*
+        version: link:../database
       color2k:
         specifier: ^2.0.3
         version: 2.0.3
@@ -725,6 +728,9 @@ importers:
       '@ds-project/prettier':
         specifier: workspace:*
         version: link:../../tools/prettier
+      '@ds-project/typescript':
+        specifier: workspace:*
+        version: link:../../tools/typescript
       '@figma/plugin-typings':
         specifier: 'catalog:'
         version: 1.98.0

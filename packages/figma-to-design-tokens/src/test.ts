@@ -1,4 +1,5 @@
 import { convertFigmaVariablesToDesignTokens } from './converter';
+import { InsertResourcesSchema } from '@ds-project/database/schema';
 
 const designTokens = convertFigmaVariablesToDesignTokens([
   {
@@ -213,5 +214,9 @@ const designTokens = convertFigmaVariablesToDesignTokens([
     ],
   },
 ]);
+const validDesignTokens = InsertResourcesSchema.pick({
+  designTokens: true,
+  name: true,
+}).parse({ designTokens, name: 'Project DS' });
 
-console.log('🧩 TOKENS', JSON.stringify(designTokens, null, 2));
+console.log('🧩 TOKENS', JSON.stringify(validDesignTokens, null, 2));

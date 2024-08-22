@@ -1,10 +1,10 @@
-import { DesignToken, DesignTokens } from 'style-dictionary/types';
-import { FigmaExtractedVariableCollection } from './types/figma';
+import type { DesignToken, DesignTokens } from 'style-dictionary/types';
+import type { FigmaExtractedVariableCollection } from './types/figma';
 import { extractVariable } from './extractors/extract-variable';
 import { notImplemented } from './filters/not-implemented';
 
 export function convertFigmaVariablesToDesignTokens(
-  variableCollections: Array<FigmaExtractedVariableCollection>
+  variableCollections: FigmaExtractedVariableCollection[]
 ): DesignTokens {
   return {
     $type: 'figma-design-tokens',

@@ -3,7 +3,11 @@ import { z } from 'zod';
 import { eq } from '@ds-project/database';
 
 import { createTRPCRouter, protectedProcedure } from '../trpc';
-import { InsertResourcesSchema, Resources } from '@ds-project/database/schema';
+import {
+  InsertResourcesSchema,
+  PreprocessedTokensSchema,
+  Resources,
+} from '@ds-project/database/schema';
 
 export const resourcesRouter = createTRPCRouter({
   byId: protectedProcedure
@@ -43,51 +47,21 @@ export const resourcesRouter = createTRPCRouter({
     }),
 
   updateDesignTokens: protectedProcedure
-    .input(InsertResourcesSchema.pick({ designTokens: true, name: true }))
+    .input(z.object({ name: z.string(), designTokens: z.any() }))
     .mutation(async ({ ctx, input }) => {
+      console.log('🤯 Here');
+
       const result = await ctx.database
         .update(Resources)
-        .set(input)
+        .set({
+          ...input,
+          // For some reason, if the validation happens at the input level, it gets a max stack call error.
+          // But moving it here it works 🤷🏻‍♂️
+          designTokens: PreprocessedTokensSchema.parse(input.designTokens),
+        })
         .where(eq(Resources.name, input.name));
       // TODO: Run update to Integration here ---> GitHub
 
-      /**
-       * // Update Github - TODO: turn into "update integrations" actions
-    const githubIntegration = await api.integrations.github();
-
-    if (!githubIntegration) {
-      throw new Error('No GitHub integration found');
-    }
-
-    const octokit = await getInstallationOctokit(
-      githubIntegration.data.installationId
-    );
-
-    const repositories = await octokit.request(
-      'GET /installation/repositories'
-    );
-
-    const repository = repositories.data.repositories.find(
-      (_repository) => _repository.id === githubIntegration.data.repositoryId
-    );
-
-    if (!repository) throw new Error('No repository found');
-
-    const base64Content = btoa(
-      JSON.stringify(validatedData.designTokens, null, 2)
-    );
-    await pushFile({
-      file: {
-        content: base64Content,
-        encoding: 'base64',
-        name: `/tokens.json`,
-        path: `${config.gitTokensPath}`,
-      },
-      installationId: githubIntegration.data.installationId,
-      owner: repository.owner.login,
-      repo: repository.name,
-    });
-       */
       return result;
     }),
 

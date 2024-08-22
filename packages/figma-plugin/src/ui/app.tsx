@@ -16,15 +16,16 @@ function App() {
     api.resources.updateDesignTokens.useMutation();
 
   useEffect(() => {
+    if (!fileName || state !== 'authorized') return;
+
     AsyncMessage.ui
       .request({
         type: AsyncMessageTypes.GetDesignTokens,
       })
       .then(({ designTokens }) => {
         console.log({ designTokens });
-        if (fileName) {
-          // void updateDesignTokens({ designTokens, name: fileName });
-        }
+
+        void updateDesignTokens({ designTokens, name: fileName });
       })
       .catch((error) => {
         console.error('Error updating design tokens', error);
