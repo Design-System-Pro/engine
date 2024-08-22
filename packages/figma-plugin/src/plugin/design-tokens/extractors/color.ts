@@ -2,6 +2,7 @@ import type { DesignToken } from 'style-dictionary/types';
 import { extractAlias } from './extract-alias';
 import { rgbToHex } from '../../variables/utils/transformers/color';
 import { tokenize } from '../utils/tokenize';
+import { config } from '../../config';
 
 const convertChannel = (value: number): number => {
   return Math.round(value * 255);
@@ -42,8 +43,7 @@ export async function extractColor(
 
   if (typeof value === 'object' && 'id' in value) {
     // VariableAlias
-    const aliasVariable = await extractAlias(value.id, modeId);
-    colorOrAlias = `{${modeId}.${aliasVariable?.name.split('/').join('.')}}`;
+    colorOrAlias = await extractAlias(value.id, modeId);
   }
 
   return tokenize(
@@ -53,5 +53,10 @@ export async function extractColor(
     $type: 'color',
     $description: variable.description,
     $value: colorOrAlias,
+    extensions: {
+      [config.extensionPluginKey]: {
+        scopes: variable.scopes,
+      },
+    },
   });
 }

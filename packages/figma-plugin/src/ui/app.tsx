@@ -1,6 +1,6 @@
 import '@ds-project/components/globals.css';
 import 'react-json-view-lite/dist/index.css';
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { Button, DSLogo, Icons } from '@ds-project/components';
 import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';
@@ -15,7 +15,7 @@ function App() {
   const { mutate: updateDesignTokens } =
     api.resources.updateDesignTokens.useMutation();
 
-  useEffect(() => {
+  const update = useCallback(() => {
     if (!fileName || state !== 'authorized') return;
 
     AsyncMessage.ui
@@ -34,6 +34,11 @@ function App() {
 
   return (
     <main className="flex size-full flex-col items-center justify-center gap-4">
+      {state === 'authorized' ? (
+        <Button onClick={update}>
+          <Icons.ReloadIcon className="mr-2" /> Update
+        </Button>
+      ) : null}
       {state === 'authorized' ? <LinkDesignSystem /> : null}
       {state === 'authorized' ? (
         <Button onClick={logout}>
