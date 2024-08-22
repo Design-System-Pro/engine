@@ -21,20 +21,19 @@ function App() {
         type: AsyncMessageTypes.GetDesignTokens,
       })
       .then(({ designTokens }) => {
+        console.log({ designTokens });
         if (fileName) {
           // void updateDesignTokens({ designTokens, name: fileName });
         }
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error updating design tokens', error);
       });
-  }, [state, updateDesignTokens]);
+  }, [fileName, state, updateDesignTokens]);
 
   return (
     <main className="flex size-full flex-col items-center justify-center gap-4">
       {state === 'authorized' ? <LinkDesignSystem /> : null}
-      {/* eslint-disable-next-line no-nested-ternary -- Intentional */}
       {state === 'authorized' ? (
         <Button onClick={logout}>
           <Icons.ExitIcon className="mr-2" /> Logout

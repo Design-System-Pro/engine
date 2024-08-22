@@ -15,10 +15,9 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
             return false;
           }
 
-          return credentials.expireAt - Date.now() < 0;
+          return credentials.expiresAt < Math.floor(Date.now() / 1000);
         },
         fetchAccessToken: async () => {
-          console.log('✨ Refreshing token...');
           try {
             void refreshAccessToken();
           } catch (error) {

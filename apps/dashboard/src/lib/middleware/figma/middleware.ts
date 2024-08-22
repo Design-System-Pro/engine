@@ -83,8 +83,8 @@ export const figmaMiddleware: MiddlewareFactory =
     console.log('🔐 Figma: Figma key detected. Finishing authentication...');
 
     const supabase = createMiddlewareClient(request, response, {
-      supabaseAnonKey: config.supabaseUrl,
-      supabaseUrl: config.supabaseAnonKey,
+      supabaseAnonKey: config.supabaseAnonKey,
+      supabaseUrl: config.supabaseUrl,
     });
     const {
       data: { session },

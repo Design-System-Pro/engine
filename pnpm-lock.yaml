@@ -663,6 +663,9 @@ importers:
       trpc-token-refresh-link:
         specifier: ^0.5.0
         version: 0.5.0
+      zod:
+        specifier: 'catalog:'
+        version: 3.23.8
     devDependencies:
       '@ds-project/eslint':
         specifier: workspace:*

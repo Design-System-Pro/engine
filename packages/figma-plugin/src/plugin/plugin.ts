@@ -1,7 +1,7 @@
 import { convertFigmaVariablesToDesignTokens } from '@ds-project/types';
 import { AsyncMessage } from '../message';
 import { AsyncMessageTypes } from '../message.types';
-import type { Credentials } from '../types/credentials';
+import { CredentialsSchema } from '../types/credentials';
 import { config } from '../ui/config';
 import { extractVariables } from './extract-variables/extract-variables';
 import { storage } from './storage';
@@ -21,7 +21,7 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.GetConfig, async () => {
 AsyncMessage.plugin.handle(AsyncMessageTypes.GetCredentials, async () => {
   const credentialsString = await storage.get(config.CREDENTIALS_KEY);
   const credentials = credentialsString
-    ? (JSON.parse(credentialsString) as Credentials)
+    ? CredentialsSchema.parse(JSON.parse(credentialsString))
     : null;
   if (!credentials) {
     throw new Error('No DS Credentials found');
@@ -35,7 +35,7 @@ AsyncMessage.plugin.handle(
   async (message) => {
     await storage.set(
       config.CREDENTIALS_KEY,
-      JSON.stringify(message.credentials)
+      JSON.stringify(CredentialsSchema.parse(message.credentials))
     );
 
     return {};
@@ -50,6 +50,8 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.DeleteCredentials, async () => {
 
 AsyncMessage.plugin.handle(AsyncMessageTypes.GetDesignTokens, async () => {
   const variables = await extractVariables(figma);
+
+  console.log({ variables });
 
   return {
     designTokens: convertFigmaVariablesToDesignTokens(variables),

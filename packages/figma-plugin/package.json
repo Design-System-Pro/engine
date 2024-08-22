@@ -36,7 +36,8 @@
     "style-dictionary": "catalog:",
     "superjson": "^2.2.1",
     "tailwindcss": "catalog:",
-    "trpc-token-refresh-link": "^0.5.0"
+    "trpc-token-refresh-link": "^0.5.0",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",

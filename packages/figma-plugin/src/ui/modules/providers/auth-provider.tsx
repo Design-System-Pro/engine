@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 import { config } from '../../config';
+import { CredentialsSchema } from '../../../types/credentials';
 import type { Credentials } from '../../../types/credentials';
 import { AsyncMessage } from '../../../message';
 import { AsyncMessageTypes } from '../../../message.types';
@@ -58,7 +59,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setState('authorized');
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error requesting credentials from plugin', error);
         setState('unauthorized');
       });
@@ -104,10 +104,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const _credentials = (await response.json()) as Credentials;
-    setCredentials(_credentials);
-    setState('authorized');
-    setShouldUpdatePlugin(true);
+    const { data: _credentials, success: areCredentialsValid } =
+      CredentialsSchema.safeParse(await response.json());
+
+    if (areCredentialsValid) {
+      setCredentials(_credentials);
+      setState('authorized');
+      setShouldUpdatePlugin(true);
+    }
   }, [credentials]);
 
   const logout = useCallback(async () => {
@@ -156,13 +160,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Error polling for DS token.');
       }
 
-      clearInterval(interval);
+      const { data: _credentials, success: areCredentialsValid } =
+        CredentialsSchema.safeParse(await exchangeResponse.json());
 
-      const _credentials = (await exchangeResponse.json()) as Credentials;
-
-      setCredentials(_credentials);
-      setState('authorized');
-      setShouldUpdatePlugin(true);
+      if (areCredentialsValid) {
+        setCredentials(_credentials);
+        setState('authorized');
+        setShouldUpdatePlugin(true);
+        clearInterval(interval);
+      }
     }, config.READ_INTERVAL);
   }, []);
 
@@ -174,7 +180,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       login,
       logout,
     }),
-    [credentials, login, logout, refreshAccessToken, , state]
+    [credentials, login, logout, refreshAccessToken, state]
   );
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
