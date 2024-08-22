@@ -1,5 +1,7 @@
 import type { DesignToken } from 'style-dictionary/types';
 import { extractModeVariable } from './extract-mode-variable';
+import { nonNullable } from '../utils/non-nullable';
+import { combinePaths } from '../utils/combine-paths';
 
 export const extractVariable = async (
   variableId: string
@@ -10,12 +12,11 @@ export const extractVariable = async (
 
   const modeIds = Object.keys(variable.valuesByMode);
 
-  const valuesPerMode = await Promise.all(
-    modeIds.map((modeId) => extractModeVariable(variable, modeId))
-  );
+  const valuesPerMode = (
+    await Promise.all(
+      modeIds.map((modeId) => extractModeVariable(variable, modeId))
+    )
+  ).filter(nonNullable);
 
-  return {
-    $type: 'figma-variable',
-    valuesPerMode,
-  };
+  return combinePaths(valuesPerMode);
 };

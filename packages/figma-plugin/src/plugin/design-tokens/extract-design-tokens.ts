@@ -1,5 +1,6 @@
 import type { DesignTokens } from 'style-dictionary/types';
 import { extractVariableCollection } from './extractors/variable-collection';
+import { combinePaths } from './utils/combine-paths';
 
 export async function extractDesignTokens(): Promise<DesignTokens> {
   const collections = await figma.variables.getLocalVariableCollectionsAsync();
@@ -8,8 +9,5 @@ export async function extractDesignTokens(): Promise<DesignTokens> {
     collections.map(extractVariableCollection)
   );
 
-  return {
-    $type: 'figma-design-tokens',
-    localVariableCollections,
-  };
+  return combinePaths(localVariableCollections);
 }

@@ -43,10 +43,13 @@ export async function extractColor(
   if (typeof value === 'object' && 'id' in value) {
     // VariableAlias
     const aliasVariable = await extractAlias(value.id, modeId);
-    colorOrAlias = `{${aliasVariable?.name.split('/').join('.')}}`;
+    colorOrAlias = `{${modeId}.${aliasVariable?.name.split('/').join('.')}}`;
   }
 
-  return tokenize(variable.name)({
+  return tokenize(
+    modeId,
+    variable.name
+  )({
     $type: 'color',
     $description: variable.description,
     $value: colorOrAlias,

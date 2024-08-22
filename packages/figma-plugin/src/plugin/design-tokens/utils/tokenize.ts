@@ -1,11 +1,12 @@
-import { DesignToken } from 'style-dictionary/types';
+import type { DesignToken } from 'style-dictionary/types';
 
-export const tokenize = (name: string) => (token: DesignToken) => {
-  const paths = name.split('/');
+export const tokenize =
+  (modeId: string, name: string) => (token: DesignToken) => {
+    const paths = [modeId, ...name.split('/')];
 
-  return paths.reduceRight((accumulator, path) => {
-    return {
-      [path]: accumulator,
-    };
-  }, token);
-};
+    return paths.reduceRight((accumulator, path) => {
+      return {
+        [path]: accumulator,
+      };
+    }, token);
+  };
