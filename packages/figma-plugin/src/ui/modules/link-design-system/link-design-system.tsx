@@ -8,8 +8,8 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { AsyncMessage } from '../../../message';
 import { AsyncMessageTypes } from '../../../message.types';
-import { api } from '@ds-project/api/react';
 import { useConfig } from '../providers/config-provider';
+import { api } from '@ds-project/api/react';
 
 export function LinkDesignSystem() {
   const { fileName } = useConfig();

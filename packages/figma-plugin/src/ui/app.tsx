@@ -6,8 +6,8 @@ import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';
 import { LinkDesignSystem } from './modules/link-design-system';
 import { useAuth } from './modules/providers/auth-provider';
-import { api } from '@ds-project/api/react';
 import { useConfig } from './modules/providers/config-provider';
+import { api } from '@ds-project/api/react';
 
 function App() {
   const { login, logout, state } = useAuth();
@@ -22,7 +22,7 @@ function App() {
       })
       .then(({ designTokens }) => {
         if (fileName) {
-          void updateDesignTokens({ designTokens, name: fileName });
+          // void updateDesignTokens({ designTokens, name: fileName });
         }
       })
       .catch((error) => {

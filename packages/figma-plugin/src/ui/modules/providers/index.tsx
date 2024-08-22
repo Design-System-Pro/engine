@@ -1,13 +1,14 @@
-import { TRPCReactProvider } from '../../lib/api';
+import { ApiProvider } from './api-provider';
 import { AuthProvider } from './auth-provider';
 import { ConfigProvider } from './config-provider';
+import { TRPCReactProvider } from '@ds-project/api/react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
-      <TRPCReactProvider>
+      <ApiProvider>
         <ConfigProvider>{children}</ConfigProvider>
-      </TRPCReactProvider>
+      </ApiProvider>
     </AuthProvider>
   );
 }

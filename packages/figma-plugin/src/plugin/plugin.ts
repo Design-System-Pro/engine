@@ -27,8 +27,6 @@ AsyncMessage.plugin.handle(AsyncMessageTypes.GetCredentials, async () => {
     throw new Error('No DS Credentials found');
   }
 
-  console.log(credentialsString);
-
   return { credentials };
 });
 

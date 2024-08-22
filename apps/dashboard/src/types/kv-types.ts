@@ -5,7 +5,6 @@ export interface KVCredentialsRead {
 export interface KVCredentials {
   accessToken: string;
   refreshToken: string;
-
   expiresAt: number;
 }
 
