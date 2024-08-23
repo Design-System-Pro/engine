@@ -16,7 +16,7 @@
     },
     "build": {
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["dist/**", "storybook-static/**"],
+      "outputs": [".cache/tsbuildinfo.json", "dist/**", "storybook-static/**"],
       "dependsOn": ["^build"]
     },
     "format": {
