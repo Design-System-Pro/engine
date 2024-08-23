@@ -71,12 +71,17 @@ export function Navigation({ className, projects }: NavigationProps) {
       </div>
 
       <div className="flex gap-2">
-        <Button variant="ghost" size="icon" title="GitHub">
+        <Button variant="ghost" asChild>
+          <Link href="https://ds-project.supahub.com">
+            Feedback <Icons.StarFilledIcon className="ml-2" />
+          </Link>
+        </Button>
+        <Button variant="ghost" size="icon" title="GitHub" asChild>
           <Link href="https://github.com/Design-System-Project" target="_blank">
             <Icons.GitHubLogoIcon />
           </Link>
         </Button>
-        <Button variant="ghost" size="icon" title="Discord">
+        <Button variant="ghost" size="icon" title="Discord" asChild>
           <Link href="https://discord.gg/AKza6Mqr" target="_blank">
             <Icons.DiscordLogoIcon />
           </Link>
