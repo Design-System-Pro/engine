@@ -1,5 +1,4 @@
-import { cache } from 'react';
-
+import memoize from 'memoize';
 const getCollectionById = async (
   collectionId?: string
 ): Promise<VariableCollection | undefined> => {
@@ -11,4 +10,4 @@ const getCollectionById = async (
   );
 };
 
-export const collectionById = cache(getCollectionById);
+export const collectionById = memoize(getCollectionById);
