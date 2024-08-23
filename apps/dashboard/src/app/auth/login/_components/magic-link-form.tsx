@@ -1,8 +1,7 @@
 'use client';
 
-// eslint-disable-next-line import/named -- TODO: Review
 import { useFormState } from 'react-dom';
-import { Input, Label, Text } from '@ds-project/components';
+import { CardContent, CardFooter, Input, Label } from '@ds-project/components';
 import { loginUser } from '../_actions';
 import { Message } from './message';
 import { SubmitButton } from './submit-button';
@@ -13,22 +12,21 @@ export const MagicLinkForm = () => {
   });
 
   return (
-    <form action={formAction} className="flex flex-col space-y-8">
-      <Label>Email</Label>
-      <Input
-        autoComplete="email"
-        name="email"
-        placeholder="you@example.com"
-        required
-        type="email"
-      />
-      <p>Sign in instantly by getting a magic link sent to your email</p>
-
-      <SubmitButton />
-      <Text>
-        <p>{state.error}</p>
-      </Text>
-      <Message email={state.email} visible={state.ok} />
+    <form action={formAction} className="flex flex-col gap-4">
+      <CardContent className="grid gap-4">
+        <Label>Email</Label>
+        <Input
+          autoComplete="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          type="email"
+        />
+      </CardContent>
+      <CardFooter>
+        <Message email={state.email} visible={state.ok} />
+        {!state.ok ? <SubmitButton /> : null}
+      </CardFooter>
     </form>
   );
 };

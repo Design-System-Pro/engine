@@ -1,11 +1,23 @@
-import { Icons } from '@ds-project/components';
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@ds-project/components';
 import { MagicLinkForm } from './_components';
 
 export default function Page() {
   return (
-    <section className="flex max-w-sm flex-col items-center gap-6">
-      <Icons.EnterIcon height={64} width={64} />
+    <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">
+          <h1>Login</h1>
+        </CardTitle>
+        <CardDescription>
+          <p>Enter your email below to login to your account.</p>
+        </CardDescription>
+      </CardHeader>
       <MagicLinkForm />
-    </section>
+    </Card>
   );
 }
