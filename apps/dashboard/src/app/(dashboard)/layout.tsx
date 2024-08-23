@@ -18,12 +18,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const projects = await api.projects.account();
+  const user = await api.users.current();
 
   return (
     <html lang="en">
       <body className={cn('flex flex-col items-center', inter.className)}>
         <header className="sticky top-0 w-full">
-          <Navigation className="px-2 pt-2" projects={projects} />
+          <Navigation
+            className="px-2 pt-2"
+            projects={projects}
+            email={user?.email ?? 'Account'}
+          />
         </header>
         <main className="flex min-h-screen w-full flex-col items-center py-2">
           {children}
