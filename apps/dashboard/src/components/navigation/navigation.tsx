@@ -15,13 +15,15 @@ import Link from 'next/link';
 import { cn } from '@/lib/css';
 import { HomeButton } from '../home-button';
 import type { SelectProjects } from '@ds-project/database/schema';
+import { AccountMenu } from '../account-menu/acocunt-menu';
 
 interface NavigationProps {
   className?: string;
   projects?: Pick<SelectProjects, 'id' | 'name'>[];
+  email: string;
 }
 
-export function Navigation({ className, projects }: NavigationProps) {
+export function Navigation({ className, projects, email }: NavigationProps) {
   return (
     <nav
       className={cn(
@@ -86,6 +88,10 @@ export function Navigation({ className, projects }: NavigationProps) {
             <Icons.DiscordLogoIcon />
           </Link>
         </Button>
+      </div>
+
+      <div>
+        <AccountMenu email={email} />
       </div>
     </nav>
   );

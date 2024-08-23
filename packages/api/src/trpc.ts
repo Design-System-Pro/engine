@@ -63,6 +63,7 @@ export const createTRPCContext = async (opts: {
     : null;
 
   return {
+    user,
     database,
     token,
     account,
@@ -148,13 +149,14 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    if (!ctx.account) {
+    if (!ctx.account || !ctx.user) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
 
     return next({
       ctx: {
         ...ctx,
+        user: ctx.user,
         account: ctx.account,
       } as DSContext,
     });
