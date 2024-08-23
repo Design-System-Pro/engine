@@ -15,6 +15,7 @@
   "dependencies": {
     "@ds-project/api": "workspace:*",
     "@ds-project/auth": "workspace:*",
+    "@ds-project/types": "workspace:*",
     "@ds-project/components": "workspace:*",
     "@ds-project/database": "workspace:*",
     "@hookform/resolvers": "^3.9.0",

@@ -5,43 +5,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@ds-project/components';
-import { useCallback, useEffect, useState } from 'react';
-import { AsyncMessage } from '../../../message';
-import { AsyncMessageTypes } from '../../../message.types';
-import { api } from '@ds-project/api/react';
-import { useConfig } from '../providers/config-provider';
+import { useCallback } from 'react';
+import { useProjects } from '../providers/projects-provider';
 
 export function LinkDesignSystem() {
-  const { fileName } = useConfig();
-  const [selectedProjectId, setSelectedProjectId] = useState<string>();
-  const { data: projects, isLoading: isProjectsLoading } =
-    api.projects.account.useQuery();
-  const { mutate: linkResource } = api.resources.link.useMutation();
+  const {
+    isLoading: isProjectsLoading,
+    linkProject,
+    projects,
+    selectedProjectId,
+  } = useProjects();
 
-  useEffect(() => {
-    AsyncMessage.ui
-      .request({
-        type: AsyncMessageTypes.GetProjectId,
-      })
-      .then(({ projectId }) => {
-        if (!projectId) return;
-        setSelectedProjectId(projectId);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
-        console.error('Error fetching design system from plugin', error);
-      });
-  }, []);
-
-  const onValueChange = useCallback((projectId: string) => {
-    if (projectId && fileName) {
-      linkResource({ projectId, name: fileName });
-    }
-    void AsyncMessage.ui.request({
-      type: AsyncMessageTypes.SetProjectId,
-      projectId,
-    });
-  }, []);
+  const onValueChange = useCallback(
+    async (projectId: string) => {
+      await linkProject(projectId);
+    },
+    [linkProject]
+  );
 
   return (
     <Select onValueChange={onValueChange} value={selectedProjectId}>

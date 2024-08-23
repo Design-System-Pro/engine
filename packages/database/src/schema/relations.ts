@@ -39,14 +39,6 @@ export const AccountsToProjectsRelations = relations(
     }),
   })
 );
-
-export const ResourcesRelations = relations(Resources, ({ one }) => ({
-  project: one(Projects, {
-    fields: [Resources.projectId],
-    references: [Projects.id],
-  }),
-}));
-
 export const IntegrationsRelations = relations(Integrations, ({ one }) => ({
   project: one(Projects, {
     fields: [Integrations.projectId],

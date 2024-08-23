@@ -26,16 +26,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "style-dictionary": "catalog:",
-    "@ds-project/services": "workspace:*",
     "@ds-project/auth": "workspace:*",
     "@ds-project/database": "workspace:*",
+    "@ds-project/services": "workspace:*",
     "@tanstack/react-query": "^5.51.24",
     "@trpc/client": "catalog:",
     "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
+    "style-dictionary": "catalog:",
     "superjson": "^2.2.1",
     "zod": "catalog:"
   },

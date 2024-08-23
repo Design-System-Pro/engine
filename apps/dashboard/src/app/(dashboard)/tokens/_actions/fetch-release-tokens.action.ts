@@ -21,6 +21,7 @@ async function searchFileSha({
   path: string[];
   index?: number;
 }) {
+  // TODO: Explore recursive approach instead https://arc.net/l/quote/wmwrxkfr
   const { data: treeData } = await octokit.request(
     'GET /repos/{owner}/{repo}/git/trees/{tree_sha}',
     {

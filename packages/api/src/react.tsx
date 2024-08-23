@@ -1,14 +1,15 @@
 'use client';
 
 import type { QueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
+import type { TRPCLink } from '@trpc/client';
 import { loggerLink, unstable_httpBatchStreamLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import SuperJSON from 'superjson';
 
 import { createQueryClient } from './query-client';
 import type { AppRouter } from './app-router';
+import { useMemo } from 'react';
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
@@ -23,33 +24,40 @@ const getQueryClient = () => {
 
 export const api = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: { children: React.ReactNode }) {
+export function TRPCReactProvider(props: {
+  children: React.ReactNode;
+  source: string;
+  accessToken?: string;
+  trpcLinks?: TRPCLink<AppRouter>[];
+}) {
   const queryClient = getQueryClient();
 
-  const [trpcClient] = useState(() =>
-    api.createClient({
-      links: [
-        loggerLink({
-          enabled: (op) =>
-            // eslint-disable-next-line turbo/no-undeclared-env-vars
-            process.env.NODE_ENV === 'development' ||
-            (op.direction === 'down' && op.result instanceof Error),
-        }),
-        unstable_httpBatchStreamLink({
-          transformer: SuperJSON,
-          url: getBaseUrl() + '/api/trpc',
-          headers() {
-            const headerObject: Record<string, string> = {};
-            const headers = new Headers();
-            headers.set('x-trpc-source', 'nextjs-react');
-            headers.forEach((header, value) => {
-              headerObject[header] = value;
-            });
-            return headerObject;
-          },
-        }),
-      ],
-    })
+  const trpcClient = useMemo(
+    () =>
+      api.createClient({
+        links: [
+          ...(props.trpcLinks ?? []),
+          loggerLink({
+            enabled: (op) =>
+              // eslint-disable-next-line turbo/no-undeclared-env-vars
+              process.env.NODE_ENV === 'development' ||
+              (op.direction === 'down' && op.result instanceof Error),
+          }),
+          unstable_httpBatchStreamLink({
+            transformer: SuperJSON,
+            url: getBaseUrl() + '/api/v1',
+            headers() {
+              return {
+                'x-trpc-source': props.source,
+                ...(props.accessToken
+                  ? { Authorization: `Bearer ${props.accessToken}` }
+                  : {}),
+              };
+            },
+          }),
+        ],
+      }),
+    [props.accessToken, props.source, props.trpcLinks]
   );
 
   return (
@@ -62,10 +70,10 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 }
 
 const getBaseUrl = () => {
-  if (typeof window !== 'undefined') return window.location.origin;
+  // if (typeof window !== 'undefined') return window.location.origin;
   // eslint-disable-next-line turbo/no-undeclared-env-vars
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
 
   // eslint-disable-next-line turbo/no-undeclared-env-vars
-  return `http://localhost:${process.env.PORT ?? 3000}`;
+  return `https://localhost:${process.env.PORT ?? 3000}`;
 };

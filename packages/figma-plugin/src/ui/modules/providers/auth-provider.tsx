@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 import { config } from '../../config';
+import { CredentialsSchema } from '../../../types/credentials';
 import type { Credentials } from '../../../types/credentials';
 import { AsyncMessage } from '../../../message';
 import { AsyncMessageTypes } from '../../../message.types';
@@ -17,8 +18,7 @@ interface AuthStartResponse {
 }
 
 interface ContextType {
-  accessToken?: string;
-  refreshToken?: string;
+  credentials: Credentials | undefined;
   state:
     | 'initializing'
     | 'authorizing'
@@ -31,6 +31,7 @@ interface ContextType {
 }
 
 const Context = createContext<ContextType>({
+  credentials: undefined,
   state: 'initializing',
   refreshAccessToken: () => Promise.resolve(),
   login: () => Promise.resolve(),
@@ -41,10 +42,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<
     'initializing' | 'authorizing' | 'authorized' | 'unauthorized' | 'failed'
   >('initializing');
-  const [accessToken, setAccessToken] = useState<ContextType['accessToken']>();
-  const [refreshToken, setRefreshToken] =
-    useState<ContextType['refreshToken']>();
   const [shouldUpdatePlugin, setShouldUpdatePlugin] = useState(false);
+  const [credentials, setCredentials] = useState<Credentials>();
 
   useEffect(() => {
     // Try to get credentials from plugin if they exist.
@@ -55,13 +54,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     AsyncMessage.ui
       .request({ type: AsyncMessageTypes.GetCredentials })
-      .then(({ credentials }) => {
-        setAccessToken(credentials.accessToken);
-        setRefreshToken(credentials.refreshToken);
+      .then(({ credentials: _credentials }) => {
+        setCredentials(_credentials);
         setState('authorized');
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error requesting credentials from plugin', error);
         setState('unauthorized');
       });
@@ -73,27 +70,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    if (state === 'authorized' && accessToken && refreshToken) {
+    if (state === 'authorized' && credentials) {
       void AsyncMessage.ui.request({
         type: AsyncMessageTypes.SetCredentials,
-        credentials: {
-          accessToken,
-          refreshToken,
-        },
+        credentials,
       });
-    } else if (state === 'unauthorized' && !accessToken && !refreshToken) {
+    } else if (state === 'unauthorized' && !credentials) {
       void AsyncMessage.ui.request({
         type: AsyncMessageTypes.DeleteCredentials,
       });
     }
 
     setShouldUpdatePlugin(false);
-  }, [accessToken, refreshToken, shouldUpdatePlugin, state]);
+  }, [credentials, shouldUpdatePlugin, state]);
 
   const refreshAccessToken = useCallback(async () => {
-    if (!refreshToken) {
-      setAccessToken(undefined);
-      setRefreshToken(undefined);
+    if (!credentials) {
+      setCredentials(undefined);
       setState('unauthorized');
       setShouldUpdatePlugin(true);
       return;
@@ -101,37 +94,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const response = await fetch(`${config.AUTH_API_HOST}/api/auth/refresh`, {
       method: 'POST',
-      body: JSON.stringify({ refreshToken }),
+      body: JSON.stringify({ refreshToken: credentials.refreshToken }),
     });
 
     if (!response.ok) {
-      setAccessToken(undefined);
-      setRefreshToken(undefined);
+      setCredentials(undefined);
       setState('unauthorized');
       setShouldUpdatePlugin(true);
       return;
     }
 
-    const credentials = (await response.json()) as Credentials;
-    setAccessToken(credentials.accessToken);
-    setRefreshToken(credentials.refreshToken);
-    setState('authorized');
-    setShouldUpdatePlugin(true);
-  }, [refreshToken]);
+    const { data: _credentials, success: areCredentialsValid } =
+      CredentialsSchema.safeParse(await response.json());
+
+    if (areCredentialsValid) {
+      setCredentials(_credentials);
+      setState('authorized');
+      setShouldUpdatePlugin(true);
+    } else {
+      setCredentials(undefined);
+      setState('unauthorized');
+      setShouldUpdatePlugin(true);
+    }
+  }, [credentials]);
 
   const logout = useCallback(async () => {
     await AsyncMessage.ui.request({
       type: AsyncMessageTypes.DeleteCredentials,
     });
-    setAccessToken(undefined);
-    setRefreshToken(undefined);
+    setCredentials(undefined);
     setState('unauthorized');
     setShouldUpdatePlugin(true);
   }, []);
 
   const login = useCallback(async () => {
-    setAccessToken(undefined);
-    setRefreshToken(undefined);
+    setCredentials(undefined);
     setState('authorizing');
     setShouldUpdatePlugin(true);
 
@@ -167,27 +164,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw new Error('Error polling for DS token.');
       }
 
-      clearInterval(interval);
+      const { data: _credentials, success: areCredentialsValid } =
+        CredentialsSchema.safeParse(await exchangeResponse.json());
 
-      const credentials = (await exchangeResponse.json()) as Credentials;
-
-      setAccessToken(credentials.accessToken);
-      setRefreshToken(credentials.refreshToken);
-      setState('authorized');
-      setShouldUpdatePlugin(true);
+      if (areCredentialsValid) {
+        setCredentials(_credentials);
+        setState('authorized');
+        setShouldUpdatePlugin(true);
+        clearInterval(interval);
+      }
     }, config.READ_INTERVAL);
   }, []);
 
   const contextValue = useMemo(
     () => ({
       state,
-      accessToken,
-      refreshToken,
+      credentials,
       refreshAccessToken,
       login,
       logout,
     }),
-    [accessToken, login, logout, refreshAccessToken, refreshToken, state]
+    [credentials, login, logout, refreshAccessToken, state]
   );
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;

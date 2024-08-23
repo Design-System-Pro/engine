@@ -30,7 +30,7 @@ const DesignTokensSchema: z.ZodType<DesignTokens> = z.lazy(() =>
     .catchall(
       z.union([
         DesignTokenSchema,
-        DesignTokensSchema,
+        z.lazy(() => DesignTokensSchema),
         z.string(),
         z.undefined(),
       ])
@@ -38,9 +38,10 @@ const DesignTokensSchema: z.ZodType<DesignTokens> = z.lazy(() =>
 );
 
 // PreprocessedTokens schema
-const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> = z.lazy(
-  () => z.union([DesignTokenSchema, PreprocessedTokensSchema])
-);
+export const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> =
+  z.lazy(() => z.union([DesignTokenSchema, PreprocessedTokensSchema]));
+
+export type DesignTokensModel = z.infer<typeof PreprocessedTokensSchema>;
 
 /**
  * Represents the resources linked to a design system.
@@ -56,11 +57,9 @@ export const Resources = pgTable('resources', {
     .$onUpdate(() => new Date().toISOString()),
   projectId: uuid('project_id')
     .references(() => Projects.id, { onDelete: 'cascade' })
-    .notNull()
-    .unique(),
-  name: text('name').notNull(),
-  designTokens:
-    json('design_tokens').$type<z.infer<typeof PreprocessedTokensSchema>>(),
+    .notNull(),
+  name: text('name').notNull().unique(),
+  designTokens: json('design_tokens').$type<DesignTokensModel>(),
 });
 
 export const InsertResourcesSchema = createInsertSchema(Resources, {
