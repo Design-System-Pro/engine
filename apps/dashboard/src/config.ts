@@ -31,7 +31,7 @@ export const env = createEnv({
 const pageUrl = (() => {
   switch (env.NEXT_PUBLIC_VERCEL_ENV) {
     case 'production':
-      return 'https://ds-project.tfrancisco.dev';
+      return 'https://designsystemproject.pro';
     case 'preview':
       return `https://${env.NEXT_PUBLIC_VERCEL_URL}`;
     default:
