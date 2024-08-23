@@ -41,6 +41,8 @@ const DesignTokensSchema: z.ZodType<DesignTokens> = z.lazy(() =>
 export const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> =
   z.lazy(() => z.union([DesignTokenSchema, PreprocessedTokensSchema]));
 
+export type DesignTokensModel = z.infer<typeof PreprocessedTokensSchema>;
+
 /**
  * Represents the resources linked to a design system.
  */
@@ -57,8 +59,7 @@ export const Resources = pgTable('resources', {
     .references(() => Projects.id, { onDelete: 'cascade' })
     .notNull(),
   name: text('name').notNull().unique(),
-  designTokens:
-    json('design_tokens').$type<z.infer<typeof PreprocessedTokensSchema>>(),
+  designTokens: json('design_tokens').$type<DesignTokensModel>(),
 });
 
 export const InsertResourcesSchema = createInsertSchema(Resources, {

@@ -105,7 +105,7 @@ export async function pushFile({
     base_tree: baseCommitSha,
     tree: [
       {
-        path: `${file.path ?? ''}${file.name}`,
+        path: `${file.path ?? ''}/${file.name}`,
         mode: '100644',
         type: 'blob',
         sha: blobSha,

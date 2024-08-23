@@ -8,6 +8,7 @@ import {
   PreprocessedTokensSchema,
   Resources,
 } from '@ds-project/database/schema';
+import { release } from '../operations/release';
 
 export const resourcesRouter = createTRPCRouter({
   byId: protectedProcedure
@@ -55,7 +56,7 @@ export const resourcesRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const result = await ctx.database
+      const [resource] = await ctx.database
         .insert(Resources)
         .values({
           name: input.name,
@@ -69,10 +70,16 @@ export const resourcesRouter = createTRPCRouter({
           set: {
             designTokens: PreprocessedTokensSchema.parse(input.designTokens),
           },
+        })
+        .returning({
+          insertedDesignTokens: Resources.designTokens,
         });
-      // TODO: Run update to Integration here ---> GitHub
 
-      return result;
+      if (!resource) return resource;
+
+      await release({ ctx, designTokens: resource.insertedDesignTokens });
+
+      return resource;
     }),
 
   create: protectedProcedure
