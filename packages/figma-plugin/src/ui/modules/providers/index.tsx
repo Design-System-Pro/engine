@@ -1,13 +1,15 @@
 import { ApiProvider } from './api-provider';
 import { AuthProvider } from './auth-provider';
 import { ConfigProvider } from './config-provider';
-import { TRPCReactProvider } from '@ds-project/api/react';
+import { ProjectsProvider } from './projects-provider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
       <ApiProvider>
-        <ConfigProvider>{children}</ConfigProvider>
+        <ConfigProvider>
+          <ProjectsProvider>{children}</ProjectsProvider>
+        </ConfigProvider>
       </ApiProvider>
     </AuthProvider>
   );

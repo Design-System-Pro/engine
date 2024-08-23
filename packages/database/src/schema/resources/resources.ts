@@ -55,9 +55,8 @@ export const Resources = pgTable('resources', {
     .$onUpdate(() => new Date().toISOString()),
   projectId: uuid('project_id')
     .references(() => Projects.id, { onDelete: 'cascade' })
-    .notNull()
-    .unique(),
-  name: text('name').notNull(),
+    .notNull(),
+  name: text('name').notNull().unique(),
   designTokens:
     json('design_tokens').$type<z.infer<typeof PreprocessedTokensSchema>>(),
 });

@@ -1,7 +1,0 @@
-{
-  "extends": "@ds-project/typescript/internal-package.json",
-  "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
-  },
-  "include": ["src"]
-}

@@ -8,12 +8,14 @@ import { LinkDesignSystem } from './modules/link-design-system';
 import { useAuth } from './modules/providers/auth-provider';
 import { useConfig } from './modules/providers/config-provider';
 import { api } from '@ds-project/api/react';
+import { useProjects } from './modules/providers/projects-provider';
 
 function App() {
   const { login, logout, state } = useAuth();
   const { fileName } = useConfig();
   const { mutate: updateDesignTokens } =
     api.resources.updateDesignTokens.useMutation();
+  const { selectedProjectId } = useProjects();
 
   const update = useCallback(() => {
     if (!fileName || state !== 'authorized') return;
@@ -25,12 +27,18 @@ function App() {
       .then(({ designTokens }) => {
         console.log({ designTokens });
 
-        void updateDesignTokens({ designTokens, name: fileName });
+        if (!selectedProjectId) return;
+
+        void updateDesignTokens({
+          designTokens,
+          name: fileName,
+          projectId: selectedProjectId,
+        });
       })
       .catch((error) => {
         console.error('Error updating design tokens', error);
       });
-  }, [fileName, state, updateDesignTokens]);
+  }, [fileName, selectedProjectId, state, updateDesignTokens]);
 
   return (
     <main className="flex size-full flex-col items-center justify-center gap-4">

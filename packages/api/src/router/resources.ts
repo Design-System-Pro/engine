@@ -47,19 +47,29 @@ export const resourcesRouter = createTRPCRouter({
     }),
 
   updateDesignTokens: protectedProcedure
-    .input(z.object({ name: z.string(), designTokens: z.any() }))
+    .input(
+      z.object({
+        name: z.string(),
+        designTokens: z.any(),
+        projectId: z.string(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      console.log('🤯 Here');
-
       const result = await ctx.database
-        .update(Resources)
-        .set({
-          ...input,
+        .insert(Resources)
+        .values({
+          name: input.name,
+          projectId: input.projectId,
           // For some reason, if the validation happens at the input level, it gets a max stack call error.
           // But moving it here it works 🤷🏻‍♂️
           designTokens: PreprocessedTokensSchema.parse(input.designTokens),
         })
-        .where(eq(Resources.name, input.name));
+        .onConflictDoUpdate({
+          target: Resources.name,
+          set: {
+            designTokens: PreprocessedTokensSchema.parse(input.designTokens),
+          },
+        });
       // TODO: Run update to Integration here ---> GitHub
 
       return result;
