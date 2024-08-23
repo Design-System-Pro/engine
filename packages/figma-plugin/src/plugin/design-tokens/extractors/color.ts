@@ -1,22 +1,8 @@
 import type { DesignToken } from 'style-dictionary/types';
 import { extractAlias } from './extract-alias';
-import { rgbToHex } from '../../variables/utils/transformers/color';
-import { tokenize } from '../utils/tokenize';
+import { tokenizeVariable } from '../utils/tokenize-variable';
 import { config } from '../../config';
-
-const convertChannel = (value: number): number => {
-  return Math.round(value * 255);
-};
-
-const toRgba = (value: RGB | RGBA): string => {
-  if ('a' in value) {
-    // RGBA
-    return `rgba(${convertChannel(value.r)},${convertChannel(value.g)},${convertChannel(value.b)},${convertChannel(value.a)})`;
-  }
-
-  // RGB
-  return `rgb(${convertChannel(value.r)},${convertChannel(value.g)},${convertChannel(value.b)})`;
-};
+import { rgbToHex } from '../transformers';
 
 export async function extractColor(
   variable: Variable,
@@ -46,10 +32,7 @@ export async function extractColor(
     colorOrAlias = await extractAlias(value.id, modeId);
   }
 
-  return tokenize(
-    modeId,
-    variable.name
-  )({
+  return tokenizeVariable(variable.name)({
     $type: 'color',
     $description: variable.description,
     $value: colorOrAlias,

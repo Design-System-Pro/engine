@@ -1,5 +1,5 @@
 import type { DesignToken } from 'style-dictionary/types';
-import { tokenize } from '../utils/tokenize';
+import { tokenizeVariable } from '../utils/tokenize-variable';
 import { extractAlias } from './extract-alias';
 import { config } from '../../config';
 
@@ -29,10 +29,7 @@ export async function extractFloat(
 
   // All scopes
 
-  return tokenize(
-    modeId,
-    variable.name
-  )({
+  return tokenizeVariable(variable.name)({
     $type: 'dimension',
     $value: floatOrAlias,
     extensions: {

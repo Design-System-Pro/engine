@@ -2,6 +2,7 @@ import type { DesignToken } from 'style-dictionary/types';
 import { extractModeVariable } from './extract-mode-variable';
 import { nonNullable } from '../utils/non-nullable';
 import { combinePaths } from '../utils/combine-paths';
+import { getModeKey } from '../utils/get-mode-key';
 
 export const extractVariable = async (
   variableId: string
@@ -11,10 +12,14 @@ export const extractVariable = async (
   if (!variable) return undefined;
 
   const modeIds = Object.keys(variable.valuesByMode);
+  const variableCollectionId = variable.variableCollectionId;
 
   const valuesPerMode = (
     await Promise.all(
-      modeIds.map((modeId) => extractModeVariable(variable, modeId))
+      modeIds.map(async (modeId) => ({
+        [await getModeKey({ variableCollectionId, modeId })]:
+          await extractModeVariable(variable, modeId),
+      }))
     )
   ).filter(nonNullable);
 
