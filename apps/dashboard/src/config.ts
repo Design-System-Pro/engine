@@ -35,7 +35,7 @@ const pageUrl = (() => {
     case 'preview':
       return `https://${env.NEXT_PUBLIC_VERCEL_URL}`;
     default:
-      return 'https://localhost:3000';
+      return 'http://localhost:3000';
   }
 })();
 

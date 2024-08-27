@@ -17,13 +17,17 @@ import { HomeButton } from '../home-button';
 import type { SelectProjects } from '@ds-project/database/schema';
 import { AccountMenu } from '../account-menu/acocunt-menu';
 
-interface NavigationProps {
+interface AppNavigationProps {
   className?: string;
   projects?: Pick<SelectProjects, 'id' | 'name'>[];
   email: string;
 }
 
-export function Navigation({ className, projects, email }: NavigationProps) {
+export function AppNavigation({
+  className,
+  projects,
+  email,
+}: AppNavigationProps) {
   return (
     <nav
       className={cn(
@@ -55,14 +59,14 @@ export function Navigation({ className, projects, email }: NavigationProps) {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/tokens" legacyBehavior passHref>
+              <Link href="/app/tokens" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Tokens
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/integrations" legacyBehavior passHref>
+              <Link href="/app/integrations" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Integrations
                 </NavigationMenuLink>

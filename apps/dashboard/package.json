@@ -5,7 +5,7 @@
   "type": "module",
   "prettier": "@ds-project/prettier",
   "scripts": {
-    "dev": "next dev --experimental-https",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

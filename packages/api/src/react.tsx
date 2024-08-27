@@ -75,5 +75,5 @@ const getBaseUrl = () => {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
 
   // eslint-disable-next-line turbo/no-undeclared-env-vars
-  return `https://localhost:${process.env.PORT ?? 3000}`;
+  return `http://localhost:${process.env.PORT ?? 3000}`;
 };

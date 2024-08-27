@@ -36,7 +36,7 @@
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",
     "@types/node": "catalog:",
-    "@types/react": "^18.2.61",
+    "@types/react": "catalog:",
     "@vercel/style-guide": "^5.2.0",
     "autoprefixer": "^10.4.19",
     "concurrently": "^8.0.1",

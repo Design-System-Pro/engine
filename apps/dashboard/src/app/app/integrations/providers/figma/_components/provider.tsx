@@ -32,7 +32,9 @@ export async function FigmaProvider() {
       </Button>
 
       <Button>
-        <Link href="/integrations/providers/figma/resources">Resources</Link>
+        <Link href="/app/integrations/providers/figma/resources">
+          Resources
+        </Link>
       </Button>
     </div>
   );

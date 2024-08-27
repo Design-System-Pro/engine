@@ -16,3 +16,5 @@ export * from './select';
 export * from './switch';
 export * from './tabs';
 export * from './text';
+export * from './utils';
+export * from '@radix-ui/react-slot';

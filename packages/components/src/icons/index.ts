@@ -1,4 +1,6 @@
 import * as Icons from '@radix-ui/react-icons';
-import { DSLogo } from './ds-logo';
+export * from './ds-logo';
+export * from './figma-logo';
+export * from './github-logo';
 
-export { Icons, DSLogo };
+export { Icons };

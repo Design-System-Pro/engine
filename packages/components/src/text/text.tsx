@@ -3,8 +3,9 @@ import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
 import type { ReactNode } from 'react';
 import { forwardRef } from 'react';
-import { cn } from '../lib/utils';
+import { cn } from '../utils/utils';
 
+// TODO: Text fluid sizes use line-heights already and tailwind isn't able to override them
 const textVariations = cva('', {
   variants: {
     size: {
@@ -32,6 +33,20 @@ const textVariations = cva('', {
       bold: 'ds-font-bold',
       extrabold: 'ds-font-extrabold',
     },
+    leading: {
+      none: 'ds-leading-none',
+      tight: 'ds-leading-tight',
+      snug: 'ds-leading-snug',
+      normal: 'ds-leading-normal',
+      relaxed: 'ds-leading-relaxed',
+      loose: 'ds-leading-loose',
+    },
+    align: {
+      left: 'ds-text-left',
+      center: 'ds-text-center',
+      right: 'ds-text-right',
+      justify: 'ds-text-justify',
+    },
     family: {
       sans: 'ds-font-sans',
       mono: 'ds-font-mono',
@@ -54,12 +69,23 @@ type TextProps = VariantProps<typeof textVariations> & {
  * Renders text styles to the child
  */
 export const Text = forwardRef<HTMLElement, TextProps>(
-  ({ size, weight, family, mood, className, children }, ref) => {
+  (
+    { size, weight, leading, align, family, mood, className, children },
+    ref
+  ) => {
     return (
       <Slot
         ref={ref}
         className={cn(
-          textVariations({ size, weight, family, mood, className })
+          textVariations({
+            size,
+            weight,
+            leading,
+            align,
+            family,
+            mood,
+            className,
+          })
         )}
       >
         {children}
