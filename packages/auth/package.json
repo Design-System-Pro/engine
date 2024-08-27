@@ -33,7 +33,7 @@
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.0",
     "@t3-oss/env-core": "^0.11.0",
-    "next": "14.2.5",
+    "next": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
