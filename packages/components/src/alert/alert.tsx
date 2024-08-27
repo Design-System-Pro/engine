@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
 import { Slot } from '@radix-ui/react-slot';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
 
 const alertVariants = cva(
   'ds-relative ds-w-full ds-rounded-lg ds-border ds-p-4 [&>svg~*]:ds-pl-7 [&>svg+div]:ds-translate-y-[-3px] [&>svg]:ds-absolute [&>svg]:ds-left-4 [&>svg]:ds-top-4 [&>svg]:ds-text-foreground',

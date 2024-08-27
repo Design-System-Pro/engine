@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
-import { Navigation } from '@/components';
+import { AppNavigation } from '@/components';
 import { cn } from '@/lib/css';
 import { api } from '@ds-project/api/rsc';
 
@@ -24,7 +24,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={cn('flex flex-col items-center', inter.className)}>
         <header className="sticky top-0 w-full">
-          <Navigation
+          <AppNavigation
             className="px-2 pt-2"
             projects={projects}
             email={user?.email ?? 'Account'}
