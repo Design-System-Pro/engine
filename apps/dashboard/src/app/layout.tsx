@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'flex flex-col items-center bg-zinc-100',
+          'flex flex-col items-center bg-zinc-100 min-h-screen',
           inter.className
         )}
       >

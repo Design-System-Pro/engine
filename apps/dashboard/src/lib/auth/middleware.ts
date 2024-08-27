@@ -17,6 +17,7 @@ export const authenticationMiddleware: MiddlewareFactory =
 
     if (
       !user &&
+      request.nextUrl.pathname !== '/' &&
       !request.nextUrl.pathname.startsWith('/auth/callback') &&
       !request.nextUrl.pathname.startsWith('/auth/login') &&
       !request.nextUrl.pathname.startsWith('/auth/auth')

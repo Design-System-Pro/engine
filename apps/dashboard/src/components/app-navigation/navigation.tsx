@@ -59,14 +59,14 @@ export function AppNavigation({
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/tokens" legacyBehavior passHref>
+              <Link href="/app/tokens" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Tokens
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/integrations" legacyBehavior passHref>
+              <Link href="/app/integrations" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Integrations
                 </NavigationMenuLink>
