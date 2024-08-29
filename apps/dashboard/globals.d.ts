@@ -5,3 +5,12 @@ declare module '*.svg' {
 
   export default content;
 }
+
+declare global {
+  namespace globalThis {
+    // eslint-disable-next-line no-var
+    var EdgeRuntime: string;
+  }
+}
+
+export {};
