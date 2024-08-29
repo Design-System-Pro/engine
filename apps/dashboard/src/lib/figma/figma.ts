@@ -16,6 +16,7 @@ import {
 import { database } from '@ds-project/database/client';
 import { cache } from 'react';
 import { api } from '@ds-project/api/rsc';
+import { serverEnv } from '@/env/server';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';
@@ -47,7 +48,7 @@ class Figma {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: `client_id=${encodeURIComponent(config.figma.appClientId)}&client_secret=${encodeURIComponent(config.figma.appClientSecret)}&redirect_uri=${encodeURIComponent(config.figma.redirectUri)}&code=${encodeURIComponent(code)}&grant_type=authorization_code`,
+      body: `client_id=${encodeURIComponent(serverEnv.FIGMA_APP_CLIENT_ID)}&client_secret=${encodeURIComponent(serverEnv.FIGMA_APP_CLIENT_SECRET)}&redirect_uri=${encodeURIComponent(config.figmaRedirectUri)}&code=${encodeURIComponent(code)}&grant_type=authorization_code`,
     });
 
     if (!result.ok) {
@@ -86,7 +87,7 @@ class Figma {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: `client_id=${encodeURIComponent(config.figma.appClientId)}&client_secret=${encodeURIComponent(config.figma.appClientSecret)}&redirect_uri=${encodeURIComponent(config.figma.redirectUri)}&refresh_token=${encodeURIComponent(integration.data.refreshToken)}`,
+      body: `client_id=${encodeURIComponent(serverEnv.FIGMA_APP_CLIENT_ID)}&client_secret=${encodeURIComponent(serverEnv.FIGMA_APP_CLIENT_SECRET)}&redirect_uri=${encodeURIComponent(config.figmaRedirectUri)}&refresh_token=${encodeURIComponent(integration.data.refreshToken)}`,
     });
 
     if (!result.ok) {
@@ -241,7 +242,7 @@ class Figma {
         }
       )
     ) {
-      return `${this.url}/oauth?client_id=${config.figma.appClientId}&redirect_uri=${config.figma.redirectUri}&scope=files:read,file_variables:read,file_variables:write&state=${state}&response_type=code`;
+      return `${this.url}/oauth?client_id=${serverEnv.FIGMA_APP_CLIENT_ID}&redirect_uri=${config.figmaRedirectUri}&scope=files:read,file_variables:read,file_variables:write&state=${state}&response_type=code`;
     }
 
     return null;

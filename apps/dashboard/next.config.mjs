@@ -2,7 +2,8 @@ import { fileURLToPath } from 'node:url';
 import createJiti from 'jiti';
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
-jiti('./src/config');
+jiti('./src/env/client');
+jiti('./src/env/server');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,6 +16,20 @@ const nextConfig = {
       },
     ],
   },
+
+  async rewrites() {
+    return [
+      {
+        source: '/_proxy/posthog/ingest/static/:path*',
+        destination: 'https://eu-assets.i.posthog.com/static/:path*',
+      },
+      {
+        source: '/_proxy/posthog/ingest/:path*',
+        destination: 'https://eu.i.posthog.com/:path*',
+      },
+    ];
+  },
+  skipTrailingSlashRedirect: true,
 
   reactStrictMode: true,
 

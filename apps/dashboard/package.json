@@ -23,6 +23,7 @@
     "@octokit/core": "^6.1.2",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.0",
+    "@t3-oss/env-core": "^0.11.0",
     "@t3-oss/env-nextjs": "^0.11.0",
     "@tanstack/react-query": "^5.51.24",
     "@trpc/react-query": "catalog:",
@@ -37,6 +38,7 @@
     "memoize": "^10.0.0",
     "next": "catalog:",
     "postgres": "^3.4.4",
+    "posthog-js": "^1.160.0",
     "rambda": "^9.2.1",
     "react": "catalog:",
     "react-diff-viewer": "^3.1.1",
@@ -51,9 +53,9 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@ds-project/services": "workspace:*",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
+    "@ds-project/services": "workspace:*",
     "@ds-project/typescript": "workspace:*",
     "@next/env": "^14.2.5",
     "@octokit/types": "^13.5.0",
