@@ -2,9 +2,9 @@
 import type { DesignTokens } from 'style-dictionary/types';
 import type { Octokit } from '@octokit/core';
 
-import { config } from '@/config';
 import { api } from '@ds-project/api/rsc';
 import { getInstallationOctokit } from '@ds-project/services/github';
+import { config } from '@/config';
 
 async function searchFileSha({
   octokit,

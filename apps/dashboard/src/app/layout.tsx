@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/css';
+import { AnalyticsProvider } from '@/lib/analytics/provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,14 +18,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          'flex flex-col items-center bg-zinc-100 min-h-screen',
-          inter.className
-        )}
-      >
-        {children}
-      </body>
+      <AnalyticsProvider>
+        <body
+          className={cn(
+            'flex flex-col items-center bg-zinc-100 min-h-screen',
+            inter.className
+          )}
+        >
+          {children}
+        </body>
+      </AnalyticsProvider>
     </html>
   );
 }

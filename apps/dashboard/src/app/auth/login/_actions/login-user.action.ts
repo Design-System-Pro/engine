@@ -1,9 +1,9 @@
 'use server';
 
 import { z } from 'zod';
-import { config } from '@/config';
 import { createServerClient } from '@ds-project/auth/server';
 import type { Database } from '@ds-project/database';
+import { config } from '@/config';
 
 const schema = z.object({
   email: z.string().email(),

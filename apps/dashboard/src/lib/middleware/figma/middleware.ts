@@ -2,10 +2,11 @@ import 'server-only';
 
 import { kv } from '@vercel/kv';
 import { NextResponse } from 'next/server';
-import { config } from '@/config';
 import type { KVCredentials, KVCredentialsRead } from '@/types/kv-types';
 import type { MiddlewareFactory } from '../compose';
 import { createMiddlewareClient } from '@ds-project/auth/middleware';
+import { clientEnv } from '@/env/client';
+import { config } from '@/config';
 
 export const figmaMiddleware: MiddlewareFactory =
   (middleware) =>
@@ -26,8 +27,8 @@ export const figmaMiddleware: MiddlewareFactory =
       );
 
       const supabase = createMiddlewareClient(request, response, {
-        supabaseAnonKey: config.supabaseAnonKey,
-        supabaseUrl: config.supabaseUrl,
+        supabaseAnonKey: clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        supabaseUrl: clientEnv.NEXT_PUBLIC_SUPABASE_URL,
       });
       const {
         data: { session },
@@ -83,8 +84,8 @@ export const figmaMiddleware: MiddlewareFactory =
     console.log('🔐 Figma: Figma key detected. Finishing authentication...');
 
     const supabase = createMiddlewareClient(request, response, {
-      supabaseAnonKey: config.supabaseAnonKey,
-      supabaseUrl: config.supabaseUrl,
+      supabaseAnonKey: clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      supabaseUrl: clientEnv.NEXT_PUBLIC_SUPABASE_URL,
     });
     const {
       data: { session },
