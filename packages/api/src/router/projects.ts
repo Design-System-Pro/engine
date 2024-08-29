@@ -1,6 +1,7 @@
 import { eq } from '@ds-project/database';
 
 import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { AccountsToProjects, Projects } from '@ds-project/database/schema';
 
 export const projectsRouter = createTRPCRouter({
   current: protectedProcedure.query(async ({ ctx }) => {
@@ -15,20 +16,16 @@ export const projectsRouter = createTRPCRouter({
   }),
 
   account: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.database.query.Projects.findMany({
-      columns: {
-        id: true,
-        name: true,
-      },
-      with: {
-        accountsToProjects: {
-          columns: {
-            projectId: true,
-          },
-          where: (accountsToProjects) =>
-            eq(accountsToProjects.accountId, ctx.account.id),
-        },
-      },
-    });
+    return ctx.database
+      .select({
+        id: Projects.id,
+        name: Projects.name,
+      })
+      .from(Projects)
+      .leftJoin(
+        AccountsToProjects,
+        eq(AccountsToProjects.projectId, Projects.id)
+      )
+      .where(eq(AccountsToProjects.accountId, ctx.account.id));
   }),
 });
