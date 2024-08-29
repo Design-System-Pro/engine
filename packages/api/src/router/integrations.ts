@@ -4,7 +4,10 @@ import { eq } from '@ds-project/database';
 
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { Resources } from '@ds-project/database/schema';
-import { selectGithubIntegration } from '../queries/integrations';
+import {
+  selectFigmaIntegration,
+  selectGithubIntegration,
+} from '../queries/integrations';
 
 export const integrationsRouter = createTRPCRouter({
   byId: protectedProcedure
@@ -20,36 +23,6 @@ export const integrationsRouter = createTRPCRouter({
   }),
 
   figma: protectedProcedure.query(async ({ ctx }) => {
-    const queryResult = await ctx.database.query.Integrations.findFirst({
-      columns: {
-        data: true,
-      },
-      where: (integrations) => eq(integrations.type, 'figma'),
-      with: {
-        project: {
-          columns: {
-            id: true,
-          },
-          with: {
-            accountsToProjects: {
-              columns: {
-                projectId: true,
-              },
-              where: (accountsToProjects) =>
-                eq(accountsToProjects.accountId, ctx.account.id),
-            },
-          },
-        },
-      },
-    });
-
-    if (queryResult?.data?.type === 'figma') {
-      return {
-        ...queryResult,
-        data: queryResult.data,
-      };
-    }
-
-    return undefined;
+    return selectFigmaIntegration({ ctx });
   }),
 });

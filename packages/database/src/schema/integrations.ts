@@ -16,6 +16,8 @@ export const integrationTypeEnum = pgEnum('integration_type', [
 ]);
 export const integrationType = z.enum(integrationTypeEnum.enumValues);
 
+export type IntegrationType = z.infer<typeof integrationType>;
+
 export const githubIntegrationSchema = z.object({
   type: z.literal(integrationType.Enum.github),
   installationId: z.number(),
