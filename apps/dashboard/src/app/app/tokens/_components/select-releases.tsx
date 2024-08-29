@@ -18,12 +18,12 @@ interface SelectReleasesProps {
 
 export function SelectReleases({ releases }: SelectReleasesProps) {
   const [selectedRelease, setSelectedRelease] =
-    useState<SelectReleasesProps['releases'][number]>();
+    useState<NonNullable<SelectReleasesProps['releases']>[number]>();
   const [tokens, setTokens] = useState<DesignTokens>();
 
   const onReleaseChange = useCallback(
     (selectedReleaseId: string) => {
-      const newSelectedRelease = releases.find(
+      const newSelectedRelease = releases?.find(
         (release) => String(release.id) === selectedReleaseId
       );
       setSelectedRelease(newSelectedRelease);
@@ -36,10 +36,11 @@ export function SelectReleases({ releases }: SelectReleasesProps) {
 
     fetchReleaseTokens(selectedRelease.id)
       .then((_tokens) => {
+        if (!_tokens) return;
+
         setTokens(_tokens);
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Error fetching release tokens', error);
       });
   }, [selectedRelease?.id]);
@@ -55,7 +56,7 @@ export function SelectReleases({ releases }: SelectReleasesProps) {
             <SelectValue placeholder="Release" />
           </SelectTrigger>
           <SelectContent>
-            {releases.map((release) => (
+            {releases?.map((release) => (
               <SelectItem key={release.id} value={String(release.id)}>
                 {release.name}
               </SelectItem>

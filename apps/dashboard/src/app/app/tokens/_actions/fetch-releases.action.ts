@@ -7,7 +7,7 @@ export async function fetchReleases() {
   const githubIntegration = await api.integrations.github();
 
   if (!githubIntegration) {
-    throw new Error('No GitHub integration found');
+    return null;
   }
 
   const octokit = await getInstallationOctokit(
