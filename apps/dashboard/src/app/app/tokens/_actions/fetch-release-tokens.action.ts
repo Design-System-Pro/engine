@@ -51,11 +51,13 @@ async function searchFileSha({
   });
 }
 
-export async function fetchReleaseTokens(releaseId: number) {
+export async function fetchReleaseTokens(
+  releaseId: number
+): Promise<DesignTokens | null> {
   const githubIntegration = await api.integrations.github();
 
   if (!githubIntegration) {
-    throw new Error('GitHub installation not found');
+    return null;
   }
 
   const octokit = await getInstallationOctokit(
