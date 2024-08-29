@@ -1,5 +1,6 @@
 import { Footer } from '@/components/footer';
 import { NavigationBar } from '@/components/navigation-bar/navigation-bar';
+import './home.css';
 
 export default function Layout({
   children,
@@ -8,6 +9,7 @@ export default function Layout({
 }>) {
   return (
     <>
+      <div className="landing-bg" />
       <header className="sticky top-0 w-full flex justify-center">
         <NavigationBar />
       </header>
