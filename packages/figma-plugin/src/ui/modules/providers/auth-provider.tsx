@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { writeKey, readKey } =
       (await startResponse.json()) as AuthStartResponse;
 
-    window.open(`${config.AUTH_API_HOST}/auth/login?figma_key=${writeKey}`);
+    window.open(`${config.AUTH_API_HOST}/auth/sign-in?figma_key=${writeKey}`);
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- we want to use async function with interval
     const interval = setInterval(async () => {

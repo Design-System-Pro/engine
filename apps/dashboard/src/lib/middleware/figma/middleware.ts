@@ -11,7 +11,7 @@ import { config } from '@/config';
 export const figmaMiddleware: MiddlewareFactory =
   (middleware) =>
   async (request, event, response = NextResponse.next({ request })) => {
-    if (request.nextUrl.pathname.startsWith('/auth/login')) {
+    if (request.nextUrl.pathname.startsWith('/auth/sign-in')) {
       console.log(
         '🔐 Figma: User is not logged in yet. Starting authentication...'
       );
