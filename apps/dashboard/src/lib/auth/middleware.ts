@@ -19,12 +19,12 @@ export const authenticationMiddleware: MiddlewareFactory =
       !user &&
       request.nextUrl.pathname !== '/' &&
       !request.nextUrl.pathname.startsWith('/auth/callback') &&
-      !request.nextUrl.pathname.startsWith('/auth/login') &&
+      !request.nextUrl.pathname.startsWith('/auth/sign-in') &&
       !request.nextUrl.pathname.startsWith('/auth/auth')
     ) {
       // Not logged in
       const url = request.nextUrl.clone();
-      url.pathname = `/auth/login`;
+      url.pathname = `/auth/sign-in`;
       return middleware(
         request,
         event,
@@ -32,7 +32,7 @@ export const authenticationMiddleware: MiddlewareFactory =
       );
     }
 
-    if (user && request.nextUrl.pathname.startsWith('/auth/login')) {
+    if (user && request.nextUrl.pathname.startsWith('/auth/sign-in')) {
       // Logged in
       const url = request.nextUrl.clone();
       url.pathname = '/app';

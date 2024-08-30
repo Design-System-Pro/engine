@@ -32,7 +32,7 @@ export function NavigationBar() {
         ))}
       </ul>
       <Button asChild>
-        <Link href="/auth/login">Sign Up</Link>
+        <Link href="/auth/sign-in">Sign Up</Link>
       </Button>
     </nav>
   );

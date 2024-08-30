@@ -38,6 +38,7 @@
     "human-id": "^4.1.1",
     "memoize": "^10.0.0",
     "next": "catalog:",
+    "next-safe-action": "^7.8.1",
     "postgres": "^3.4.4",
     "posthog-js": "^1.160.0",
     "rambda": "^9.2.1",
@@ -51,7 +52,8 @@
     "style-dictionary": "catalog:",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-form-data": "^2.0.2"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
