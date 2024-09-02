@@ -15,12 +15,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
+    "typeRoots": ["../../node_modules/@types", "../../node_modules/@figma"]
   },
   "include": ["src"],
   "references": [
     {
-      "path": "./tsconfig.node.json"
+      "path": "../../tsconfig.node.json"
     }
   ]
 }

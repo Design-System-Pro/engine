@@ -4,13 +4,43 @@ import { CredentialsSchema } from '../types/credentials';
 import { config } from '../ui/config';
 import { storage } from './storage';
 import { extractDesignTokens } from './design-tokens/extract-design-tokens';
+// This widget will open an Iframe window with buttons to show a toast message and close the window.
 
-figma.showUI(__html__, {
-  themeColors: true,
-  height: 306,
-  width: 275,
-  title: 'DS Project',
-});
+const { widget } = figma;
+const { useEffect, Text, AutoLayout, Rectangle } = widget;
+
+function Widget() {
+  return (
+    <AutoLayout
+      direction="vertical"
+      fill="#FFFFFF"
+      cornerRadius={8}
+      padding={16}
+      width={300}
+      height={200}
+      verticalAlignItems="center"
+      spacing={16}
+    >
+      <Text fontSize={24} fontWeight="bold">
+        DS Pro
+      </Text>
+
+      {/* <ConnectButton /> */}
+
+      <AutoLayout verticalAlignItems="baseline" height="fill-parent">
+        <Text
+          fontSize={12}
+          fill="#0E1739"
+          href="https://designsystemproject.pro"
+        >
+          Learn more about DS Pro
+        </Text>
+      </AutoLayout>
+    </AutoLayout>
+  );
+}
+
+widget.register(Widget);
 
 AsyncMessage.plugin.handle(AsyncMessageTypes.GetConfig, async () => {
   const fileName = figma.root.name;

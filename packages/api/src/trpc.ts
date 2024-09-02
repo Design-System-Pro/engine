@@ -50,6 +50,7 @@ export const createTRPCContext = async (opts: {
   headers: Headers;
   account: Account | null;
 }) => {
+  const supabase = createServerClient<Database>();
   const token = opts.headers.get('Authorization') ?? null;
   const user = await isomorphicGetUser(token);
 
@@ -63,6 +64,7 @@ export const createTRPCContext = async (opts: {
     : null;
 
   return {
+    supabase,
     user,
     database,
     token,

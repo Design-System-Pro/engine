@@ -41,20 +41,22 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.25.2",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@figma/eslint-plugin-figma-plugins": "^0.15.0",
     "@figma/plugin-typings": "catalog:",
+    "@figma/widget-typings": "*",
     "@types/object-hash": "^3.0.6",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "concurrently": "^8.0.1",
-    "esbuild": "^0.17.15",
+    "concurrently": "catalog:",
+    "esbuild": "catalog:",
     "eslint": "catalog:",
     "rollup-preserve-directives": "^1.1.1",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-singlefile": "^0.13.5"
+    "vite-plugin-singlefile": "catalog:"
   }
 }

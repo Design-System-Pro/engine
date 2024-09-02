@@ -123,7 +123,7 @@ end;
 $$;
 
 -- trigger the function every time an auth user is created in auth.users
-create or replace trigger on_auth_user_created
+create or replace trigger on_auth_user_created__create_account_and_project
   after insert on auth.users
   for each row execute procedure public.handle_new_auth_user();
 

@@ -39,7 +39,7 @@
     "@types/react": "catalog:",
     "@vercel/style-guide": "^5.2.0",
     "autoprefixer": "^10.4.19",
-    "concurrently": "^8.0.1",
+    "concurrently": "catalog:",
     "eslint": "catalog:",
     "postcss": "catalog:",
     "rollup-preserve-directives": "^1.1.1",

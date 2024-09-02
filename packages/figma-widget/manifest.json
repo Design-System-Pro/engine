@@ -1,0 +1,11 @@
+{
+  "name": "DS Pro (DEV)",
+  "id": "widget-id-pZl14AjGGM",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "permissions": [],
+  "containsWidget": true,
+  "main": "dist/code.js",
+  "ui": "dist/index.html",
+  "widgetApi": "1.0.0"
+}
