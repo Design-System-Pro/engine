@@ -91,12 +91,21 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 
+-- Install KeyHippo for API keys management
+
+drop trigger if exists on_auth_user_created on auth.users;
+drop trigger if exists on_user_created__create_user_api_key_secret on auth.users;
+drop trigger if exists on_auth_user_deleted on auth.users;
+drop extension if exists "keyhippo@keyhippo";
+
+select dbdev.install('keyhippo@keyhippo');
+create extension "keyhippo@keyhippo" version '0.0.16';
 
 ----------------------
 -- Custom triggers
 
 -- inserts a row into public.accounts
-create or replace function public.handle_new_auth_user()
+create or replace function public.create_account_and_project()
 returns trigger
 language plpgsql
 security definer set search_path = public
@@ -122,10 +131,12 @@ begin
 end;
 $$;
 
+drop trigger if exists on_auth_user_created__create_account_and_project on auth.users;
+
 -- trigger the function every time an auth user is created in auth.users
 create or replace trigger on_auth_user_created__create_account_and_project
   after insert on auth.users
-  for each row execute procedure public.handle_new_auth_user();
+  for each row execute procedure public.create_account_and_project();
 
 -- Custom triggers
 ----------------------
