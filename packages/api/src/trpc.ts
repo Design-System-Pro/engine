@@ -163,3 +163,18 @@ export const protectedProcedure = t.procedure
       } as DSContext,
     });
   });
+
+export const apiProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    if (!ctx.account) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+
+    return next({
+      ctx: {
+        ...ctx,
+        account: ctx.account,
+      } as DSContext,
+    });
+  });

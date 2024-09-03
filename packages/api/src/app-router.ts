@@ -1,14 +1,16 @@
 import { accountsRouter } from './router/accounts';
-import { authRouter } from './router/auth';
+import { apiKeysRouter } from './router/api-keys';
 import { githubRouter } from './router/github';
 import { integrationsRouter } from './router/integrations';
 import { projectsRouter } from './router/projects';
 import { resourcesRouter } from './router/resources';
 import { usersRouter } from './router/users';
 import { createTRPCRouter } from './trpc';
+import { hippoKeysRouter } from './router/hippo-keys';
 
 export const appRouter = createTRPCRouter({
-  auth: authRouter,
+  apiKeys: apiKeysRouter,
+  hippoKeys: hippoKeysRouter,
   users: usersRouter,
   accounts: accountsRouter,
   integrations: integrationsRouter,
