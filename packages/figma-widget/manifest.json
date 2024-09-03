@@ -1,0 +1,14 @@
+{
+  "name": "DS Pro",
+  "id": "widget-id-HhiuAqCVpc",
+  "api": "1.0.0",
+  "main": "dist/widget.js",
+  "ui": "dist/ui-src/index.html",
+  "editorType": ["figma"],
+  "containsWidget": true,
+  "widgetApi": "1.0.0",
+  "networkAccess": {
+    "allowedDomains": ["https://designsystemproject.pro"],
+    "devAllowedDomains": ["http://localhost:3000"]
+  }
+}
