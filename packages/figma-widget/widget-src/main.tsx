@@ -1,6 +1,7 @@
 import type { Credentials } from '@ds-project/figma-messaging';
 import { AsyncMessageTypes, Message } from '@ds-project/figma-messaging';
 import { Button } from './components/button';
+import { Container } from './components/container';
 
 const { widget } = figma;
 // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -42,24 +43,14 @@ function Widget() {
   };
 
   return (
-    <AutoLayout
-      direction="vertical"
-      horizontalAlignItems="center"
-      verticalAlignItems="center"
-      height="hug-contents"
-      width={200}
-      padding={16}
-      fill="#FFFFFF"
-      cornerRadius={8}
-      spacing={12}
-    >
+    <Container>
       <Text fontSize={16} horizontalAlignText="center" fill="#000000">
         {credentials ? 'DS Connected' : 'Connect with DS'}
       </Text>
       <Button onClick={handleUIInteraction}>
         {credentials ? 'Open UI' : 'Connect'}
       </Button>
-    </AutoLayout>
+    </Container>
   );
 }
 

@@ -1,4 +1,4 @@
 const { widget } = figma;
-const { AutoLayout, Text, useSyncedState } = widget;
+const { AutoLayout, Text, useSyncedState, Line, Frame } = widget;
 
-export { AutoLayout, Text, useSyncedState };
+export { AutoLayout, Text, useSyncedState, Line, Frame };
