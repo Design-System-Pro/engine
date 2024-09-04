@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "prettier": "@ds-project/prettier",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "dev": "next dev",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
-    "type-check": "tsc --noEmit",
-    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore"
+    "start": "next start",
+    "type-check": "tsc --noEmit"
   },
+  "prettier": "@ds-project/prettier",
   "dependencies": {
     "@ds-project/api": "workspace:*",
     "@ds-project/auth": "workspace:*",
