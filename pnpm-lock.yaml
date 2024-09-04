@@ -12,9 +12,6 @@ catalogs:
     '@trpc/react-query':
       specifier: 11.0.0-rc.482
       version: 11.0.0-rc.482
-    '@types/node':
-      specifier: ^22.4.1
-      version: 22.4.1
     '@types/react':
       specifier: ^18.3.3
       version: 18.3.3
@@ -33,15 +30,6 @@ catalogs:
     eslint:
       specifier: ^8.57.0
       version: 8.57.0
-    next:
-      specifier: ^14.2.6
-      version: 14.2.6
-    postcss:
-      specifier: ^8.4.39
-      version: 8.4.41
-    prettier:
-      specifier: ^3.3.3
-      version: 3.3.3
     react:
       specifier: ^18.3.1
       version: 18.3.1
@@ -718,9 +706,6 @@ importers:
       '@figma/plugin-typings':
         specifier: 'catalog:'
         version: 1.99.0
-      '@figma/widget-typings':
-        specifier: '*'
-        version: 1.9.1(@figma/plugin-typings@1.99.0)
       '@types/object-hash':
         specifier: ^3.0.6
         version: 3.0.6
@@ -2228,11 +2213,6 @@ packages:
 
   '@figma/plugin-typings@1.99.0':
     resolution: {integrity: sha512-eykvxprqZv1kDRaO+DyFSEr2FrravasOL/i8zQagjqDGCRaoxv+XwyTTSM7Vrviz1x832w4TWHJzSkXNwBUdYw==}
-
-  '@figma/widget-typings@1.9.1':
-    resolution: {integrity: sha512-jmh/hsBxLP4aKgtbmxkJe84Ufk93S7TwOxpLD7L58R472boU5vyZ7qF5DKlhwiRjF0sgaryXJxSXuIjdR1GBXQ==}
-    peerDependencies:
-      '@figma/plugin-typings': 1.x
 
   '@floating-ui/core@1.6.5':
     resolution: {integrity: sha512-8GrTWmoFhm5BsMZOTHeGD2/0FLKLQQHvO/ZmQga4tKempYRLz8aqJGqXVuQgisnMObq2YZ2SgkwctN1LOOxcqA==}
@@ -9457,10 +9437,6 @@ snapshots:
       - supports-color
 
   '@figma/plugin-typings@1.99.0': {}
-
-  '@figma/widget-typings@1.9.1(@figma/plugin-typings@1.99.0)':
-    dependencies:
-      '@figma/plugin-typings': 1.99.0
 
   '@floating-ui/core@1.6.5':
     dependencies:
