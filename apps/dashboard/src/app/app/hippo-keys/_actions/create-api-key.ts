@@ -2,6 +2,7 @@
 
 import { authorizedAction } from '@/lib/safe-action';
 import { api } from '@ds-project/api/rsc';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 
@@ -13,11 +14,11 @@ export const createApiKeyAction = authorizedAction
     })
   )
   .action(async ({ parsedInput: { description: description } }) => {
-    const apiKey = await api.apiKeys.create({
+    const apiKey = await api.hippoKeys.create({
       description,
     });
 
-    // revalidatePath('/app/keys');
+    revalidatePath('/app/hippo-keys');
 
     return apiKey;
   });

@@ -1,11 +1,11 @@
-import { JsonBlock, MainContent } from '@/components';
+import { MainContent } from '@/components';
 import { api } from '@ds-project/api/rsc';
 import { KeyItem } from './_components/key-item';
 
 import { CreateApiKeyDialog } from './_components/create-api-key-dialog';
 
 export default async function Page() {
-  const apiKeys = await api.apiKeys.all();
+  const apiKeys = await api.hippoKeys.list();
 
   return (
     <MainContent
@@ -13,13 +13,13 @@ export default async function Page() {
       description="Manage your API Keys."
       title="API Keys"
     >
-      <div className="flex flex-col gap-4">
-        {apiKeys.map(({ name, api_key_reference }) => (
-          <KeyItem key={name} name={api_key_reference} />
+      <ul className="flex flex-col gap-4">
+        {apiKeys.map(({ id, description }) => (
+          <li key={id}>
+            <KeyItem id={id} description={description} />
+          </li>
         ))}
-
-        <JsonBlock src={apiKeys} />
-      </div>
+      </ul>
     </MainContent>
   );
 }
