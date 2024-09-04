@@ -22,20 +22,6 @@
       "when": 1724411204626,
       "tag": "0002_yummy_nebula",
       "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1725353368469,
-      "tag": "0003_past_hex",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1725444164087,
-      "tag": "0004_woozy_felicia_hardy",
-      "breakpoints": true
     }
   ]
 }
