@@ -33,6 +33,7 @@
     "@trpc/client": "catalog:",
     "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
+    "keyhippo": "^0.0.31",
     "next": "catalog:",
     "react": "catalog:",
     "style-dictionary": "catalog:",

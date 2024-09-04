@@ -19,9 +19,9 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@ds-project/components": "workspace:*",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
-    "@ds-project/components": "workspace:*",
     "@storybook/addon-essentials": "^8.2.3",
     "@storybook/addon-interactions": "^8.2.3",
     "@storybook/addon-links": "^8.2.3",

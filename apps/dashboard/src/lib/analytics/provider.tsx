@@ -4,7 +4,10 @@ import { clientEnv } from '@/env/client';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
 
-if (typeof window !== 'undefined') {
+if (
+  typeof window !== 'undefined' &&
+  clientEnv.NEXT_PUBLIC_VERCEL_ENV === 'production'
+) {
   posthog.init(clientEnv.NEXT_PUBLIC_POSTHOG_KEY, {
     api_host: '/_proxy/posthog/ingest',
     ui_host: 'https://eu.posthog.com',

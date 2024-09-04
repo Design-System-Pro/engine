@@ -8,6 +8,7 @@ import importPlugin from 'eslint-plugin-import';
 import turboPlugin from 'eslint-plugin-turbo';
 import tseslint from 'typescript-eslint';
 import unusedImports from 'eslint-plugin-unused-imports';
+import packageJsonPlugin from 'eslint-plugin-package-json/configs/recommended';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,6 +47,13 @@ export default tseslint.config(
   // Ignore files not tracked by VCS and any config files
   includeIgnoreFile(path.join(__dirname, '../../.gitignore')),
   { ignores: ['**/*.config.*'] },
+  {
+    ...packageJsonPlugin,
+    rules: {
+      ...packageJsonPlugin.rules,
+      "package-json/valid-package-def": "off",
+    }
+  },
   {
     files: ['**/*.js', '**/*.ts', '**/*.tsx'],
     plugins: {

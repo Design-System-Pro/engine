@@ -1,4 +1,5 @@
 import { accountsRouter } from './router/accounts';
+import { apiKeysRouter } from './router/api-keys';
 import { githubRouter } from './router/github';
 import { integrationsRouter } from './router/integrations';
 import { projectsRouter } from './router/projects';
@@ -7,6 +8,7 @@ import { usersRouter } from './router/users';
 import { createTRPCRouter } from './trpc';
 
 export const appRouter = createTRPCRouter({
+  apiKeys: apiKeysRouter,
   users: usersRouter,
   accounts: accountsRouter,
   integrations: integrationsRouter,

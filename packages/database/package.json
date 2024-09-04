@@ -29,7 +29,7 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "studio": "drizzle-kit studio",
-    "reset": "pnpx supabase database reset",
+    "reset": "pnpx supabase db reset",
     "start": "pnpx supabase start",
     "stop": "pnpx supabase stop",
     "status": "pnpx supabase status"
