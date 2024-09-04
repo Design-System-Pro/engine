@@ -14,7 +14,7 @@ export const createApiKeyAction = authorizedAction
     })
   )
   .action(async ({ parsedInput: { description: description } }) => {
-    const apiKey = await api.hippoKeys.create({
+    const apiKey = await api.apiKeys.create({
       description,
     });
 

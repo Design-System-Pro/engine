@@ -1,34 +1,40 @@
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
-import { ApiKeys } from '@ds-project/database/schema';
-import { eq } from '@ds-project/database';
+import { KeyHippo } from 'keyhippo';
 
 export const apiKeysRouter = createTRPCRouter({
-  all: protectedProcedure.query(async ({ ctx }) => {
-    const apiKeys = await ctx.database.query.ApiKeys.findMany({
-      where: eq(ApiKeys.accountId, ctx.account.id),
-    });
-
-    return apiKeys;
-  }),
+  list: protectedProcedure
+    .output(
+      z.array(
+        z.object({
+          id: z.string(),
+          description: z.string(),
+        })
+      )
+    )
+    .query(async ({ ctx }) => {
+      const keyHippo = new KeyHippo(ctx.supabase);
+      return await keyHippo.loadApiKeyInfo(ctx.account.userId);
+    }),
 
   create: protectedProcedure
     .input(z.object({ description: z.string() }))
+    .output(
+      z.object({
+        apiKey: z.string().nullable(),
+        status: z.enum(['success', 'failed']),
+        error: z.string().optional(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
-      const apiKey = await ctx.database
-        .insert(ApiKeys)
-        .values({
-          accountId: ctx.account.id,
-          description: input.description,
-        })
-        .returning();
-
-      return apiKey;
+      const keyHippo = new KeyHippo(ctx.supabase);
+      return await keyHippo.createApiKey(ctx.account.userId, input.description);
     }),
 
   revoke: protectedProcedure
-    .input(z.object({ apiKeyId: z.string() }))
+    .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.database.delete(ApiKeys).where(eq(ApiKeys.id, input.apiKeyId));
+      const keyHippo = new KeyHippo(ctx.supabase);
+      await keyHippo.revokeApiKey(ctx.account.userId, input.id);
     }),
 });

@@ -14,7 +14,7 @@ export const revokeApiKeyAction = authorizedAction
     })
   )
   .action(async ({ parsedInput: { id } }) => {
-    await api.hippoKeys.revoke({
+    await api.apiKeys.revoke({
       id,
     });
 

@@ -6,11 +6,9 @@ import { projectsRouter } from './router/projects';
 import { resourcesRouter } from './router/resources';
 import { usersRouter } from './router/users';
 import { createTRPCRouter } from './trpc';
-import { hippoKeysRouter } from './router/hippo-keys';
 
 export const appRouter = createTRPCRouter({
   apiKeys: apiKeysRouter,
-  hippoKeys: hippoKeysRouter,
   users: usersRouter,
   accounts: accountsRouter,
   integrations: integrationsRouter,

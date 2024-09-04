@@ -5,7 +5,7 @@ import { KeyItem } from './_components/key-item';
 import { CreateApiKeyDialog } from './_components/create-api-key-dialog';
 
 export default async function Page() {
-  const apiKeys = await api.hippoKeys.list();
+  const apiKeys = await api.apiKeys.list();
 
   return (
     <MainContent
