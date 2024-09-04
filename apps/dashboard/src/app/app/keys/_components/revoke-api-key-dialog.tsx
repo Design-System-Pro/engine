@@ -17,7 +17,7 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { revokeApiKeyAction } from '../_actions/revoke-api-key';
 
-export function RevokeApiKeyDialog({ apiKeyId }: { apiKeyId: string }) {
+export function RevokeApiKeyDialog({ keyId }: { keyId: string }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -52,9 +52,9 @@ export function RevokeApiKeyDialog({ apiKeyId }: { apiKeyId: string }) {
           <div>
             <Input
               hidden
-              value={apiKeyId}
+              defaultValue={keyId}
               placeholder="Secret ID"
-              name="apiKeyId"
+              name="id"
             />
           </div>
           <DialogFooter>

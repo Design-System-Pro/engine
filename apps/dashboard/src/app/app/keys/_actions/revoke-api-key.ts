@@ -10,12 +10,12 @@ export const revokeApiKeyAction = authorizedAction
   .metadata({ actionName: 'revokeApiKeyAction' })
   .schema(
     zfd.formData({
-      apiKeyId: zfd.text(z.string().max(256)),
+      id: zfd.text(z.string().max(256)),
     })
   )
-  .action(async ({ parsedInput: { apiKeyId } }) => {
-    await api.apiKeys.revoke({
-      apiKeyId,
+  .action(async ({ parsedInput: { id } }) => {
+    await api.hippoKeys.revoke({
+      id,
     });
 
     revalidatePath('/app/keys');
