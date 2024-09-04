@@ -41,7 +41,6 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@babel/plugin-transform-react-jsx": "^7.25.2",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@figma/eslint-plugin-figma-plugins": "^0.15.0",

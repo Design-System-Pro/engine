@@ -1,16 +1,26 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "jsx": "react",
-    "jsxFactory": "figma.widget.h",
-    "jsxFragmentFactory": "figma.widget.Fragment",
-    "target": "ES6",
-    "lib": ["ES6"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "typeRoots": ["../../node_modules/@figma", "../../node_modules/@types"]
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["src"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

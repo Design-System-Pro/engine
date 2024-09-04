@@ -1,6 +1,6 @@
 import '@ds-project/components/globals.css';
 import 'react-json-view-lite/dist/index.css';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { Button, DSLogo, Icons } from '@ds-project/components';
 import { AsyncMessageTypes } from '../message.types';
 import { AsyncMessage } from '../message';

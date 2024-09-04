@@ -1,23 +1,10 @@
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import { viteSingleFile } from 'vite-plugin-singlefile';
-import react from '@vitejs/plugin-react';
 import preserveDirectives from 'rollup-preserve-directives';
 
-const figmaWidgetReactPlugin = react({
-  babel: {
-    plugins: [
-      // Custom JSX factory for Figma widgets
-      [
-        '@babel/plugin-transform-react-jsx',
-        { pragma: 'figma.widget.h', pragmaFrag: 'figma.widget.Fragment' },
-      ],
-    ],
-  },
-});
-
 export default defineConfig(({ mode }) => ({
-  plugins: [figmaWidgetReactPlugin, viteSingleFile()],
+  plugins: [viteSingleFile()],
   build: {
     minify: mode === 'production',
     sourcemap: mode !== 'production' ? 'inline' : false,
@@ -26,7 +13,7 @@ export default defineConfig(({ mode }) => ({
     outDir: path.resolve('dist'),
     rollupOptions: {
       plugins: [preserveDirectives()],
-      input: path.resolve('src/plugin/plugin.tsx'),
+      input: path.resolve('src/plugin/plugin.ts'),
       output: {
         entryFileNames: 'plugin.js',
       },
