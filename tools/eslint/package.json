@@ -14,7 +14,6 @@
     "@next/eslint-plugin-next": "^14.2.5",
     "eslint": "catalog:",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-package-json": "^0.15.2",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
