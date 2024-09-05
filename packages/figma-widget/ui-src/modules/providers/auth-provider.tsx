@@ -2,14 +2,13 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
 import { config } from '../../config';
 import type { Credentials } from '@ds-project/figma-messaging';
 import {
-  AsyncMessageTypes,
+  MessageType,
   CredentialsSchema,
   Message,
 } from '@ds-project/figma-messaging';
@@ -28,7 +27,7 @@ interface ContextType {
     | 'unauthorized'
     | 'failed';
   refreshAccessToken: () => Promise<void>;
-  login: () => Promise<void>;
+  login: () => Promise<Credentials | null>;
   logout: () => Promise<void>;
 }
 
@@ -36,7 +35,7 @@ const Context = createContext<ContextType>({
   credentials: null,
   state: 'initializing',
   refreshAccessToken: () => Promise.resolve(),
-  login: () => Promise.resolve(),
+  login: () => Promise.resolve(null),
   logout: () => Promise.resolve(),
 });
 
@@ -47,44 +46,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [shouldUpdatePlugin, setShouldUpdatePlugin] = useState(false);
   const [credentials, setCredentials] = useState<Credentials | null>(null);
 
-  useEffect(() => {
-    // Try to get credentials from plugin if they exist.
-    // This will only run if the auth provider is just initializing.
-    if (state !== 'initializing') {
-      return;
-    }
+  // useEffect(() => {
+  //   // Try to get credentials from plugin if they exist.
+  //   // This will only run if the auth provider is just initializing.
+  //   if (state !== 'initializing') {
+  //     return;
+  //   }
 
-    Message.ui
-      .request({ type: AsyncMessageTypes.GetCredentials })
-      .then(({ credentials: _credentials }) => {
-        setCredentials(_credentials);
-        setState('authorized');
-      })
-      .catch((error) => {
-        console.error('Error requesting credentials from plugin', error);
-        setState('unauthorized');
-      });
-  }, [state]);
+  //   Message.ui
+  //     .request({ type: MessageType.GetCredentials })
+  //     .then(({ credentials: _credentials }) => {
+  //       setCredentials(_credentials);
+  //       setState('authorized');
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error requesting credentials from plugin', error);
+  //       setState('unauthorized');
+  //     });
+  // }, [state]);
 
-  useEffect(() => {
-    // Try to update plugin with credentials if they got updated on ui side
-    if (!shouldUpdatePlugin) {
-      return;
-    }
+  // useEffect(() => {
+  //   // Try to update plugin with credentials if they got updated on ui side
+  //   if (!shouldUpdatePlugin) {
+  //     return;
+  //   }
 
-    if (state === 'authorized' && credentials) {
-      void Message.ui.request({
-        type: AsyncMessageTypes.SetCredentials,
-        credentials,
-      });
-    } else if (state === 'unauthorized' && !credentials) {
-      void Message.ui.request({
-        type: AsyncMessageTypes.DeleteCredentials,
-      });
-    }
+  //   if (state === 'authorized' && credentials) {
+  //     void Message.ui.request({
+  //       type: MessageType.SetCredentials,
+  //       credentials,
+  //     });
+  //   } else if (state === 'unauthorized' && !credentials) {
+  //     void Message.ui.request({
+  //       type: MessageType.DeleteCredentials,
+  //     });
+  //   }
 
-    setShouldUpdatePlugin(false);
-  }, [credentials, shouldUpdatePlugin, state]);
+  //   setShouldUpdatePlugin(false);
+  // }, [credentials, shouldUpdatePlugin, state]);
 
   const refreshAccessToken = useCallback(async () => {
     if (!credentials) {
@@ -122,14 +121,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(async () => {
     await Message.ui.request({
-      type: AsyncMessageTypes.DeleteCredentials,
+      type: MessageType.DeleteCredentials,
     });
     setCredentials(null);
     setState('unauthorized');
     setShouldUpdatePlugin(true);
   }, []);
 
-  const login = useCallback(async () => {
+  const login = useCallback(async (): Promise<Credentials | null> => {
     setCredentials(null);
     setState('authorizing');
     setShouldUpdatePlugin(true);
@@ -151,31 +150,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     window.open(`${config.AUTH_API_HOST}/auth/sign-in?figma_key=${writeKey}`);
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises -- we want to use async function with interval
-    const interval = setInterval(async () => {
-      const exchangeResponse = await fetch(
-        `${config.AUTH_API_HOST}/api/auth/exchange`,
-        {
-          method: 'POST',
-          body: JSON.stringify({ readKey }),
+    return new Promise((resolve, reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises -- we want to use async function with interval
+      const interval = setInterval(async () => {
+        const exchangeResponse = await fetch(
+          `${config.AUTH_API_HOST}/api/auth/exchange`,
+          {
+            method: 'POST',
+            body: JSON.stringify({ readKey }),
+          }
+        );
+
+        if (!exchangeResponse.ok) {
+          setState('failed');
+          return reject(new Error('Error polling for DS token.'));
         }
-      );
 
-      if (!exchangeResponse.ok) {
-        setState('failed');
-        throw new Error('Error polling for DS token.');
-      }
+        const { data: _credentials, success: areCredentialsValid } =
+          CredentialsSchema.safeParse(await exchangeResponse.json());
 
-      const { data: _credentials, success: areCredentialsValid } =
-        CredentialsSchema.safeParse(await exchangeResponse.json());
+        if (areCredentialsValid) {
+          setCredentials(_credentials);
+          setState('authorized');
+          setShouldUpdatePlugin(true);
+          clearInterval(interval);
 
-      if (areCredentialsValid) {
-        setCredentials(_credentials);
-        setState('authorized');
-        setShouldUpdatePlugin(true);
-        clearInterval(interval);
-      }
-    }, config.READ_INTERVAL);
+          return resolve(_credentials);
+        }
+
+        return; // continue polling
+      }, config.READ_INTERVAL);
+    });
   }, []);
 
   const contextValue = useMemo(

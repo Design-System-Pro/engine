@@ -24,7 +24,9 @@
   "prettier": "@ds-project/prettier",
   "dependencies": {
     "@tanstack/react-query": "^5.51.24",
+    "memoize": "^10.0.0",
     "object-hash": "^3.0.0",
+    "rambda": "^9.2.1",
     "react": "catalog:",
     "react-dom": "catalog:",
     "style-dictionary": "^4.1.0",

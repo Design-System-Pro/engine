@@ -2,6 +2,9 @@
   "name": "@ds-project/figma-messaging",
   "version": "1.0.0",
   "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "exports": {
     ".": {
@@ -9,13 +12,15 @@
       "default": "./src/index.ts"
     }
   },
-  "prettier": "@ds-project/prettier",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "prettier": "@ds-project/prettier",
+  "dependencies": {
+    "object-hash": "^3.0.0",
+    "style-dictionary": "^4.1.0",
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
@@ -25,10 +30,5 @@
     "@types/object-hash": "^3.0.6",
     "eslint": "catalog:",
     "typescript": "catalog:"
-  },
-  "dependencies": {
-    "object-hash": "^3.0.0",
-    "style-dictionary": "^4.1.0",
-    "zod": "^3.23.8"
   }
 }

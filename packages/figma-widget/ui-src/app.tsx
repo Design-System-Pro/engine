@@ -6,7 +6,7 @@ import { useAuth } from './modules/providers/auth-provider';
 import { useConfig } from './modules/providers/config-provider';
 import { api } from '@ds-project/api/react';
 import { useProjects } from './modules/providers/projects-provider';
-import { AsyncMessageTypes, Message } from '@ds-project/figma-messaging';
+import { MessageType, Message } from '@ds-project/figma-messaging';
 
 function App() {
   const { login, logout, state } = useAuth();
@@ -20,7 +20,7 @@ function App() {
 
     Message.ui
       .request({
-        type: AsyncMessageTypes.GetDesignTokens,
+        type: MessageType.GetDesignTokens,
       })
       .then(({ designTokens }) => {
         console.log({ designTokens });

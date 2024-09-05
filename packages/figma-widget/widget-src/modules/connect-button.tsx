@@ -1,51 +1,43 @@
-import { AsyncMessageTypes, Message } from '@ds-project/figma-messaging';
-import type { Credentials } from '@ds-project/figma-messaging';
-import { useSyncedState } from '../lib/widget';
+import { MessageType, Message } from '@ds-project/figma-messaging';
+import { useEffect } from '../lib/widget';
 import type { LinkProps } from '../components/link';
 import { Link } from '../components/link';
+import { useSyncedCredentials } from './state';
 
 type ConnectButtonProps = LinkProps;
 
 export function ConnectButton(props: ConnectButtonProps) {
-  const [credentials, setCredentials] = useSyncedState<Credentials | null>(
-    'credentials',
-    null
-  );
+  const [syncedCredentials, setSyncedCredentials] = useSyncedCredentials();
+
+  useEffect(() => {
+    Message.widget.handle(MessageType.GetCredentials, async () => {
+      return Promise.resolve({ credentials: syncedCredentials });
+    });
+  });
 
   const handleDisconnect = () => {
-    setCredentials(null);
+    setSyncedCredentials(null);
   };
 
   const handleConnect = async () => {
     await new Promise(() => {
-      figma.showUI(__html__, {
-        themeColors: true,
-        height: 306,
-        width: 275,
-        title: 'DS Project',
-        visible: true,
-      });
-
-      Message.widget.handle(AsyncMessageTypes.CloseUI, () => {
-        figma.closePlugin();
-        return Promise.resolve({});
-      });
-
-      Message.widget.handle(AsyncMessageTypes.GetCredentials, async () => {
-        return Promise.resolve({ credentials });
-      });
-
-      Message.widget.handle(
-        AsyncMessageTypes.SetCredentials,
-        async ({ credentials: _credentials }) => {
-          setCredentials(_credentials);
-          return Promise.resolve({});
-        }
-      );
+      Message.widget
+        .request({
+          type: MessageType.Connect,
+        })
+        .then(({ credentials }) => {
+          setSyncedCredentials(credentials);
+        })
+        .catch((error) => {
+          console.error('Error getting credentials', error);
+        })
+        .finally(() => {
+          figma.closePlugin();
+        });
     });
   };
 
-  if (!credentials) {
+  if (!syncedCredentials) {
     return (
       <Link onClick={handleConnect} {...props}>
         Connect

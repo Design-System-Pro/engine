@@ -9,7 +9,7 @@ figma.showUI(__html__, {
   themeColors: true,
   height: 306,
   width: 275,
-  title: 'DS Project',
+  title: 'DS Project (Deprecated)',
 });
 
 AsyncMessage.plugin.handle(AsyncMessageTypes.GetConfig, async () => {

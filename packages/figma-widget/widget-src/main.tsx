@@ -1,11 +1,12 @@
 import { Container } from './components/container';
-import { Variables } from './components/variables';
 import { registerWidget } from './lib/widget';
+import { LinkProject } from './modules/link-project';
 
 function Widget() {
   return (
     <Container>
-      <Variables />
+      <LinkProject />
+      {/* <SyncVariables /> */}
     </Container>
   );
 }

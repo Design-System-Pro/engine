@@ -4,9 +4,13 @@ import { Button } from './button';
 
 interface VariablesProps {
   lastSynced?: string;
+  onSyncVariablesClick: () => void;
 }
 
-export function Variables({ lastSynced }: VariablesProps) {
+export function Variables({
+  lastSynced,
+  onSyncVariablesClick,
+}: VariablesProps) {
   return (
     <AutoLayout
       name="Variables"
@@ -32,7 +36,7 @@ export function Variables({ lastSynced }: VariablesProps) {
       </AutoLayout>
 
       <AutoLayout horizontalAlignItems="end" width="fill-parent">
-        <Button variant="outline" onClick={() => {}}>
+        <Button variant="outline" onClick={onSyncVariablesClick}>
           <SVG width={15} height={15} src={updateIcon} />
         </Button>
       </AutoLayout>

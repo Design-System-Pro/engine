@@ -14,6 +14,7 @@ const {
   SVG,
   Text,
   useSyncedState,
+  useEffect,
 } = widget;
 
 export {
@@ -25,4 +26,5 @@ export {
   SVG,
   Text,
   useSyncedState,
+  useEffect,
 };

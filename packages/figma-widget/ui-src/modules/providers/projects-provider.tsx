@@ -10,7 +10,7 @@ import {
 import { api } from '@ds-project/api/react';
 import { useConfig } from './config-provider';
 import type { SelectProjects } from '../../../../database/src/schema/projects';
-import { AsyncMessageTypes, Message } from '@ds-project/figma-messaging';
+import { MessageType, Message } from '@ds-project/figma-messaging';
 
 interface ContextType {
   selectedProjectId?: string;
@@ -37,7 +37,7 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     Message.ui
       .request({
-        type: AsyncMessageTypes.GetProjectId,
+        type: MessageType.GetProjectId,
       })
       .then(({ projectId }) => {
         if (!projectId) return;
@@ -54,7 +54,7 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
         linkResource({ projectId, name: fileName });
       }
       await Message.ui.request({
-        type: AsyncMessageTypes.SetProjectId,
+        type: MessageType.SetProjectId,
         projectId,
       });
     },

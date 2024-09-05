@@ -1,4 +1,3 @@
-/* eslint-disable no-console -- TODO: replace with monitoring and logging system */
 import hash from 'object-hash';
 import type {
   AsyncMessageChannelHandlers,
@@ -87,7 +86,6 @@ export class AsyncMessage {
         }
 
         try {
-          // eslint-disable-next-line @typescript-eslint/await-thenable -- callback can in fact be a promise. In the cases it's not, await doesn't have any harm.
           const result = await callback(msg.message);
           const payload = { ...result, type: msg.message.type };
 
@@ -171,7 +169,7 @@ export class AsyncMessage {
         },
         'https://www.figma.com'
       );
-      console.log(`💅 UI Plugin Message type", ${message.type}, was sent.`);
+      console.log(`💅 UI Plugin Message type, ${message.type}, was sent.`);
     }
 
     return promise;

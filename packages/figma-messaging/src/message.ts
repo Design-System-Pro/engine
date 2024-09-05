@@ -4,9 +4,32 @@ import type {
   AsyncMessageRequests,
   AsyncMessageRequestsMap,
   AsyncMessageResponses,
-  AsyncMessageTypes,
   IncomingMessageEvent,
 } from './message.types';
+import { MessageType } from './message.types';
+
+const openUI = async () => {
+  const hasOpenedPromise = new Promise((resolve) => {
+    Message.widget.handle(MessageType.UIIsReady, () => {
+      console.log('🧩 UI Opened');
+      resolve(void 0);
+      return Promise.resolve({});
+    });
+  });
+
+  console.log('🧩 Opening UI');
+  figma.showUI(__html__, {
+    title: 'DS Project',
+    visible: true,
+  });
+
+  return hasOpenedPromise;
+};
+
+const closeUI = () => {
+  figma.closePlugin();
+  console.log('🧩 Plugin Closed.');
+};
 
 type Channel = 'widget' | 'ui';
 
@@ -25,7 +48,8 @@ export class Message {
   private attachMessageListener<Message>(
     callback: (
       message: Message
-    ) => 'off' | undefined | Promise<'off' | undefined>
+    ) => 'off' | undefined | Promise<'off' | undefined>,
+    type?: MessageType
   ): () => void {
     if (this.channel === 'widget') {
       const listener = async (message: Message) => {
@@ -36,16 +60,17 @@ export class Message {
         ) {
           // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We don't expect to use the result of the listener
           figma.ui.off('message', listener);
-          console.log('🧩 Listener OFF. Possible Promise.');
+          console.log(`🧩 Listener OFF ${type}. Possible Promise.`);
+          closeUI();
         }
       };
       // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We don't expect to use the result of the listener
       figma.ui.on('message', listener);
-      console.log('🧩 Listener ON.');
+      console.log(`🧩 Listener ON ${type}.`);
       return () => {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We don't expect to use the result of the listener
         figma.ui.off('message', listener);
-        console.log('🧩 Listener OFF. Return Function.');
+        console.log(`🧩 Listener OFF ${type}. Return Function.`);
       };
     }
 
@@ -54,34 +79,34 @@ export class Message {
       if (possiblePromise && (await possiblePromise) === 'off') {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We don't expect to use the result of the listener
         window.removeEventListener('message', listener);
-        console.log('💅 Listener OFF.');
+        console.log(`💅 Listener OFF ${type}.`);
       }
     };
     // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We don't expect to use the result of the listener
     window.addEventListener('message', listener);
-    console.log('💅 Listener ON.');
+    console.log(`💅 Listener ON ${type}.`);
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We don't expect to use the result of the listener
       window.removeEventListener('message', listener);
-      console.log('💅 Listener OFF.');
+      console.log(`💅 Listener OFF ${type}.`);
     };
   }
 
   /**
    * Continuously listens for messages and calls the callback
    */
-  public handle<MessageType extends AsyncMessageTypes>(
-    type: MessageType,
-    callback: AsyncMessageChannelHandlers[MessageType]
+  public handle<Type extends MessageType>(
+    type: Type,
+    callback: AsyncMessageChannelHandlers[Type]
   ): void {
     this.attachMessageListener(
-      async (msg: {
-        id?: string;
-        message?: AsyncMessageRequestsMap[MessageType];
-      }) => {
+      async (msg: { id?: string; message?: AsyncMessageRequestsMap[Type] }) => {
         // This appears to be related to the monaco editor being opened. It appears to post a message to the window message event listener with no data.
         if (!msg.id || !msg.message || msg.message.type !== type) {
-          console.warn('🧩 Invalid message received', msg);
+          // console.warn(
+          //   `${this.channel === 'ui' ? '💅' : '🧩'} Invalid message received`,
+          //   msg
+          // );
           return undefined;
         }
 
@@ -94,7 +119,7 @@ export class Message {
               id: msg.id,
               message: payload,
             });
-            console.log(`🧩 Plugin Message type", ${payload.type}, was sent.`);
+            console.log(`🧩 Plugin Message type ${payload.type} was handled.`);
           } else {
             parent.postMessage(
               {
@@ -103,7 +128,7 @@ export class Message {
               '*'
             );
             console.log(
-              `💅 UI Plugin Message type", ${payload.type}, was sent.`
+              `💅 UI Plugin Message type ${payload.type} was handled.`
             );
           }
         } catch (error) {
@@ -112,7 +137,7 @@ export class Message {
               id: msg.id,
               error,
             });
-            console.log(`🧩 Plugin Error Message was sent.`, error);
+            console.log(`🧩 Plugin Error Message was handled.`, error);
           } else {
             parent.postMessage(
               {
@@ -120,11 +145,44 @@ export class Message {
               },
               '*'
             );
-            console.log(`💅 UI Plugin Error Message was sent.`);
+            console.log(`💅 UI Plugin Error Message was handled.`);
           }
         }
-      }
+      },
+      type
     );
+  }
+
+  /**
+   * Sends a message without expecting a reply
+   */
+  public async send<Message extends AsyncMessageRequests>(
+    message: Message
+  ): Promise<void> {
+    const messageId = hash({
+      message,
+      datetime: Date.now(),
+    });
+
+    if (this.channel === 'widget') {
+      await openUI();
+
+      console.log('🧩 Sending message', message);
+      figma.ui.postMessage({ id: messageId, message });
+      console.log(
+        `🧩 Plugin Message type ${message.type} was sent (no reply expected).`
+      );
+    } else {
+      parent.postMessage(
+        {
+          pluginMessage: { id: messageId, message },
+        },
+        'https://www.figma.com'
+      );
+      console.log(
+        `💅 UI Plugin Message type ${message.type} was sent (no reply expected).`
+      );
+    }
   }
 
   /**
@@ -156,12 +214,14 @@ export class Message {
           return 'off';
         }
         return undefined;
-      });
+      }, message.type);
     });
 
     if (this.channel === 'widget') {
+      await openUI();
+
       figma.ui.postMessage({ id: messageId, message });
-      console.log(`🧩 Plugin Message type", ${message.type}, was sent.`);
+      console.log(`🧩 Plugin Message type ${message.type} was sent.`);
     } else {
       parent.postMessage(
         {
@@ -169,7 +229,7 @@ export class Message {
         },
         'https://www.figma.com'
       );
-      console.log(`💅 UI Plugin Message type", ${message.type}, was sent.`);
+      console.log(`💅 UI Plugin Message type ${message.type} was sent.`);
     }
 
     return promise;

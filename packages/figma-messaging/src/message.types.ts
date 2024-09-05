@@ -1,7 +1,9 @@
 import type { DesignTokens } from 'style-dictionary/types';
 import type { Credentials } from './credentials';
-export enum AsyncMessageTypes {
+export enum MessageType {
+  UIIsReady = 'ui-is-ready',
   CloseUI = 'close-ui',
+  SyncVariables = 'sync-variables',
   SetCredentials = 'set-credentials',
   GetCredentials = 'get-credentials',
   GetDesignTokens = 'get-design-tokens',
@@ -9,22 +11,24 @@ export enum AsyncMessageTypes {
   SetProjectId = 'set-project-id',
   GetProjectId = 'get-project-id',
   GetConfig = 'get-config',
-  ConnectWithDS = 'connect-with-ds',
+  Connect = 'connect',
+  LinkProject = 'link-project',
+  OpenLinkProject = 'open-link-project',
 }
 
 export type AsyncMessage<
-  MessageType extends AsyncMessageTypes,
+  Type extends MessageType,
   MessageResponse = unknown,
 > = {
-  type: MessageType;
+  type: Type;
 } & MessageResponse;
 
 export type PluginMessageEvent<
-  MessageType extends AsyncMessageTypes,
+  Type extends MessageType,
   MessageResponse = unknown,
 > = MessageEvent<{
   pluginMessage: {
-    type: MessageType;
+    type: Type;
   } & MessageResponse;
 }>;
 
@@ -42,67 +46,97 @@ export interface IncomingMessageEvent<Message = unknown> {
   };
 }
 
-export type CloseUIRequest = AsyncMessage<AsyncMessageTypes.CloseUI>;
-
-export type ConnectWithDSRequest =
-  AsyncMessage<AsyncMessageTypes.ConnectWithDS>;
-
-export type GetCredentialsRequest =
-  AsyncMessage<AsyncMessageTypes.GetCredentials>;
-export type SetCredentialsRequest = AsyncMessage<
-  AsyncMessageTypes.SetCredentials,
+export type UIIsReadyRequest = AsyncMessage<MessageType.UIIsReady>;
+export type CloseUIRequest = AsyncMessage<MessageType.CloseUI>;
+export type SyncVariablesRequest = AsyncMessage<
+  MessageType.SyncVariables,
   {
-    credentials: Credentials;
+    variables: DesignTokens;
   }
 >;
-export type DeleteCredentialsRequest =
-  AsyncMessage<AsyncMessageTypes.DeleteCredentials>;
 
-export type GetCredentialsResponse = AsyncMessage<
-  AsyncMessageTypes.GetCredentials,
+export type SyncVariablesResponse = AsyncMessage<
+  MessageType.SyncVariables,
+  {
+    lastSyncedAt: number;
+  }
+>;
+
+export type OpenLinkProjectRequest = AsyncMessage<MessageType.OpenLinkProject>;
+
+export type LinkProjectRequest = AsyncMessage<
+  MessageType.LinkProject,
+  {
+    linkedProjectName: string;
+  }
+>;
+
+export type ConnectRequest = AsyncMessage<MessageType.Connect>;
+export type ConnectResponse = AsyncMessage<
+  MessageType.Connect,
   {
     credentials: Credentials | null;
   }
 >;
 
-export type GetDesignTokensRequest =
-  AsyncMessage<AsyncMessageTypes.GetDesignTokens>;
+export type GetCredentialsRequest = AsyncMessage<MessageType.GetCredentials>;
+export type SetCredentialsRequest = AsyncMessage<
+  MessageType.SetCredentials,
+  {
+    credentials: Credentials;
+  }
+>;
+export type DeleteCredentialsRequest =
+  AsyncMessage<MessageType.DeleteCredentials>;
+
+export type GetCredentialsResponse = AsyncMessage<
+  MessageType.GetCredentials,
+  {
+    credentials: Credentials | null;
+  }
+>;
+
+export type GetDesignTokensRequest = AsyncMessage<MessageType.GetDesignTokens>;
 
 export type GetDesignTokensResponse = AsyncMessage<
-  AsyncMessageTypes.GetDesignTokens,
+  MessageType.GetDesignTokens,
   {
     designTokens: DesignTokens;
   }
 >;
 
-export type GetProjectIdRequest = AsyncMessage<AsyncMessageTypes.GetProjectId>;
+export type GetProjectIdRequest = AsyncMessage<MessageType.GetProjectId>;
 
 export type GetProjectIdResponse = AsyncMessage<
-  AsyncMessageTypes.GetProjectId,
+  MessageType.GetProjectId,
   {
     projectId?: string;
   }
 >;
 
 export type SetProjectIdRequest = AsyncMessage<
-  AsyncMessageTypes.SetProjectId,
+  MessageType.SetProjectId,
   {
     projectId: string;
   }
 >;
 
-export type GetConfigRequest = AsyncMessage<AsyncMessageTypes.GetConfig>;
+export type GetConfigRequest = AsyncMessage<MessageType.GetConfig>;
 
 export type GetConfigResponse = AsyncMessage<
-  AsyncMessageTypes.GetConfig,
+  MessageType.GetConfig,
   {
     fileName: string;
   }
 >;
 
 export type AsyncMessageRequests =
+  | UIIsReadyRequest
   | CloseUIRequest
-  | ConnectWithDSRequest
+  | SyncVariablesRequest
+  | OpenLinkProjectRequest
+  | LinkProjectRequest
+  | ConnectRequest
   | GetCredentialsRequest
   | SetCredentialsRequest
   | DeleteCredentialsRequest
@@ -112,16 +146,18 @@ export type AsyncMessageRequests =
   | GetConfigRequest;
 
 export type AsyncMessageResponses =
+  | ConnectResponse
   | GetCredentialsResponse
   | GetDesignTokensResponse
   | GetProjectIdResponse
-  | GetConfigResponse;
+  | GetConfigResponse
+  | SyncVariablesResponse;
 
 export type AsyncMessageRequestsMap = {
-  [K in AsyncMessageTypes]: Extract<AsyncMessageRequests, { type: K }>;
+  [K in MessageType]: Extract<AsyncMessageRequests, { type: K }>;
 };
 export type AsyncMessageResponsesMap = {
-  [K in AsyncMessageTypes]: Extract<AsyncMessageResponses, { type: K }>;
+  [K in MessageType]: Extract<AsyncMessageResponses, { type: K }>;
 };
 
 // credits goes to https://github.com/microsoft/TypeScript/issues/23182#issuecomment-379091887
@@ -132,7 +168,7 @@ type IsTypeOnlyObject<Obj extends Record<PropertyKey, unknown>> = [
   : false;
 
 export type AsyncMessageChannelHandlers = {
-  [K in AsyncMessageTypes]: (
+  [K in MessageType]: (
     incoming: AsyncMessageRequestsMap[K]
   ) => Promise<
     IsTypeOnlyObject<AsyncMessageResponsesMap[K]> extends true

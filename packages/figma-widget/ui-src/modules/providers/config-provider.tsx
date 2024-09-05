@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { AsyncMessageTypes, Message } from '@ds-project/figma-messaging';
+import { MessageType, Message } from '@ds-project/figma-messaging';
 
 interface ContextType {
   fileName?: string;
@@ -14,7 +14,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     Message.ui
       .request({
-        type: AsyncMessageTypes.GetConfig,
+        type: MessageType.GetConfig,
       })
       .then((_config) => {
         setConfig(_config);
