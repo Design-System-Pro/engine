@@ -1,10 +1,12 @@
 import { AutoLayout, Text } from '../lib/widget';
+import { ConnectButton } from '../modules/connect-button';
 import { Divider } from './divider';
 import { Link } from './link';
 
 export const Container = ({ children, ...props }: AutoLayoutProps) => {
   return (
     <AutoLayout
+      name="Container"
       direction="vertical"
       horizontalAlignItems="center"
       verticalAlignItems="center"
@@ -12,20 +14,52 @@ export const Container = ({ children, ...props }: AutoLayoutProps) => {
       width={450}
       fill="#FFFFFF"
       cornerRadius={8}
-      // spacing={12}
       {...props}
     >
-      <AutoLayout width="fill-parent" height={50} padding={16}>
-        <Text fontWeight="bold">DS Pro</Text>
-        <AutoLayout width="fill-parent" />
-        <Link>Disconnect</Link>
+      <AutoLayout
+        name="Header"
+        width="fill-parent"
+        height="hug-contents"
+        direction="horizontal"
+        verticalAlignItems="center"
+        padding={16}
+        spacing={4}
+      >
+        <AutoLayout
+          name="Brand-Project"
+          direction="horizontal"
+          spacing={4}
+          verticalAlignItems="center"
+        >
+          <Text fontWeight="bold">DS Pro</Text>
+          <Text>•</Text>
+          <Text fontWeight="light">@project-name</Text>
+        </AutoLayout>
+
+        <AutoLayout width="fill-parent" height={1} />
+
+        <ConnectButton />
       </AutoLayout>
       <Divider />
-      {children}
+      <AutoLayout
+        width="fill-parent"
+        height="hug-contents"
+        padding={16}
+        verticalAlignItems="center"
+        horizontalAlignItems="center"
+      >
+        {children}
+      </AutoLayout>
       <Divider />
-      <AutoLayout width="fill-parent" height={50} padding={16}>
-        <Link>Feedback</Link>
-        <AutoLayout width="fill-parent" />
+      <AutoLayout
+        name="Footer"
+        width="fill-parent"
+        height="hug-contents"
+        verticalAlignItems="center"
+        padding={16}
+      >
+        <Link href="https://ds-project.supahub.com">Feedback</Link>
+        <AutoLayout width="fill-parent" height={1} />
       </AutoLayout>
     </AutoLayout>
   );
