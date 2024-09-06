@@ -17,6 +17,7 @@
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
+    "@create-figma-plugin/utilities": "^3.2.0",
     "object-hash": "^3.0.0",
     "style-dictionary": "^4.1.0",
     "zod": "^3.23.8"

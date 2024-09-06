@@ -13,6 +13,7 @@ import {
   CredentialsSchema,
   Message,
 } from '@ds-project/figma-messaging';
+import { useConfig } from './config-provider';
 
 interface AuthStartResponse {
   writeKey: string;
@@ -41,11 +42,14 @@ const Context = createContext<ContextType>({
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const { credentials: syncedCredentials } = useConfig();
   const [state, setState] = useState<
     'initializing' | 'authorizing' | 'authorized' | 'unauthorized' | 'failed'
   >('initializing');
   const [shouldUpdatePlugin, setShouldUpdatePlugin] = useState(false);
-  const [credentials, setCredentials] = useState<Credentials | null>(null);
+  const [credentials, setCredentials] = useState<Credentials | null>(
+    syncedCredentials
+  );
 
   useEffect(() => {
     // Try to get credentials from plugin if they exist.
@@ -54,17 +58,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    Message.ui
-      .request({ type: MessageType.GetCredentials })
-      .then(({ credentials: _credentials }) => {
-        setCredentials(_credentials);
-        setState('authorized');
-      })
-      .catch((error) => {
-        console.error('Error requesting credentials from plugin', error);
-        setState('unauthorized');
-      });
-  }, [state]);
+    if (credentials) {
+      setState('authorized');
+    } else {
+      setState('unauthorized');
+    }
+  }, [credentials, state]);
 
   // useEffect(() => {
   //   // Try to update plugin with credentials if they got updated on ui side

@@ -6,32 +6,7 @@ import type {
   AsyncMessageResponses,
   IncomingMessageEvent,
 } from './message.types';
-import { MessageType } from './message.types';
-
-export const openUI = async () => {
-  const hasOpenedPromise = new Promise((resolve) => {
-    Message.widget.handle(MessageType.UIIsReady, () => {
-      console.log('✨ UI is open - ✅');
-      resolve(void 0);
-      return Promise.resolve({});
-    });
-  });
-
-  void new Promise(() => {
-    console.log('✨ Show UI - 🙋');
-    figma.showUI(__html__, {
-      title: 'DS Project',
-      visible: true,
-    });
-  });
-
-  return hasOpenedPromise;
-};
-
-export const closeUI = () => {
-  figma.closePlugin();
-  console.log('✨ UI is closed - ❌');
-};
+import type { MessageType } from './message.types';
 
 type Channel = 'widget' | 'ui';
 
@@ -155,17 +130,13 @@ export class Message {
   /**
    * Sends a message without expecting a reply
    */
-  public async send<Message extends AsyncMessageRequests>(
-    message: Message
-  ): Promise<void> {
+  public send<Message extends AsyncMessageRequests>(message: Message): void {
     const messageId = hash({
       message,
       datetime: Date.now(),
     });
 
     if (this.channel === 'widget') {
-      await openUI();
-
       figma.ui.postMessage({ id: messageId, message });
       console.log(`🧩 ${message.type} was sent - 🚀`);
     } else {
@@ -212,8 +183,6 @@ export class Message {
     });
 
     if (this.channel === 'widget') {
-      await openUI();
-
       figma.ui.postMessage({ id: messageId, message });
       console.log(`🧩 ${message.type} was requested - 🙋`);
     } else {

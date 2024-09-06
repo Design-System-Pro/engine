@@ -2,7 +2,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -13,8 +12,8 @@ import type { SelectProjects } from '../../../../database/src/schema/projects';
 import { MessageType, Message } from '@ds-project/figma-messaging';
 
 interface ContextType {
-  selectedProjectId?: string;
-  linkProject: (projectId: string) => Promise<void>;
+  selectedProjectId: string | null;
+  linkProject: (projectId: string) => void;
   projects?: Pick<SelectProjects, 'id' | 'name'>[];
   isLoading: boolean;
 }
@@ -22,43 +21,45 @@ interface ContextType {
 const Context = createContext<ContextType>({
   isLoading: false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  linkProject: async () => {},
-  selectedProjectId: undefined,
+  linkProject: () => {},
+  selectedProjectId: null,
   projects: undefined,
 });
 
 export function ProjectsProvider({ children }: { children: React.ReactNode }) {
-  const { fileName } = useConfig();
-  const [selectedProjectId, setSelectedProjectId] = useState<string>();
+  const { fileName, projectId: defaultProjectId } = useConfig();
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
+    defaultProjectId
+  );
   const { data: projects, isLoading: isProjectsLoading } =
     api.projects.account.useQuery();
   const { mutate: linkResource } = api.resources.link.useMutation();
 
-  useEffect(() => {
-    Message.ui
-      .request({
-        type: MessageType.GetLinkedProject,
-      })
-      .then(({ project }) => {
-        console.log({ project });
-        if (!project) return;
-        setSelectedProjectId(project.id);
-      })
-      .catch((error) => {
-        console.error('Error fetching design system from plugin', error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   Message.ui
+  //     .request({
+  //       type: MessageType.GetLinkedProject,
+  //     })
+  //     .then(({ project }) => {
+  //       console.log({ project });
+  //       if (!project) return;
+  //       setSelectedProjectId(project.id);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching design system from plugin', error);
+  //     });
+  // }, []);
 
   const linkProject = useCallback(
-    async (projectId: string) => {
+    (projectId: string) => {
       const linkedProjectName = projects?.find(
         (project) => project.id === projectId
       )?.name;
-      console.log('fileName', fileName);
       if (!linkedProjectName || !fileName) return;
 
       linkResource({ projectId, name: fileName });
-      await Message.ui.send({
+      setSelectedProjectId(projectId);
+      Message.ui.send({
         type: MessageType.LinkProject,
         name: linkedProjectName,
         id: projectId,

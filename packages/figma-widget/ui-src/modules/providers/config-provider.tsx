@@ -1,28 +1,20 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { MessageType, Message } from '@ds-project/figma-messaging';
+import { createContext, useContext } from 'react';
+import type { ConfigData } from '@ds-project/figma-messaging';
 
-interface ContextType {
-  fileName?: string;
-  projectId?: string;
+const Context = createContext<ConfigData>({
+  credentials: null,
+  fileName: null,
+  projectId: null,
+});
+
+interface ConfigProviderProps {
+  children: React.ReactNode;
 }
 
-const Context = createContext<ContextType>({});
+export function ConfigProvider({ children }: ConfigProviderProps) {
+  const config = window.__SHOW_UI_DATA__;
 
-export function ConfigProvider({ children }: { children: React.ReactNode }) {
-  const [config, setConfig] = useState<ContextType>();
-
-  useEffect(() => {
-    Message.ui
-      .request({
-        type: MessageType.GetConfig,
-      })
-      .then((_config) => {
-        setConfig(_config);
-      })
-      .catch((error) => {
-        console.error('Error fetching config from plugin', error);
-      });
-  }, []);
+  console.log(JSON.stringify(config, null, 2));
 
   return <Context.Provider value={{ ...config }}>{children}</Context.Provider>;
 }

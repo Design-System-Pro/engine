@@ -1,13 +1,15 @@
-import { MessageType, Message, closeUI } from '@ds-project/figma-messaging';
+import { MessageType, Message } from '@ds-project/figma-messaging';
 import { useEffect } from '../lib/widget';
 import type { LinkProps } from '../components/link';
 import { Link } from '../components/link';
 import { useSyncedCredentials } from './state';
+import { useUI } from '../hooks/ui';
 
 type ConnectButtonProps = LinkProps;
 
 export function ConnectButton(props: ConnectButtonProps) {
   const [syncedCredentials, setSyncedCredentials] = useSyncedCredentials();
+  const { open, close } = useUI();
 
   useEffect(() => {
     Message.widget.handle(MessageType.GetCredentials, async () => {
@@ -20,6 +22,7 @@ export function ConnectButton(props: ConnectButtonProps) {
   };
 
   const handleConnect = async () => {
+    await open();
     await new Promise(() => {
       Message.widget
         .request({
@@ -32,7 +35,7 @@ export function ConnectButton(props: ConnectButtonProps) {
           console.error('Error getting credentials', error);
         })
         .finally(() => {
-          closeUI();
+          close();
         });
     });
   };

@@ -6,12 +6,12 @@ export const useSyncedCredentials = () => {
 };
 
 export const useSyncedLinkedProject = () => {
-  return useSyncedState<{ name: string; id: string } | undefined>(
+  return useSyncedState<{ name: string; id: string } | null>(
     'projectName',
-    undefined
+    null
   );
 };
 
 export const useSyncedLastSyncedAt = () => {
-  return useSyncedState<number | undefined>('lastSyncedAt', undefined);
+  return useSyncedState<number | null>('lastSyncedAt', null);
 };

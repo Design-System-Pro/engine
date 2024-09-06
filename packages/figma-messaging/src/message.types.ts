@@ -60,7 +60,7 @@ export type SyncVariablesRequest = AsyncMessage<
 export type SyncVariablesResponse = AsyncMessage<
   MessageType.SyncVariables,
   {
-    lastSyncedAt?: number;
+    lastSyncedAt: number | null;
   }
 >;
 
@@ -87,12 +87,10 @@ export type GetLinkedProjectRequest =
 export type GetLinkedProjectResponse = AsyncMessage<
   MessageType.GetLinkedProject,
   {
-    project:
-      | {
-          id: string;
-          name: string;
-        }
-      | undefined;
+    project: {
+      id: string;
+      name: string;
+    } | null;
   }
 >;
 
@@ -135,7 +133,7 @@ export type GetProjectIdRequest = AsyncMessage<MessageType.GetProjectId>;
 export type GetProjectIdResponse = AsyncMessage<
   MessageType.GetProjectId,
   {
-    projectId?: string;
+    projectId: string | null;
   }
 >;
 

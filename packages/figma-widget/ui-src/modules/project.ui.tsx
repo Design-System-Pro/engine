@@ -26,8 +26,8 @@ export function Project() {
   });
 
   const onValueChange = useCallback(
-    async (projectId: string) => {
-      await linkProject(projectId);
+    (projectId: string) => {
+      linkProject(projectId);
     },
     [linkProject]
   );
@@ -35,7 +35,10 @@ export function Project() {
   if (!isVisible) return null;
 
   return (
-    <Select onValueChange={onValueChange} value={selectedProjectId}>
+    <Select
+      onValueChange={onValueChange}
+      value={selectedProjectId ?? undefined}
+    >
       <SelectTrigger className="max-w-[200px]">
         <SelectValue
           placeholder={isProjectsLoading ? 'Loading...' : 'Select a project'}

@@ -3,14 +3,18 @@ import { AuthProvider } from './auth-provider';
 import { ConfigProvider } from './config-provider';
 import { ProjectsProvider } from './projects-provider';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+interface ProvidersProps {
+  children: React.ReactNode;
+}
+
+export function Providers({ children }: ProvidersProps) {
   return (
-    <AuthProvider>
-      <ApiProvider>
-        <ConfigProvider>
+    <ConfigProvider>
+      <AuthProvider>
+        <ApiProvider>
           <ProjectsProvider>{children}</ProjectsProvider>
-        </ConfigProvider>
-      </ApiProvider>
-    </AuthProvider>
+        </ApiProvider>
+      </AuthProvider>
+    </ConfigProvider>
   );
 }

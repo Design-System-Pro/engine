@@ -3,7 +3,7 @@ import { AutoLayout, SVG, Text } from '../lib/widget';
 import { Button } from './button';
 
 interface VariablesProps {
-  lastSyncedAt?: number;
+  lastSyncedAt: number | null;
   onSyncVariablesClick: () => void;
 }
 
@@ -11,6 +11,14 @@ export function Variables({
   lastSyncedAt,
   onSyncVariablesClick,
 }: VariablesProps) {
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
   return (
     <AutoLayout
       name="Variables"
@@ -30,7 +38,7 @@ export function Variables({
 
         <Text fontSize={14} fill="#808080">
           {lastSyncedAt
-            ? `Last synced ${lastSyncedAt}`
+            ? `Last synced ${formatDate(new Date(lastSyncedAt))}`
             : 'This is your first time syncing 🚀'}
         </Text>
       </AutoLayout>

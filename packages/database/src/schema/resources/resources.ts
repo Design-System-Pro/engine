@@ -1,4 +1,11 @@
-import { json, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import {
+  json,
+  pgTable,
+  text,
+  timestamp,
+  unique,
+  uuid,
+} from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import type { DesignTokens, DesignToken } from 'style-dictionary/types';
 import { z } from 'zod';
@@ -46,21 +53,27 @@ export type DesignTokensModel = z.infer<typeof PreprocessedTokensSchema>;
 /**
  * Represents the resources linked to a design system.
  */
-export const Resources = pgTable('resources', {
-  id: uuid('id').defaultRandom().primaryKey().notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date().toISOString()),
-  projectId: uuid('project_id')
-    .references(() => Projects.id, { onDelete: 'cascade' })
-    .notNull(),
-  name: text('name').notNull().unique(),
-  designTokens: json('design_tokens').$type<DesignTokensModel>(),
-});
+export const Resources = pgTable(
+  'resources',
+  {
+    id: uuid('id').defaultRandom().primaryKey().notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' })
+      .defaultNow()
+      .notNull()
+      .$onUpdate(() => new Date().toISOString()),
+    projectId: uuid('project_id')
+      .references(() => Projects.id, { onDelete: 'cascade' })
+      .notNull(),
+    name: text('name').notNull(),
+    designTokens: json('design_tokens').$type<DesignTokensModel>(),
+  },
+  (resource) => ({
+    unique: unique().on(resource.name, resource.projectId),
+  })
+);
 
 export const InsertResourcesSchema = createInsertSchema(Resources, {
   designTokens: () => PreprocessedTokensSchema,

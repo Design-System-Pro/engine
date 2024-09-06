@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@figma/plugin-typings':
-      specifier: ^1.98.0
-      version: 1.99.0
     '@trpc/react-query':
       specifier: 11.0.0-rc.482
       version: 11.0.0-rc.482
@@ -27,9 +24,6 @@ catalogs:
     concurrently:
       specifier: ^8.2.2
       version: 8.2.2
-    esbuild:
-      specifier: ^0.23.1
-      version: 0.23.1
     eslint:
       specifier: ^8.57.0
       version: 8.57.0
@@ -60,9 +54,6 @@ catalogs:
     vite:
       specifier: ^5.3.1
       version: 5.3.3
-    vite-plugin-singlefile:
-      specifier: ^2.0.2
-      version: 2.0.2
     zod:
       specifier: ^3.23.8
       version: 3.23.8
@@ -630,6 +621,9 @@ importers:
 
   packages/figma-messaging:
     dependencies:
+      '@create-figma-plugin/utilities':
+        specifier: ^3.2.0
+        version: 3.2.0
       object-hash:
         specifier: ^3.0.0
         version: 3.0.0
@@ -791,6 +785,9 @@ importers:
 
   packages/figma-widget:
     dependencies:
+      '@create-figma-plugin/utilities':
+        specifier: ^3.2.0
+        version: 3.2.0
       '@tanstack/react-query':
         specifier: ^5.51.24
         version: 5.51.24(react@18.3.1)
@@ -1727,6 +1724,10 @@ packages:
 
   '@bundled-es-modules/memfs@4.9.4':
     resolution: {integrity: sha512-1XyYPUaIHwEOdF19wYVLBtHJRr42Do+3ctht17cZOHwHf67vkmRNPlYDGY2kJps4RgE5+c7nEZmEzxxvb1NZWA==}
+
+  '@create-figma-plugin/utilities@3.2.0':
+    resolution: {integrity: sha512-+5JddDqI6XjVJs0EqgLd+6B9ukjhHFEBesqPI/e0okqS+Ay7Gt3xsD0vMrZjVYfJcmRAprgJhdGBGJZjOZiQIA==}
+    engines: {node: '>=20'}
 
   '@drizzle-team/brocli@0.8.2':
     resolution: {integrity: sha512-zTrFENsqGvOkBOuHDC1pXCkDXNd2UhP4lI3gYGhQ1R1SPeAAfqzPsV1dcpMy4uNU6kB5VpU5NGhvwxVNETR02A==}
@@ -5936,6 +5937,10 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
+  hex-rgb@5.0.0:
+    resolution: {integrity: sha512-NQO+lgVUCtHxZ792FodgW0zflK+ozS9X9dwGp9XvvmPlH7pyxd588cn24TD3rmPm/N0AIRXF10Otah8yKqGw4w==}
+    engines: {node: '>=12'}
+
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
 
@@ -6622,6 +6627,9 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  natural-compare-lite@1.4.0:
+    resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
@@ -7390,6 +7398,10 @@ packages:
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  rgb-hex@4.1.0:
+    resolution: {integrity: sha512-UZLM57BW09Yi9J1R3OP8B1yCbbDK3NT8BDtihGZkGkGEs2b6EaV85rsfJ6yK4F+8UbxFFmfA+9xHT5ZWhN1gDQ==}
+    engines: {node: '>=12'}
 
   rimraf@2.6.3:
     resolution: {integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==}
@@ -9417,6 +9429,12 @@ snapshots:
       path: 0.12.7
       stream: 0.0.3
       util: 0.12.5
+
+  '@create-figma-plugin/utilities@3.2.0':
+    dependencies:
+      hex-rgb: 5.0.0
+      natural-compare-lite: 1.4.0
+      rgb-hex: 4.1.0
 
   '@drizzle-team/brocli@0.8.2': {}
 
@@ -14239,6 +14257,8 @@ snapshots:
 
   he@1.2.0: {}
 
+  hex-rgb@5.0.0: {}
+
   hoist-non-react-statics@3.3.2:
     dependencies:
       react-is: 16.13.1
@@ -14864,6 +14884,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.7: {}
+
+  natural-compare-lite@1.4.0: {}
 
   natural-compare@1.4.0: {}
 
@@ -15669,6 +15691,8 @@ snapshots:
       signal-exit: 3.0.7
 
   reusify@1.0.4: {}
+
+  rgb-hex@4.1.0: {}
 
   rimraf@2.6.3:
     dependencies:

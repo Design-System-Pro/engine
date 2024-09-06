@@ -1,17 +1,19 @@
-import { closeUI, Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-messaging';
 import { Variables } from '../components/variables';
 import { extractDesignTokens } from './design-tokens/extract-design-tokens';
 import { useSyncedCredentials, useSyncedLastSyncedAt } from './state';
 import { useEffect } from '../lib/widget';
+import { useUI } from '../hooks/ui';
 
 export function VariablesWidget() {
+  const { open, close } = useUI();
   const [syncedCredentials] = useSyncedCredentials();
   const [lastSyncedAt, setLastSyncedAt] = useSyncedLastSyncedAt();
 
   useEffect(() => {
     Message.widget.handle(MessageType.SetLastSyncedAt, ({ lastSyncedAt }) => {
       setLastSyncedAt(lastSyncedAt);
-      closeUI();
+      close();
       return Promise.resolve({});
     });
   });
@@ -21,10 +23,13 @@ export function VariablesWidget() {
 
     console.log('designTokens', designTokens);
 
-    await Message.widget.request({
+    await open();
+    const { lastSyncedAt } = await Message.widget.request({
       type: MessageType.SyncVariables,
       variables: designTokens,
     });
+    console.log('lastSyncedAt', lastSyncedAt);
+    setLastSyncedAt(lastSyncedAt);
   };
 
   if (!syncedCredentials) {

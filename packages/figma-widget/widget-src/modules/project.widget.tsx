@@ -1,9 +1,11 @@
-import { closeUI, Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-messaging';
 import { ProjectSelector } from '../components/project';
 import { useSyncedCredentials, useSyncedLinkedProject } from './state';
 import { useEffect } from '../lib/widget';
+import { useUI } from '../hooks/ui';
 
 export function Project() {
+  const { open, close } = useUI();
   const [syncedCredentials] = useSyncedCredentials();
   const [syncedLinkedProject, setSyncedLinkedProject] =
     useSyncedLinkedProject();
@@ -15,16 +17,22 @@ export function Project() {
 
     Message.widget.handle(MessageType.LinkProject, ({ id, name }) => {
       setSyncedLinkedProject({ id, name });
-      closeUI();
+      close();
       return Promise.resolve({});
     });
   });
 
   const onProjectSelect = async () => {
     await new Promise(() => {
-      void Message.widget.send({
-        type: MessageType.OpenLinkProject,
-      });
+      open()
+        .then(() => {
+          void Message.widget.send({
+            type: MessageType.OpenLinkProject,
+          });
+        })
+        .catch((error) => {
+          console.error('Error opening UI', error);
+        });
     });
   };
 

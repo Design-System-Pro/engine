@@ -1,11 +1,13 @@
 import { Container } from './components/container';
 import { registerWidget, useEffect } from './lib/widget';
-import { closeUI, Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-messaging';
 import { useSyncedLinkedProject } from './modules/state';
 import { VariablesWidget } from './modules/variables.widget';
 import { Project } from './modules/project.widget';
+import { useUI } from './hooks/ui';
 
 function Widget() {
+  const { close } = useUI();
   const [projectName] = useSyncedLinkedProject();
 
   useEffect(() => {
@@ -15,7 +17,7 @@ function Widget() {
     });
 
     Message.widget.handle(MessageType.CloseUI, async () => {
-      closeUI();
+      close();
       return Promise.resolve({});
     });
   });

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { TRPCReactProvider } from '@ds-project/api/react';
 import { useAuth } from './auth-provider';
 import { tokenRefreshLink } from 'trpc-token-refresh-link';
-import type { AppRouter } from '../../../../../api/src/app-router';
+import type { AppRouter } from '../../../../api/src/app-router';
 
 export function ApiProvider({ children }: { children: React.ReactNode }) {
   const { credentials, refreshAccessToken, logout } = useAuth();

@@ -2,7 +2,7 @@ import { caretIcon } from '../icons/caret';
 import { AutoLayout, SVG, Text } from '../lib/widget';
 
 interface ProjectSelectorProps {
-  selectedProject?: { name: string; id: string };
+  selectedProject: { name: string; id: string } | null;
   onProjectSelect: () => void;
 }
 
