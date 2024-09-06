@@ -3,7 +3,15 @@ import { ConnectButton } from '../modules/connect-button';
 import { Divider } from './divider';
 import { Link } from './link';
 
-export const Container = ({ children, ...props }: AutoLayoutProps) => {
+interface ContainerProps extends AutoLayoutProps {
+  projectName?: string;
+}
+
+export const Container = ({
+  children,
+  projectName,
+  ...props
+}: ContainerProps) => {
   return (
     <AutoLayout
       name="Container"
@@ -32,8 +40,12 @@ export const Container = ({ children, ...props }: AutoLayoutProps) => {
           verticalAlignItems="center"
         >
           <Text fontWeight="bold">DS Pro</Text>
-          <Text>•</Text>
-          <Text fontWeight="light">@project-name</Text>
+          {projectName ? (
+            <>
+              <Text>•</Text>
+              <Text fontWeight="light">{projectName}</Text>
+            </>
+          ) : null}
         </AutoLayout>
 
         <AutoLayout width="fill-parent" height={1} />
@@ -43,8 +55,10 @@ export const Container = ({ children, ...props }: AutoLayoutProps) => {
       <Divider />
       <AutoLayout
         width="fill-parent"
+        direction="vertical"
         height="hug-contents"
         padding={16}
+        spacing={16}
         verticalAlignItems="center"
         horizontalAlignItems="center"
       >

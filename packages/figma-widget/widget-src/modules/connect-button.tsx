@@ -1,4 +1,4 @@
-import { MessageType, Message } from '@ds-project/figma-messaging';
+import { MessageType, Message, closeUI } from '@ds-project/figma-messaging';
 import { useEffect } from '../lib/widget';
 import type { LinkProps } from '../components/link';
 import { Link } from '../components/link';
@@ -32,7 +32,7 @@ export function ConnectButton(props: ConnectButtonProps) {
           console.error('Error getting credentials', error);
         })
         .finally(() => {
-          figma.closePlugin();
+          closeUI();
         });
     });
   };

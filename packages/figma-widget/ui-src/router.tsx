@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { Auth } from './modules/auth';
 import { MessageType, Message } from '@ds-project/figma-messaging';
-import { LinkProject } from './modules/link-project';
+import { Project } from './modules/project.ui';
+import { VariablesUI } from './modules/variables.ui';
 
 export function Router() {
   useEffect(() => {
@@ -14,8 +15,8 @@ export function Router() {
   return (
     <>
       <Auth />
-      <LinkProject />
-      {/* <Variables /> */}
+      <Project />
+      <VariablesUI />
     </>
   );
 }

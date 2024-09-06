@@ -3,12 +3,12 @@ import { AutoLayout, SVG, Text } from '../lib/widget';
 import { Button } from './button';
 
 interface VariablesProps {
-  lastSynced?: string;
+  lastSyncedAt?: number;
   onSyncVariablesClick: () => void;
 }
 
 export function Variables({
-  lastSynced,
+  lastSyncedAt,
   onSyncVariablesClick,
 }: VariablesProps) {
   return (
@@ -29,8 +29,8 @@ export function Variables({
         </Text>
 
         <Text fontSize={14} fill="#808080">
-          {lastSynced
-            ? `Last synced ${lastSynced}`
+          {lastSyncedAt
+            ? `Last synced ${lastSyncedAt}`
             : 'This is your first time syncing 🚀'}
         </Text>
       </AutoLayout>

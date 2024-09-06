@@ -2,7 +2,7 @@ import { caretIcon } from '../icons/caret';
 import { AutoLayout, SVG, Text } from '../lib/widget';
 
 interface ProjectSelectorProps {
-  selectedProject?: string;
+  selectedProject?: { name: string; id: string };
   onProjectSelect: () => void;
 }
 
@@ -25,7 +25,7 @@ export function ProjectSelector({
       onClick={onProjectSelect}
     >
       <Text fontSize={14} width="fill-parent" fontWeight="medium">
-        {selectedProject ?? 'Select a project'}
+        {selectedProject?.name ?? 'Select a project'}
       </Text>
 
       <SVG src={caretIcon} width={16} height={16} />

@@ -4,6 +4,7 @@ export enum MessageType {
   UIIsReady = 'ui-is-ready',
   CloseUI = 'close-ui',
   SyncVariables = 'sync-variables',
+  SetLastSyncedAt = 'set-last-synced-at',
   SetCredentials = 'set-credentials',
   GetCredentials = 'get-credentials',
   GetDesignTokens = 'get-design-tokens',
@@ -13,6 +14,7 @@ export enum MessageType {
   GetConfig = 'get-config',
   Connect = 'connect',
   LinkProject = 'link-project',
+  GetLinkedProject = 'get-linked-project',
   OpenLinkProject = 'open-link-project',
 }
 
@@ -58,6 +60,13 @@ export type SyncVariablesRequest = AsyncMessage<
 export type SyncVariablesResponse = AsyncMessage<
   MessageType.SyncVariables,
   {
+    lastSyncedAt?: number;
+  }
+>;
+
+export type SetLastSyncedAtRequest = AsyncMessage<
+  MessageType.SetLastSyncedAt,
+  {
     lastSyncedAt: number;
   }
 >;
@@ -67,7 +76,23 @@ export type OpenLinkProjectRequest = AsyncMessage<MessageType.OpenLinkProject>;
 export type LinkProjectRequest = AsyncMessage<
   MessageType.LinkProject,
   {
-    linkedProjectName: string;
+    id: string;
+    name: string;
+  }
+>;
+
+export type GetLinkedProjectRequest =
+  AsyncMessage<MessageType.GetLinkedProject>;
+
+export type GetLinkedProjectResponse = AsyncMessage<
+  MessageType.GetLinkedProject,
+  {
+    project:
+      | {
+          id: string;
+          name: string;
+        }
+      | undefined;
   }
 >;
 
@@ -134,8 +159,10 @@ export type AsyncMessageRequests =
   | UIIsReadyRequest
   | CloseUIRequest
   | SyncVariablesRequest
+  | SetLastSyncedAtRequest
   | OpenLinkProjectRequest
   | LinkProjectRequest
+  | GetLinkedProjectRequest
   | ConnectRequest
   | GetCredentialsRequest
   | SetCredentialsRequest
@@ -150,6 +177,7 @@ export type AsyncMessageResponses =
   | GetCredentialsResponse
   | GetDesignTokensResponse
   | GetProjectIdResponse
+  | GetLinkedProjectResponse
   | GetConfigResponse
   | SyncVariablesResponse;
 

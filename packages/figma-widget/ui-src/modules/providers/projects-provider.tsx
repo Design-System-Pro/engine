@@ -37,11 +37,12 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     Message.ui
       .request({
-        type: MessageType.GetProjectId,
+        type: MessageType.GetLinkedProject,
       })
-      .then(({ projectId }) => {
-        if (!projectId) return;
-        setSelectedProjectId(projectId);
+      .then(({ project }) => {
+        console.log({ project });
+        if (!project) return;
+        setSelectedProjectId(project.id);
       })
       .catch((error) => {
         console.error('Error fetching design system from plugin', error);
@@ -50,15 +51,20 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
 
   const linkProject = useCallback(
     async (projectId: string) => {
-      if (projectId && fileName) {
-        linkResource({ projectId, name: fileName });
-      }
-      await Message.ui.request({
-        type: MessageType.SetProjectId,
-        projectId,
+      const linkedProjectName = projects?.find(
+        (project) => project.id === projectId
+      )?.name;
+      console.log('fileName', fileName);
+      if (!linkedProjectName || !fileName) return;
+
+      linkResource({ projectId, name: fileName });
+      await Message.ui.send({
+        type: MessageType.LinkProject,
+        name: linkedProjectName,
+        id: projectId,
       });
     },
-    [fileName, linkResource]
+    [fileName, linkResource, projects]
   );
 
   const value = useMemo(

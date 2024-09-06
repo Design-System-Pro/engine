@@ -5,10 +5,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@ds-project/components';
-import { useCallback } from 'react';
-import { useProjects } from '../providers/projects-provider';
+import { useCallback, useEffect, useState } from 'react';
+import { Message, MessageType } from '@ds-project/figma-messaging';
+import { useProjects } from './providers/projects-provider';
 
-export function LinkDesignSystem() {
+export function Project() {
+  const [isVisible, setIsVisible] = useState(false);
   const {
     isLoading: isProjectsLoading,
     linkProject,
@@ -16,12 +18,21 @@ export function LinkDesignSystem() {
     selectedProjectId,
   } = useProjects();
 
+  useEffect(() => {
+    Message.ui.handle(MessageType.OpenLinkProject, () => {
+      setIsVisible(true);
+      return Promise.resolve({});
+    });
+  });
+
   const onValueChange = useCallback(
     async (projectId: string) => {
       await linkProject(projectId);
     },
     [linkProject]
   );
+
+  if (!isVisible) return null;
 
   return (
     <Select onValueChange={onValueChange} value={selectedProjectId}>

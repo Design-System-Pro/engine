@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -46,24 +47,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [shouldUpdatePlugin, setShouldUpdatePlugin] = useState(false);
   const [credentials, setCredentials] = useState<Credentials | null>(null);
 
-  // useEffect(() => {
-  //   // Try to get credentials from plugin if they exist.
-  //   // This will only run if the auth provider is just initializing.
-  //   if (state !== 'initializing') {
-  //     return;
-  //   }
+  useEffect(() => {
+    // Try to get credentials from plugin if they exist.
+    // This will only run if the auth provider is just initializing.
+    if (state !== 'initializing') {
+      return;
+    }
 
-  //   Message.ui
-  //     .request({ type: MessageType.GetCredentials })
-  //     .then(({ credentials: _credentials }) => {
-  //       setCredentials(_credentials);
-  //       setState('authorized');
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error requesting credentials from plugin', error);
-  //       setState('unauthorized');
-  //     });
-  // }, [state]);
+    Message.ui
+      .request({ type: MessageType.GetCredentials })
+      .then(({ credentials: _credentials }) => {
+        setCredentials(_credentials);
+        setState('authorized');
+      })
+      .catch((error) => {
+        console.error('Error requesting credentials from plugin', error);
+        setState('unauthorized');
+      });
+  }, [state]);
 
   // useEffect(() => {
   //   // Try to update plugin with credentials if they got updated on ui side
