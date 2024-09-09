@@ -2,7 +2,7 @@ import '@ds-project/components/globals.css';
 
 import { useAuth } from './providers/auth-provider';
 import { useEffect } from 'react';
-import { Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 
 export function Auth() {
   const { login } = useAuth();

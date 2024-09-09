@@ -39,7 +39,7 @@
     "@ds-project/api": "workspace:*",
     "@ds-project/components": "workspace:*",
     "@ds-project/eslint": "workspace:*",
-    "@ds-project/figma-messaging": "workspace:*",
+    "@ds-project/figma-utilities": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@figma/plugin-typings": "*",
     "@figma/widget-typings": "*",

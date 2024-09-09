@@ -7,12 +7,12 @@ import {
   useState,
 } from 'react';
 import { config } from '../../config';
-import type { Credentials } from '@ds-project/figma-messaging';
+import type { Credentials } from '@ds-project/figma-utilities';
 import {
   MessageType,
   CredentialsSchema,
   Message,
-} from '@ds-project/figma-messaging';
+} from '@ds-project/figma-utilities';
 import { useConfig } from './config-provider';
 
 interface AuthStartResponse {

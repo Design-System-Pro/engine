@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Auth } from './modules/auth';
-import { MessageType, Message } from '@ds-project/figma-messaging';
+import { MessageType, Message } from '@ds-project/figma-utilities';
 import { VariablesUI } from './modules/variables.ui';
 import { ProjectUI } from './modules/project/project.ui';
 import { Container } from './components/container';

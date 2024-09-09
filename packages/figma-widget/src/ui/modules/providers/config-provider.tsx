@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { ConfigData } from '@ds-project/figma-messaging';
+import type { ConfigData } from '@ds-project/figma-utilities';
 
 const Context = createContext<ConfigData>({
   credentials: null,

@@ -1,4 +1,4 @@
-import { Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 import { useUI } from '../../hooks/ui';
 import { useSyncedCredentials } from '../state';
 

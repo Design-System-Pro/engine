@@ -1,4 +1,4 @@
-import type { Credentials } from '@ds-project/figma-messaging';
+import type { Credentials } from '@ds-project/figma-utilities';
 import { useSyncedState } from '../lib/widget';
 
 export const useSyncedCredentials = () => {

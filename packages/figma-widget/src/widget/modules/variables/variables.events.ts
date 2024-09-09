@@ -1,7 +1,7 @@
-import { Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 import { useEffect } from '../../lib/widget';
 import { useUI } from '../../hooks/ui';
-import { useSyncedCredentials, useSyncedLastSyncedAt } from '../state';
+import { useSyncedLastSyncedAt } from '../state';
 
 export function VariablesEvents() {
   const { close } = useUI();

@@ -3,7 +3,7 @@ import '@ds-project/components/globals.css';
 import { useEffect } from 'react';
 import { api } from '@ds-project/api/react';
 import { useConfig } from './providers/config-provider';
-import { Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 import { useProjects } from './providers/projects-provider';
 
 export function VariablesUI() {

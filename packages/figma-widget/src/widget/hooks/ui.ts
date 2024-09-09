@@ -1,5 +1,6 @@
-import { Message, MessageType } from '@ds-project/figma-messaging';
 import { useSyncedCredentials, useSyncedLinkedProject } from '../modules/state';
+import { Message, MessageType } from '@ds-project/figma-utilities';
+
 export function useUI() {
   const [syncedLinkedProject] = useSyncedLinkedProject();
   const [syncedCredentials] = useSyncedCredentials();

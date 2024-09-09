@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useProjects } from '../providers/projects-provider';
-import { Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 import { Icons, Separator, Text } from '@ds-project/components';
 
 export function ProjectUI() {

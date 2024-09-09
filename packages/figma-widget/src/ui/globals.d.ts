@@ -1,4 +1,4 @@
-import type { ConfigData } from '@ds-project/figma-messaging';
+import type { ConfigData } from '@ds-project/figma-utilities';
 
 declare global {
   interface Window {

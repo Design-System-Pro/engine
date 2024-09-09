@@ -1,4 +1,4 @@
-import { Message, MessageType } from '@ds-project/figma-messaging';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 import { useEffect } from '../../lib/widget';
 import { useSyncedCredentials } from '../state';
 

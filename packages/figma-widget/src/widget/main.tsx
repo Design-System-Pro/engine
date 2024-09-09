@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Container } from './components/container';
 import { registerWidget, useEffect } from './lib/widget';
-import { Message, MessageType } from '@ds-project/figma-messaging';
 import { VariablesSync } from './modules/variables/variables-sync';
 import { ProjectSelect } from './modules/project/project-select';
 import { useUI } from './hooks/ui';
@@ -10,6 +9,7 @@ import { ProjectEvents } from './modules/project/project.events';
 import { VariablesEvents } from './modules/variables/variables.events';
 import { ProjectWarning } from './modules/project/project-warning';
 import { AuthWarning } from './modules/auth/auth-warning';
+import { Message, MessageType } from '@ds-project/figma-utilities';
 
 function Widget() {
   const { close } = useUI();
