@@ -65,25 +65,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [credentials, state]);
 
-  // useEffect(() => {
-  //   // Try to update plugin with credentials if they got updated on ui side
-  //   if (!shouldUpdatePlugin) {
-  //     return;
-  //   }
+  useEffect(() => {
+    // Try to update plugin with credentials if they got updated on ui side
+    if (!shouldUpdatePlugin) {
+      return;
+    }
 
-  //   if (state === 'authorized' && credentials) {
-  //     void Message.ui.request({
-  //       type: MessageType.SetCredentials,
-  //       credentials,
-  //     });
-  //   } else if (state === 'unauthorized' && !credentials) {
-  //     void Message.ui.request({
-  //       type: MessageType.DeleteCredentials,
-  //     });
-  //   }
+    if (state === 'authorized' && credentials) {
+      void Message.ui.request({
+        type: MessageType.SetCredentials,
+        credentials,
+      });
+    } else if (state === 'unauthorized' && !credentials) {
+      void Message.ui.request({
+        type: MessageType.DeleteCredentials,
+      });
+    }
 
-  //   setShouldUpdatePlugin(false);
-  // }, [credentials, shouldUpdatePlugin, state]);
+    setShouldUpdatePlugin(false);
+  }, [credentials, shouldUpdatePlugin, state]);
 
   const refreshAccessToken = useCallback(async () => {
     if (!credentials) {

@@ -15,6 +15,19 @@ export function ConnectButton(props: ConnectButtonProps) {
     Message.widget.handle(MessageType.GetCredentials, async () => {
       return Promise.resolve({ credentials: syncedCredentials });
     });
+
+    Message.widget.handle(
+      MessageType.SetCredentials,
+      async ({ credentials }) => {
+        setSyncedCredentials(credentials);
+        return Promise.resolve({});
+      }
+    );
+
+    Message.widget.handle(MessageType.DeleteCredentials, async () => {
+      setSyncedCredentials(null);
+      return Promise.resolve({});
+    });
   });
 
   const handleDisconnect = () => {

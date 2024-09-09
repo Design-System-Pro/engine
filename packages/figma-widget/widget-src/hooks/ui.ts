@@ -6,7 +6,7 @@ export function useUI() {
 
   const open = async () => {
     return await openUI({
-      projectId: syncedLinkedProject?.id,
+      projectId: syncedLinkedProject?.id ?? null,
       fileName: figma.root.name,
       credentials: syncedCredentials,
     });
