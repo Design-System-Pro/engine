@@ -14,8 +14,6 @@ interface ConfigProviderProps {
 export function ConfigProvider({ children }: ConfigProviderProps) {
   const config = window.__SHOW_UI_DATA__;
 
-  console.log(JSON.stringify(config, null, 2));
-
   return <Context.Provider value={{ ...config }}>{children}</Context.Provider>;
 }
 

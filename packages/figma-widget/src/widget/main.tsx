@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Container } from './components/container';
 import { registerWidget, useEffect } from './lib/widget';
 import { Message, MessageType } from '@ds-project/figma-messaging';

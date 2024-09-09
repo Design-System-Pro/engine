@@ -35,21 +35,6 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
     api.projects.account.useQuery();
   const { mutate: linkResource } = api.resources.link.useMutation();
 
-  // useEffect(() => {
-  //   Message.ui
-  //     .request({
-  //       type: MessageType.GetLinkedProject,
-  //     })
-  //     .then(({ project }) => {
-  //       console.log({ project });
-  //       if (!project) return;
-  //       setSelectedProjectId(project.id);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching design system from plugin', error);
-  //     });
-  // }, []);
-
   const linkProject = useCallback(
     (projectId: string) => {
       const linkedProjectName = projects?.find(

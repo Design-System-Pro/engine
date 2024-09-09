@@ -55,8 +55,6 @@ export const Button = ({
     }
   })();
 
-  console.log({ type: typeof children, children });
-
   return (
     <AutoLayout
       name="Button"
