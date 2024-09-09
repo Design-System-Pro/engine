@@ -14,7 +14,7 @@ export default defineConfig({
     outDir: path.resolve('dist'),
     rollupOptions: {
       plugins: [preserveDirectives],
-      input: path.resolve('ui-src/index.html'),
+      input: path.resolve('src/ui/index.html'),
     },
   },
 });

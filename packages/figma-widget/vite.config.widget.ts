@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => ({
     outDir: path.resolve('dist'),
     rollupOptions: {
       plugins: [preserveDirectives],
-      input: path.resolve('widget-src/main.tsx'),
+      input: path.resolve('src/widget/main.tsx'),
       output: {
         entryFileNames: 'widget.js',
       },

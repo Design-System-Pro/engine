@@ -3,7 +3,7 @@
   "id": "widget-id-HhiuAqCVpc",
   "api": "1.0.0",
   "main": "dist/widget.js",
-  "ui": "dist/ui-src/index.html",
+  "ui": "dist/src/ui/index.html",
   "editorType": ["figma"],
   "containsWidget": true,
   "widgetApi": "1.0.0",
