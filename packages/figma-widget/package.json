@@ -7,19 +7,18 @@
   "author": "Figma",
   "type": "module",
   "scripts": {
-    "build": "npm run build:ui && npm run build:main -- --minify",
-    "build:main": "vite build -c ./vite.config.widget.ts",
+    "build": "pnpm run build:ui && pnpm run build:widget -- --minify",
     "build:ui": "npx vite build --minify esbuild",
-    "build:watch": "concurrently -n widget,ui \"npm run build:main -- --watch\" \"npm run build:ui -- --watch\"",
-    "dev": "concurrently -n tsc,build,vite 'npm:tsc:watch' 'npm:build:watch' 'vite'",
+    "build:watch": "concurrently -n widget,ui \"pnpm run build:widget -- --watch\" \"pnpm run build:ui -- --watch\"",
+    "build:widget": "vite build -c ./vite.config.widget.ts",
+    "dev": "concurrently -n type-check,build,vite 'pnpm:type-check:watch' 'pnpm:build:watch' 'vite'",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
-    "test": "npm run tsc && npm run build",
-    "tsc": "npm run tsc:main && npm run tsc:ui",
-    "tsc:main": "tsc --noEmit -p src/widget",
-    "tsc:ui": "tsc --noEmit -p src/ui",
-    "tsc:watch": "concurrently -n widget,ui \"npm run tsc:main -- --watch --preserveWatchOutput\" \"npm run tsc:ui -- --watch --preserveWatchOutput\"",
-    "type-check": "tsc --noEmit --emitDeclarationOnly false"
+    "test": "pnpm run tsc && pnpm run build",
+    "type-check": "pnpm run type-check:widget && pnpm run type-check:ui",
+    "type-check:ui": "tsc -p src/ui/tsconfig.json --noEmit --emitDeclarationOnly false",
+    "type-check:watch": "concurrently -n widget,ui \"pnpm run type-check:widget\" \"pnpm run type-check:ui\"",
+    "type-check:widget": "tsc -p src/widget/tsconfig.json --noEmit --emitDeclarationOnly false"
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {

@@ -13,7 +13,7 @@ export function ProjectUI() {
   } = useProjects();
 
   useEffect(() => {
-    Message.ui.handle(MessageType.OpenLinkProject, () => {
+    Message.ui.handle(MessageType.OpenProjectsUI, () => {
       setIsVisible(true);
       return Promise.resolve({});
     });

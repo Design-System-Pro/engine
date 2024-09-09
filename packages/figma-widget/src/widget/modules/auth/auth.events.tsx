@@ -3,13 +3,9 @@ import { useEffect } from '../../lib/widget';
 import { useSyncedCredentials } from '../state';
 
 export function AuthEvents() {
-  const [syncedCredentials, setSyncedCredentials] = useSyncedCredentials();
+  const [_, setSyncedCredentials] = useSyncedCredentials();
 
   useEffect(() => {
-    Message.widget.handle(MessageType.GetCredentials, async () => {
-      return Promise.resolve({ credentials: syncedCredentials });
-    });
-
     Message.widget.handle(
       MessageType.SetCredentials,
       async ({ credentials }) => {

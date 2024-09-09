@@ -10,17 +10,12 @@ export function useProjectActions() {
   const isReady = isConnected;
 
   const selectProject = async () => {
+    await open({ visible: true });
+
     await new Promise(() => {
-      // TODO: move this open to an await/async call?
-      open()
-        .then(() => {
-          void Message.widget.send({
-            type: MessageType.OpenLinkProject,
-          });
-        })
-        .catch((error) => {
-          console.error('Error opening UI', error);
-        });
+      Message.widget.send({
+        type: MessageType.OpenProjectsUI,
+      });
     });
   };
 

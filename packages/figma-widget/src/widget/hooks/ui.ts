@@ -5,7 +5,7 @@ export function useUI() {
   const [syncedLinkedProject] = useSyncedLinkedProject();
   const [syncedCredentials] = useSyncedCredentials();
 
-  const open = async () => {
+  const open = async (options: ShowUIOptions = {}) => {
     const hasOpenedPromise = new Promise((resolve) => {
       Message.widget.handle(MessageType.UIIsReady, () => {
         console.log('✨ UI is open - ✅');
@@ -28,7 +28,9 @@ export function useUI() {
         ),
         {
           title: 'DS Project',
-          visible: true,
+          visible: false,
+          themeColors: false,
+          ...options,
         }
       );
     });

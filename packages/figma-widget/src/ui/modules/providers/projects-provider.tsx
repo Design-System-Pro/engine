@@ -45,7 +45,7 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
       linkResource({ projectId, name: fileName });
       setSelectedProjectId(projectId);
       Message.ui.send({
-        type: MessageType.LinkProject,
+        type: MessageType.SetProject,
         name: linkedProjectName,
         id: projectId,
       });

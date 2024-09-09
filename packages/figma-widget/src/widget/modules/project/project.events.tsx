@@ -9,11 +9,11 @@ export function ProjectEvents() {
     useSyncedLinkedProject();
 
   useEffect(() => {
-    Message.widget.handle(MessageType.GetLinkedProject, () => {
+    Message.widget.handle(MessageType.GetProject, () => {
       return Promise.resolve({ project: syncedLinkedProject });
     });
 
-    Message.widget.handle(MessageType.LinkProject, ({ id, name }) => {
+    Message.widget.handle(MessageType.SetProject, ({ id, name }) => {
       setSyncedLinkedProject({ id, name });
       close();
       return Promise.resolve({});
