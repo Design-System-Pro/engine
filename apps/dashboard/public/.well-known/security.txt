@@ -1,4 +1,4 @@
-Canonical: https://your-project-url.com/.well-known/security.txt
+Canonical: https://getds.pro/.well-known/security.txt
 
 We consider the security of our systems a top priority. If you discover a vulnerability, we would like to know about it so we can address it promptly.
 
@@ -21,7 +21,7 @@ Testing guidelines:
 - Do not access, modify, or delete data that doesn't belong to you
 
 Reporting guidelines:
-- Email your findings to [security@getds.pro](mailto:securiy@getds.pro)
+- Email your findings to security@getds.pro
 - Provide sufficient information to reproduce the problem
 
 Disclosure guidelines:
