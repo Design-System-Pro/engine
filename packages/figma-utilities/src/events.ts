@@ -45,10 +45,7 @@ type Event = Implements<
       request: undefined;
       response: { id: string; name: string };
     };
-    'get-project': {
-      request: undefined;
-      response: undefined;
-    };
+
     'open-projects-ui': {
       request: undefined;
       response: undefined;
