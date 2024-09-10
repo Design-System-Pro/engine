@@ -1,6 +1,6 @@
 import { eq } from '@ds-project/database';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { apiProcedure, createTRPCRouter, protectedProcedure } from '../trpc';
 import { AccountsToProjects, Projects } from '@ds-project/database/schema';
 
 export const projectsRouter = createTRPCRouter({
@@ -15,7 +15,7 @@ export const projectsRouter = createTRPCRouter({
     });
   }),
 
-  account: protectedProcedure.query(async ({ ctx }) => {
+  account: apiProcedure.query(async ({ ctx }) => {
     return ctx.database
       .select({
         id: Projects.id,

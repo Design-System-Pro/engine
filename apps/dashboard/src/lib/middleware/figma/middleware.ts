@@ -7,6 +7,7 @@ import type { MiddlewareFactory } from '../compose';
 import { createMiddlewareClient } from '@ds-project/auth/middleware';
 import { clientEnv } from '@/env/client';
 import { config } from '@/config';
+import { createApiKey } from '@ds-project/api/operations';
 
 export const figmaMiddleware: MiddlewareFactory =
   (middleware) =>
@@ -31,24 +32,25 @@ export const figmaMiddleware: MiddlewareFactory =
         supabaseUrl: clientEnv.NEXT_PUBLIC_SUPABASE_URL,
       });
       const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      const accessToken = session?.access_token;
-      const refreshToken = session?.refresh_token;
-      const expiresAt = session?.expires_at;
+        data: { user },
+      } = await supabase.auth.getUser();
 
-      if (accessToken) {
-        console.log('🔐 Figma: User is authenticated. Exchanging key...');
+      if (user) {
+        console.log('🔐 Figma: User is authenticated. Exchanging api key...');
         const keyValue = await kv.getdel<KVCredentialsRead>(figmaKey);
 
         if (keyValue) {
+          const apiKey = await createApiKey({
+            supabase,
+            userId: user.id,
+            description: `Figma API Key - ${new Date().toISOString()}`,
+          });
           if (
-            accessToken &&
-            refreshToken &&
-            expiresAt &&
+            apiKey.status === 'success' &&
+            apiKey.apiKey &&
             (await kv.set<KVCredentials>(
               keyValue.readKey,
-              { accessToken, refreshToken, expiresAt },
+              { apiKey: apiKey.apiKey },
               {
                 px: 5 * 60 * 1000, // Set the 5 minutes expire time, in milliseconds (a positive integer).
                 nx: true, // Only set the key if it does not already exist.
@@ -88,13 +90,10 @@ export const figmaMiddleware: MiddlewareFactory =
       supabaseUrl: clientEnv.NEXT_PUBLIC_SUPABASE_URL,
     });
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    const accessToken = session?.access_token;
-    const refreshToken = session?.refresh_token;
-    const expiresAt = session?.expires_at;
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!accessToken) {
+    if (!user) {
       console.log('🔐 Figma: User is not authenticated. Skipping.');
       return middleware(request, event, response);
     }
@@ -102,13 +101,17 @@ export const figmaMiddleware: MiddlewareFactory =
     const keyValue = await kv.getdel<KVCredentialsRead>(figmaKey);
 
     if (keyValue) {
+      const apiKey = await createApiKey({
+        supabase,
+        userId: user.id,
+        description: `Figma API Key - ${new Date().toISOString()}`,
+      });
       if (
-        accessToken &&
-        refreshToken &&
-        expiresAt &&
+        apiKey.status === 'success' &&
+        apiKey.apiKey &&
         (await kv.set<KVCredentials>(
           keyValue.readKey,
-          { accessToken, refreshToken, expiresAt },
+          { apiKey: apiKey.apiKey },
           {
             px: 5 * 60 * 1000, // Set the 5 minutes expire time, in milliseconds (a positive integer).
             nx: true, // Only set the key if it does not already exist.

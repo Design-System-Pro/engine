@@ -24,7 +24,6 @@ interface ContextType {
     | 'authorized'
     | 'unauthorized'
     | 'failed';
-  refreshAccessToken: () => Promise<void>;
   login: () => Promise<Credentials | null>;
   logout: () => void;
 }
@@ -32,7 +31,6 @@ interface ContextType {
 const Context = createContext<ContextType>({
   credentials: null,
   state: 'initializing',
-  refreshAccessToken: () => Promise.resolve(),
   login: () => Promise.resolve(null),
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   logout: () => {},
@@ -76,40 +74,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     setShouldUpdatePlugin(false);
   }, [credentials, shouldUpdatePlugin, state]);
-
-  const refreshAccessToken = useCallback(async () => {
-    if (!credentials) {
-      setCredentials(null);
-      setState('unauthorized');
-      setShouldUpdatePlugin(true);
-      return;
-    }
-
-    const response = await fetch(`${config.AUTH_API_HOST}/api/auth/refresh`, {
-      method: 'POST',
-      body: JSON.stringify({ refreshToken: credentials.refreshToken }),
-    });
-
-    if (!response.ok) {
-      setCredentials(null);
-      setState('unauthorized');
-      setShouldUpdatePlugin(true);
-      return;
-    }
-
-    const { data: _credentials, success: areCredentialsValid } =
-      CredentialsSchema.safeParse(await response.json());
-
-    if (areCredentialsValid) {
-      setCredentials(_credentials);
-      setState('authorized');
-      setShouldUpdatePlugin(true);
-    } else {
-      setCredentials(null);
-      setState('unauthorized');
-      setShouldUpdatePlugin(true);
-    }
-  }, [credentials]);
 
   const logout = useCallback(() => {
     setCredentials(null);
@@ -176,11 +140,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     () => ({
       state,
       credentials,
-      refreshAccessToken,
       login,
       logout,
     }),
-    [credentials, login, logout, refreshAccessToken, state]
+    [credentials, login, logout, state]
   );
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;

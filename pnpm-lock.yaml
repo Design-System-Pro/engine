@@ -12,57 +12,27 @@ catalogs:
     '@figma/widget-typings':
       specifier: ^1.9.1
       version: 1.9.1
-    '@trpc/react-query':
-      specifier: 11.0.0-rc.482
-      version: 11.0.0-rc.482
-    '@types/node':
-      specifier: ^22.4.1
-      version: 22.4.1
     '@types/react':
       specifier: ^18.3.3
       version: 18.3.3
     '@types/react-dom':
       specifier: ^18.3.0
       version: 18.3.0
-    '@vitejs/plugin-react':
-      specifier: ^4.3.1
-      version: 4.3.1
-    concurrently:
-      specifier: ^8.2.2
-      version: 8.2.2
     eslint:
       specifier: ^8.57.0
       version: 8.57.0
-    next:
-      specifier: ^14.2.6
-      version: 14.2.6
-    postcss:
-      specifier: ^8.4.39
-      version: 8.4.41
-    prettier:
-      specifier: ^3.3.3
-      version: 3.3.3
     react:
       specifier: ^18.3.1
       version: 18.3.1
     react-dom:
       specifier: ^18.3.1
       version: 18.3.1
-    style-dictionary:
-      specifier: ^4.0.1
-      version: 4.1.0
-    tailwindcss:
-      specifier: ^3.4.7
-      version: 3.4.7
     typescript:
       specifier: ^5.5.4
       version: 5.5.4
     vite:
       specifier: ^5.3.1
       version: 5.3.3
-    zod:
-      specifier: ^3.23.8
-      version: 3.23.8
 
 overrides:
   '@trpc/client': 11.0.0-rc.482
@@ -697,9 +667,6 @@ importers:
       superjson:
         specifier: ^2.2.1
         version: 2.2.1
-      trpc-token-refresh-link:
-        specifier: ^0.5.0
-        version: 0.5.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -5254,9 +5221,6 @@ packages:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
 
-  eventemitter3@5.0.1:
-    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
-
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
@@ -6509,14 +6473,6 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
-  p-queue@7.4.1:
-    resolution: {integrity: sha512-vRpMXmIkYF2/1hLBKisKeVYJZ8S2tZ0zEAmIJgdVKP2nq0nh4qCdf8bgw+ZgKrkh71AOCaqzwbJJk1WtdcF3VA==}
-    engines: {node: '>=12'}
-
-  p-timeout@5.1.0:
-    resolution: {integrity: sha512-auFDyzzzGZZZdHz3BtET9VEz0SE/uMEAx7uWfGPucfzEwwe/xH0iVeZibQmANYE/hp9T2+UUZT5m+BKyrDp3Ew==}
-    engines: {node: '>=12'}
-
   p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
@@ -7533,9 +7489,6 @@ packages:
   tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
     hasBin: true
-
-  trpc-token-refresh-link@0.5.0:
-    resolution: {integrity: sha512-yXPrGjYnXafDfjOYV29bcHYlfMmCnpCFhrDSI5fxJJlYamClHhyTgHjd+VHov/EJvwVu4Z+cp7FgIkL7Q6rKuQ==}
 
   ts-api-utils@1.3.0:
     resolution: {integrity: sha512-UQMIo7pb8WRomKR1/+MFVLTroIvDVtMX3K6OUir8ynLyzB8Jeriont2bTAtmNPa1ekAgN7YPDyf6V+ygrdU+eQ==}
@@ -13275,8 +13228,6 @@ snapshots:
 
   etag@1.8.1: {}
 
-  eventemitter3@5.0.1: {}
-
   events@3.3.0: {}
 
   execa@5.1.1:
@@ -14573,13 +14524,6 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
-  p-queue@7.4.1:
-    dependencies:
-      eventemitter3: 5.0.1
-      p-timeout: 5.1.0
-
-  p-timeout@5.1.0: {}
-
   p-try@2.2.0: {}
 
   package-json-from-dist@1.0.0: {}
@@ -15767,13 +15711,6 @@ snapshots:
       tslib: 2.6.2
 
   tree-kill@1.2.2: {}
-
-  trpc-token-refresh-link@0.5.0:
-    dependencies:
-      '@trpc/client': 11.0.0-rc.482(@trpc/server@11.0.0-rc.482)
-      '@trpc/server': 11.0.0-rc.482
-      date-fns: 2.30.0
-      p-queue: 7.4.1
 
   ts-api-utils@1.3.0(typescript@5.5.4):
     dependencies:

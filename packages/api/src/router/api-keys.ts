@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { KeyHippo } from 'keyhippo';
+import { createApiKey } from '../operations/create-api-key';
 
 export const apiKeysRouter = createTRPCRouter({
   list: protectedProcedure
@@ -27,8 +28,11 @@ export const apiKeysRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const keyHippo = new KeyHippo(ctx.supabase);
-      return await keyHippo.createApiKey(ctx.account.userId, input.description);
+      return createApiKey({
+        supabase: ctx.supabase,
+        userId: ctx.account.userId,
+        description: input.description,
+      });
     }),
 
   revoke: protectedProcedure

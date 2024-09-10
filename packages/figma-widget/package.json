@@ -31,7 +31,6 @@
     "react-dom": "catalog:",
     "style-dictionary": "^4.1.0",
     "superjson": "^2.2.1",
-    "trpc-token-refresh-link": "^0.5.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

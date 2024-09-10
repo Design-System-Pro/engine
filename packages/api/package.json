@@ -1,6 +1,9 @@
 {
   "name": "@ds-project/api",
   "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "exports": {
     ".": {
@@ -14,17 +17,18 @@
     "./react": {
       "types": "./dist/react.d.ts",
       "default": "./src/react.tsx"
+    },
+    "./operations": {
+      "types": "./dist/operations.d.ts",
+      "default": "./src/operations/index.ts"
     }
   },
-  "prettier": "@ds-project/prettier",
   "scripts": {
-    "lint": "eslint",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "prettier": "@ds-project/prettier",
   "dependencies": {
     "@ds-project/auth": "workspace:*",
     "@ds-project/database": "workspace:*",
