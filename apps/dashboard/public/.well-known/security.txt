@@ -1,0 +1,38 @@
+Canonical: https://your-project-url.com/.well-known/security.txt
+
+We consider the security of our systems a top priority. If you discover a vulnerability, we would like to know about it so we can address it promptly.
+
+Out of scope vulnerabilities:
+- Clickjacking on pages with no sensitive actions
+- Unauthenticated/logout/login CSRF
+- Attacks requiring MITM or physical access to a user's device
+- Attacks requiring social engineering
+- Any activity that could lead to the disruption of our service (DoS)
+- Content spoofing and text injection issues without showing an attack vector
+- Email spoofing
+- Missing security headers (DNSSEC, CAA, CSP)
+- Lack of Secure or HTTP only flag on non-sensitive cookies
+- Deadlinks
+- User enumeration
+
+Testing guidelines:
+- Do not run automated scanners on our production systems
+- Do not exploit vulnerabilities beyond what's necessary to demonstrate the issue
+- Do not access, modify, or delete data that doesn't belong to you
+
+Reporting guidelines:
+- Email your findings to [security@getds.pro](mailto:securiy@getds.pro)
+- Provide sufficient information to reproduce the problem
+
+Disclosure guidelines:
+- Do not disclose the issue publicly until we've had a chance to address it
+- If you want to publish your findings, please contact us for approval first
+
+What we promise:
+- We will respond to your report within 5 business days
+- We will not take legal action against you if you've followed these guidelines
+- We will keep your report confidential
+- We will keep you informed of our progress in resolving the issue
+- We will credit you as the discoverer unless you prefer otherwise
+
+We aim to resolve all issues promptly and appreciate your help in improving our security.

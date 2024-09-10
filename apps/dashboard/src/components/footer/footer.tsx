@@ -26,9 +26,9 @@ export function Footer() {
             <Text className="text-gray-600">
               <p>Design System Project</p>
             </Text>
-            <Link href="mailto:tomas@DesignSystemProject.pro">
+            <Link href="mailto:tomas@getds.pro">
               <Text className="text-gray-600">
-                <p>tomas@DesignSystemProject.pro</p>
+                <p>tomas@getds.pro</p>
               </Text>
             </Link>
           </div>

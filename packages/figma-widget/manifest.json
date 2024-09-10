@@ -1,6 +1,6 @@
 {
   "name": "DS Pro",
-  "id": "widget-id-HhiuAqCVpc",
+  "id": "1415369860836124974",
   "api": "1.0.0",
   "main": "dist/widget.js",
   "ui": "dist/src/ui/index.html",
@@ -8,7 +8,8 @@
   "containsWidget": true,
   "widgetApi": "1.0.0",
   "networkAccess": {
-    "allowedDomains": ["https://designsystemproject.pro"],
+    "allowedDomains": ["https://getds.pro"],
     "devAllowedDomains": ["http://localhost:3000"]
-  }
+  },
+  "documentAccess": "dynamic-page"
 }

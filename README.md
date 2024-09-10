@@ -4,7 +4,7 @@ Open source solutions for design systems.
 
 ## Introduction
 
-ds-project.tfrancisco.dev is the open source platform to help design and implement design systems by individuals and teams.
+getds.pro is the open source platform to help design and implement design systems by individuals and teams.
 
 Often as a Frontend developer, I have found myself either integrating half initiated design system projects, or having to create them from scratch.
 The amount of time I spent creating code repositories, with the same or very similar tech stacks to reach one simple thing: consistency and reusability across multiple projects me or teams had to maintain. In all design systems I have spent countless hours setting things from scratch, to only be able to deliver a button that can be reused across projects.
