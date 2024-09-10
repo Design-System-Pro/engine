@@ -15,6 +15,7 @@ export * from './menubar';
 export * from './navigation-menu';
 export * from './popover';
 export * from './select';
+export * from './separator';
 export * from './switch';
 export * from './tabs';
 export * from './text';

@@ -1,0 +1,37 @@
+{
+  "name": "@ds-project/figma-utilities",
+  "version": "1.0.0",
+  "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint --max-warnings=0 .",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "prettier": "@ds-project/prettier",
+  "dependencies": {
+    "@create-figma-plugin/utilities": "^3.2.0",
+    "object-hash": "^3.0.0",
+    "style-dictionary": "^4.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/prettier": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
+    "@figma/plugin-typings": "catalog:",
+    "@figma/widget-typings": "catalog:",
+    "@types/object-hash": "^3.0.6",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

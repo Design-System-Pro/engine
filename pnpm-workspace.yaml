@@ -4,7 +4,8 @@ packages:
   - tools/*
 
 catalog:
-  "@figma/plugin-typings": ^1.98.0
+  "@figma/plugin-typings": ^1.99.0
+  "@figma/widget-typings": ^1.9.1
   "@trpc/client": 11.0.0-rc.482
   "@trpc/react-query": 11.0.0-rc.482
   "@trpc/server": 11.0.0-rc.482

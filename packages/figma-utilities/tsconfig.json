@@ -1,0 +1,8 @@
+{
+  "extends": "@ds-project/typescript/internal-package.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["./node_modules/@figma", "./node_modules/@types"]
+  },
+  "include": ["src"]
+}

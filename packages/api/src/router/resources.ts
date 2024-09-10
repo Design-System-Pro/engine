@@ -66,7 +66,7 @@ export const resourcesRouter = createTRPCRouter({
           designTokens: PreprocessedTokensSchema.parse(input.designTokens),
         })
         .onConflictDoUpdate({
-          target: Resources.name,
+          target: [Resources.name, Resources.projectId],
           set: {
             designTokens: PreprocessedTokensSchema.parse(input.designTokens),
           },
@@ -77,7 +77,11 @@ export const resourcesRouter = createTRPCRouter({
 
       if (!resource) return resource;
 
-      await release({ ctx, designTokens: resource.insertedDesignTokens });
+      try {
+        await release({ ctx, designTokens: resource.insertedDesignTokens });
+      } catch (error) {
+        console.error('💥 error releasing', error);
+      }
 
       return resource;
     }),
