@@ -13,7 +13,9 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint --max-warnings=0 .",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
@@ -26,8 +28,8 @@
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",
-    "@figma/plugin-typings": "*",
-    "@figma/widget-typings": "*",
+    "@figma/plugin-typings": "catalog:",
+    "@figma/widget-typings": "catalog:",
     "@types/object-hash": "^3.0.6",
     "eslint": "catalog:",
     "typescript": "catalog:"

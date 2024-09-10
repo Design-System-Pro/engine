@@ -76,12 +76,6 @@ export const resourcesRouter = createTRPCRouter({
 
       if (!resource) return resource;
 
-      // try {
-      //   await release({ ctx, designTokens: resource.insertedDesignTokens });
-      // } catch (error) {
-      //   console.error('💥 error releasing', error);
-      // }
-
       return resource;
     }),
 

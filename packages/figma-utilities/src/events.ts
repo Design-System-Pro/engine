@@ -88,7 +88,7 @@ export async function request<Name extends EventName>(
   data: Event[Name]['request']
 ) {
   console.log(`✈️ request ${name}`);
-  const response = new Promise<Event[Name]['response']>((resolve, reject) => {
+  const response = new Promise<Event[Name]['response']>((resolve, _reject) => {
     console.log(`✈️ request 🚀 emit ${name}`);
     defaultEmit(name, data);
 
@@ -107,7 +107,7 @@ export async function handle<Name extends EventName>(
   ) => Promise<Event[Name]['response']> | Event[Name]['response']
 ): Promise<void> {
   const response = await new Promise<Event[Name]['response']>(
-    (resolve, reject) => {
+    (resolve, _reject) => {
       console.log(`✈️ handle 🔁 on ${name}`);
       defaultOn(name, (data: Event[Name]['request']) => {
         console.log(`✈️ handle 🚀 emit ${name}`);
