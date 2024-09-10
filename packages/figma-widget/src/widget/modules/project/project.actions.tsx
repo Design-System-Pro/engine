@@ -20,6 +20,7 @@ export function useProjectActions() {
         console.log('project', project);
         setSyncedLinkedProject(project);
         close();
+        resolve(void 0);
       });
     });
   };
