@@ -1,3 +1,3 @@
 export const config = {
-  extensionPluginKey: 'pro.DesignSystemProject',
+  extensionPluginKey: 'pro.getds',
 } as const;

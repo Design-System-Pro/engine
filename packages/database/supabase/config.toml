@@ -122,7 +122,7 @@ max_frequency = "1s"
 
 # Uncomment to customize email template
 [auth.email.template.magic_link]
-subject = "DS confirmation code"
+subject = "DS Pro - Confirmation code"
 content_path = "./supabase/templates/invite.html"
 
 [auth.sms]
