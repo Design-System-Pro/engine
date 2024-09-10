@@ -10,6 +10,7 @@ import { api } from '@ds-project/api/react';
 import { useConfig } from './config-provider';
 import type { SelectProjects } from '../../../../../database/src/schema/projects';
 import { emit } from '@ds-project/figma-utilities';
+import { useAuth } from './auth-provider';
 
 interface ContextType {
   selectedProjectId: string | null;
@@ -31,8 +32,12 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
     defaultProjectId
   );
+  const { state } = useAuth();
   const { data: projects, isLoading: isProjectsLoading } =
-    api.projects.account.useQuery();
+    api.projects.account.useQuery(undefined, {
+      enabled: state === 'authorized',
+    });
+
   const { mutate: linkResource } = api.resources.link.useMutation();
 
   const linkProject = useCallback(
