@@ -9,7 +9,7 @@
   "scripts": {
     "build": "pnpm run build:ui && pnpm run build:widget -- --minify",
     "build:ui": "npx vite build --minify esbuild",
-    "build:watch": "concurrently -n widget,ui \"pnpm run build:widget -- --watch\" \"pnpm run build:ui -- --watch\"",
+    "build:watch": "concurrently -n widget,ui \"pnpm run build:widget --watch\" \"pnpm run build:ui --watch\"",
     "build:widget": "vite build -c ./vite.config.widget.ts",
     "dev": "concurrently -n type-check,build,vite 'pnpm:type-check:watch' 'pnpm:build:watch' 'vite'",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",

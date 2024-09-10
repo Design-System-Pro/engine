@@ -8,11 +8,7 @@ import {
 } from 'react';
 import { config } from '../../config';
 import type { Credentials } from '@ds-project/figma-utilities';
-import {
-  MessageType,
-  CredentialsSchema,
-  Message,
-} from '@ds-project/figma-utilities';
+import { CredentialsSchema, emit } from '@ds-project/figma-utilities';
 import { useConfig } from './config-provider';
 
 interface AuthStartResponse {
@@ -30,7 +26,7 @@ interface ContextType {
     | 'failed';
   refreshAccessToken: () => Promise<void>;
   login: () => Promise<Credentials | null>;
-  logout: () => Promise<void>;
+  logout: () => void;
 }
 
 const Context = createContext<ContextType>({
@@ -38,7 +34,8 @@ const Context = createContext<ContextType>({
   state: 'initializing',
   refreshAccessToken: () => Promise.resolve(),
   login: () => Promise.resolve(null),
-  logout: () => Promise.resolve(),
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  logout: () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -72,14 +69,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     if (state === 'authorized' && credentials) {
-      void Message.ui.request({
-        type: MessageType.SetCredentials,
-        credentials,
-      });
+      void emit('set-credentials', { credentials });
     } else if (state === 'unauthorized' && !credentials) {
-      void Message.ui.request({
-        type: MessageType.DeleteCredentials,
-      });
+      void emit('set-credentials', { credentials: null });
     }
 
     setShouldUpdatePlugin(false);
@@ -119,10 +111,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [credentials]);
 
-  const logout = useCallback(async () => {
-    await Message.ui.request({
-      type: MessageType.DeleteCredentials,
-    });
+  const logout = useCallback(() => {
     setCredentials(null);
     setState('unauthorized');
     setShouldUpdatePlugin(true);

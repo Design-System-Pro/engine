@@ -9,7 +9,7 @@ import {
 import { api } from '@ds-project/api/react';
 import { useConfig } from './config-provider';
 import type { SelectProjects } from '../../../../../database/src/schema/projects';
-import { MessageType, Message } from '@ds-project/figma-utilities';
+import { emit } from '@ds-project/figma-utilities';
 
 interface ContextType {
   selectedProjectId: string | null;
@@ -44,11 +44,7 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
 
       linkResource({ projectId, name: fileName });
       setSelectedProjectId(projectId);
-      Message.ui.send({
-        type: MessageType.SetProject,
-        name: linkedProjectName,
-        id: projectId,
-      });
+      emit('set-project', { id: projectId, name: linkedProjectName });
     },
     [fileName, linkResource, projects]
   );

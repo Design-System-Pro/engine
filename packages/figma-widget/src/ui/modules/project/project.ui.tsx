@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useProjects } from '../providers/projects-provider';
-import { Message, MessageType } from '@ds-project/figma-utilities';
+import { once } from '@ds-project/figma-utilities';
 import { Icons, Separator, Text } from '@ds-project/components';
 
 export function ProjectUI() {
@@ -13,11 +13,10 @@ export function ProjectUI() {
   } = useProjects();
 
   useEffect(() => {
-    Message.ui.handle(MessageType.OpenProjectsUI, () => {
+    once('open-projects-ui', () => {
       setIsVisible(true);
-      return Promise.resolve({});
     });
-  });
+  }, []);
 
   const onValueChange = useCallback(
     (projectId: string) => {

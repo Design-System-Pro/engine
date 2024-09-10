@@ -1,23 +1,12 @@
-import { Message, MessageType } from '@ds-project/figma-utilities';
-import { useEffect } from '../../lib/widget';
+import { useAuthActions } from '../auth/auth.actions';
 import { useSyncedLinkedProject } from '../state';
-import { useUI } from '../../hooks/ui';
 
 export function ProjectEvents() {
-  const { close } = useUI();
-  const [syncedLinkedProject, setSyncedLinkedProject] =
-    useSyncedLinkedProject();
-
-  useEffect(() => {
-    Message.widget.handle(MessageType.GetProject, () => {
-      return Promise.resolve({ project: syncedLinkedProject });
-    });
-
-    Message.widget.handle(MessageType.SetProject, ({ id, name }) => {
-      setSyncedLinkedProject({ id, name });
-      close();
-      return Promise.resolve({});
-    });
+  const [_, setSyncedLinkedProject] = useSyncedLinkedProject();
+  useAuthActions({
+    onDisconnect: () => {
+      setSyncedLinkedProject(null);
+    },
   });
 
   return null;

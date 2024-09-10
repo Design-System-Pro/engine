@@ -1,5 +1,5 @@
 import { useSyncedCredentials, useSyncedLinkedProject } from '../modules/state';
-import { Message, MessageType } from '@ds-project/figma-utilities';
+import { once } from '@ds-project/figma-utilities';
 
 export function useUI() {
   const [syncedLinkedProject] = useSyncedLinkedProject();
@@ -7,10 +7,9 @@ export function useUI() {
 
   const open = async (options: ShowUIOptions = {}) => {
     const hasOpenedPromise = new Promise((resolve) => {
-      Message.widget.handle(MessageType.UIIsReady, () => {
+      once('ui-is-ready', () => {
         console.log('✨ UI is open - ✅');
         resolve(void 0);
-        return Promise.resolve({});
       });
     });
 

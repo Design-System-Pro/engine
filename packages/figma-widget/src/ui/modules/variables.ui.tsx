@@ -3,7 +3,7 @@ import '@ds-project/components/globals.css';
 import { useEffect } from 'react';
 import { api } from '@ds-project/api/react';
 import { useConfig } from './providers/config-provider';
-import { Message, MessageType } from '@ds-project/figma-utilities';
+import { handle } from '@ds-project/figma-utilities';
 import { useProjects } from './providers/projects-provider';
 
 export function VariablesUI() {
@@ -13,12 +13,12 @@ export function VariablesUI() {
   const { selectedProjectId } = useProjects();
 
   useEffect(() => {
-    // Update the design tokens when the variables are synced
-    Message.ui.handle(MessageType.SyncVariables, async ({ variables }) => {
+    handle('sync-variables', async ({ variables }) => {
+      // Update the design tokens when the variables are synced
       if (!fileName || !selectedProjectId) {
-        return Promise.resolve({
+        return {
           lastSyncedAt: null,
-        });
+        };
       }
 
       await updateDesignTokens({
@@ -27,9 +27,11 @@ export function VariablesUI() {
         projectId: selectedProjectId,
       });
 
-      return Promise.resolve({
+      return {
         lastSyncedAt: new Date().getTime(),
-      });
+      };
+    }).catch(() => {
+      console.error('Error handling sync-variables');
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: perhaps refactor handle so no more than one listener to the same message type is added
   }, []);
