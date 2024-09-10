@@ -9,7 +9,7 @@
 import { initTRPC, TRPCError } from '@trpc/server';
 import SuperJSON from 'superjson';
 import { ZodError } from 'zod';
-import { createServerClient, validateToken } from '@ds-project/auth/server';
+import { createServerClient } from '@ds-project/auth/server';
 
 // import type { Session } from '@acme/auth';
 // import { auth, validateToken } from '@acme/auth';
@@ -18,21 +18,7 @@ import { eq } from '@ds-project/database';
 import type { Account } from '@ds-project/database/schema';
 import type { Database } from '@ds-project/database';
 import type { DSContext } from './types/context';
-
-/**
- * Isomorphic Session getter for API requests
- * - Expo requests will have a session token in the Authorization header
- * - Next.js requests will have a session token in cookies
- */
-async function isomorphicGetUser(authToken: string | null) {
-  if (authToken) return validateToken<Database>(authToken);
-
-  const authClient = createServerClient<Database>();
-  const {
-    data: { user },
-  } = await authClient.auth.getUser();
-  return user;
-}
+import { KeyHippo } from 'keyhippo';
 
 /**
  * 1. CONTEXT
@@ -51,23 +37,28 @@ export const createTRPCContext = async (opts: {
   account: Account | null;
 }) => {
   const supabase = createServerClient<Database>();
-  const token = opts.headers.get('Authorization') ?? null;
-  const user = await isomorphicGetUser(token);
+  const keyHippo = new KeyHippo(supabase);
+  const { userId } = await keyHippo.authenticate({
+    headers: opts.headers,
+  } as Request);
 
   const source = opts.headers.get('x-trpc-source') ?? 'unknown';
-  console.log(`>>> tRPC Request from ${source} by ${user?.id}`);
+  console.log(`>>> tRPC Request from ${source} by ${userId}`);
 
-  const account = user?.id
+  const account = userId
     ? ((await database.query.Accounts.findFirst({
-        where: (accounts) => eq(accounts.userId, user.id),
+        where: (accounts) => eq(accounts.userId, userId),
       })) ?? null)
     : null;
 
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return {
     supabase,
-    user,
     database,
-    token,
+    user,
     account,
   };
 };
@@ -159,6 +150,21 @@ export const protectedProcedure = t.procedure
       ctx: {
         ...ctx,
         user: ctx.user,
+        account: ctx.account,
+      } as DSContext,
+    });
+  });
+
+export const apiProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(({ ctx, next }) => {
+    if (!ctx.account) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+
+    return next({
+      ctx: {
+        ...ctx,
         account: ctx.account,
       } as DSContext,
     });

@@ -29,11 +29,33 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*', // TODO: Perhaps set figma origin instead?
+            value: '*', // TODO: Set specific origin instead of '*' for production
           },
           {
             key: 'Access-Control-Allow-Methods',
-            value: 'POST, PUT, DELETE, OPTIONS',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
+          },
+        ],
+      },
+      // Add this new object to cover /api/auth paths
+      {
+        source: '/api/auth/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Credentials',
+            value: 'true',
+          },
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*', // TODO: Set specific origin instead of '*' for production
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
           },
           {
             key: 'Access-Control-Allow-Headers',

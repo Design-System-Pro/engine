@@ -1,13 +1,9 @@
 import z from 'zod';
 
 export interface Credentials {
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: number;
+  apiKey: string;
 }
 
 export const CredentialsSchema = z.object({
-  accessToken: z.string(),
-  refreshToken: z.string(),
-  expiresAt: z.number(),
+  apiKey: z.string().min(1),
 });

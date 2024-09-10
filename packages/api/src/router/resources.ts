@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { eq } from '@ds-project/database';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { apiProcedure, createTRPCRouter, protectedProcedure } from '../trpc';
 import {
   InsertResourcesSchema,
   PreprocessedTokensSchema,
@@ -47,7 +47,7 @@ export const resourcesRouter = createTRPCRouter({
       return ctx.database.insert(Resources).values(input);
     }),
 
-  updateDesignTokens: protectedProcedure
+  updateDesignTokens: apiProcedure
     .input(
       z.object({
         name: z.string(),

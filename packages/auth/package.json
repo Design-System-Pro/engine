@@ -1,6 +1,9 @@
 {
   "name": "@ds-project/auth",
   "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "exports": {
     "./client": {
@@ -16,18 +19,12 @@
       "default": "./src/server/index.ts"
     }
   },
-  "prettier": "@ds-project/prettier",
   "scripts": {
-    "lint": "eslint",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependecies": {
-    "@ds-project/database": "workspace:*"
-  },
+  "prettier": "@ds-project/prettier",
   "dependencies": {
     "@next/env": "^14.2.5",
     "@supabase/ssr": "^0.4.0",
@@ -44,5 +41,8 @@
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
+  },
+  "dependecies": {
+    "@ds-project/database": "workspace:*"
   }
 }
