@@ -2,6 +2,9 @@
   "name": "@ds-project/database",
   "version": "0.0.0",
   "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "type": "module",
   "exports": {
     ".": {
@@ -17,23 +20,21 @@
       "default": "./src/schema.ts"
     }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "prettier": "@ds-project/prettier",
   "scripts": {
-    "lint": "eslint",
+    "dev": "pnpm start",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
-    "type-check": "tsc --noEmit --emitDeclarationOnly false",
-    "types": "pnpm dlx supabase gen types --lang=typescript --local > src/__generated__/database.types.ts",
     "generate": "drizzle-kit generate",
+    "lint": "eslint",
     "migrate": "drizzle-kit migrate",
-    "studio": "drizzle-kit studio",
     "reset": "pnpx supabase db reset",
     "start": "pnpx supabase start",
+    "status": "pnpx supabase status",
     "stop": "pnpx supabase stop",
-    "status": "pnpx supabase status"
+    "studio": "drizzle-kit studio",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false",
+    "types": "pnpm dlx supabase gen types --lang=typescript --local > src/__generated__/database.types.ts"
   },
+  "prettier": "@ds-project/prettier",
   "dependencies": {
     "@next/env": "^14.2.5",
     "@t3-oss/env-core": "^0.11.0",

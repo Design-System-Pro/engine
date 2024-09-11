@@ -24,7 +24,7 @@ export function NavigationBar() {
       </Button>
       <ul className="flex">
         {navigationItems.map((item) => (
-          <li>
+          <li key={`${item.label}-${item.href}`}>
             <Button variant="ghost" asChild>
               <Link href={item.href}>{item.label}</Link>
             </Button>
