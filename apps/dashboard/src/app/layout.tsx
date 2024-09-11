@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/css';
 import { AnalyticsProvider } from '@/lib/analytics/provider';
 import { Toaster } from '@ds-project/components';
+import { Favicon } from '@/components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Favicon />
+      </head>
       <AnalyticsProvider>
         <body
           className={cn(
