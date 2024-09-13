@@ -16,4 +16,5 @@ export const config = {
   FIGMA_KEY: 'figma.key',
   figmaRedirectUri: `${pageUrl}/integrations/providers/figma/callback`,
   gitTokensPath: 'packages/generator/tokens',
+  discordInviteUrl: 'https://discord.gg/FQSYMapc76',
 } as const;

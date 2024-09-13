@@ -1,6 +1,6 @@
 import { MainContent } from '@/components';
 import { GithubProvider } from './providers/github/_components';
-import { FigmaProvider } from './providers/figma/_components';
+import { FigmaBanner } from './providers/figma/_components';
 import {
   Icons,
   Tabs,
@@ -24,7 +24,7 @@ export default function Page() {
           <TabsTrigger value="monitoring">Monitoring</TabsTrigger>
         </TabsList>
         <TabsContent value="inputs">
-          <FigmaProvider />
+          <FigmaBanner />
         </TabsContent>
         <TabsContent value="outputs">
           <GithubProvider />

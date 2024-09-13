@@ -1,7 +1,9 @@
 import {
   Button,
+  FormItem,
   Icons,
   Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
@@ -49,22 +51,25 @@ export async function GithubProvider() {
       </div>
 
       {githubIntegration ? (
-        <form action={selectRepository} className="flex gap-2">
-          <Select
-            defaultValue={githubIntegration.data.repositoryId?.toString()}
-            name="repositoryId"
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Repositories" />
-            </SelectTrigger>
-            <SelectContent>
-              {repositories?.map((repository) => (
-                <SelectItem key={repository.id} value={String(repository.id)}>
-                  {repository.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <form action={selectRepository} className="flex gap-2 items-end">
+          <FormItem>
+            <Label>Repository</Label>
+            <Select
+              defaultValue={githubIntegration.data.repositoryId?.toString()}
+              name="repositoryId"
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Repositories" />
+              </SelectTrigger>
+              <SelectContent>
+                {repositories?.map((repository) => (
+                  <SelectItem key={repository.id} value={String(repository.id)}>
+                    {repository.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormItem>
           <Input
             name="installationId"
             type="hidden"
@@ -75,15 +80,15 @@ export async function GithubProvider() {
         </form>
       ) : null}
 
-      <Button asChild variant={isInstallationActive ? 'outline' : 'default'}>
+      <Button
+        asChild
+        variant={isInstallationActive ? 'outline' : 'default'}
+        className="self-end"
+      >
         <Link href={installationUrl}>
           {isInstallationActive ? 'Configure' : 'Authorize'}
         </Link>
       </Button>
-
-      {/* <Button>
-        <Link href="/integrations/providers/github">Tokens</Link>
-      </Button> */}
     </div>
   );
 }

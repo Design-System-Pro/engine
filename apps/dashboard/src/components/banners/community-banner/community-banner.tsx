@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import discordIcon from './discord-icon.png';
 import { Button } from '@/components/button';
+import { config } from '@/config';
 
 export function CommunityBanner() {
   return (
@@ -17,7 +18,7 @@ export function CommunityBanner() {
       </header>
       <div className="flex gap-2">
         <Button asChild>
-          <Link href="https://discord.gg/AKza6Mqr">
+          <Link href={config.discordInviteUrl}>
             <Icons.DiscordLogoIcon className="mr-2" /> Join our Discord
           </Link>
         </Button>

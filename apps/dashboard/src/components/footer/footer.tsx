@@ -2,6 +2,7 @@ import { Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
 import { Button } from '../button';
 import { CommunityBanner } from '../banners/community-banner';
+import { config } from '@/config';
 
 export function Footer() {
   return (
@@ -11,7 +12,7 @@ export function Footer() {
           <CommunityBanner />
           <div className="flex gap-2">
             <Button asChild mode="dark" size="icon">
-              <Link href="https://discord.gg/AKza6Mqr">
+              <Link href={config.discordInviteUrl}>
                 <Icons.DiscordLogoIcon />
               </Link>
             </Button>

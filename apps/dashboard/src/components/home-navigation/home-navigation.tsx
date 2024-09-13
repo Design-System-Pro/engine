@@ -13,7 +13,7 @@ const navigationItems = [
     href: '#community',
   },
 ];
-export function NavigationBar() {
+export function HomeNavigation() {
   return (
     <nav className="bg-white border border-gray-300 rounded-xl flex p-2 shadow m-3 justify-between max-w-screen-sm gap-4">
       <Button variant="ghost">

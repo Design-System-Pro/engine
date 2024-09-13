@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '../globals.css';
 import { AppNavigation } from '@/components';
 import { api } from '@ds-project/api/rsc';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'DS Project',

@@ -16,6 +16,7 @@ import { cn } from '@/lib/css';
 import { HomeButton } from '../home-button';
 import type { SelectProjects } from '@ds-project/database/schema';
 import { AccountMenu } from '../account-menu/acocunt-menu';
+import { config } from '@/config';
 
 interface AppNavigationProps {
   className?: string;
@@ -59,16 +60,16 @@ export function AppNavigation({
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/app/tokens" legacyBehavior passHref>
+              <Link href="/app/integrations" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Tokens
+                  Integrations
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/app/integrations" legacyBehavior passHref>
+              <Link href="/app/tokens" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Integrations
+                  Tokens
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -88,7 +89,7 @@ export function AppNavigation({
           </Link>
         </Button>
         <Button variant="ghost" size="icon" title="Discord" asChild>
-          <Link href="https://discord.gg/AKza6Mqr" target="_blank">
+          <Link href={config.discordInviteUrl} target="_blank">
             <Icons.DiscordLogoIcon />
           </Link>
         </Button>
