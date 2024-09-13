@@ -1,5 +1,5 @@
 import { Footer } from '@/components/footer';
-import { NavigationBar } from '@/components/navigation-bar/navigation-bar';
+import { HomeNavigation } from '@/components/home-navigation';
 import './home.css';
 
 export default function Layout({
@@ -11,7 +11,7 @@ export default function Layout({
     <>
       <div className="landing-bg" />
       <header className="sticky top-0 w-full flex justify-center">
-        <NavigationBar />
+        <HomeNavigation />
       </header>
       <main className="flex min-h-screen w-full flex-col items-center py-2">
         {children}
