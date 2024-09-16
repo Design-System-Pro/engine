@@ -9,18 +9,12 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
-    NEXT_PUBLIC_VERCEL_ENV: z
-      .union([
-        z.literal('development'),
-        z.literal('preview'),
-        z.literal('production'),
-      ])
-      .default('production'),
-    NEXT_PUBLIC_VERCEL_URL: z
-      .string()
-      .min(1)
-      .optional()
-      .default('localhost:3000'),
+    NEXT_PUBLIC_VERCEL_ENV: z.union([
+      z.literal('development'),
+      z.literal('preview'),
+      z.literal('production'),
+    ]),
+    NEXT_PUBLIC_VERCEL_URL: z.string().min(1).optional(),
   },
   runtimeEnv: {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
