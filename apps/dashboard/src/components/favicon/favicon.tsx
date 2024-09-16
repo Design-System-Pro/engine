@@ -1,7 +1,7 @@
-import { clientEnv } from '@/env/client';
+import { serverEnv } from '@/env/server-env';
 
 export function Favicon() {
-  return clientEnv.NEXT_PUBLIC_VERCEL_ENV === 'development' ? (
+  return serverEnv.VERCEL_ENV === 'development' ? (
     <>
       <link
         rel="apple-touch-icon"

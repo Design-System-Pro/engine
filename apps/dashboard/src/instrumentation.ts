@@ -1,7 +1,11 @@
+import { serverEnv } from './env/server-env';
+
 export async function register() {
-  if (typeof globalThis.EdgeRuntime !== 'string') {
+  if (serverEnv.NEXT_RUNTIME === 'nodejs') {
     await import('../sentry.server.config');
-  } else {
+  }
+
+  if (serverEnv.NEXT_RUNTIME === 'edge') {
     await import('../sentry.edge.config');
   }
 }

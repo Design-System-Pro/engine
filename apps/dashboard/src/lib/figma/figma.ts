@@ -16,7 +16,7 @@ import {
 import { database } from '@ds-project/database/client';
 import { cache } from 'react';
 import { api } from '@ds-project/api/rsc';
-import { serverEnv } from '@/env/server';
+import { serverEnv } from '@/env/server-env';
 
 class Figma {
   private apiUrl = 'https://api.figma.com';

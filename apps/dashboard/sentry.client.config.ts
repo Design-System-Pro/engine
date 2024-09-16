@@ -2,7 +2,7 @@
 // The config you add here will be used whenever a users loads a page in their browser.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import { clientEnv } from '@/env/client';
+import { clientEnv } from '@/env/client-env';
 import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({

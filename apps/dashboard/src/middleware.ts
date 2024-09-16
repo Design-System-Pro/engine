@@ -1,7 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { createMiddlewareClient } from '@ds-project/auth/middleware';
-import { clientEnv } from '@/env/client';
 import {
   handleFigmaAuth,
   exchangeApiKey,
@@ -10,14 +9,15 @@ import {
   isFigmaAuthPath,
   hasOnGoingFigmaAuth,
 } from './lib/middleware/utils';
+import { serverEnv } from './env/server-env';
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next({ request });
   const url = request.nextUrl.clone();
 
   const supabase = createMiddlewareClient(request, response, {
-    supabaseAnonKey: clientEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    supabaseUrl: clientEnv.NEXT_PUBLIC_SUPABASE_URL,
+    supabaseAnonKey: serverEnv.SUPABASE_ANON_KEY,
+    supabaseUrl: serverEnv.SUPABASE_URL,
   });
 
   // Figma middleware logic

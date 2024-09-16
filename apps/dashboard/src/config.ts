@@ -1,11 +1,12 @@
-import { clientEnv } from './env/client';
+import { clientEnv } from './env/client-env';
+import { serverEnv } from './env/server-env';
 
 const pageUrl = (() => {
-  switch (clientEnv.NEXT_PUBLIC_VERCEL_ENV) {
+  switch (serverEnv.VERCEL_ENV) {
     case 'production':
       return 'https://getds.pro';
     case 'preview':
-      return `https://${clientEnv.NEXT_PUBLIC_VERCEL_URL}`;
+      return `https://${serverEnv.VERCEL_URL}`;
     default:
       return 'http://localhost:3000';
   }
