@@ -30,6 +30,7 @@
     "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
     "@vercel/kv": "^2.0.0",
+    "@vercel/og": "^0.6.2",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "drizzle-orm": "^0.32.2",
