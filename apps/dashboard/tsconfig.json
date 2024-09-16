@@ -27,7 +27,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/lib/rewrites.mjs",
+    "src/lib/headers.mjs"
   ],
   "exclude": ["node_modules", ".next"]
 }
