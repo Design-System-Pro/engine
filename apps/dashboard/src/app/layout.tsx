@@ -9,8 +9,11 @@ import dynamic from 'next/dynamic';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const PageView = dynamic(
-  () => import('./_components/page-view').then((module) => module.PageView),
+const AnalyticsPageView = dynamic(
+  () =>
+    import('./_components/analytics-page-view').then(
+      (module) => module.AnalyticsPageView
+    ),
   {
     ssr: false,
   }
@@ -38,9 +41,9 @@ export default function RootLayout({
             inter.className
           )}
         >
+          <AnalyticsPageView />
           {children}
           <Toaster />
-          <PageView />
         </body>
       </AnalyticsProvider>
     </html>
