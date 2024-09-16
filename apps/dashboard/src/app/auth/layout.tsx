@@ -1,9 +1,6 @@
-import type { Metadata } from 'next';
+import { getMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'DS Project',
-  description: 'Manage Design System',
-};
+export const metadata = getMetadata({ title: 'Sign in' });
 
 export default function RootLayout({
   children,

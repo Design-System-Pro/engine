@@ -16,11 +16,17 @@ export const clientEnv = createEnv({
         z.literal('production'),
       ])
       .default('production'),
+    NEXT_PUBLIC_VERCEL_URL: z
+      .string()
+      .min(1)
+      .optional()
+      .default('localhost:3000'),
   },
   runtimeEnv: {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
+    NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
   },
 });

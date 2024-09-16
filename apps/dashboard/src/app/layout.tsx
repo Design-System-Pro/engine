@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/css';
@@ -6,6 +5,7 @@ import { AnalyticsProvider } from '@/lib/analytics/provider';
 import { Toaster } from '@ds-project/components';
 import { Favicon } from '@/components';
 import dynamic from 'next/dynamic';
+import { getMetadata } from '@/lib/metadata';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,10 +19,7 @@ const AnalyticsPageView = dynamic(
   }
 );
 
-export const metadata: Metadata = {
-  title: 'DS Project',
-  description: 'Manage Design System',
-};
+export const metadata = getMetadata();
 
 export default function RootLayout({
   children,

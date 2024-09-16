@@ -1,6 +1,9 @@
 import { Footer } from '@/components/footer';
 import { HomeNavigation } from '@/components/home-navigation';
 import './home.css';
+import { getMetadata } from '@/lib/metadata';
+
+export const metadata = getMetadata();
 
 export default function Layout({
   children,

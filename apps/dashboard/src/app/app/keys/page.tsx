@@ -3,6 +3,9 @@ import { api } from '@ds-project/api/rsc';
 import { KeyItem } from './_components/key-item';
 
 import { CreateApiKeyDialog } from './_components/create-api-key-dialog';
+import { getMetadata } from '@/lib/metadata';
+
+export const metadata = getMetadata({ title: 'Keys' });
 
 export default async function Page() {
   const apiKeys = await api.apiKeys.list();
