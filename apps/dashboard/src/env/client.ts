@@ -18,7 +18,7 @@ export const clientEnv = createEnv({
       .default('production'),
     NEXT_PUBLIC_VERCEL_URL: z
       .string()
-      .url()
+      .min(1)
       .optional()
       .default('localhost:3000'),
   },
