@@ -6,7 +6,7 @@ import { PostHogProvider } from 'posthog-js/react';
 
 if (
   typeof window !== 'undefined' &&
-  clientEnv.NEXT_PUBLIC_VERCEL_ENV === 'production'
+  clientEnv.NEXT_PUBLIC_VERCEL_ENV === 'preview'
 ) {
   posthog.init(clientEnv.NEXT_PUBLIC_POSTHOG_KEY, {
     api_host: '/_proxy/posthog',
