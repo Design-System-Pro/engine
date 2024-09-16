@@ -69,11 +69,11 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/_proxy/posthog/ingest/static/:path*',
+        source: '/_proxy/posthog/static/:path*',
         destination: 'https://eu-assets.i.posthog.com/static/:path*',
       },
       {
-        source: '/_proxy/posthog/ingest/:path*',
+        source: '/_proxy/posthog/:path*',
         destination: 'https://eu.i.posthog.com/:path*',
       },
     ];

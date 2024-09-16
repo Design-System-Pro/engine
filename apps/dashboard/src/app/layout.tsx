@@ -5,8 +5,16 @@ import { cn } from '@/lib/css';
 import { AnalyticsProvider } from '@/lib/analytics/provider';
 import { Toaster } from '@ds-project/components';
 import { Favicon } from '@/components';
+import dynamic from 'next/dynamic';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const PageView = dynamic(
+  () => import('./_components/page-view').then((module) => module.PageView),
+  {
+    ssr: false,
+  }
+);
 
 export const metadata: Metadata = {
   title: 'DS Project',
@@ -32,6 +40,7 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
+          <PageView />
         </body>
       </AnalyticsProvider>
     </html>
