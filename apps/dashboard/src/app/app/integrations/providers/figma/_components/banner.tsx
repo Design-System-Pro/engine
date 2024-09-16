@@ -1,3 +1,4 @@
+import { config } from '@/config';
 import { Button, Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
 export function FigmaBanner() {
@@ -17,10 +18,7 @@ export function FigmaBanner() {
       </div>
 
       <Button asChild>
-        <Link
-          href="https://www.figma.com/community/file/1415369860836124974"
-          target="__blank"
-        >
+        <Link href={config.figmaWidgetUrl} target="__blank">
           <span>Install Widget</span>
         </Link>
       </Button>
