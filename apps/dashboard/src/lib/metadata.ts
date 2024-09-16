@@ -8,7 +8,7 @@ interface GetMetadataArgs {
 export function getMetadata({ title }: GetMetadataArgs = {}): Metadata {
   return {
     title: `${title ? `${title} | ` : ''}DS Pro`,
-    description: 'Design System DevOps Engine',
+    description: 'Your Design System Engine',
     keywords: 'design system, devops, engine, design, system, design tokens',
     openGraph: {
       siteName: 'DS Pro',

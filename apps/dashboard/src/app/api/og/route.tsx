@@ -1,3 +1,4 @@
+import { getMetadata } from '@/lib/metadata';
 import { ImageResponse } from 'next/og';
 
 export async function GET() {
@@ -63,7 +64,7 @@ export async function GET() {
             whiteSpace: 'pre-wrap',
           }}
         >
-          <b>Get started with DS Pro</b>
+          <b>{getMetadata().description}</b>
         </div>
       </div>
     ),
