@@ -1,11 +1,8 @@
-import type { Metadata } from 'next';
 import { AppNavigation } from '@/components';
 import { api } from '@ds-project/api/rsc';
+import { getMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'DS Project',
-  description: 'Manage Design System',
-};
+export const metadata = getMetadata({ title: 'Dashboard' });
 
 export default async function RootLayout({
   children,

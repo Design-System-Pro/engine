@@ -1,6 +1,9 @@
 import { MainContent } from '@/components';
 import { fetchReleases } from './_actions';
 import { SelectReleases } from './_components';
+import { getMetadata } from '@/lib/metadata';
+
+export const metadata = getMetadata({ title: 'Tokens' });
 
 export default async function Tokens() {
   const releases = await fetchReleases();
