@@ -16,11 +16,11 @@ export const config = {
    * Match all paths except for:
    * 1. /api/ routes
    * 2. /_next/ (Next.js internals)
-   * 3. /_proxy/sentry (Sentry proxy)
-   * 4. /_proxy/posthog (PostHog proxy)
+   * 3. /_proxy/m (Monitoring - Sentry proxy)
+   * 4. /_proxy/a (Analytics - PostHog proxy)
    * 5. /*.* (static files like /favicon.ico, /sitemap.xml, /robots.txt, etc.)
    */
-  matcher: ['/((?!api/|_next/|_proxy/sentry|_proxy/posthog|[\\w-]+\\.\\w+).*)'],
+  matcher: ['/((?!api/|_next/|_proxy/m|_proxy/a|[\\w-]+\\.\\w+).*)'],
 };
 
 export async function middleware(request: NextRequest) {

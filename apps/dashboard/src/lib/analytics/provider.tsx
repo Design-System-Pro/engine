@@ -7,7 +7,7 @@ import { PostHogProvider } from 'posthog-js/react';
 
 if (config.areAnalyticsEnabled && typeof window !== 'undefined') {
   posthog.init(clientEnv.NEXT_PUBLIC_POSTHOG_KEY, {
-    api_host: '/_proxy/posthog',
+    api_host: '/_proxy/a',
     ui_host: 'https://eu.posthog.com',
     person_profiles: 'identified_only',
     capture_pageview: false,
