@@ -6,7 +6,7 @@ import { rewrites } from './src/lib/rewrites.mjs';
 import { headers } from './src/lib/headers.mjs';
 
 jiti('./src/env/client-env');
-const serverEnv = jiti('./src/env/server-env');
+const { serverEnv } = jiti('./src/env/server-env');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -40,8 +40,8 @@ export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: 'ds-pro',
-  project: 'engine',
+  org: serverEnv.SENTRY_ORG,
+  project: serverEnv.SENTRY_PROJECT,
 
   authToken: serverEnv.SENTRY_AUTH_TOKEN,
 

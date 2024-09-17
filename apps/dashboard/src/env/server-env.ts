@@ -18,6 +18,8 @@ export const serverEnv = createEnv({
     POSTGRES_URL: z.string().min(1),
     SUPABASE_URL: z.string().url(),
     SUPABASE_ANON_KEY: z.string().min(1),
+    SENTRY_ORG: z.string().min(1).optional(),
+    SENTRY_PROJECT: z.string().min(1).optional(),
     SENTRY_AUTH_TOKEN: z.string().min(1).optional(),
   },
   experimental__runtimeEnv: process.env,

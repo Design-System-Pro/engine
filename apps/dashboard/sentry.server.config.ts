@@ -2,11 +2,11 @@
 // The config you add here will be used whenever the server handles a request.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
-import { serverEnv } from '@/env/server-env';
+import { config } from '@/config';
 import * as Sentry from '@sentry/nextjs';
 
 Sentry.init({
-  enabled: serverEnv.VERCEL_ENV === 'production',
+  enabled: config.isSentryEnabled,
   dsn: 'https://bee796b3d7d7f0364e1dc326183331f0@o4507860870299648.ingest.de.sentry.io/4507860871872592',
 
   // Adjust this value in production, or use tracesSampler for greater control

@@ -6,7 +6,6 @@ import { Toaster } from '@ds-project/components';
 import { Favicon } from '@/components';
 import dynamic from 'next/dynamic';
 import { getMetadata } from '@/lib/metadata';
-import { clientEnv } from '@/env/client-env';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,9 +31,7 @@ export default function RootLayout({
       <head>
         <Favicon />
       </head>
-      <AnalyticsProvider
-        enabled={clientEnv.NEXT_PUBLIC_VERCEL_ENV === 'production'}
-      >
+      <AnalyticsProvider>
         <body
           className={cn(
             'flex flex-col items-center bg-zinc-100 min-h-screen',

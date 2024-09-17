@@ -11,6 +11,18 @@ import {
 } from './lib/middleware/utils';
 import { serverEnv } from './env/server-env';
 
+export const config = {
+  /**
+   * Match all paths except for:
+   * 1. /api/ routes
+   * 2. /_next/ (Next.js internals)
+   * 3. /_proxy/sentry (Sentry proxy)
+   * 4. /_proxy/posthog (PostHog proxy)
+   * 5. /*.* (static files like /favicon.ico, /sitemap.xml, /robots.txt, etc.)
+   */
+  matcher: ['/((?!api/|_next/|_proxy/sentry|_proxy/posthog|[\\w-]+\\.\\w+).*)'],
+};
+
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next({ request });
   const url = request.nextUrl.clone();
@@ -57,9 +69,3 @@ export async function middleware(request: NextRequest) {
 
   return response;
 }
-
-export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|api/|_proxy/sentry|_proxy/posthog|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
-};
