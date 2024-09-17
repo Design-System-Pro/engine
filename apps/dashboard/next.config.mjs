@@ -5,8 +5,8 @@ const jiti = createJiti(fileURLToPath(import.meta.url));
 import { rewrites } from './src/lib/rewrites.mjs';
 import { headers } from './src/lib/headers.mjs';
 
-jiti('./src/env/client');
-jiti('./src/env/server');
+jiti('./src/env/client-env');
+const serverEnv = jiti('./src/env/server-env');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -43,6 +43,8 @@ export default withSentryConfig(nextConfig, {
   org: 'ds-pro',
   project: 'engine',
 
+  authToken: serverEnv.SENTRY_AUTH_TOKEN,
+
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
 
@@ -69,4 +71,9 @@ export default withSentryConfig(nextConfig, {
   // https://docs.sentry.io/product/crons/
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
+
+  sourcemaps: {
+    // Only upload source maps in production
+    disable: serverEnv.VERCEL_ENV !== 'production',
+  },
 });
