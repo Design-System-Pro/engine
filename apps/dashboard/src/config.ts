@@ -1,19 +1,26 @@
 import { clientEnv } from './env/client-env';
-import { serverEnv } from './env/server-env';
 
 const pageUrl = (() => {
-  switch (serverEnv.VERCEL_ENV) {
+  switch (clientEnv.NEXT_PUBLIC_VERCEL_ENV) {
     case 'production':
-      return 'https://getds.pro';
+      return `https://${clientEnv.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`;
     case 'preview':
-      return `https://${serverEnv.VERCEL_URL}`;
+      return `https://${clientEnv.NEXT_PUBLIC_VERCEL_URL}`;
     default:
       return 'http://localhost:3000';
   }
 })();
 
+const isProduction = clientEnv.NEXT_PUBLIC_VERCEL_ENV === 'production';
+
+/**
+ * Config should not include secret environment variables
+ */
 export const config = {
   pageUrl,
+  isProduction,
+  areAnalyticsEnabled: isProduction,
+  isSentryEnabled: isProduction,
   FIGMA_KEY: 'figma.key',
   figmaRedirectUri: `${pageUrl}/integrations/providers/figma/callback`,
   gitTokensPath: 'packages/generator/tokens',

@@ -6,7 +6,7 @@ import { rewrites } from './src/lib/rewrites.mjs';
 import { headers } from './src/lib/headers.mjs';
 
 jiti('./src/env/client-env');
-const serverEnv = jiti('./src/env/server-env');
+const { serverEnv } = jiti('./src/env/server-env');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -40,8 +40,8 @@ export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
-  org: 'ds-pro',
-  project: 'engine',
+  org: serverEnv.SENTRY_ORG,
+  project: serverEnv.SENTRY_PROJECT,
 
   authToken: serverEnv.SENTRY_AUTH_TOKEN,
 
@@ -58,7 +58,7 @@ export default withSentryConfig(nextConfig, {
   // This can increase your server load as well as your hosting bill.
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
-  tunnelRoute: '/_proxy/sentry',
+  tunnelRoute: '/_proxy/m',
 
   // Hides source maps from generated client bundles
   hideSourceMaps: true,
