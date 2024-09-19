@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --experimental-https",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
     "start": "next start",
@@ -21,7 +21,7 @@
     "@octokit/app": "^15.1.0",
     "@octokit/auth-oauth-app": "^8.1.1",
     "@octokit/core": "^6.1.2",
-    "@sentry/nextjs": "^8",
+    "@sentry/nextjs": "^8.30.0",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.0",
     "@t3-oss/env-core": "^0.11.0",

@@ -38,7 +38,7 @@ export async function release({
       content,
       encoding: 'base64',
       name: 'tokens.json',
-      path: 'packages/generator/tokens',
+      path: githubIntegration.data.tokensPath,
     },
     installationId: githubIntegration.data.installationId,
     owner: repository.owner.login,

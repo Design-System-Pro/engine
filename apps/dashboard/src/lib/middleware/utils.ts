@@ -123,6 +123,6 @@ export const exchangeApiKey = async ({
   }
 
   response.cookies.delete(config.FIGMA_KEY);
-  url.pathname = '/app/integrations/figma/success';
+  url.pathname = '/auth/success';
   return NextResponse.redirect(url, { ...response, status: 307 });
 };

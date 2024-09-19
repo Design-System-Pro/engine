@@ -109,7 +109,7 @@ export async function fetchReleaseTokens(
     }
   );
 
-  const tokensPath = [...config.gitTokensPath.split('/'), 'tokens.json'];
+  const tokensPath = [...config.defaultGitTokensPath.split('/'), 'tokens.json'];
   const fileSha = await searchFileSha({
     octokit,
     owner: repository.owner.login,

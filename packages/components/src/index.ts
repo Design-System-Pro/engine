@@ -1,3 +1,4 @@
+export * from './alert-dialog';
 export * from './alert';
 export * from './aspect-ratio';
 export * from './avatar';
@@ -17,9 +18,11 @@ export * from './navigation-menu';
 export * from './popover';
 export * from './select';
 export * from './separator';
+export * from './sheet';
 export * from './switch';
 export * from './tabs';
 export * from './text';
 export * from './toaster';
+export * from './tooltip';
 export * from './utils';
 export * from '@radix-ui/react-slot';

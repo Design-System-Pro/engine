@@ -1,3 +1,5 @@
+import 'server-only';
+
 import { createServerClient } from '@ds-project/auth/server';
 import type { Database } from '@ds-project/database';
 import {
@@ -5,6 +7,7 @@ import {
   DEFAULT_SERVER_ERROR_MESSAGE,
 } from 'next-safe-action';
 import { z } from 'zod';
+import { database } from '@ds-project/database/client';
 
 class ActionError extends Error {}
 
@@ -67,5 +70,5 @@ export const authorizedAction = actionClient
       throw new Error('User is not logged in!');
     }
 
-    return next({ ctx: { user } });
+    return next({ ctx: { user, database } });
   });

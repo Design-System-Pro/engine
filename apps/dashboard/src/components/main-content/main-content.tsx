@@ -15,7 +15,7 @@ export function MainContent({
   actions,
 }: MainContentProps) {
   return (
-    <div className="flex w-full flex-col items-center gap-2">
+    <div className="flex w-full flex-col items-center grow">
       <div className="flex w-full justify-center gap-2 border-b border-slate-200 px-4 py-8">
         <div className="flex w-full max-w-screen-xl justify-between">
           <div className="flex flex-col gap-2">
@@ -29,7 +29,7 @@ export function MainContent({
           <div>{actions}</div>
         </div>
       </div>
-      <div className="flex w-full flex-col items-center px-4">
+      <div className="pt-2 flex w-full flex-col items-center px-4 bg-white grow">
         <div className="flex w-full max-w-screen-xl flex-col">{children}</div>
       </div>
     </div>
