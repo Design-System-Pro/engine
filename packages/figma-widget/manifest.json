@@ -9,7 +9,7 @@
   "widgetApi": "1.0.0",
   "networkAccess": {
     "allowedDomains": ["https://getds.pro"],
-    "devAllowedDomains": ["http://localhost:3000"]
+    "devAllowedDomains": ["https://localhost:3000"]
   },
   "documentAccess": "dynamic-page"
 }

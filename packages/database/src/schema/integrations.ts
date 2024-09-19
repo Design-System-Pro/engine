@@ -22,6 +22,7 @@ export const githubIntegrationSchema = z.object({
   type: z.literal(integrationType.Enum.github),
   installationId: z.number(),
   repositoryId: z.number().optional(),
+  tokensPath: z.string(),
 });
 
 export const figmaIntegrationSchema = z.object({

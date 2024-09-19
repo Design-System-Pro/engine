@@ -57,7 +57,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && !isAuthPath(url) && !isAuthenticatedPath(url)) {
+  if (!user && !isAuthPath(url) && isAuthenticatedPath(url)) {
     url.pathname = '/auth/sign-in';
     return NextResponse.redirect(url, { ...response, status: 307 });
   }

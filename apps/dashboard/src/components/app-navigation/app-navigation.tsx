@@ -79,12 +79,12 @@ export function AppNavigation({
 
       <div className="flex gap-2">
         <Button variant="ghost" asChild>
-          <Link href="https://ds-project.supahub.com">
+          <Link href={config.feedbackUrl} target="_blank">
             Feedback <Icons.StarFilledIcon className="ml-2" />
           </Link>
         </Button>
         <Button variant="ghost" size="icon" title="GitHub" asChild>
-          <Link href="https://github.com/Design-System-Project" target="_blank">
+          <Link href={config.githubUrl} target="_blank">
             <Icons.GitHubLogoIcon />
           </Link>
         </Button>

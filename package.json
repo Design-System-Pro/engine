@@ -4,7 +4,7 @@
   "prettier": "@ds-project/prettier",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=dashboard --filter=@ds-project/database --filter=@ds-project/components",
     "clean": "turbo run clean && rm -rf node_modules",
     "type-check": "turbo run type-check",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",

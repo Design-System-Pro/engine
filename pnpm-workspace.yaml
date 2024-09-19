@@ -18,7 +18,7 @@ catalog:
   concurrently: ^8.2.2
   esbuild: ^0.23.1
   eslint: ^8.57.0
-  next: ^14.2.6
+  next: ^14.2.12
   postcss: ^8.4.39
   prettier: ^3.3.3
   react-dom: ^18.3.1

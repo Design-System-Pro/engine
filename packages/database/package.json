@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "dev": "pnpm start",
+    "dev": "pnpm start && pnpm status",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "generate": "drizzle-kit generate",
     "lint": "eslint",
