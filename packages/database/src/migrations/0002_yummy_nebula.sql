@@ -1,1 +1,0 @@
-ALTER TABLE "resources" DROP CONSTRAINT "resources_project_id_unique";

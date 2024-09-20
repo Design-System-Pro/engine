@@ -28,4 +28,8 @@ export const projectsRouter = createTRPCRouter({
       )
       .where(eq(AccountsToProjects.accountId, ctx.account.id));
   }),
+
+  all: apiProcedure.query(async ({ ctx }) => {
+    return ctx.database.query.Projects.findMany();
+  }),
 });

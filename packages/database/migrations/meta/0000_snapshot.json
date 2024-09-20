@@ -1,6 +1,6 @@
 {
-  "id": "4b1af46f-d359-4aa2-af46-bda7329d2507",
-  "prevId": "d464d918-f921-4f11-93e2-d927e37b7c6b",
+  "id": "4abfd448-079a-4319-bffa-29e2f037f9be",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -337,11 +337,12 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "resources_name_unique": {
-          "name": "resources_name_unique",
+        "resources_name_project_id_unique": {
+          "name": "resources_name_project_id_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "name"
+            "name",
+            "project_id"
           ]
         }
       }

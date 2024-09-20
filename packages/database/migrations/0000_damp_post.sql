@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "resources" (
 	"project_id" uuid NOT NULL,
 	"name" text NOT NULL,
 	"design_tokens" json,
-	CONSTRAINT "resources_project_id_unique" UNIQUE("project_id")
+	CONSTRAINT "resources_name_project_id_unique" UNIQUE("name","project_id")
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -86,3 +86,56 @@ DO $$ BEGIN
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
+
+CREATE SCHEMA IF NOT EXISTS private;
+
+-- Create function to return current account based on authenticated user id
+
+CREATE OR REPLACE FUNCTION private.current_account_id()
+RETURNS uuid
+SECURITY definer
+AS $$
+DECLARE
+    account_id uuid;
+BEGIN
+    SELECT a.id INTO account_id
+    FROM public.accounts a
+    WHERE a.user_id = auth.uid();
+
+    RETURN account_id;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Policies
+CREATE POLICY "Enable read access for users based on their user_id"
+ON "public"."accounts"
+AS PERMISSIVE
+FOR SELECT
+TO public
+USING (
+	auth.uid() = user_id
+);
+
+CREATE POLICY "Enable read access to accounts_to_projects for users based on their account"
+ON "public"."accounts_to_projects"
+AS PERMISSIVE
+FOR SELECT
+TO PUBLIC
+USING (
+	private.current_account_id() = account_id
+);
+
+CREATE POLICY "Enable read access to projects for users based on their account"
+ON "public"."projects"
+AS PERMISSIVE
+FOR SELECT
+TO PUBLIC
+USING (
+	id IN (
+        SELECT project_id
+        FROM "public"."accounts_to_projects"
+        WHERE account_id = private.current_account_id()
+    )
+);
+-- Policies

@@ -20,7 +20,7 @@ export const env = createEnv({
 export default defineConfig({
   schemaFilter: ['public'],
   schema: './src/schema.ts',
-  out: './src/migrations',
+  out: './migrations',
   dialect: 'postgresql',
   dbCredentials: {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- TODO: review

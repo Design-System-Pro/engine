@@ -1,6 +1,6 @@
 {
-  "id": "d464d918-f921-4f11-93e2-d927e37b7c6b",
-  "prevId": "0ea39276-750b-410c-b564-c2c13302811a",
+  "id": "e4dd0d1f-6335-4536-b482-8627664d2710",
+  "prevId": "4abfd448-079a-4319-bffa-29e2f037f9be",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -27,26 +27,26 @@
         "accounts_user_id_users_id_fk": {
           "name": "accounts_user_id_users_id_fk",
           "tableFrom": "accounts",
-          "tableTo": "users",
-          "schemaTo": "auth",
           "columnsFrom": [
             "user_id"
           ],
+          "tableTo": "users",
+          "schemaTo": "auth",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "accounts_user_id_unique": {
           "name": "accounts_user_id_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "user_id"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -100,26 +100,26 @@
         "integrations_project_id_projects_id_fk": {
           "name": "integrations_project_id_projects_id_fk",
           "tableFrom": "integrations",
-          "tableTo": "projects",
           "columnsFrom": [
             "project_id"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "integrations_type_project_id_unique": {
           "name": "integrations_type_project_id_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "type",
             "project_id"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -183,28 +183,28 @@
         "accounts_to_projects_account_id_accounts_id_fk": {
           "name": "accounts_to_projects_account_id_accounts_id_fk",
           "tableFrom": "accounts_to_projects",
-          "tableTo": "accounts",
           "columnsFrom": [
             "account_id"
           ],
+          "tableTo": "accounts",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         },
         "accounts_to_projects_project_id_projects_id_fk": {
           "name": "accounts_to_projects_project_id_projects_id_fk",
           "tableFrom": "accounts_to_projects",
-          "tableTo": "projects",
           "columnsFrom": [
             "project_id"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
@@ -253,25 +253,25 @@
         "figma_resources_resource_id_resources_id_fk": {
           "name": "figma_resources_resource_id_resources_id_fk",
           "tableFrom": "figma_resources",
-          "tableTo": "resources",
           "columnsFrom": [
             "resource_id"
           ],
+          "tableTo": "resources",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "figma_resources_resource_id_unique": {
           "name": "figma_resources_resource_id_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "resource_id"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     },
@@ -324,32 +324,26 @@
         "resources_project_id_projects_id_fk": {
           "name": "resources_project_id_projects_id_fk",
           "tableFrom": "resources",
-          "tableTo": "projects",
           "columnsFrom": [
             "project_id"
           ],
+          "tableTo": "projects",
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "resources_project_id_unique": {
-          "name": "resources_project_id_unique",
-          "nullsNotDistinct": false,
+        "resources_name_project_id_unique": {
+          "name": "resources_name_project_id_unique",
           "columns": [
+            "name",
             "project_id"
-          ]
-        },
-        "resources_name_unique": {
-          "name": "resources_name_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          ],
+          "nullsNotDistinct": false
         }
       }
     }
