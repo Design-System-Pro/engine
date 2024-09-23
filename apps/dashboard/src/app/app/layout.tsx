@@ -9,8 +9,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const projects = await api.projects.account();
-  const user = await api.users.current();
+  const projects = await api.projects.getAll();
+  const user = await api.users.getCurrent();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default async function RootLayout({
         <AppNavigation
           className="px-2 pt-2"
           projects={projects}
-          email={user?.email ?? 'Account'}
+          email={user.email}
         />
       </header>
       <main className="flex min-h-screen w-full flex-col items-center py-2">

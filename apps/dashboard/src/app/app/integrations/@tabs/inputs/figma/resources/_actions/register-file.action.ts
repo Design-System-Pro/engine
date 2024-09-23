@@ -21,7 +21,7 @@ export async function registerFile(formData: FormData) {
 
   if (!fileKey) throw new Error('No file key found in the figma url');
 
-  const account = await api.accounts.current();
+  const account = await api.accounts.getCurrent();
 
   if (!account) throw new Error('No account found');
 

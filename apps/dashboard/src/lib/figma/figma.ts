@@ -258,7 +258,7 @@ async function generateFigma(projectId: string) {
 const memoizedFigma = cache(generateFigma);
 
 export async function getFigma() {
-  const project = await api.projects.current();
+  const project = await api.projects.getFirst();
 
   if (!project?.id) {
     throw new Error('No project associated with this account');

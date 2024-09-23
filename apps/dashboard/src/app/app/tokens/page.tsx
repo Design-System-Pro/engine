@@ -7,7 +7,7 @@ import { api } from '@ds-project/api/rsc';
 export const metadata = getMetadata({ title: 'Tokens' });
 
 export default async function Tokens() {
-  const allProjects = await api.projects.all();
+  const allProjects = await api.projects.getAll();
   const releases = await fetchReleases();
 
   return (

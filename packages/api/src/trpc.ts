@@ -37,21 +37,16 @@ export const createTRPCContext = async (opts: {
 }) => {
   const supabase = createServerClient<Database>();
   const keyHippo = new KeyHippo(supabase);
-  const { userId } = await keyHippo.authenticate({
-    headers: opts.headers,
-  } as Request);
+  const { userId } = await keyHippo.authenticate(opts.headers);
 
   const source = opts.headers.get('x-trpc-source') ?? 'unknown';
   console.log(`>>> tRPC Request from ${source} by ${userId}`);
-
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
 
   return {
     supabase,
     database,
     userId,
+    authRole: opts.headers.has('Authorization') ? 'api' : 'browser',
   };
 };
 
@@ -124,7 +119,7 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 export const publicProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    return database.transaction(async (tx) => {
+    return ctx.database.transaction(async (tx) => {
       if (ctx.userId) {
         await tx.execute(
           sql.raw(
@@ -167,7 +162,7 @@ export const publicProcedure = t.procedure
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
-    return database.transaction(async (tx) => {
+    return ctx.database.transaction(async (tx) => {
       if (!ctx.userId) {
         throw new TRPCError({ code: 'UNAUTHORIZED' });
       }
@@ -175,6 +170,12 @@ export const protectedProcedure = t.procedure
       await tx.execute(
         sql.raw(
           `SELECT set_config('request.jwt.claim.sub', '${ctx.userId}', TRUE)`
+        )
+      );
+
+      await tx.execute(
+        sql.raw(
+          `SELECT set_config('request.jwt.claim.role', '${ctx.authRole}-user', TRUE)`
         )
       );
 
@@ -202,54 +203,11 @@ export const protectedProcedure = t.procedure
       });
 
       await tx.execute(
-        sql`SELECT set_config('request.jwt.claim.sub', NULL, TRUE)`
+        sql.raw(`SELECT set_config('request.jwt.claim.sub', NULL, TRUE)`)
       );
 
-      await tx.execute(sql`RESET ROLE`);
-
-      return result;
-    });
-  });
-
-export const apiProcedure = t.procedure
-  .use(timingMiddleware)
-  .use(({ ctx, next }) => {
-    return database.transaction(async (tx) => {
-      if (!ctx.userId) {
-        throw new TRPCError({ code: 'UNAUTHORIZED' });
-      }
-
       await tx.execute(
-        sql.raw(
-          `SELECT set_config('request.jwt.claim.sub', '${ctx.userId}', TRUE)`
-        )
-      );
-
-      await tx.execute(sql.raw(`SET ROLE 'authenticated'`));
-
-      const account = ctx.userId
-        ? ((await tx.query.Accounts.findFirst({
-            where: (accounts) => eq(accounts.userId, ctx.userId),
-          })) ?? null)
-        : null;
-
-      if (!account) {
-        throw new TRPCError({
-          code: 'UNAUTHORIZED',
-          message: "User doesn't have a valid account.",
-        });
-      }
-
-      const result = await next({
-        ctx: {
-          ...ctx,
-          database: tx,
-          account,
-        },
-      });
-
-      await tx.execute(
-        sql`SELECT set_config('request.jwt.claim.sub', NULL, TRUE)`
+        sql.raw(`SELECT set_config('request.jwt.claim.role', NULL, TRUE)`)
       );
 
       await tx.execute(sql`RESET ROLE`);

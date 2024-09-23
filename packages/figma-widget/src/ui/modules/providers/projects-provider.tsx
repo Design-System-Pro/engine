@@ -34,22 +34,28 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
   );
   const { state } = useAuth();
   const { data: projects, isLoading: isProjectsLoading } =
-    api.projects.account.useQuery(undefined, {
+    api.projects.getAll.useQuery(undefined, {
       enabled: state === 'authorized',
     });
 
-  const { mutate: linkResource } = api.resources.link.useMutation();
+  const { mutateAsync: linkResource } =
+    api.resources.linkToProject.useMutation();
 
   const linkProject = useCallback(
-    (projectId: string) => {
+    async (projectId: string) => {
       const linkedProjectName = projects?.find(
         (project) => project.id === projectId
       )?.name;
       if (!linkedProjectName || !fileName) return;
 
-      linkResource({ projectId, name: fileName });
-      setSelectedProjectId(projectId);
-      emit('set-project', { id: projectId, name: linkedProjectName });
+      try {
+        await linkResource({ projectId, name: fileName });
+
+        setSelectedProjectId(projectId);
+        emit('set-project', { id: projectId, name: linkedProjectName });
+      } catch (error) {
+        console.error('Error linking project', { error });
+      }
     },
     [fileName, linkResource, projects]
   );

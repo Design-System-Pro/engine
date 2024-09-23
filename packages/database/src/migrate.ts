@@ -1,5 +1,5 @@
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { connection, database } from './client';
+import { connection, database } from './migration-client.js';
 import { sql } from 'drizzle-orm';
 
 await migrate(database, {

@@ -15,3 +15,17 @@ export const useSyncedLinkedProject = () => {
 export const useSyncedLastSyncedAt = () => {
   return useSyncedState<number | null>('lastSyncedAt', null);
 };
+
+export const useCleanupSyncedState = () => {
+  const [, setSyncedCredentials] = useSyncedCredentials();
+  const [, setSyncedLinkedProject] = useSyncedLinkedProject();
+  const [, setSyncedLastSyncedAt] = useSyncedLastSyncedAt();
+
+  const cleanup = () => {
+    setSyncedCredentials(null);
+    setSyncedLinkedProject(null);
+    setSyncedLastSyncedAt(null);
+  };
+
+  return cleanup;
+};

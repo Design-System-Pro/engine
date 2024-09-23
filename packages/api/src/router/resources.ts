@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { eq } from '@ds-project/database';
 
-import { apiProcedure, createTRPCRouter, protectedProcedure } from '../trpc';
+import { createTRPCRouter, protectedProcedure } from '../trpc';
 import {
   InsertResourcesSchema,
   PreprocessedTokensSchema,
@@ -11,7 +11,7 @@ import {
 import { release } from '../operations/release';
 
 export const resourcesRouter = createTRPCRouter({
-  byId: protectedProcedure
+  getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.database.query.Resources.findFirst({
@@ -19,7 +19,7 @@ export const resourcesRouter = createTRPCRouter({
       });
     }),
 
-  byProjectId: protectedProcedure
+  getByProjectId: protectedProcedure
     .input(
       z.object({
         projectId: z.string(),
@@ -41,13 +41,13 @@ export const resourcesRouter = createTRPCRouter({
       });
     }),
 
-  link: protectedProcedure
+  linkToProject: protectedProcedure
     .input(InsertResourcesSchema.pick({ name: true, projectId: true }))
     .mutation(async ({ ctx, input }) => {
       return ctx.database.insert(Resources).values(input);
     }),
 
-  updateDesignTokens: apiProcedure
+  updateDesignTokens: protectedProcedure
     .input(
       z.object({
         name: z.string(),

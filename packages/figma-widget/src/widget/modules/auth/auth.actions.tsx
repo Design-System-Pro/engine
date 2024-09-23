@@ -1,17 +1,15 @@
 import { request } from '@ds-project/figma-utilities';
 import { useUI } from '../../hooks/ui';
-import { useSyncedCredentials } from '../state';
+import { useCleanupSyncedState, useSyncedCredentials } from '../state';
 
-export function useAuthActions({
-  onDisconnect,
-}: { onDisconnect?: () => void } = {}) {
+export function useAuthActions() {
+  const cleanupSyncedState = useCleanupSyncedState();
   const [syncedCredentials, setSyncedCredentials] = useSyncedCredentials();
   const { open, close } = useUI();
   const isConnected = Boolean(syncedCredentials);
 
   const disconnect = () => {
-    setSyncedCredentials(null);
-    onDisconnect?.();
+    cleanupSyncedState();
   };
 
   const connect = async () => {

@@ -1,4 +1,4 @@
-import { pgTable, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar } from 'drizzle-orm/pg-core';
 import { usersTable } from './_auth/users';
 
 export const Accounts = pgTable('accounts', {
@@ -11,6 +11,7 @@ export const Accounts = pgTable('accounts', {
     .references(() => usersTable.id, { onDelete: 'cascade' })
     .notNull()
     .unique(),
+  email: varchar('email').notNull(),
 });
 
 export type Account = typeof Accounts.$inferSelect;
