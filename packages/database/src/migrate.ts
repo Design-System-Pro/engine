@@ -1,12 +1,30 @@
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { connection, database } from './client';
+import { connection, database } from './migration-client.js';
+import { sql } from 'drizzle-orm';
 
-migrate(database, {
-  migrationsFolder: './src/migrations',
-})
-  .catch((error) => {
-    // eslint-disable-next-line no-console -- TODO: replace with monitoring
-    console.error('Error running migrations', error);
-  })
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/unbound-method -- Expected
-  .finally(connection.end);
+await migrate(database, {
+  migrationsFolder: './migrations',
+});
+
+// Enable RLS for all tables created in the public schema, including the newly created ones
+const enableRls = sql`
+  DO $$
+  DECLARE
+      r RECORD;
+  BEGIN
+      -- Loop through all tables in the public schema
+      FOR r IN
+          SELECT table_name
+          FROM information_schema.tables
+          WHERE table_schema = 'public'
+            AND table_type = 'BASE TABLE'
+      LOOP
+          -- Enable RLS for each table
+          EXECUTE 'ALTER TABLE ' || quote_ident(r.table_name) || ' ENABLE ROW LEVEL SECURITY';
+      END LOOP;
+  END $$;
+`;
+
+await database.execute(enableRls);
+
+await connection.end();

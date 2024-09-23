@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
   if (!installationId) throw new Error('No installation id provided');
 
   try {
-    const project = await api.projects.current();
+    const project = await api.projects.getFirst();
 
     if (!project?.id)
       throw new Error('No design system associated with this account');

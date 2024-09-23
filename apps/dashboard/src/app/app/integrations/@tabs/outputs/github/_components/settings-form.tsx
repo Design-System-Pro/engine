@@ -41,7 +41,7 @@ export function SettingsForm({
 
   const formSchema = z.object({
     installationId: z.number(),
-    repositoryId: z.number(),
+    repositoryId: z.coerce.number(),
     tokensPath: z.string().optional(),
   });
 
@@ -99,7 +99,8 @@ export function SettingsForm({
               <FormItem>
                 <FormLabel>Repository</FormLabel>
                 <Select
-                  defaultValue={field.value.toString()}
+                  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                  defaultValue={field.value?.toString()}
                   onValueChange={field.onChange}
                 >
                   <FormControl>
@@ -111,7 +112,7 @@ export function SettingsForm({
                     {repositories?.map((repository) => (
                       <SelectItem
                         key={repository.id}
-                        value={String(repository.id)}
+                        value={repository.id.toString()}
                       >
                         {repository.name}
                       </SelectItem>

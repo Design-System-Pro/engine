@@ -10,6 +10,7 @@ import {
 import { database } from '@ds-project/database/client';
 import { authorizedAction } from '@/lib/safe-action';
 import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
 
 export const selectRepository = authorizedAction
   .metadata({ actionName: 'selectRepository' })
@@ -41,6 +42,7 @@ export const selectRepository = authorizedAction
         })
         .where(eq(Integrations.type, integrationType.Enum.github));
 
+      revalidatePath('/app/integrations/output');
       return { success: true };
     }
   );

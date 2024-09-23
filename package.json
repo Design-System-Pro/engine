@@ -4,7 +4,8 @@
   "prettier": "@ds-project/prettier",
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --filter=dashboard --filter=@ds-project/database --filter=@ds-project/components",
+    "dev:engine": "turbo run dev --filter=dashboard --filter=@ds-project/database --filter=@ds-project/components",
+    "dev:widget": "turbo run dev --filter=@ds-project/figma-widget --filter=@ds-project/components",
     "clean": "turbo run clean && rm -rf node_modules",
     "type-check": "turbo run type-check",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",
@@ -16,7 +17,7 @@
   "devDependencies": {
     "@ds-project/prettier": "workspace:*",
     "prettier": "catalog:",
-    "turbo": "^2.0.6"
+    "turbo": "^2.1.2"
   },
   "packageManager": "pnpm@9.5.0",
   "engines": {
