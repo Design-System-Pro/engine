@@ -4,4 +4,4 @@ storybook-static
 
 **/.cache/
 
-packages/database/src/migrations/
+packages/database/migrations/
