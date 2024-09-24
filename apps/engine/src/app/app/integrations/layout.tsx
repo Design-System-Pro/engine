@@ -33,7 +33,7 @@ export default function Layout({
           <TabsTrigger value="outputs" asChild>
             <Link href={'/app/integrations/outputs'}>Outputs</Link>
           </TabsTrigger>
-          <TabsTrigger value="notifications">
+          <TabsTrigger value="notifications" asChild>
             <Link href={'/app/integrations/notifications'}>Notifications</Link>
           </TabsTrigger>
         </TabsList>

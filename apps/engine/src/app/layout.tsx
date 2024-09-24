@@ -36,7 +36,7 @@ export default function RootLayout({
         <AnalyticsProvider>
           <body
             className={cn(
-              'flex flex-col items-center bg-zinc-100 min-h-screen',
+              'flex flex-col items-center bg-white min-h-screen',
               inter.className
             )}
           >

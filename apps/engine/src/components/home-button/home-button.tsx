@@ -11,7 +11,7 @@ export function HomeButton({ className }: { className?: string }) {
       className={cn('border border-slate-200', className)}
       variant="ghost"
     >
-      <Link href="/">
+      <Link href="/app">
         <Image alt="Home" height={32} src={logo} width={32} />
       </Link>
     </Button>

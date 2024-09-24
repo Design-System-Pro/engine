@@ -66,4 +66,9 @@
   body {
     @apply ds-bg-background ds-text-foreground;
   }
+
+  a:not([class]),
+  a[class=''] {
+    @apply ds-underline ds-underline-offset-4 hover:ds-text-primary ds-text-muted-foreground;
+  }
 }
