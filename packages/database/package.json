@@ -22,19 +22,19 @@
   },
   "scripts": {
     "dev": "pnpm start && pnpm status",
-    "dump": "pnpx supabase db dump --schema public -f supabase/schema.sql --local",
+    "dump": "supabase db dump --schema public -f supabase/schema.sql --local",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "generate": "drizzle-kit generate",
     "lint": "eslint",
     "migrate": "pnpx tsx --conditions=react-server src/migrate.ts",
-    "reset": "pnpx supabase db reset && pnpm migrate",
-    "squash": "pnpx supabase migration squash --local",
-    "start": "pnpx supabase start",
-    "status": "pnpx supabase status",
-    "stop": "pnpx supabase stop",
+    "reset": "supabase db reset && pnpm migrate",
+    "squash": "supabase migration squash --local",
+    "start": "supabase start",
+    "status": "supabase status",
+    "stop": "supabase stop",
     "studio": "drizzle-kit studio",
     "type-check": "tsc --noEmit --emitDeclarationOnly false",
-    "types": "pnpm dlx supabase gen types --lang=typescript --local > src/__generated__/database.types.ts"
+    "types": "supabase gen types --lang=typescript --local > src/__generated__/database.types.ts"
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
@@ -55,6 +55,7 @@
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "style-dictionary": "catalog:",
+    "supabase": "^1.200.3",
     "typescript": "catalog:"
   }
 }

@@ -82,7 +82,7 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
 
-  apps/dashboard:
+  apps/engine:
     dependencies:
       '@ds-project/api':
         specifier: workspace:*
@@ -110,7 +110,7 @@ importers:
         version: 6.1.2
       '@sentry/nextjs':
         specifier: ^8.30.0
-        version: 8.30.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))(next@14.2.12(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))(react@18.3.1)(webpack@5.94.0)
+        version: 8.30.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))(next@14.2.12(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))(react@18.3.1)(webpack@5.94.0(esbuild@0.19.12))
       '@supabase/ssr':
         specifier: ^0.4.0
         version: 0.4.0(@supabase/supabase-js@2.45.0)
@@ -171,6 +171,9 @@ importers:
       posthog-js:
         specifier: ^1.160.0
         version: 1.160.0
+      query-string:
+        specifier: ^9.1.0
+        version: 9.1.0
       rambda:
         specifier: ^9.2.1
         version: 9.2.1
@@ -645,6 +648,9 @@ importers:
       style-dictionary:
         specifier: 'catalog:'
         version: 4.1.0
+      supabase:
+        specifier: ^1.200.3
+        version: 1.200.3
       typescript:
         specifier: 'catalog:'
         version: 5.5.4
@@ -4822,6 +4828,10 @@ packages:
       supports-color:
         optional: true
 
+  decode-uri-component@0.4.1:
+    resolution: {integrity: sha512-+8VxcR21HhTy8nOt6jf20w0c9CADrw1O8d+VZ/YzzCt4bJ3uBjw+D1q2osAB8RnpwwaeYBxy0HyKQxD5JBMuuQ==}
+    engines: {node: '>=14.16'}
+
   deep-eql@4.1.4:
     resolution: {integrity: sha512-SUwdGfqdKOwxCPeVYjwSyRpJ7Z+fhpwIAtmCUdZIWZ/YP5R9WAsyuSgpLVDi9bjWoN2LXHNss/dk3urXtdQxGg==}
     engines: {node: '>=6'}
@@ -5543,6 +5553,10 @@ packages:
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
+
+  filter-obj@5.1.0:
+    resolution: {integrity: sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng==}
+    engines: {node: '>=14.16'}
 
   finalhandler@1.2.0:
     resolution: {integrity: sha512-5uXcUVftlQMFnWC9qu/svkWv3GTd2PfUhK/3PLkYNAe7FbqJMt3515HaxE6eRL74GdsriiwujiawdaB1BpEISg==}
@@ -7019,6 +7033,10 @@ packages:
     resolution: {integrity: sha512-AWJm14H1vVaO/iNZ4/hO+HyaTehuy9nRqVdkTqlJt0HWvBiBIEXFmb4C0DGeYo3Xes9rrEW+TxHsaigCbN5ICQ==}
     engines: {node: '>=0.6'}
 
+  query-string@9.1.0:
+    resolution: {integrity: sha512-t6dqMECpCkqfyv2FfwVS1xcB6lgXW/0XZSaKdsCNGYkqMO76AFiJEg4vINzoDKcZa6MS7JX+OHIjwh06K5vczw==}
+    engines: {node: '>=18'}
+
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -7511,6 +7529,10 @@ packages:
   spdx-license-ids@3.0.17:
     resolution: {integrity: sha512-sh8PWc/ftMqAAdFiBu6Fy6JUOYjqDJBJvIhpfDMyHrr0Rbp5liZqd4TjtQ/RgfLjKFZb+LMx5hpml5qOWy0qvg==}
 
+  split-on-first@3.0.0:
+    resolution: {integrity: sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA==}
+    engines: {node: '>=12'}
+
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
@@ -7626,6 +7648,11 @@ packages:
 
   supabase@1.187.10:
     resolution: {integrity: sha512-7Nc50xN0k/G5fX3bpa+ZaulBoK/i5jwdjXhiNzyZhUf8qEWQnSsT1LTidCvpzuGt+8Gi6G3aMAh/5GlRdBLIoQ==}
+    engines: {npm: '>=8'}
+    hasBin: true
+
+  supabase@1.200.3:
+    resolution: {integrity: sha512-3NdhqBkfPVlm+rAhWQoVcyr54kykuAlHav/GWaAoQEHBDbbYI1lhbDzugk8ryQg92vSLwr3pWz0s4Hjdte8WyQ==}
     engines: {npm: '>=8'}
     hasBin: true
 
@@ -10952,7 +10979,7 @@ snapshots:
       '@sentry/types': 8.30.0
       '@sentry/utils': 8.30.0
 
-  '@sentry/nextjs@8.30.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))(next@14.2.12(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))(react@18.3.1)(webpack@5.94.0)':
+  '@sentry/nextjs@8.30.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))(next@14.2.12(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))(react@18.3.1)(webpack@5.94.0(esbuild@0.19.12))':
     dependencies:
       '@opentelemetry/instrumentation-http': 0.53.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.27.0
@@ -10964,14 +10991,14 @@ snapshots:
       '@sentry/types': 8.30.0
       '@sentry/utils': 8.30.0
       '@sentry/vercel-edge': 8.30.0
-      '@sentry/webpack-plugin': 2.22.3(webpack@5.94.0)
+      '@sentry/webpack-plugin': 2.22.3(webpack@5.94.0(esbuild@0.19.12))
       chalk: 3.0.0
       next: 14.2.12(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)
       resolve: 1.22.8
       rollup: 3.29.4
       stacktrace-parser: 0.1.10
     optionalDependencies:
-      webpack: 5.94.0
+      webpack: 5.94.0(esbuild@0.19.12)
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@opentelemetry/core'
@@ -11050,12 +11077,12 @@ snapshots:
       '@sentry/types': 8.30.0
       '@sentry/utils': 8.30.0
 
-  '@sentry/webpack-plugin@2.22.3(webpack@5.94.0)':
+  '@sentry/webpack-plugin@2.22.3(webpack@5.94.0(esbuild@0.19.12))':
     dependencies:
       '@sentry/bundler-plugin-core': 2.22.3
       unplugin: 1.0.1
       uuid: 9.0.1
-      webpack: 5.94.0
+      webpack: 5.94.0(esbuild@0.19.12)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -12865,6 +12892,8 @@ snapshots:
     dependencies:
       ms: 2.1.2
 
+  decode-uri-component@0.4.1: {}
+
   deep-eql@4.1.4:
     dependencies:
       type-detect: 4.0.8
@@ -13853,6 +13882,8 @@ snapshots:
   fill-range@7.1.1:
     dependencies:
       to-regex-range: 5.0.1
+
+  filter-obj@5.1.0: {}
 
   finalhandler@1.2.0:
     dependencies:
@@ -15301,6 +15332,12 @@ snapshots:
     dependencies:
       side-channel: 1.0.6
 
+  query-string@9.1.0:
+    dependencies:
+      decode-uri-component: 0.4.1
+      filter-obj: 5.1.0
+      split-on-first: 3.0.0
+
   queue-microtask@1.2.3: {}
 
   rambda@9.2.1: {}
@@ -15907,6 +15944,8 @@ snapshots:
 
   spdx-license-ids@3.0.17: {}
 
+  split-on-first@3.0.0: {}
+
   sprintf-js@1.0.3: {}
 
   stacktrace-parser@0.1.10:
@@ -16079,6 +16118,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  supabase@1.200.3:
+    dependencies:
+      bin-links: 4.0.4
+      https-proxy-agent: 7.0.5
+      node-fetch: 3.3.2
+      tar: 7.4.3
+    transitivePeerDependencies:
+      - supports-color
+
   superjson@2.2.1:
     dependencies:
       copy-anything: 3.0.5
@@ -16203,14 +16251,16 @@ snapshots:
       type-fest: 2.19.0
       unique-string: 3.0.0
 
-  terser-webpack-plugin@5.3.10(webpack@5.94.0):
+  terser-webpack-plugin@5.3.10(esbuild@0.19.12)(webpack@5.94.0(esbuild@0.19.12)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.33.0
-      webpack: 5.94.0
+      webpack: 5.94.0(esbuild@0.19.12)
+    optionalDependencies:
+      esbuild: 0.19.12
 
   terser@5.33.0:
     dependencies:
@@ -16632,7 +16682,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.94.0:
+  webpack@5.94.0(esbuild@0.19.12):
     dependencies:
       '@types/estree': 1.0.5
       '@webassemblyjs/ast': 1.12.1
@@ -16654,7 +16704,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(webpack@5.94.0)
+      terser-webpack-plugin: 5.3.10(esbuild@0.19.12)(webpack@5.94.0(esbuild@0.19.12))
       watchpack: 2.4.2
       webpack-sources: 3.2.3
     transitivePeerDependencies:
