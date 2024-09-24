@@ -73,7 +73,6 @@
     "eslint-config-next": "14.2.5",
     "jiti": "^1.21.6",
     "postcss": "catalog:",
-    "supabase": "^1.187.10",
     "tailwindcss": "catalog:",
     "typescript": "catalog:"
   }
