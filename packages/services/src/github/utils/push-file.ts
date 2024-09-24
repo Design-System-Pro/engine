@@ -63,7 +63,7 @@ export async function pushFile({
   owner,
   repo,
   installationId,
-  targetBranchName = 'ds-project/sync-tokens',
+  targetBranchName,
   baseBranchName = 'main',
 }: {
   file: {
@@ -75,7 +75,7 @@ export async function pushFile({
   owner: string;
   repo: string;
   installationId: number;
-  targetBranchName?: string;
+  targetBranchName: string;
   baseBranchName?: string;
 }) {
   const octokit = await getInstallationOctokit(installationId);

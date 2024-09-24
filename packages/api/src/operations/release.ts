@@ -43,5 +43,6 @@ export async function release({
     installationId: githubIntegration.data.installationId,
     owner: repository.owner.login,
     repo: repository.name,
+    targetBranchName: githubIntegration.data.targetGitBranch,
   });
 }

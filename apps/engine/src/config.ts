@@ -24,6 +24,7 @@ export const config = {
   FIGMA_KEY: 'figma.key',
   figmaRedirectUri: `${pageUrl}/integrations/inputs/figma/callback`,
   defaultGitTokensPath: 'packages/generator/tokens',
+  defaultTargetGitBranch: 'ds-project/sync-tokens',
   discordInviteUrl: 'https://discord.gg/FQSYMapc76',
   figmaWidgetUrl: 'https://www.figma.com/community/widget/1415369860836124974',
   feedbackUrl: 'https://ds-project.supahub.com',
