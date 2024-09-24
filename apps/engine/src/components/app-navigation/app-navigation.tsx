@@ -22,17 +22,19 @@ interface AppNavigationProps {
   className?: string;
   projects?: Pick<SelectProjects, 'id' | 'name'>[];
   email: string;
+  showReleases?: boolean;
 }
 
 export function AppNavigation({
   className,
   projects,
   email,
+  showReleases,
 }: AppNavigationProps) {
   return (
     <nav
       className={cn(
-        'flex w-full justify-between gap-2 border-b border-slate-200 bg-white pb-2',
+        'flex w-full justify-between gap-2 border-b border-slate-200 bg-white pb-2 shadow-sm',
         className
       )}
     >
@@ -66,13 +68,15 @@ export function AppNavigation({
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/app/tokens" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Tokens
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+            {showReleases ? (
+              <NavigationMenuItem>
+                <Link href="/app/releases" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Releases
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ) : null}
           </NavigationMenuList>
         </NavigationMenu>
       </div>

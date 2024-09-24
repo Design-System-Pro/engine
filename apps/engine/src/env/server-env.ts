@@ -21,6 +21,8 @@ export const serverEnv = createEnv({
     SENTRY_ORG: z.string().min(1).optional(),
     SENTRY_PROJECT: z.string().min(1).optional(),
     SENTRY_AUTH_TOKEN: z.string().min(1).optional(),
+    // Feature Flags
+    ENABLE_RELEASES_FLAG: z.coerce.boolean(),
   },
   experimental__runtimeEnv: process.env,
 });

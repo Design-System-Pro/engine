@@ -141,7 +141,7 @@ USING (
 	private.current_account_id() = account_id
 );
 
-CREATE POLICY "[BROWSER] - Enable SELECT"
+CREATE POLICY "Enable SELECT"
 ON "public"."integrations"
 AS PERMISSIVE
 FOR SELECT
@@ -149,7 +149,7 @@ TO authenticated
 USING (
 	project_id IN (SELECT project_id FROM private.get_user_project_ids())
 	AND
-	auth.role() = 'browser-user'
+	auth.role() IN ('browser-user', 'api-user')
 );
 
 CREATE POLICY "[API] - Enable SELECT"
