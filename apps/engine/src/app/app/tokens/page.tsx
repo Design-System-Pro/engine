@@ -13,7 +13,7 @@ export default async function Tokens() {
   return (
     <MainContent
       description="Inspect the design tokens releases."
-      title="Tokens"
+      title="Design Tokens"
     >
       <div className="flex flex-col gap-4">
         <SelectReleases releases={releases} />
