@@ -1,1 +1,1 @@
-export * from './select-repository.action';
+export * from './update-settings.action';

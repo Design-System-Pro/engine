@@ -8,20 +8,19 @@ import { disableIntegration } from '../_actions/disable-integration.action';
 import { useRouter } from 'next/navigation';
 import { IntegrationLogo } from '@/components/integration-logo/integration-logo';
 import { IntegrationSettings } from '@/components/integration-settings/integration-settings';
+import type { api } from '@ds-project/api/rsc';
 
 interface GithubCardProps {
   isEnabled: boolean;
   enableUrl: string;
-  installationId?: number;
-  selectedRepositoryId?: number;
   repositories?: { id: number; name: string }[];
+  integration: Awaited<ReturnType<typeof api.integrations.github>>;
 }
 export function GithubCard({
   isEnabled,
-  installationId,
   repositories,
-  selectedRepositoryId,
   enableUrl,
+  integration,
 }: GithubCardProps) {
   const router = useRouter();
   const { toast } = useToast();
@@ -73,11 +72,10 @@ export function GithubCard({
         isOpen={isOpen}
         onOpenChange={setIsOpen}
       >
-        {installationId ? (
+        {integration?.data.installationId ? (
           <SettingsForm
-            installationId={installationId}
+            integration={integration}
             repositories={repositories}
-            selectedRepositoryId={selectedRepositoryId}
             onSuccess={closeHandler}
             onCancel={closeHandler}
           />

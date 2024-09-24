@@ -1,9 +1,9 @@
 'use client';
-import { config } from '@/config';
 import {
   Button,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,18 +20,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { selectRepository } from '../_actions';
+import { updateSettings } from '../_actions';
 import { SupportButton } from '@/components';
+import type { api } from '@ds-project/api/rsc';
 
 export function SettingsForm({
-  installationId,
-  selectedRepositoryId,
+  integration,
   repositories,
   onSuccess,
   onCancel,
 }: {
-  installationId: number;
-  selectedRepositoryId?: number;
+  integration: Awaited<ReturnType<typeof api.integrations.github>>;
   repositories?: { id: number; name: string }[];
   onSuccess?: () => void;
   onCancel?: () => void;
@@ -43,25 +42,28 @@ export function SettingsForm({
     installationId: z.number(),
     repositoryId: z.coerce.number(),
     tokensPath: z.string().optional(),
+    targetGitBranch: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: {
-      repositoryId: selectedRepositoryId,
-      installationId,
-      tokensPath: config.defaultGitTokensPath,
+      repositoryId: integration?.data.repositoryId,
+      installationId: integration?.data.installationId,
+      tokensPath: integration?.data.tokensPath,
+      targetGitBranch: integration?.data.targetGitBranch,
     },
   });
 
   const onSubmit = useCallback(
     async (values: z.infer<typeof formSchema>) => {
       setIsSubmitting(true);
-      const result = await selectRepository({
+      const result = await updateSettings({
         installationId: values.installationId,
         repositoryId: values.repositoryId,
         tokensPath: values.tokensPath,
+        targetGitBranch: values.targetGitBranch,
       });
       setIsSubmitting(false);
 
@@ -133,6 +135,26 @@ export function SettingsForm({
                 <FormControl>
                   <Input placeholder={'eg. path/to/tokens'} {...field} />
                 </FormControl>
+                <FormDescription>
+                  Path to the directory containing the tokens.json file.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="targetGitBranch"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Target branch</FormLabel>
+                <FormControl>
+                  <Input placeholder={'eg. path/to/tokens'} {...field} />
+                </FormControl>
+                <FormDescription>
+                  Target git branch where the tokens.json file will be pushed.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

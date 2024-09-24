@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
       type: integrationType.enum.github,
       installationId: parseInt(installationId),
       tokensPath: config.defaultGitTokensPath,
+      targetGitBranch: config.defaultTargetGitBranch,
     });
 
     const validatedValues = InsertIntegrationsSchema.parse({

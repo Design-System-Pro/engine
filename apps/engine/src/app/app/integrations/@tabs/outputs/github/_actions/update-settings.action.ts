@@ -12,13 +12,14 @@ import { authorizedAction } from '@/lib/safe-action';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 
-export const selectRepository = authorizedAction
-  .metadata({ actionName: 'selectRepository' })
+export const updateSettings = authorizedAction
+  .metadata({ actionName: 'updateGithubSettings' })
   .schema(
     z.object({
       installationId: z.number(),
       repositoryId: z.number(),
       tokensPath: z.string().optional(),
+      targetGitBranch: z.string().optional(),
     })
   )
   .outputSchema(
@@ -27,12 +28,20 @@ export const selectRepository = authorizedAction
     })
   )
   .action(
-    async ({ parsedInput: { installationId, repositoryId, tokensPath } }) => {
+    async ({
+      parsedInput: {
+        installationId,
+        repositoryId,
+        tokensPath,
+        targetGitBranch,
+      },
+    }) => {
       const validatedData = await githubIntegrationSchema.parseAsync({
         type: integrationType.enum.github,
         installationId,
         repositoryId,
         tokensPath,
+        targetGitBranch,
       });
 
       await database

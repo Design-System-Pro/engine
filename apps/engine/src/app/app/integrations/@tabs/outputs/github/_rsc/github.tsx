@@ -30,9 +30,8 @@ export async function Github() {
     <GithubCard
       enableUrl={installationUrl}
       isEnabled={isInstallationActive}
-      installationId={githubIntegration?.data.installationId}
+      integration={githubIntegration}
       repositories={repositories}
-      selectedRepositoryId={githubIntegration?.data.repositoryId}
     />
   );
 }

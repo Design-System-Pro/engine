@@ -23,6 +23,7 @@ export const githubIntegrationSchema = z.object({
   installationId: z.number(),
   repositoryId: z.number().optional(),
   tokensPath: z.string(),
+  targetGitBranch: z.string(),
 });
 
 export const figmaIntegrationSchema = z.object({
