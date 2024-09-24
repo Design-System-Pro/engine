@@ -9,9 +9,7 @@
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
     "start": "next start",
-    "type-check": "tsc --noEmit",
-    "dr:build": "npx declarative-routing build",
-    "dr:build:watch": "npx declarative-routing build --watch"
+    "type-check": "tsc --noEmit"
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
@@ -44,7 +42,6 @@
     "next-safe-action": "^7.8.1",
     "postgres": "^3.4.4",
     "posthog-js": "^1.160.0",
-    "query-string": "^9.1.0",
     "rambda": "^9.2.1",
     "react": "catalog:",
     "react-diff-viewer": "^3.1.1",
