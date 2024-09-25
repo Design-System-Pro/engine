@@ -32,12 +32,12 @@ export const isAuthenticatedPath = (url: URL): boolean => {
 export const isFigmaAuthPath = (url: URL): boolean => {
   return (
     url.pathname.startsWith('/auth/sign-in') &&
-    url.searchParams.has('figma_key')
+    url.searchParams.has(config.FIGMA_QUERY_KEY)
   );
 };
 
 export const hasOnGoingFigmaAuth = (request: NextRequest): boolean => {
-  return request.cookies.has(config.FIGMA_KEY);
+  return request.cookies.has(config.FIGMA_COOKIE_KEY);
 };
 
 export const handleFigmaAuth = async ({
@@ -51,7 +51,7 @@ export const handleFigmaAuth = async ({
   url: URL;
   supabase: SupabaseClient<Database>;
 }) => {
-  const figmaKey = url.searchParams.get('figma_key');
+  const figmaKey = url.searchParams.get(config.FIGMA_QUERY_KEY);
   if (!figmaKey) {
     return response;
   }
@@ -68,11 +68,12 @@ export const handleFigmaAuth = async ({
       request,
     });
   } else {
-    response.cookies.set(config.FIGMA_KEY, figmaKey, {
+    response.cookies.set(config.FIGMA_COOKIE_KEY, figmaKey, {
       maxAge: 5 * 60,
       expires: 5 * 60 * 1000,
     });
     url.pathname = '/auth/sign-in';
+    url.search = '';
     return NextResponse.redirect(url, { ...response, status: 307 });
   }
 };
@@ -91,8 +92,8 @@ export const exchangeApiKey = async ({
   supabase: SupabaseClient<Database>;
 }) => {
   const figmaKey =
-    request.cookies.get(config.FIGMA_KEY)?.value ??
-    url.searchParams.get('figma_key');
+    request.cookies.get(config.FIGMA_COOKIE_KEY)?.value ??
+    url.searchParams.get(config.FIGMA_QUERY_KEY);
   const keyValue = await kv.getdel<KVCredentialsRead>(figmaKey ?? '');
 
   if (!keyValue) {
@@ -122,7 +123,8 @@ export const exchangeApiKey = async ({
     return response;
   }
 
-  response.cookies.delete(config.FIGMA_KEY);
+  response.cookies.delete(config.FIGMA_COOKIE_KEY);
   url.pathname = '/auth/success';
+  url.search = '';
   return NextResponse.redirect(url, { ...response, status: 307 });
 };

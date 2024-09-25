@@ -7,11 +7,12 @@
   "author": "Figma",
   "type": "module",
   "scripts": {
-    "build": "pnpm run build:ui && pnpm run build:widget -- --minify",
-    "build:ui": "npx vite build --minify esbuild",
-    "build:watch": "concurrently -n widget,ui \"pnpm run build:widget --watch\" \"pnpm run build:ui --watch\"",
+    "build": "pnpm run build:ui && pnpm run build:widget",
+    "build:ui": "npx vite build",
     "build:widget": "vite build -c ./vite.config.widget.ts",
-    "dev": "concurrently -n type-check,build,vite 'pnpm:type-check:watch' 'pnpm:build:watch' 'vite'",
+    "dev": "NODE_ENV='development' concurrently -n type-check,ui,widget 'pnpm:type-check:watch' 'pnpm:dev:ui' 'pnpm:dev:widget'",
+    "dev:ui": "NODE_ENV='development' vite build --watch --mode 'development'",
+    "dev:widget": "NODE_ENV='development' vite build -c ./vite.config.widget.ts --watch --mode 'development'",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
     "test": "pnpm run tsc && pnpm run build",
@@ -39,6 +40,7 @@
     "@ds-project/eslint": "workspace:*",
     "@ds-project/figma-utilities": "workspace:*",
     "@ds-project/prettier": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
     "@figma/plugin-typings": "catalog:",
     "@figma/widget-typings": "catalog:",
     "@types/react": "catalog:",
@@ -54,6 +56,6 @@
     "tailwindcss": "^3.4.10",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-singlefile": "^0.5.1"
+    "vite-plugin-singlefile": "catalog:"
   }
 }

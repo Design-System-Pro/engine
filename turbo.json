@@ -16,7 +16,8 @@
     "POSTGRES_URL",
     "SUPABASE_URL",
     "SUPABASE_ANON_KEY",
-    "NEXT_RUNTIME"
+    "NEXT_RUNTIME",
+    "VITE_API_HOST"
   ],
   "tasks": {
     "topo": {
