@@ -29,6 +29,7 @@ export function TRPCReactProvider(props: {
   source: string;
   accessToken?: string;
   trpcLinks?: TRPCLink<AppRouter>[];
+  baseUrl: string;
 }) {
   const queryClient = getQueryClient();
 
@@ -45,7 +46,7 @@ export function TRPCReactProvider(props: {
           }),
           unstable_httpBatchStreamLink({
             transformer: SuperJSON,
-            url: getBaseUrl() + '/api/v1',
+            url: `${props.baseUrl}/api/v1`,
             headers() {
               return {
                 'x-trpc-source': props.source,
@@ -57,7 +58,7 @@ export function TRPCReactProvider(props: {
           }),
         ],
       }),
-    [props.accessToken, props.source, props.trpcLinks]
+    [props.accessToken, props.baseUrl, props.source, props.trpcLinks]
   );
 
   return (
@@ -68,12 +69,3 @@ export function TRPCReactProvider(props: {
     </QueryClientProvider>
   );
 }
-
-const getBaseUrl = () => {
-  // if (typeof window !== 'undefined') return window.location.origin;
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
-  return `https://localhost:${process.env.PORT ?? 3000}`;
-};

@@ -1,0 +1,7 @@
+{
+  "extends": "@ds-project/typescript/base.json",
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
+  "include": ["src/**/*", "vite-env.d.ts"]
+}

@@ -44,7 +44,7 @@ export const resourcesRouter = createTRPCRouter({
   linkToProject: protectedProcedure
     .input(InsertResourcesSchema.pick({ name: true, projectId: true }))
     .mutation(async ({ ctx, input }) => {
-      return ctx.database.insert(Resources).values(input);
+      return ctx.database.insert(Resources).values(input).onConflictDoNothing();
     }),
 
   updateDesignTokens: protectedProcedure
