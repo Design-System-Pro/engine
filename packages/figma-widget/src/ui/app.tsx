@@ -8,7 +8,7 @@ import { Container } from './components/container';
 export function App() {
   useEffect(() => {
     // Announce to the plugin that the UI is ready to receive messages
-    emit('ui-is-ready', undefined);
+    return emit('ui-is-ready', undefined);
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { request } from '@ds-project/figma-utilities';
+import { requestAsync } from '@ds-project/figma-utilities';
 import { useUI } from '../../hooks/ui';
 import { useCleanupSyncedState, useSyncedCredentials } from '../state';
 
@@ -14,9 +14,16 @@ export function useAuthActions() {
 
   const connect = async () => {
     await open();
-    const { credentials } = await request('connect', undefined);
-    setSyncedCredentials(credentials);
-    close();
+
+    try {
+      const { credentials } = await requestAsync('connect', undefined, {
+        timeout: 2 * 60 * 1000, // 2 minutes
+      });
+
+      setSyncedCredentials(credentials);
+    } finally {
+      close();
+    }
   };
 
   return {

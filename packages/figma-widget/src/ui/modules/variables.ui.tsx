@@ -13,7 +13,7 @@ export function VariablesUI() {
   const { selectedProjectId } = useProjects();
 
   useEffect(() => {
-    handle('sync-variables', async ({ variables }) => {
+    return handle('sync-variables', async ({ variables }) => {
       // Update the design tokens when the variables are synced
       if (!fileName || !selectedProjectId) {
         return {
@@ -30,8 +30,6 @@ export function VariablesUI() {
       return {
         lastSyncedAt: new Date().getTime(),
       };
-    }).catch(() => {
-      console.error('Error handling sync-variables');
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: perhaps refactor handle so no more than one listener to the same message type is added
   }, []);

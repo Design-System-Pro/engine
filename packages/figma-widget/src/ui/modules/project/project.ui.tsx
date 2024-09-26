@@ -13,7 +13,7 @@ export function ProjectUI() {
   } = useProjects();
 
   useEffect(() => {
-    once('open-projects-ui', () => {
+    return once('set-project', () => {
       setIsVisible(true);
     });
   }, []);

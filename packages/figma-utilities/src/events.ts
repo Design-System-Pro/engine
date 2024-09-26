@@ -63,60 +63,106 @@ export function on<Name extends EventName>(
   name: Name,
   handler: ResponseHandler<Name>
 ) {
-  console.log(`🔁 on ${name}`);
-  return defaultOn(name, handler);
+  console.log(`[on] waiting for event '${name}'`);
+  const cancelOn = defaultOn(name, (data: Event[Name]['response']) => {
+    handler(data);
+  });
+
+  return () => {
+    console.log(`[on] cancelling event '${name}'`);
+    cancelOn();
+  };
 }
 
 export function once<Name extends EventName>(
   name: Name,
   handler: ResponseHandler<Name>
 ) {
-  console.log(`🔁 once ${name}`);
-  return defaultOnce(name, handler);
+  console.log(`[once] waiting for event '${name}'`);
+  const cancelOnce = defaultOnce(name, (data: Event[Name]['response']) => {
+    handler(data);
+  });
+
+  return () => {
+    console.log(`[once] cancelling event '${name}'`);
+    cancelOnce();
+  };
 }
 
 export function emit<Name extends EventName>(
   name: Name,
   data: Event[Name]['response']
 ) {
-  console.log(`🚀 emit ${name}`);
+  console.log(`[emit] sending event '${name}'`);
   return defaultEmit(name, data);
 }
 
-export async function request<Name extends EventName>(
+export function request<Name extends EventName>(
   name: Name,
-  data: Event[Name]['request']
+  data: Event[Name]['request'],
+  handler: ResponseHandler<Name>,
+  options: { timeout: number; onCanceled?: () => void } = { timeout: 10000 }
 ) {
-  console.log(`✈️ request ${name}`);
-  const response = new Promise<Event[Name]['response']>((resolve, _reject) => {
-    console.log(`✈️ request 🚀 emit ${name}`);
-    defaultEmit(name, data);
+  console.log(`[request] requesting event '${name}'`);
+  defaultEmit(name, data);
 
-    console.log(`✈️ request ⏰ wait for ${name}`);
-    defaultOn(name, resolve);
+  console.log(`[request] waiting for event '${name}'`);
+  const cancelOnce = defaultOnce(name, handler);
 
-    // TODO: handle timeout to reject the promise
-  });
-  return response;
+  const timeout = setTimeout(() => {
+    console.log(`[request] event '${name}' timeout`);
+    cancelOnce();
+    options.onCanceled?.();
+  }, options.timeout);
+
+  return () => {
+    console.log(`[request] cancelling event '${name}'`);
+    clearTimeout(timeout);
+    cancelOnce();
+    options.onCanceled?.();
+  };
 }
 
-export async function handle<Name extends EventName>(
+export function requestAsync<Name extends EventName>(
+  name: Name,
+  data: Event[Name]['request'],
+  options: { timeout: number } = { timeout: 10000 }
+): Promise<Event[Name]['response']> {
+  return new Promise((resolve, reject) => {
+    request(name, data, resolve, {
+      ...options,
+      onCanceled: reject,
+    });
+  });
+}
+
+export function handle<Name extends EventName>(
   name: Name,
   handler: (
     data: Event[Name]['request']
-  ) => Promise<Event[Name]['response']> | Event[Name]['response']
-): Promise<void> {
-  const response = await new Promise<Event[Name]['response']>(
-    (resolve, _reject) => {
-      console.log(`✈️ handle 🔁 on ${name}`);
-      defaultOn(name, (data: Event[Name]['request']) => {
-        console.log(`✈️ handle 🚀 emit ${name}`);
-        resolve(handler(data));
+  ) => Promise<Event[Name]['response']> | Event[Name]['response'],
+  options: { timeout: number } = { timeout: 10000 }
+): () => void {
+  console.log(`[handle] waiting for event '${name}'`);
+  const cancelOnce = defaultOnce(name, (data: Event[Name]['request']) => {
+    Promise.resolve(handler(data))
+      .then((response) => {
+        console.log(`[handle] responding to event '${name}'`);
+        defaultEmit(name, response);
+      })
+      .catch(() => {
+        console.error(`[handle] error handling event '${name}'`);
       });
+  });
 
-      // TODO: handle timeout to reject the promise
-    }
-  );
+  const timeout = setTimeout(() => {
+    console.log(`[handle] event '${name}' timeout`);
+    cancelOnce();
+  }, options.timeout);
 
-  return defaultEmit(name, response);
+  return () => {
+    console.log(`[handle] canceling event '${name}'`);
+    clearTimeout(timeout);
+    cancelOnce();
+  };
 }

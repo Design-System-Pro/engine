@@ -1,4 +1,4 @@
-import { request } from '@ds-project/figma-utilities';
+import { requestAsync } from '@ds-project/figma-utilities';
 import { useUI } from '../../hooks/ui';
 import { useSyncedLastSyncedAt } from '../state';
 import { extractDesignTokens } from '../design-tokens/extract-design-tokens';
@@ -17,10 +17,9 @@ export function useVariablesActions() {
 
     await open();
 
-    const { lastSyncedAt } = await request('sync-variables', {
+    const { lastSyncedAt } = await requestAsync('sync-variables', {
       variables: designTokens,
     });
-
     setLastSyncedAt(lastSyncedAt);
   };
 

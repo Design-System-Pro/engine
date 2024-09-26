@@ -66,13 +66,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    if (state === 'authorized' && credentials) {
-      void emit('set-credentials', { credentials });
-    } else if (state === 'unauthorized' && !credentials) {
-      void emit('set-credentials', { credentials: null });
-    }
-
     setShouldUpdatePlugin(false);
+    if (state === 'authorized' && credentials) {
+      return emit('set-credentials', { credentials });
+    } else if (state === 'unauthorized' && !credentials) {
+      return emit('set-credentials', { credentials: null });
+    }
   }, [credentials, shouldUpdatePlugin, state]);
 
   const logout = useCallback(() => {
@@ -129,7 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
 
         return; // continue polling
-      }, config.READ_INTERVAL);
+      }, config.API_KEY_READ_INTERVAL);
     });
   }, []);
 

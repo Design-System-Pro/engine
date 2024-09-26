@@ -1,7 +1,6 @@
 'use server';
 
 import { z } from 'zod';
-import { config } from '@/config';
 import { unprotectedAction } from '@/lib/safe-action';
 
 export const authAction = unprotectedAction
@@ -16,7 +15,6 @@ export const authAction = unprotectedAction
       email: email,
       options: {
         shouldCreateUser: true,
-        emailRedirectTo: `${config.pageUrl}/auth/callback`,
       },
     });
 

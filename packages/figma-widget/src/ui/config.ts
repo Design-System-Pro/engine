@@ -4,7 +4,7 @@ const featureFlags = {
 
 export const config = {
   API_HOST: import.meta.env.VITE_API_HOST,
-  READ_INTERVAL: 1 * 1000, // 1 seconds
+  API_KEY_READ_INTERVAL: 2 * 1000, // 2 seconds
   CREDENTIALS_KEY: 'ds-pro__credentials',
   PROJECT_ID_KEY: 'ds-pro__id',
   features: featureFlags,
