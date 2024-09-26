@@ -52,7 +52,7 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
         await linkResource({ projectId, name: fileName });
 
         setSelectedProjectId(projectId);
-        emit('set-project', { id: projectId, name: linkedProjectName });
+        return emit('set-project', { id: projectId, name: linkedProjectName });
       } catch (error) {
         console.error('Error linking project', { error });
       }

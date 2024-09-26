@@ -8,15 +8,13 @@ export function Auth() {
   const { login } = useAuth();
 
   useEffect(() => {
-    handle('connect', async () => {
+    return handle('connect', async () => {
       console.log('💅 Auth: Performing login');
       const credentials = await login();
 
       return {
         credentials,
       };
-    }).catch((error) => {
-      console.error('💅 Auth: Failed to perform login', error);
     });
   }, [login]);
 

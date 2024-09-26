@@ -9,6 +9,7 @@ import {
 import Image from 'next/image';
 import authBackground from '../_assets/auth-bg.svg';
 import { AuthForm } from './auth-form';
+import { Suspense } from 'react';
 
 export function AuthCard() {
   return (
@@ -29,7 +30,9 @@ export function AuthCard() {
       </CardHeader>
 
       <CardContent className="grid gap-4">
-        <AuthForm />
+        <Suspense fallback={'Loading...'}>
+          <AuthForm />
+        </Suspense>
       </CardContent>
     </Card>
   );

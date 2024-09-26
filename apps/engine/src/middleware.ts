@@ -34,10 +34,10 @@ export async function middleware(request: NextRequest) {
 
   // Figma middleware logic
   if (isFigmaAuthPath(url)) {
-    return handleFigmaAuth({ request, response, url, supabase });
+    return handleFigmaAuth({ response, url, supabase });
   }
 
-  if (hasOnGoingFigmaAuth(request)) {
+  if (hasOnGoingFigmaAuth(url)) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -47,7 +47,6 @@ export async function middleware(request: NextRequest) {
         url,
         user,
         supabase,
-        request,
       });
     }
   }
@@ -58,12 +57,14 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user && !isAuthPath(url) && isAuthenticatedPath(url)) {
+    // Encode the next url and redirect the user to the sign-in page
+    url.search = `?next=${encodeURI(`${url.pathname}${url.search}`)}`;
     url.pathname = '/auth/sign-in';
     return NextResponse.redirect(url, { ...response, status: 307 });
   }
 
   if (user && url.pathname.startsWith('/auth/sign-in')) {
-    url.pathname = '/app';
+    url.pathname = url.searchParams.get('next') ?? '/app';
     return NextResponse.redirect(url, { ...response, status: 307 });
   }
 

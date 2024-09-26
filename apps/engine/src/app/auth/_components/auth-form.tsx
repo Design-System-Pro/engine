@@ -23,7 +23,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const FormSchema = z.object({
   email: z.string().email({
@@ -39,6 +39,7 @@ const FormSchema = z.object({
 
 export const AuthForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [stage, setStage] = useState<'signin' | 'verify'>('signin');
   const [error, setError] = useState<string>();
@@ -59,7 +60,7 @@ export const AuthForm = () => {
       });
 
       if (result?.data?.ok) {
-        router.replace('/app');
+        router.replace(searchParams.get('next') ?? '/app');
       }
 
       if (result?.data?.error) {
