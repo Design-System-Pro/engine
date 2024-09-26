@@ -17,7 +17,7 @@ export function useAuthActions() {
 
     try {
       const { credentials } = await requestAsync('connect', undefined, {
-        timeout: 2 * 60 * 1000, // 2 minutes
+        timeout: 5 * 60 * 1000, // 5 minutes
       });
 
       setSyncedCredentials(credentials);

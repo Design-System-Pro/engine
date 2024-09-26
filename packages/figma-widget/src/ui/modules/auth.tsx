@@ -16,8 +16,7 @@ export function Auth() {
         credentials,
       };
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- Only want to run this once
-  }, []);
+  }, [login]);
 
   return null;
 }
