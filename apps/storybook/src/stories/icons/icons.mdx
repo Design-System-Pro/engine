@@ -4,23 +4,21 @@ import { Icons, LucideIcons } from '@ds-project/components';
 <Meta title="Components/Icons" />
 
 <IconGallery>
-  {Object.entries(Icons)
-    .map(([name, Icon]) => {
-      return (
-        <IconItem name={name}>
-          <Icon />
-        </IconItem>
-       );
-    })}
+  {Object.entries(Icons).map(([name, Icon]) => {
+    return (
+      <IconItem name={name}>
+        <Icon />
+      </IconItem>
+    );
+  })}
 </IconGallery>
 
 <IconGallery>
-  {Object.entries(LucideIcons)
-    .map(([name, Icon]) => {
-      return (
-        <IconItem name={name}>
-          <Icon />
-        </IconItem>
-       );
-    })}
+  {Object.entries(LucideIcons).map(([name, Icon]) => {
+    return (
+      <IconItem name={name}>
+        <Icon />
+      </IconItem>
+    );
+  })}
 </IconGallery>
