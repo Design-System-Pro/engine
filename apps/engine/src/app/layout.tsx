@@ -1,5 +1,6 @@
-import { Inter } from 'next/font/google';
 import './globals.css';
+
+import { Inter } from 'next/font/google';
 import { cn } from '@/lib/css';
 import { AnalyticsProvider } from '@/lib/analytics/provider';
 import { Toaster } from '@ds-project/components';

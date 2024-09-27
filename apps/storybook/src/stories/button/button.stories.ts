@@ -1,5 +1,5 @@
 import { Button } from '@ds-project/components';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Button',
