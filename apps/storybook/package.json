@@ -1,27 +1,28 @@
 {
   "name": "storybook",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "prettier": "@ds-project/prettier",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint",
-    "type-check": "tsc --noEmit --emitDeclarationOnly false",
+    "build": "storybook build",
+    "dev": "storybook dev -p 6006",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
   },
+  "prettier": "@ds-project/prettier",
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "react-hook-form": "^7.52.2"
   },
   "devDependencies": {
     "@ds-project/components": "workspace:*",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
+    "@etchteam/storybook-addon-css-variables-theme": "^3.0.0",
     "@storybook/addon-essentials": "^8.2.3",
     "@storybook/addon-interactions": "^8.2.3",
     "@storybook/addon-links": "^8.2.3",
@@ -41,6 +42,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "storybook": "^8.2.3",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "zod": "catalog:"
   }
 }

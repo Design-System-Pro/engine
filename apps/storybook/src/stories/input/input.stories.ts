@@ -1,10 +1,13 @@
 import { Input } from '@ds-project/components';
-import { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Input',
   component: Input,
-  args: {},
+  args: {
+    type: 'email',
+    placeholder: 'Email',
+  },
 } satisfies Meta<typeof Input>;
 
 export const Default = {};

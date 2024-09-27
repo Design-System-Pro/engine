@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body.sb-show-main {
+  background: hsl(var(--background)) !important;
+  height: 100%;
+}

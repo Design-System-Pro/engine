@@ -53,6 +53,8 @@ export const AuthForm = () => {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setLoading(true);
+    setError(undefined);
+
     if (stage === 'verify' && data.otpToken) {
       const result = await verifyOtpAction({
         email: data.email,

@@ -55,9 +55,15 @@ export function AccountMenu({ email }: AccountMenuProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
+          <Link href="/">
+            <Icons.HomeIcon className="mr-2 h-4 w-4" />
+            <span>Home Page</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href="/auth/logout">
             <Icons.ExitIcon className="mr-2 h-4 w-4" />
-            <span>Log out</span>
+            <span>Log Out</span>
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
