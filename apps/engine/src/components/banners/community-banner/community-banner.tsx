@@ -1,7 +1,6 @@
 import { Icons, Text } from '@ds-project/components';
 import Link from 'next/link';
 import Image from 'next/image';
-import discordIcon from './discord-icon.png';
 import { Button } from '@/components/button';
 import { config } from '@/config';
 
@@ -9,7 +8,7 @@ export function CommunityBanner() {
   return (
     <article
       id="community"
-      className="relative overflow-hidden flex flex-col gap-4 border border-zinc-600 rounded-md p-10 bg-zinc-900 text-zinc-50"
+      className="w-full relative overflow-hidden flex flex-col gap-4 border border-zinc-600 rounded-md p-10 bg-zinc-900 text-zinc-50"
     >
       <header>
         <Text size="lg">
@@ -29,9 +28,11 @@ export function CommunityBanner() {
         </Button>
       </div>
       <Image
-        src={discordIcon}
+        src="/img/discord.svg"
         alt=""
-        className="object-cover absolute size-64 -right-0 -top-10"
+        width={128}
+        height={97}
+        className="absolute -right-14 -bottom-12 size-80 opacity-35"
       />
     </article>
   );

@@ -15,6 +15,7 @@ export * from './icons';
 export * from './input-otp';
 export * from './input';
 export * from './label';
+export * from './link';
 export * from './menubar';
 export * from './navigation-menu';
 export * from './popover';

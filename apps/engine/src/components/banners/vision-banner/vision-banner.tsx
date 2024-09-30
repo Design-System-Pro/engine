@@ -2,21 +2,28 @@ import { Text } from '@ds-project/components';
 import { Card } from './_components/card';
 import { Pill } from '@/components/pill';
 
+import designTokensCover from './_assets/design-tokens.png';
+import integrationsCover from './_assets/integrations.png';
+import communityCover from './_assets/community.png';
+
 const cards = [
   {
     title: 'Design Tokens',
     description:
       'Synchronise, store and release design tokens directly from your design tool to your repositories.',
+    coverImage: designTokensCover,
   },
   {
     title: 'Integrations',
     description:
       'Seamlessly integrate your design system ecosystem so the tools work for you. And not the other way around.',
+    coverImage: integrationsCover,
   },
   {
     title: 'Community Driven',
     description:
       'Open-source solution, fostering collaboration and shared value.\nJoin our community.',
+    coverImage: communityCover,
   },
 ];
 

@@ -23,7 +23,7 @@
     }
   },
   "include": [
-    "globals.d.ts",
+    "src/globals.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

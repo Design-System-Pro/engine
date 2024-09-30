@@ -13,7 +13,7 @@ export default function Layout({
   return (
     <>
       <div className="landing-bg" />
-      <header className="sticky top-0 w-full flex justify-center">
+      <header className="sticky top-0 w-full flex justify-center z-10">
         <HomeNavigation />
       </header>
       <main className="flex min-h-screen w-full flex-col items-center py-2">

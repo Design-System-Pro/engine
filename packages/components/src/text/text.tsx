@@ -58,6 +58,9 @@ const textVariations = cva('', {
       muted: 'ds-text-muted-foreground',
     },
   },
+  defaultVariants: {
+    size: 'base',
+  },
 });
 
 type TextProps = VariantProps<typeof textVariations> & {
