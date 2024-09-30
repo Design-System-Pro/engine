@@ -30,5 +30,6 @@ export const config = {
   figmaWidgetUrl: 'https://www.figma.com/community/widget/1415369860836124974',
   feedbackUrl: 'https://ds-project.supahub.com',
   githubUrl: 'https://github.com/Design-System-Pro',
+  linkedinUrl: 'https://www.linkedin.com/company/design-system-pro',
   supportEmail: 'tomas@getds.pro',
 } as const;

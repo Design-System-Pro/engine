@@ -1,9 +1,9 @@
 import { FigmaLogo, GithubLogo, Icons, Text } from '@ds-project/components';
 import { Button } from '../button';
 import Image from 'next/image';
-import frame from './frame.svg';
 import { Pill } from '../pill';
 import Link from 'next/link';
+import frameImage from './frame-image.png';
 
 const compatibleWith = [
   {
@@ -73,9 +73,14 @@ export function Hero() {
           </ul>
         </div>
       </div>
-      <div className="w-7/12 md:w-full">
-        <Image src={frame} alt="" />
+      <div className="w-7/12 md:w-full overflow-hidden rounded-md">
+        <Image src={frameImage} alt="" />
       </div>
+      <svg className="absolute w-0 h-0">
+        <clipPath id="frame-path" clipPathUnits="objectBoundingBox">
+          <path d="M1,0.041 V0.961 C1,0.983,0.985,1,0.965,1 H0.036 C0.017,1,0.001,0.983,0.001,0.961 V0.523 C0.001,0.501,0.017,0.483,0.036,0.483 H0.143 C0.163,0.483,0.18,0.464,0.18,0.441 V0.041 C0.18,0.019,0.196,0.001,0.215,0.001 H0.965 C0.985,0.001,1,0.019,1,0.041"></path>
+        </clipPath>
+      </svg>
     </section>
   );
 }

@@ -8,6 +8,7 @@ export * from './integration-card';
 export * from './integration-logo';
 export * from './integration-settings';
 export * from './json-block';
+export * from './link';
 export * from './main-content';
 export * from './support-button';
 export * from './tooltip-info';
