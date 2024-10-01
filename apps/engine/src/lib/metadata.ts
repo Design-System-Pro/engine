@@ -5,13 +5,17 @@ interface GetMetadataArgs {
   title?: string;
 }
 
-export function getMetadata({ title }: GetMetadataArgs = {}): Metadata {
+export function getMetadata({ title: _title }: GetMetadataArgs = {}): Metadata {
+  const title = `${_title ? `${_title} | ` : ''}DS Pro`;
+  const description = 'Your Design System Engine';
   return {
-    title: `${title ? `${title} | ` : ''}DS Pro`,
-    description: 'Your Design System Engine',
+    title,
+    description,
     keywords: 'design system, devops, engine, design, system, design tokens',
     openGraph: {
       siteName: 'DS Pro',
+      title,
+      description,
       url: `${config.pageUrl}/api/og`,
       images: [`${config.pageUrl}/api/og`],
     },
