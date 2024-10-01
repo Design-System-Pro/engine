@@ -727,9 +727,15 @@ importers:
       '@create-figma-plugin/utilities':
         specifier: ^3.2.0
         version: 3.2.0
+      '@date-fns/tz':
+        specifier: ^1.1.2
+        version: 1.1.2
       '@tanstack/react-query':
         specifier: ^5.51.24
         version: 5.51.24(react@18.3.1)
+      date-fns:
+        specifier: ^3.6.0
+        version: 3.6.0
       memoize:
         specifier: ^10.0.0
         version: 10.0.0
@@ -1632,6 +1638,9 @@ packages:
   '@create-figma-plugin/utilities@3.2.0':
     resolution: {integrity: sha512-+5JddDqI6XjVJs0EqgLd+6B9ukjhHFEBesqPI/e0okqS+Ay7Gt3xsD0vMrZjVYfJcmRAprgJhdGBGJZjOZiQIA==}
     engines: {node: '>=20'}
+
+  '@date-fns/tz@1.1.2':
+    resolution: {integrity: sha512-Xmg2cPmOPQieCLAdf62KtFPU9y7wbQDq1OAzrs/bEQFvhtCPXDiks1CHDE/sTXReRfh/MICVkw/vY6OANHUGiA==}
 
   '@dicebear/adventurer-neutral@9.2.2':
     resolution: {integrity: sha512-XVAjhUWjav6luTZ7txz8zVJU/H0DiUy4uU1Z7IO5MDO6kWvum+If1+0OUgEWYZwM+RDI7rt2CgVP910DyZGd1w==}
@@ -9565,6 +9574,8 @@ snapshots:
       hex-rgb: 5.0.0
       natural-compare-lite: 1.4.0
       rgb-hex: 4.1.0
+
+  '@date-fns/tz@1.1.2': {}
 
   '@dicebear/adventurer-neutral@9.2.2(@dicebear/core@9.2.2)':
     dependencies:

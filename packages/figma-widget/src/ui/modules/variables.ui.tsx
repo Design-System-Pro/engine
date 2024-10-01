@@ -28,7 +28,7 @@ export function VariablesUI() {
       });
 
       return {
-        lastSyncedAt: new Date().getTime(),
+        lastSyncedAt: new Date().toISOString(),
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TODO: perhaps refactor handle so no more than one listener to the same message type is added

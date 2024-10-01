@@ -34,7 +34,7 @@ type Event = Implements<
     'sync-variables': {
       request: { variables: DesignTokens };
       response: {
-        lastSyncedAt: number | null;
+        lastSyncedAt: string | null;
       };
     };
 

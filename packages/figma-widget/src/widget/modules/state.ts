@@ -13,7 +13,7 @@ export const useSyncedLinkedProject = () => {
 };
 
 export const useSyncedLastSyncedAt = () => {
-  return useSyncedState<number | null>('lastSyncedAt', null);
+  return useSyncedState<string | null>('lastSyncedAt', null);
 };
 
 export const useCleanupSyncedState = () => {
