@@ -14,13 +14,14 @@ import { serverEnv } from './env/server-env';
 export const config = {
   /**
    * Match all paths except for:
-   * 1. /api/ routes
-   * 2. /_next/ (Next.js internals)
-   * 3. /_proxy/m (Monitoring - Sentry proxy)
-   * 4. /_proxy/a (Analytics - PostHog proxy)
-   * 5. /*.* (static files like /favicon.ico, /sitemap.xml, /robots.txt, etc.)
+   * 1. /static/ (static files)
+   * 2. /api/ routes
+   * 3. /_next/ (Next.js internals)
+   * 4. /_proxy/m (Monitoring - Sentry proxy)
+   * 5. /_proxy/a (Analytics - PostHog proxy)
+   * 6. /*.* (static files like /favicon.ico, /sitemap.xml, /robots.txt, etc.)
    */
-  matcher: ['/((?!api/|_next/|_proxy/m|_proxy/a|[\\w-]+\\.\\w+).*)'],
+  matcher: ['/((?!static/|api/|_next/|_proxy/m|_proxy/a|[\\w-]+\\.\\w+).*)'],
 };
 
 export async function middleware(request: NextRequest) {

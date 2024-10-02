@@ -1,24 +1,29 @@
 {
-  "name": "email",
+  "name": "@ds-project/email",
   "private": true,
-  "type": "module",
-  "prettier": "@ds-project/prettier-config",
-  "scripts": {
-    "dev": "email dev"
-  },
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "dev": "email dev --dir ./templates",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint",
+    "type-check": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "prettier": "@ds-project/prettier",
+  "dependencies": {
+    "@react-email/components": "0.0.24",
+    "@react-email/render": "^1.0.1",
+    "react": "catalog:",
+    "resend": "^4.0.0"
+  },
   "devDependencies": {
-    "@types/react": "catalog:",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",
-    "react-email": "3.0.1",
-    "eslint": "catalog:"
-  },
-  "dependencies": {
-    "@react-email/components": "0.0.24",
-    "react": "catalog:"
+    "@types/react": "catalog:",
+    "eslint": "catalog:",
+    "react-email": "3.0.1"
   }
 }

@@ -28,6 +28,7 @@
     "lint": "eslint",
     "migrate": "pnpx tsx --conditions=react-server src/migrate.ts",
     "reset": "supabase db reset && pnpm migrate",
+    "restart": "supabase stop && supabase start",
     "squash": "supabase migration squash --local",
     "start": "supabase start",
     "status": "supabase status",
