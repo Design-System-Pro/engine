@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --experimental-https",
+    "dev": "next dev",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
+    "prebuild": "tsx ./scripts/copy-email-static-files.ts",
+    "predev": "tsx ./scripts/copy-email-static-files.ts",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -20,6 +22,7 @@
     "@ds-project/auth": "workspace:*",
     "@ds-project/components": "workspace:*",
     "@ds-project/database": "workspace:*",
+    "@ds-project/email": "workspace:*",
     "@hookform/resolvers": "^3.9.0",
     "@octokit/app": "^15.1.0",
     "@octokit/auth-oauth-app": "^8.1.1",
@@ -45,7 +48,7 @@
     "next": "catalog:",
     "next-safe-action": "^7.8.1",
     "postgres": "^3.4.4",
-    "posthog-js": "^1.160.0",
+    "posthog-js": "^1.166.0",
     "rambda": "^9.2.1",
     "react": "catalog:",
     "react-diff-viewer": "^3.1.1",
@@ -55,6 +58,7 @@
     "react-json-view-lite": "^1.4.0",
     "server-only": "^0.0.1",
     "sharp": "^0.33.5",
+    "standardwebhooks": "^1.0.0",
     "style-dictionary": "catalog:",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
@@ -68,6 +72,7 @@
     "@ds-project/typescript": "workspace:*",
     "@next/env": "^14.2.13",
     "@octokit/types": "^13.5.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "catalog:",
     "@types/object-hash": "^3.0.6",
     "@types/react": "catalog:",
@@ -75,9 +80,11 @@
     "drizzle-kit": "^0.24.2",
     "eslint": "catalog:",
     "eslint-config-next": "14.2.5",
+    "fs-extra": "^11.2.0",
     "jiti": "^1.21.6",
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
+    "tsx": "^4.19.1",
     "typescript": "catalog:"
   }
 }
