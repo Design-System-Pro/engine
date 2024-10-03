@@ -7,8 +7,9 @@ import { render } from '@ds-project/email/src/render';
 import { config } from '@/config';
 import { Webhook } from 'standardwebhooks';
 
+const resend = new Resend(serverEnv.RESEND_API_KEY);
+
 export async function POST(request: NextRequest) {
-  const resend = new Resend(serverEnv.RESEND_API_KEY);
   const wh = new Webhook(serverEnv.SEND_EMAIL_HOOK_SECRET);
   const payload = await request.text();
   const headers = Object.fromEntries(request.headers);
