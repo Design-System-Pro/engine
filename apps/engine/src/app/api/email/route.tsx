@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      throw error;
+      throw new Error(error.message, { cause: error.name });
     }
   } catch (error) {
     return NextResponse.json(

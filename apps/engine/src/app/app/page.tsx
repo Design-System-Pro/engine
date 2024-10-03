@@ -48,12 +48,25 @@ const items = [
       </p>
     ),
   },
+  {
+    title: 'What does early-release mean?',
+    content: (
+      <p>
+        DS Pro is currently in its early-release stage, meaning it’s still
+        undergoing development and refinement.
+        <br />
+        During this phase, <b>data, features, and APIs may change</b>, which can
+        affect stability. As a result, DS Pro is not yet recommended for use in
+        production environments.
+      </p>
+    ),
+  },
 ];
 
 export default function Home() {
   return (
     <MainContent
-      description="DS Pro is in experimental phase. Your data or features might change or get lost with no warning."
+      description="DS Pro is in early-release stage"
       title="Welcome 👋"
     >
       <div className="flex justify-center w-full">
