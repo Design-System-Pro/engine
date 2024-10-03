@@ -8,6 +8,8 @@
     "dev": "next dev",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
+    "prebuild": "tsx ./scripts/copy-email-static-files.ts",
+    "predev": "tsx ./scripts/copy-email-static-files.ts",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -70,6 +72,7 @@
     "@ds-project/typescript": "workspace:*",
     "@next/env": "^14.2.13",
     "@octokit/types": "^13.5.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "catalog:",
     "@types/object-hash": "^3.0.6",
     "@types/react": "catalog:",
@@ -77,9 +80,11 @@
     "drizzle-kit": "^0.24.2",
     "eslint": "catalog:",
     "eslint-config-next": "14.2.5",
+    "fs-extra": "^11.2.0",
     "jiti": "^1.21.6",
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
+    "tsx": "^4.19.1",
     "typescript": "catalog:"
   }
 }

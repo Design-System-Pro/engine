@@ -47,6 +47,8 @@ certificates
 # vite timestamp - remove after it's fixed: https://github.com/vitejs/vite/issues/13267
 **/vite.config.ts.timestamp-*
 
+# app specific
+apps/engine/public/static/email
 
 # package specific
 packages/components/src/components
