@@ -1,73 +1,19 @@
 import 'server-only';
 
-import type { RequestError } from '@octokit/types';
-import type { Octokit } from '@octokit/core';
 import { getInstallationOctokit } from '../octokit';
-
-async function getBaseCommitSha({
-  octokit,
-  targetBranchName,
-  baseBranchName,
-  repo,
-  owner,
-}: {
-  octokit: Octokit;
-  targetBranchName: string;
-  baseBranchName: string;
-  repo: string;
-  owner: string;
-}) {
-  try {
-    // Try to get the head SHA of the feature branch if it exists
-    const {
-      data: {
-        object: { sha: branchSha },
-      },
-    } = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
-      ref: `heads/${targetBranchName}`,
-      repo,
-      owner,
-    });
-
-    return branchSha; // return the base SHA to the head of the existing branch
-  } catch (error: unknown) {
-    if ((error as RequestError).status === 404) {
-      // If the branch does not exist, use the main branch as the base
-      const {
-        data: {
-          object: { sha: mainSha },
-        },
-      } = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
-        ref: `heads/${baseBranchName}`,
-        repo,
-        owner,
-      });
-
-      // Create a new branch from the main branch
-      await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
-        ref: `refs/heads/${targetBranchName}`,
-        sha: mainSha,
-        owner,
-        repo,
-      });
-
-      return mainSha;
-    }
-
-    throw new Error('Error getting base commit SHA');
-  }
-}
+import { getBaseCommitSha } from './get-base-commit-sha';
 
 export async function pushFile({
   file,
   owner,
   repo,
   installationId,
+  defaultBranchName,
   targetBranchName,
   baseBranchName = 'main',
 }: {
   file: {
-    encoding: 'utf-8' | 'base64';
+    encoding: 'base64';
     content: string;
     name: string;
     path?: string;
@@ -75,9 +21,13 @@ export async function pushFile({
   owner: string;
   repo: string;
   installationId: number;
+  defaultBranchName: string;
   targetBranchName: string;
   baseBranchName?: string;
 }) {
+  const message = '[ds-pro] 💅 Sync Tokens';
+  const path = `${file.path ?? ''}${file.name}`;
+
   const octokit = await getInstallationOctokit(installationId);
 
   const baseCommitSha = await getBaseCommitSha({
@@ -88,51 +38,78 @@ export async function pushFile({
     octokit,
   });
 
-  // create a new blob
-  const {
-    data: { sha: blobSha },
-  } = await octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
-    content: file.content,
-    encoding: file.encoding,
-    owner,
-    repo,
-  });
+  if (baseCommitSha) {
+    const {
+      data: { sha: blobSha },
+    } = await octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
+      content: file.content,
+      encoding: file.encoding,
+      owner,
+      repo,
+    });
 
-  // create a new tree
-  const {
-    data: { sha: treeSha },
-  } = await octokit.request('POST /repos/{owner}/{repo}/git/trees', {
-    base_tree: baseCommitSha,
-    tree: [
-      {
-        path: `${file.path ?? ''}/${file.name}`,
-        mode: '100644',
-        type: 'blob',
-        sha: blobSha,
-      },
-    ],
-    owner,
-    repo,
-  });
+    // create a new tree
+    const {
+      data: { sha: treeSha },
+    } = await octokit.request('POST /repos/{owner}/{repo}/git/trees', {
+      base_tree: baseCommitSha.sha,
+      tree: [
+        {
+          path,
+          mode: '100644',
+          type: 'blob',
+          sha: blobSha,
+        },
+      ],
+      owner,
+      repo,
+    });
 
-  // create a new commit
-  const {
-    data: { sha: commitSha },
-  } = await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
-    message: '[ds-project] 💅 Sync Tokens',
-    tree: treeSha,
-    parents: [baseCommitSha],
-    owner,
-    repo,
-  });
+    // create a new commit
+    const {
+      data: { sha: commitSha },
+    } = await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
+      message,
+      tree: treeSha,
+      parents: [baseCommitSha.sha],
+      owner,
+      repo,
+    });
 
-  // update the branch with the new commit
-  await octokit.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
-    ref: `heads/${targetBranchName}`,
-    sha: commitSha,
-    owner,
-    repo,
-  });
+    if (baseCommitSha.branchType === 'base') {
+      // create a new branch
+      await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+        ref: `refs/heads/${targetBranchName}`,
+        sha: commitSha,
+        owner,
+        repo,
+      });
+    } else {
+      // update the branch with the new commit
+      await octokit.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
+        ref: `heads/${targetBranchName}`,
+        sha: commitSha,
+        owner,
+        repo,
+      });
+    }
+  } else {
+    // // create a new blob
+    // create a commit in an empty repository
+    await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+      owner,
+      repo,
+      path,
+      message,
+      content: file.content,
+      branch: targetBranchName,
+    });
+  }
+
+  if (defaultBranchName === targetBranchName) {
+    // No need to create PR since this is already being committed against the default branch.
+    return;
+  }
 
   // Check if a pull request already exists for this branch
   const { data: pullRequests } = await octokit.request(
@@ -150,7 +127,7 @@ export async function pushFile({
     await octokit.request('POST /repos/{owner}/{repo}/pulls', {
       owner,
       repo,
-      title: '[ds-project] 💅 Sync Tokens',
+      title: message,
       head: targetBranchName,
       base: baseBranchName,
       body: 'This PR updates the tokens to the latest version.',

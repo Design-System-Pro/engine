@@ -119,6 +119,12 @@ export function SettingsForm({
                         {repository.name}
                       </SelectItem>
                     ))}
+                    {repositories === undefined || repositories.length === 0 ? (
+                      <SelectItem value="no-repositories" disabled={true}>
+                        No access to repositories. Make sure the integration has
+                        access to repositories.
+                      </SelectItem>
+                    ) : null}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -131,12 +137,15 @@ export function SettingsForm({
             name="tokensPath"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Tokens path</FormLabel>
+                <FormLabel>Path</FormLabel>
                 <FormControl>
-                  <Input placeholder={'eg. path/to/tokens'} {...field} />
+                  <Input
+                    placeholder={'eg. path/to/tokens/. Defaults to root.'}
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
-                  Path to the directory containing the tokens.json file.
+                  Directory containing the tokens.json file.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -148,7 +157,7 @@ export function SettingsForm({
             name="targetGitBranch"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Target branch</FormLabel>
+                <FormLabel>Branch</FormLabel>
                 <FormControl>
                   <Input placeholder={'eg. path/to/tokens'} {...field} />
                 </FormControl>

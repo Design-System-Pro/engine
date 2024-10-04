@@ -44,5 +44,6 @@ export async function release({
     owner: repository.owner.login,
     repo: repository.name,
     targetBranchName: githubIntegration.data.targetGitBranch,
+    defaultBranchName: 'main',
   });
 }
