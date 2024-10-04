@@ -46,7 +46,7 @@ export function IntegrationSettings({
     <>
       <Sheet open={isOpen} onOpenChange={onOpenChange}>
         <SheetTrigger asChild>
-          <Button variant="outline" className="space-x-2">
+          <Button variant="outline" className="space-x-2" disabled={!isEnabled}>
             <Icons.GearIcon />
             <span>Settings</span>
           </Button>

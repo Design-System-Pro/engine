@@ -13,9 +13,9 @@ export async function getBaseCommitSha({
   baseBranchName: string;
   repo: string;
   owner: string;
-}): Promise<string> {
+}): Promise<{ sha: string; branchType: 'target' | 'base' } | undefined> {
   try {
-    // Try to get the head SHA of the target branch if it exists
+    // Step 1: Check if the target branch exists
     const {
       data: {
         object: { sha: targetBranchSha },
@@ -26,31 +26,40 @@ export async function getBaseCommitSha({
       owner,
     });
 
-    return targetBranchSha; // return the target SHA to the head of the existing branch
+    // If target branch exists, return its commit SHA
+    return { sha: targetBranchSha, branchType: 'target' };
   } catch (error: unknown) {
     if ((error as RequestError).status === 404) {
-      // If the branch does not exist, use the base branch as the base
-      const {
-        data: {
-          object: { sha: baseSha },
-        },
-      } = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
-        ref: `heads/${baseBranchName}`,
-        repo,
-        owner,
-      });
+      // Step 2: Target branch doesn't exist, check for the base branch
+      try {
+        const {
+          data: {
+            object: { sha: baseSha },
+          },
+        } = await octokit.request('GET /repos/{owner}/{repo}/git/ref/{ref}', {
+          ref: `heads/${baseBranchName}`,
+          repo,
+          owner,
+        });
 
-      // Create a new branch from the base branch
-      await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
-        ref: `refs/heads/${targetBranchName}`,
-        sha: baseSha,
-        owner,
-        repo,
-      });
+        return { sha: baseSha, branchType: 'base' }; // Return the SHA of the base branch (now used by target)
+      } catch (baseBranchError: unknown) {
+        // Step 4: Handle the case where the base branch doesn't exist (empty repository)
+        if ((baseBranchError as RequestError).status === 404) {
+          console.log(`No branches exist.`);
 
-      return baseSha;
+          return undefined; // No base branch and no commits exist
+        } else {
+          throw new Error('Error getting base branch');
+        }
+      }
+    } else if (
+      (error as RequestError).status === 409 // This means the repository is empty or unavailable
+    ) {
+      console.log(`Git repository is empty or unavailable`);
+      return undefined;
+    } else {
+      throw new Error('Error getting target branch SHA');
     }
-
-    throw new Error('Error getting base commit SHA');
   }
 }

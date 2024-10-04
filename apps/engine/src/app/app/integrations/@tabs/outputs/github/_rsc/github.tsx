@@ -19,8 +19,14 @@ export async function Github() {
       const octokit = await getInstallationOctokit(
         githubIntegration.data.installationId
       );
-      const { data } = await octokit.request('GET /installation/repositories');
-      return data.repositories;
+      try {
+        const { data } = await octokit.request(
+          'GET /installation/repositories'
+        );
+        return data.repositories;
+      } catch (error) {
+        console.error('No access to repositories');
+      }
     }
   })();
 
