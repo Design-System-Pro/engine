@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   }
 
   // Make sure cache is invalidated so even if user visits any cached route, a new request is made to the server
-  revalidatePath('/');
+  revalidatePath('/app');
 
   return NextResponse.redirect(new URL('/', req.url), {
     status: 302,
