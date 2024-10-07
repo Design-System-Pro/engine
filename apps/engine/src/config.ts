@@ -31,5 +31,6 @@ export const config = {
   feedbackUrl: 'https://ds-project.supahub.com',
   githubUrl: 'https://github.com/Design-System-Pro',
   linkedinUrl: 'https://www.linkedin.com/company/design-system-pro',
+  redditUrl: 'https://www.reddit.com/r/dspro',
   supportEmail: 'tomas@getds.pro',
 } as const;

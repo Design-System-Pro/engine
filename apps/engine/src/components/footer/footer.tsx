@@ -1,4 +1,4 @@
-import { DSProIcon, Icons, Text } from '@ds-project/components';
+import { DSProIcon, Icons, RedditIcon, Text } from '@ds-project/components';
 import { Button } from '../button';
 import { CommunityBanner } from '../banners/community-banner';
 import { config } from '@/config';
@@ -13,17 +13,22 @@ export function Footer() {
             <div>
               <DSProIcon width={72} height={72} className="text-white" />
               <div className="flex gap-2">
-                <Button asChild mode="dark" size="icon">
+                <Button asChild mode="dark" size="icon" title="GitHub">
                   <Link href={config.githubUrl}>
                     <Icons.GitHubLogoIcon />
                   </Link>
                 </Button>
-                <Button asChild mode="dark" size="icon">
+                <Button asChild mode="dark" size="icon" title="Reddit">
+                  <Link href={config.redditUrl}>
+                    <RedditIcon />
+                  </Link>
+                </Button>
+                <Button asChild mode="dark" size="icon" title="Discord">
                   <Link href={config.discordInviteUrl}>
                     <Icons.DiscordLogoIcon />
                   </Link>
                 </Button>
-                <Button asChild mode="dark" size="icon">
+                <Button asChild mode="dark" size="icon" title="LinkedIn">
                   <Link href={config.linkedinUrl}>
                     <Icons.LinkedInLogoIcon />
                   </Link>
