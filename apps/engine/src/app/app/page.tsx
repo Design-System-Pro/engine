@@ -49,6 +49,18 @@ const items = [
     ),
   },
   {
+    title: 'How to synchronize Figma Variables with GitHub?',
+    content: (
+      <p>
+        Currently, DS Pro allows to synchronize your transformed Figma Variables
+        into Design Tokens from Figma and commit them to GitHub for you.
+        <br />
+        <Link href={config.syncTokensVideoUrl}>check this tutorial</Link> and
+        learn how to.
+      </p>
+    ),
+  },
+  {
     title: 'What does early-release mean?',
     content: (
       <p>
