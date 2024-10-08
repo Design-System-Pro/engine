@@ -32,5 +32,7 @@ export const config = {
   githubUrl: 'https://github.com/Design-System-Pro',
   linkedinUrl: 'https://www.linkedin.com/company/design-system-pro',
   redditUrl: 'https://www.reddit.com/r/dspro',
+  syncTokensVideoUrl:
+    'https://www.loom.com/share/3b7d0f6092874932a606b2b9e163b3cf?sid=07f97a2f-99de-40cc-af2d-0ee434c004ad',
   supportEmail: 'tomas@getds.pro',
 } as const;
