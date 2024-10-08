@@ -1,0 +1,7 @@
+name: "DS Pro Tokens Release"
+description: "Connect with DS Pro and release your tokens"
+author: "DS Pro"
+inputs:
+  tokens_path:
+    description: "The repository path where the tokens.json can be found."
+    required: true

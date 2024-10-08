@@ -1,0 +1,22 @@
+{
+  "name": "@ds-project/action-release",
+  "prettier": "@ds-project/prettier",
+  "scripts": {
+    "build": "ncc build src/main.ts",
+    "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
+    "lint": "eslint",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ds-project/eslint": "workspace:*",
+    "@ds-project/prettier": "workspace:*",
+    "@ds-project/typescript": "workspace:*",
+    "typescript": "catalog:",
+    "eslint": "catalog:",
+    "@types/node": "catalog:",
+    "@vercel/ncc": "^0.38.2"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1"
+  }
+}
