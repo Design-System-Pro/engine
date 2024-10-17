@@ -1,0 +1,12 @@
+{
+  "extends": "@ds-project/typescript/internal-package.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["src"]
+}
