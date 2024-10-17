@@ -43,6 +43,7 @@ export function SettingsForm({
     repositoryId: z.coerce.number(),
     tokensPath: z.string().optional(),
     targetGitBranch: z.string().optional(),
+    defaultCommitMessage: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +54,7 @@ export function SettingsForm({
       installationId: integration?.data.installationId,
       tokensPath: integration?.data.tokensPath,
       targetGitBranch: integration?.data.targetGitBranch,
+      defaultCommitMessage: integration?.data.defaultCommitMessage,
     },
   });
 
@@ -64,6 +66,7 @@ export function SettingsForm({
         repositoryId: values.repositoryId,
         tokensPath: values.tokensPath,
         targetGitBranch: values.targetGitBranch,
+        defaultCommitMessage: values.defaultCommitMessage,
       });
       setIsSubmitting(false);
 
@@ -163,6 +166,23 @@ export function SettingsForm({
                 </FormControl>
                 <FormDescription>
                   Target git branch where the tokens.json file will be pushed.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="defaultCommitMessage"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Default Commit Message</FormLabel>
+                <FormControl>
+                  <Input placeholder="Update design tokens" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Default commit message when synchronizing tokens.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
       installationId: parseInt(installationId),
       tokensPath: config.defaultGitTokensPath,
       targetGitBranch: config.defaultTargetGitBranch,
+      defaultCommitMessage: config.defaultCommitMessage,
     });
 
     const validatedValues = InsertIntegrationsSchema.parse({

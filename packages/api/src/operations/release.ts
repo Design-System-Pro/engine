@@ -45,5 +45,6 @@ export async function release({
     repo: repository.name,
     targetBranchName: githubIntegration.data.targetGitBranch,
     defaultBranchName: 'main',
+    commitMessage: githubIntegration.data.defaultCommitMessage,
   });
 }
