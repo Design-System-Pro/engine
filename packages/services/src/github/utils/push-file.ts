@@ -10,6 +10,7 @@ export async function pushFile({
   installationId,
   defaultBranchName,
   targetBranchName,
+  commitMessage,
   baseBranchName = 'main',
 }: {
   file: {
@@ -23,9 +24,9 @@ export async function pushFile({
   installationId: number;
   defaultBranchName: string;
   targetBranchName: string;
+  commitMessage: string;
   baseBranchName?: string;
 }) {
-  const message = '[ds-pro] 💅 Sync Tokens';
   const path = `${file.path ?? ''}${file.name}`;
 
   const octokit = await getInstallationOctokit(installationId);
@@ -69,7 +70,7 @@ export async function pushFile({
     const {
       data: { sha: commitSha },
     } = await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
-      message,
+      message: commitMessage,
       tree: treeSha,
       parents: [baseCommitSha.sha],
       owner,
@@ -100,7 +101,7 @@ export async function pushFile({
       owner,
       repo,
       path,
-      message,
+      message: commitMessage,
       content: file.content,
       branch: targetBranchName,
     });
@@ -127,7 +128,7 @@ export async function pushFile({
     await octokit.request('POST /repos/{owner}/{repo}/pulls', {
       owner,
       repo,
-      title: message,
+      title: commitMessage,
       head: targetBranchName,
       base: baseBranchName,
       body: 'This PR updates the tokens to the latest version.',

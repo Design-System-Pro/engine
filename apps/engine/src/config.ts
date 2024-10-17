@@ -26,6 +26,7 @@ export const config = {
   figmaRedirectUri: `${pageUrl}/integrations/inputs/figma/callback`,
   defaultGitTokensPath: '',
   defaultTargetGitBranch: 'ds-pro/sync-tokens',
+  defaultCommitMessage: 'feat(tokens): [ds-pro] 💅 Sync Tokens',
   discordInviteUrl: 'https://discord.gg/FQSYMapc76',
   figmaWidgetUrl: 'https://www.figma.com/community/widget/1415369860836124974',
   feedbackUrl: 'https://ds-project.supahub.com',

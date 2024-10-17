@@ -24,6 +24,7 @@ export const githubIntegrationSchema = z.object({
   repositoryId: z.number().optional(),
   tokensPath: z.string(),
   targetGitBranch: z.string(),
+  defaultCommitMessage: z.string(),
 });
 
 export const figmaIntegrationSchema = z.object({
