@@ -1,9 +1,9 @@
 import { requestAsync } from '@ds-project/figma-utilities';
 import { useUI } from '../../hooks/ui';
 import { useSyncedLastSyncedAt } from '../state';
-import { extractDesignTokens } from '../design-tokens/extract-design-tokens';
 import { useAuthActions } from '../auth/auth.actions';
 import { useProjectActions } from '../project/project.actions';
+import { extractDesignTokens } from '../design-tokens/extract-design-tokens';
 
 export function useVariablesActions() {
   const { open } = useUI();

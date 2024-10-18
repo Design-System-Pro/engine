@@ -1,7 +1,7 @@
-import type { DesignToken } from 'style-dictionary/types';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export const tokenizeVariable =
-  (variableName: string) => (token: DesignToken) => {
+  (variableName: string) => (token: JSONTokenTree) => {
     const paths = [...variableName.split('/')];
 
     return paths.reduceRight((accumulator, path) => {

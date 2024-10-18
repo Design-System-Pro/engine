@@ -1,13 +1,13 @@
-import type { DesignToken } from 'style-dictionary/types';
+import type { Color, JSONTokenTree } from 'design-tokens-format-module';
 import { extractAlias } from './extract-alias';
-import { tokenizeVariable } from '../utils/tokenize-variable';
 import { config } from '../../../config';
-import { rgbToHex } from '../transformers';
+import { rgbToHex } from '../transformers/color';
+import { tokenizeVariable } from '../utils/tokenize-variable';
 
 export async function extractColor(
   variable: Variable,
   modeId: string
-): Promise<DesignToken> {
+): Promise<JSONTokenTree> {
   const value = variable.valuesByMode[modeId];
 
   if (
@@ -20,7 +20,7 @@ export async function extractColor(
     throw new Error('Unexpected color type');
   }
 
-  let colorOrAlias: string | undefined;
+  let colorOrAlias: Color.Value | undefined;
 
   if ('a' in value || 'r' in value) {
     // RGB | RGBA
@@ -32,14 +32,21 @@ export async function extractColor(
     colorOrAlias = await extractAlias(value.id, modeId);
   }
 
-  return tokenizeVariable(variable.name)({
+  if (!colorOrAlias) {
+    // We should not receive these types under color. If that happens, something went wrong during the extraction from Figma.
+    throw new Error('Unexpected color value');
+  }
+
+  const token = {
     $type: 'color',
-    $description: variable.description,
     $value: colorOrAlias,
-    extensions: {
+    $description: variable.description,
+    $extensions: {
       [config.extensionPluginKey]: {
         scopes: variable.scopes,
       },
     },
-  });
+  } satisfies Color.Token;
+
+  return tokenizeVariable(variable.name)(token);
 }

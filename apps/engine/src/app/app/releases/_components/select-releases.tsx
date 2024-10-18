@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from '@ds-project/components';
 import { useCallback, useEffect, useState } from 'react';
-import type { DesignTokens } from 'style-dictionary/types';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 import { InstallRelease, JsonBlock } from '@/components';
 import type { fetchReleases } from '../_actions';
 import { fetchReleaseTokens } from '../_actions/fetch-release-tokens.action';
@@ -19,7 +19,7 @@ interface SelectReleasesProps {
 export function SelectReleases({ releases }: SelectReleasesProps) {
   const [selectedRelease, setSelectedRelease] =
     useState<NonNullable<SelectReleasesProps['releases']>[number]>();
-  const [tokens, setTokens] = useState<DesignTokens>();
+  const [tokens, setTokens] = useState<JSONTokenTree>();
 
   const onReleaseChange = useCallback(
     (selectedReleaseId: string) => {

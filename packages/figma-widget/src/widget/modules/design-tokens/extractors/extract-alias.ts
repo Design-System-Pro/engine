@@ -1,10 +1,11 @@
 import { getModeKey } from '../utils/get-mode-key';
 import { collectionById } from '../utils/get-variable-collection';
+import type { AliasValue } from 'design-tokens-format-module';
 
 export async function extractAlias(
   variableId: string,
   modeId: string
-): Promise<string | undefined> {
+): Promise<AliasValue> {
   const variable = await figma.variables.getVariableByIdAsync(variableId);
 
   // TODO: Figure out if this modeId should be the collection one of the variable one when it comes to cross collection alias
@@ -23,5 +24,8 @@ export async function extractAlias(
 
   const collectionKey = collection ? collection.name.toLowerCase() : '';
 
-  return `{${collectionKey}.${modeKey}.${variable?.name.split('/').join('.')}}`.toLowerCase();
+  const aliasValue =
+    `${collectionKey}.${modeKey}.${variable?.name.split('/').join('.')}`.toLocaleLowerCase();
+
+  return `{${aliasValue}}`;
 }

@@ -1,3 +1,3 @@
 export const config = {
-  extensionPluginKey: 'pro.getds',
+  extensionPluginKey: 'pro.getds.figma',
 } as const;

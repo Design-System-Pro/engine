@@ -1,8 +1,8 @@
-import type { DesignTokens } from 'style-dictionary/types';
-import { extractVariableCollection } from './extractors/variable-collection';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 import { combinePaths } from './utils/combine-paths';
+import { extractVariableCollection } from './extractors/variable-collection';
 
-export async function extractDesignTokens(): Promise<DesignTokens> {
+export async function extractDesignTokens(): Promise<JSONTokenTree> {
   const collections = await figma.variables.getLocalVariableCollectionsAsync();
 
   const localVariableCollections = await Promise.all(
