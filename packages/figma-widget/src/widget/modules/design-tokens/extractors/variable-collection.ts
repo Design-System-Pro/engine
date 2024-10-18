@@ -1,11 +1,11 @@
-import type { DesignTokens } from 'style-dictionary/types';
 import { nonNullable } from '../utils/non-nullable';
 import { extractVariable } from './extract-variable';
 import { combinePaths } from '../utils/combine-paths';
+import { JSONTokenTree } from 'design-tokens-format-module';
 
 export const extractVariableCollection = async (
   variableCollection: VariableCollection
-): Promise<DesignTokens> => {
+): Promise<JSONTokenTree> => {
   const variables = (
     await Promise.all(variableCollection.variableIds.map(extractVariable))
   ).filter(nonNullable);

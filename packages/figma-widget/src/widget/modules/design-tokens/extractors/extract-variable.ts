@@ -1,15 +1,17 @@
-import type { DesignToken } from 'style-dictionary/types';
 import { extractModeVariable } from './extract-mode-variable';
 import { nonNullable } from '../utils/non-nullable';
 import { combinePaths } from '../utils/combine-paths';
 import { getModeKey } from '../utils/get-mode-key';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export const extractVariable = async (
   variableId: string
-): Promise<DesignToken | undefined> => {
+): Promise<JSONTokenTree> => {
   const variable = await figma.variables.getVariableByIdAsync(variableId);
 
-  if (!variable) return undefined;
+  if (!variable) {
+    throw new Error(`Variable id ${variableId} failed to fetch.`);
+  }
 
   const modeIds = Object.keys(variable.valuesByMode);
   const variableCollectionId = variable.variableCollectionId;

@@ -1,11 +1,14 @@
-import type { DesignTokens } from 'style-dictionary/types';
 import { extractColor } from './color';
 import { extractFloat } from './float';
+import type {
+  GroupProperties,
+  JSONTokenTree,
+} from 'design-tokens-format-module';
 
 export async function extractModeVariable(
   variable: Variable,
   modeId: string
-): Promise<DesignTokens | undefined> {
+): Promise<JSONTokenTree> {
   switch (variable.resolvedType) {
     case 'COLOR':
       return extractColor(variable, modeId);
@@ -15,7 +18,10 @@ export async function extractModeVariable(
     case 'STRING':
     default:
       return {
-        $type: `figma-variable-type:${variable.resolvedType}`,
-      };
+        $description: 'Not implemented',
+        $extensions: {
+          figmaType: `figma-variable-type:${variable.resolvedType}`,
+        },
+      } satisfies GroupProperties;
   }
 }

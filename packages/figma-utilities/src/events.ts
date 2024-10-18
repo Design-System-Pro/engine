@@ -3,8 +3,8 @@ import {
   emit as defaultEmit,
   once as defaultOnce,
 } from '@create-figma-plugin/utilities';
-import type { DesignTokens } from 'style-dictionary/types';
 import type { Credentials } from './credentials';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 const DEFAULT_EVENT_TIMEOUT = 10 * 1000; // 10 seconds
 
@@ -32,7 +32,7 @@ type Event = Implements<
     };
 
     'sync-variables': {
-      request: { variables: DesignTokens };
+      request: { variables: JSONTokenTree };
       response: {
         lastSyncedAt: string | null;
       };

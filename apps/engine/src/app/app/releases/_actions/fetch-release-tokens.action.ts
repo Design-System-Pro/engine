@@ -1,10 +1,9 @@
 'use server';
-import type { DesignTokens } from 'style-dictionary/types';
 import type { Octokit } from '@octokit/core';
 
 import { api } from '@ds-project/api/rsc';
 import { getInstallationOctokit } from '@ds-project/services/github';
-import { config } from '@/config';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 async function searchFileSha({
   octokit,
@@ -53,7 +52,7 @@ async function searchFileSha({
 
 export async function fetchReleaseTokens(
   releaseId: number
-): Promise<DesignTokens | null> {
+): Promise<JSONTokenTree | null> {
   const githubIntegration = await api.integrations.github();
 
   if (!githubIntegration) {
@@ -109,7 +108,10 @@ export async function fetchReleaseTokens(
     }
   );
 
-  const tokensPath = [...config.defaultGitTokensPath.split('/'), 'tokens.json'];
+  const tokensPath = [
+    ...githubIntegration.data.tokensPath.split('/'),
+    'tokens.json',
+  ];
   const fileSha = await searchFileSha({
     octokit,
     owner: repository.owner.login,
@@ -136,5 +138,5 @@ export async function fetchReleaseTokens(
     file.encoding as BufferEncoding
   ).toString();
 
-  return JSON.parse(tokens) as DesignTokens;
+  return JSON.parse(tokens) as JSONTokenTree;
 }

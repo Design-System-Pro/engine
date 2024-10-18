@@ -1,12 +1,12 @@
-import type { DesignToken } from 'style-dictionary/types';
-import { tokenizeVariable } from '../utils/tokenize-variable';
+import type { Dimension, JSONTokenTree } from 'design-tokens-format-module';
 import { extractAlias } from './extract-alias';
 import { config } from '../../../config';
+import { tokenizeVariable } from '../utils/tokenize-variable';
 
 export async function extractFloat(
   variable: Variable,
   modeId: string
-): Promise<DesignToken> {
+): Promise<JSONTokenTree> {
   const value = variable.valuesByMode[modeId];
 
   if (
@@ -19,23 +19,25 @@ export async function extractFloat(
     throw new Error('Unexpected float type');
   }
 
-  let floatOrAlias: number | string | undefined;
+  let floatOrAlias: Dimension.Value | undefined;
 
   if (typeof value === 'object' && 'id' in value) {
     floatOrAlias = await extractAlias(value.id, modeId);
   } else {
-    floatOrAlias = value;
+    floatOrAlias = `${value}px`;
   }
 
   // All scopes
 
-  return tokenizeVariable(variable.name)({
+  const token = {
     $type: 'dimension',
     $value: floatOrAlias,
-    extensions: {
+    $extensions: {
       [config.extensionPluginKey]: {
         scopes: variable.scopes,
       },
     },
-  });
+  } satisfies Dimension.Token;
+
+  return tokenizeVariable(variable.name)(token);
 }
