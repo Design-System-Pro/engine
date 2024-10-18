@@ -89,7 +89,11 @@ export const resourcesRouter = createTRPCRouter({
   create: protectedProcedure
     .input(InsertResourcesSchema)
     .mutation(({ ctx, input }) => {
-      return ctx.database.insert(Resources).values(input);
+      return ctx.database.insert(Resources).values({
+        name: input.name,
+        projectId: input.projectId,
+        designTokens: PreprocessedTokensSchema.parse(input.designTokens),
+      });
     }),
 
   delete: protectedProcedure

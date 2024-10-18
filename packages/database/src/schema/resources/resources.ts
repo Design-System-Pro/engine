@@ -7,48 +7,15 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
-import type { DesignTokens, DesignToken } from 'style-dictionary/types';
-import { z } from 'zod';
 import { Projects } from '../projects';
-
-// DesignToken schema
-const DesignTokenSchema = z
-  .object({
-    value: z.any().optional(),
-    $value: z.any().optional(),
-    type: z.string().optional(),
-    $type: z.string().optional(),
-    $description: z.string().optional(),
-    name: z.string().optional(),
-    comment: z.string().optional(),
-    themeable: z.boolean().optional(),
-    attributes: z.record(z.unknown()).optional(),
-    // Allow any additional properties
-  })
-  .catchall(z.any());
-
-// DesignTokens schema
-const DesignTokensSchema: z.ZodType<DesignTokens> = z.lazy(() =>
-  z
-    .object({
-      $type: z.string().optional(),
-      // Allow nesting of DesignTokens or DesignToken
-    })
-    .catchall(
-      z.union([
-        DesignTokenSchema,
-        z.lazy(() => DesignTokensSchema),
-        z.string(),
-        z.undefined(),
-      ])
-    )
-);
-
-// PreprocessedTokens schema
-export const PreprocessedTokensSchema: z.ZodType<DesignToken | DesignTokens> =
-  z.lazy(() => z.union([DesignTokenSchema, PreprocessedTokensSchema]));
-
-export type DesignTokensModel = z.infer<typeof PreprocessedTokensSchema>;
+import type { JSONTokenTree } from 'design-tokens-format-module';
+import { parseJSONTokenTree } from '@nclsndr/design-tokens-library';
+export const PreprocessedTokensSchema = {
+  parse: (jsonTokenTree: unknown): JSONTokenTree => {
+    const tokenTree = parseJSONTokenTree(jsonTokenTree, { throwOnError: true });
+    return tokenTree.toJSON() satisfies JSONTokenTree;
+  },
+};
 
 /**
  * Represents the resources linked to a design system.
@@ -68,13 +35,11 @@ export const Resources = pgTable(
       .references(() => Projects.id, { onDelete: 'cascade' })
       .notNull(),
     name: text('name').notNull(),
-    designTokens: json('design_tokens').$type<DesignTokensModel>(),
+    designTokens: json('design_tokens').$type<JSONTokenTree>(),
   },
   (resource) => ({
     unique: unique().on(resource.name, resource.projectId),
   })
 );
 
-export const InsertResourcesSchema = createInsertSchema(Resources, {
-  designTokens: () => PreprocessedTokensSchema,
-});
+export const InsertResourcesSchema = createInsertSchema(Resources);
