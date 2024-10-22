@@ -11,6 +11,7 @@ import { database } from '@ds-project/database/client';
 import { authorizedAction } from '@/lib/safe-action';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
+import { config } from '@/config';
 
 export const updateSettings = authorizedAction
   .metadata({ actionName: 'updateGithubSettings' })
@@ -20,7 +21,7 @@ export const updateSettings = authorizedAction
       repositoryId: z.number(),
       tokensPath: z.string().optional(),
       targetGitBranch: z.string().optional(),
-      defaultCommitMessage: z.string().optional(),
+      commitMessage: z.string().optional(),
     })
   )
   .outputSchema(
@@ -35,7 +36,7 @@ export const updateSettings = authorizedAction
         repositoryId,
         tokensPath,
         targetGitBranch,
-        defaultCommitMessage,
+        commitMessage,
       },
     }) => {
       const validatedData = await githubIntegrationSchema.parseAsync({
@@ -44,7 +45,10 @@ export const updateSettings = authorizedAction
         repositoryId,
         tokensPath,
         targetGitBranch,
-        defaultCommitMessage,
+        commitMessage:
+          commitMessage?.length === 0
+            ? config.defaultCommitMessage
+            : commitMessage,
       });
 
       await database

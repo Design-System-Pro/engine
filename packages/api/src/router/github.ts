@@ -1,8 +1,8 @@
 import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { getInstallationOctokit } from '@ds-project/services/github';
 import { getRef } from '../../../services/src/github/utils/get-ref';
-import type { DesignTokens } from 'style-dictionary/types';
 import { selectGithubIntegration } from '../queries/integrations';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export const githubRouter = createTRPCRouter({
   tokens: protectedProcedure.query(async ({ ctx }) => {
@@ -52,8 +52,8 @@ export const githubRouter = createTRPCRouter({
       return response.data.encoding === 'base64'
         ? (JSON.parse(
             Buffer.from(response.data.content, 'base64').toString()
-          ) as DesignTokens)
-        : (JSON.parse(response.data.content) as DesignTokens);
+          ) as JSONTokenTree)
+        : (JSON.parse(response.data.content) as JSONTokenTree);
     }
   }),
 });

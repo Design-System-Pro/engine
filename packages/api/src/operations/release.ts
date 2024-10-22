@@ -1,14 +1,14 @@
 import { getInstallationOctokit, pushFile } from '@ds-project/services/github';
 import { selectGithubIntegration } from '../queries/integrations';
 import type { DSContext } from '../types/context';
-import type { DesignTokensModel } from '@ds-project/database/schema';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export async function release({
   ctx,
   designTokens,
 }: {
   ctx: DSContext;
-  designTokens: DesignTokensModel | null;
+  designTokens: JSONTokenTree | null;
 }) {
   const githubIntegration = await selectGithubIntegration({ ctx });
 
@@ -45,6 +45,6 @@ export async function release({
     repo: repository.name,
     targetBranchName: githubIntegration.data.targetGitBranch,
     defaultBranchName: 'main',
-    commitMessage: githubIntegration.data.defaultCommitMessage,
+    commitMessage: githubIntegration.data.commitMessage,
   });
 }
