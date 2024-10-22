@@ -11,6 +11,7 @@ import { database } from '@ds-project/database/client';
 import { authorizedAction } from '@/lib/safe-action';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
+import { config } from '@/config';
 
 export const updateSettings = authorizedAction
   .metadata({ actionName: 'updateGithubSettings' })
@@ -44,7 +45,10 @@ export const updateSettings = authorizedAction
         repositoryId,
         tokensPath,
         targetGitBranch,
-        commitMessage,
+        commitMessage:
+          commitMessage?.length === 0
+            ? config.defaultCommitMessage
+            : commitMessage,
       });
 
       await database
