@@ -20,7 +20,7 @@ export const updateSettings = authorizedAction
       repositoryId: z.number(),
       tokensPath: z.string().optional(),
       targetGitBranch: z.string().optional(),
-      defaultCommitMessage: z.string().optional(),
+      commitMessage: z.string().optional(),
     })
   )
   .outputSchema(
@@ -35,7 +35,7 @@ export const updateSettings = authorizedAction
         repositoryId,
         tokensPath,
         targetGitBranch,
-        defaultCommitMessage,
+        commitMessage,
       },
     }) => {
       const validatedData = await githubIntegrationSchema.parseAsync({
@@ -44,7 +44,7 @@ export const updateSettings = authorizedAction
         repositoryId,
         tokensPath,
         targetGitBranch,
-        defaultCommitMessage,
+        commitMessage,
       });
 
       await database

@@ -23,6 +23,7 @@ import { z } from 'zod';
 import { updateSettings } from '../_actions';
 import { SupportButton } from '@/components';
 import type { api } from '@ds-project/api/rsc';
+import { config } from '@/config';
 
 export function SettingsForm({
   integration,
@@ -43,7 +44,7 @@ export function SettingsForm({
     repositoryId: z.coerce.number(),
     tokensPath: z.string().optional(),
     targetGitBranch: z.string().optional(),
-    defaultCommitMessage: z.string().optional(),
+    commitMessage: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -54,7 +55,7 @@ export function SettingsForm({
       installationId: integration?.data.installationId,
       tokensPath: integration?.data.tokensPath,
       targetGitBranch: integration?.data.targetGitBranch,
-      defaultCommitMessage: integration?.data.defaultCommitMessage,
+      commitMessage: integration?.data.commitMessage,
     },
   });
 
@@ -66,7 +67,7 @@ export function SettingsForm({
         repositoryId: values.repositoryId,
         tokensPath: values.tokensPath,
         targetGitBranch: values.targetGitBranch,
-        defaultCommitMessage: values.defaultCommitMessage,
+        commitMessage: values.commitMessage,
       });
       setIsSubmitting(false);
 
@@ -130,6 +131,9 @@ export function SettingsForm({
                     ) : null}
                   </SelectContent>
                 </Select>
+                <FormDescription>
+                  Repository where the tokens.json file will be pushed.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -174,15 +178,15 @@ export function SettingsForm({
 
           <FormField
             control={form.control}
-            name="defaultCommitMessage"
+            name="commitMessage"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Default Commit Message</FormLabel>
+                <FormLabel>Commit Message</FormLabel>
                 <FormControl>
-                  <Input placeholder="Update design tokens" {...field} />
+                  <Input placeholder={config.defaultCommitMessage} {...field} />
                 </FormControl>
                 <FormDescription>
-                  Default commit message when synchronizing tokens.
+                  Commit message when synchronizing tokens.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
