@@ -38,11 +38,8 @@ export async function extractString(
     throw new Error('Unexpected string value');
   }
 
-  if (
-    variable.scopes.includes('FONT_FAMILY') &&
-    typeof stringOrAlias === 'string'
-  ) {
-    let $value: string;
+  if (variable.scopes.includes('FONT_FAMILY')) {
+    let $value: string; // Or AliasValue, but since both are strings, typescript is not able to assert this
 
     if (typeof value === 'object' && 'id' in value) {
       $value = await extractAlias(value.id, modeId);
@@ -56,9 +53,7 @@ export async function extractString(
       $description: variable.description,
       $extensions: {
         [config.extensionPluginKey]: {
-          [config.extensionFigmaOriginKey]: {
-            scopes: variable.scopes,
-          },
+          scopes: variable.scopes,
         },
       },
     } satisfies FontFamily.Token);
@@ -88,26 +83,7 @@ export async function extractString(
     } satisfies FontWeight.Token);
   }
 
-  // Any other scope by default will be a dimension
+  // Any other scope by default will be ignored
 
-  let floatOrAlias: Dimension.Value | undefined;
-
-  if (typeof value === 'object' && 'id' in value) {
-    floatOrAlias = await extractAlias(value.id, modeId);
-  } else {
-    floatOrAlias = `${value}px`;
-  }
-
-  const token = {
-    $type: 'dimension',
-    $value: floatOrAlias,
-    $description: variable.description,
-    $extensions: {
-      [config.extensionPluginKey]: {
-        scopes: variable.scopes,
-      },
-    },
-  } satisfies Dimension.Token;
-
-  return tokenizeVariable(variable.name)(token);
+  return {};
 }
