@@ -1,7 +1,7 @@
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { authenticatedProcedure, createTRPCRouter } from '../trpc';
 
 export const usersRouter = createTRPCRouter({
-  getCurrent: protectedProcedure.query(({ ctx }) => {
+  getCurrent: authenticatedProcedure.query(({ ctx }) => {
     return {
       email: ctx.account.email,
     };
