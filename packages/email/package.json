@@ -6,7 +6,7 @@
   "author": "",
   "type": "module",
   "scripts": {
-    "dev": "email dev --dir ./templates",
+    "dev": "email dev --dir ./src/templates",
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore",
     "lint": "eslint",
     "type-check": "tsc --noEmit --emitDeclarationOnly false"
