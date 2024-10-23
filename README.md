@@ -14,7 +14,7 @@ Projects and teams have different needs and requirements, and that's the reason 
 
 ## Features
 
-- Figma Variables Synchronization - TODO: add link here
+- [Figma Variables Synchronization](https://www.figma.com/community/widget/1415369860836124974)
 - Augmented Token Management
 - Design Tokens Release Management
 
