@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { eq } from '@ds-project/database';
 
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { authenticatedProcedure, createTRPCRouter } from '../trpc';
 import {
   InsertResourcesSchema,
   PreprocessedTokensSchema,
@@ -11,7 +11,7 @@ import {
 import { release } from '../operations/release';
 
 export const resourcesRouter = createTRPCRouter({
-  getById: protectedProcedure
+  getById: authenticatedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.database.query.Resources.findFirst({
@@ -19,7 +19,7 @@ export const resourcesRouter = createTRPCRouter({
       });
     }),
 
-  getByProjectId: protectedProcedure
+  getByProjectId: authenticatedProcedure
     .input(
       z.object({
         projectId: z.string(),
@@ -41,13 +41,13 @@ export const resourcesRouter = createTRPCRouter({
       });
     }),
 
-  linkToProject: protectedProcedure
+  linkToProject: authenticatedProcedure
     .input(InsertResourcesSchema.pick({ name: true, projectId: true }))
     .mutation(async ({ ctx, input }) => {
       return ctx.database.insert(Resources).values(input).onConflictDoNothing();
     }),
 
-  updateDesignTokens: protectedProcedure
+  updateDesignTokens: authenticatedProcedure
     .input(
       z.object({
         name: z.string(),
@@ -86,7 +86,7 @@ export const resourcesRouter = createTRPCRouter({
       return resource;
     }),
 
-  create: protectedProcedure
+  create: authenticatedProcedure
     .input(InsertResourcesSchema)
     .mutation(({ ctx, input }) => {
       return ctx.database.insert(Resources).values({
@@ -96,7 +96,7 @@ export const resourcesRouter = createTRPCRouter({
       });
     }),
 
-  delete: protectedProcedure
+  delete: authenticatedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.database.delete(Resources).where(eq(Resources.id, input.id));

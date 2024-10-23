@@ -1,11 +1,11 @@
-import { createTRPCRouter, protectedProcedure } from '../trpc';
+import { createTRPCRouter, authenticatedProcedure } from '../trpc';
 import { getInstallationOctokit } from '@ds-project/services/github';
 import { getRef } from '../../../services/src/github/utils/get-ref';
 import { selectGithubIntegration } from '../queries/integrations';
 import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export const githubRouter = createTRPCRouter({
-  tokens: protectedProcedure.query(async ({ ctx }) => {
+  tokens: authenticatedProcedure.query(async ({ ctx }) => {
     const githubIntegration = await selectGithubIntegration({ ctx });
 
     if (!githubIntegration) {
