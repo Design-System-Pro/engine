@@ -22,6 +22,7 @@ export function Hero() {
       <div className="space-y-24">
         <div className="space-y-6">
           <div className="space-y-2">
+            <Pill>Early Release</Pill>
             <Text
               size="3xl"
               weight="semibold"
