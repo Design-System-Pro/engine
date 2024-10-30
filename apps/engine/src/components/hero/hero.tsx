@@ -1,9 +1,15 @@
-import { FigmaLogo, GithubLogo, Icons, Text } from '@ds-project/components';
-import { Button } from '../button';
+import {
+  Button,
+  FigmaLogo,
+  GithubLogo,
+  Icons,
+  Text,
+} from '@ds-project/components';
 import Image from 'next/image';
 import { Pill } from '../pill';
 import Link from 'next/link';
 import frameImage from './frame-image.png';
+import { config } from '@/config';
 
 const compatibleWith = [
   {
@@ -29,7 +35,7 @@ export function Hero() {
               leading="snug"
               className="text-zinc-950"
             >
-              <h1>The DevOps Platform for Design Systems</h1>
+              <h1>Your Design System Engine</h1>
             </Text>
             <Text
               size="base"
@@ -38,23 +44,20 @@ export function Hero() {
               className="text-zinc-500"
             >
               <p>
-                Release and manage Design Systems at scale without overwhelming
-                your engineers and designers.
+                Focus more on your Design System decisions and less on the tools
+                and integrations
               </p>
             </Text>
           </div>
           <div className="flex gap-2">
-            <Button mode="dark" asChild>
-              <Link href="/app">
-                Sign Up <Icons.ArrowRightIcon className="ml-2" />
+            <Button asChild>
+              <Link href={config.figmaWidgetUrl}>
+                <Icons.FigmaLogoIcon className="mr-2" /> Install Figma Widget
               </Link>
             </Button>
-            <Button asChild>
-              <Link
-                href="https://github.com/Design-System-Project/platform"
-                target="_blank"
-              >
-                <Icons.GitHubLogoIcon className="mr-2" /> Explore
+            <Button asChild variant="link">
+              <Link href="/auth/sign-in" target="_blank">
+                Sign Up
               </Link>
             </Button>
           </div>

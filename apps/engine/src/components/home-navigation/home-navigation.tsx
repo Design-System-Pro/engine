@@ -2,6 +2,7 @@ import { Button } from '@ds-project/components';
 import Image from 'next/image';
 import Link from 'next/link';
 import logoSvg from './assets/ds-logo.svg';
+import { config } from '@/config';
 
 const navigationItems = [
   {
@@ -12,15 +13,16 @@ const navigationItems = [
     label: 'Community',
     href: '#community',
   },
+  {
+    label: 'Sign Up',
+    href: '/auth/sign-up',
+  },
 ];
 export function HomeNavigation() {
   return (
     <nav className="bg-white border border-gray-300 rounded-xl flex p-2 shadow m-3 justify-between max-w-screen-sm gap-4">
       <Button variant="ghost">
-        <Image
-          src={logoSvg}
-          alt="Design System Project Logo - Redirects to Homepage"
-        />
+        <Image src={logoSvg} alt="DS Pro Logo - Redirects to Homepage" />
       </Button>
       <ul className="flex">
         {navigationItems.map((item) => (
@@ -31,8 +33,9 @@ export function HomeNavigation() {
           </li>
         ))}
       </ul>
+
       <Button asChild>
-        <Link href="/auth/sign-in">Sign Up</Link>
+        <Link href={config.figmaWidgetUrl}>Install</Link>
       </Button>
     </nav>
   );
