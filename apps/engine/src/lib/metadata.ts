@@ -11,7 +11,8 @@ export function getMetadata({ title: _title }: GetMetadataArgs = {}): Metadata {
   return {
     title,
     description,
-    keywords: 'design system, devops, engine, design, system, design tokens',
+    keywords:
+      'design system, devops, engine, design, system, design tokens, figma, figma widget',
     openGraph: {
       siteName: 'DS Pro',
       title,
