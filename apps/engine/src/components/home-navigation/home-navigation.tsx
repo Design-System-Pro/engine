@@ -15,7 +15,7 @@ const navigationItems = [
   },
   {
     label: 'Sign Up',
-    href: '/auth/sign-up',
+    href: '/auth/sign-in',
   },
 ];
 export function HomeNavigation() {
