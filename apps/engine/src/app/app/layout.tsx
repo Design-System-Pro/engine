@@ -14,14 +14,16 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@ds-project/components';
+import type { ReactNode } from 'react';
 
 export const metadata = getMetadata({ title: 'Dashboard' });
 
 export default async function RootLayout({
-  children,
+  connections,
 }: Readonly<{
-  children: React.ReactNode;
+  connections: ReactNode;
 }>) {
+  // const tabsSegment = useSelectedLayoutSegment('tabs');
   const projects = await api.projects.getAll();
   const user = await api.users.getCurrent();
   const showReleases = await getShowReleasesFlag();
@@ -65,7 +67,7 @@ export default async function RootLayout({
           </div>
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min"></div>
         </div> */}
-        {children}
+        {connections}
       </SidebarInset>
       {/* <main
       // className="flex min-h-screen w-full flex-col items-center"

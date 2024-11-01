@@ -41,7 +41,7 @@ const data = {
       items: [
         {
           title: 'Figma',
-          url: '#',
+          url: '/app/inputs',
         },
       ],
     },
@@ -52,7 +52,7 @@ const data = {
       items: [
         {
           title: 'GitHub',
-          url: '#',
+          url: '/app/outputs',
         },
       ],
     },
