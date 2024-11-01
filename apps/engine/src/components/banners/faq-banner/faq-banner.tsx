@@ -85,7 +85,7 @@ const items = [
 
 export function FaqBanner() {
   return (
-    <div className="flex flex-col gap-4 items-center w-full">
+    <div id="faq" className="flex flex-col gap-4 items-center w-full">
       <Text size="2xl" weight={'medium'} align={'center'}>
         <h2>Frequently asked questions</h2>
       </Text>

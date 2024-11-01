@@ -2,7 +2,18 @@
 
 import * as React from 'react';
 
-import { Icons, LucideIcons } from '@ds-project/components';
+import {
+  cn,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Icons,
+  LucideIcons,
+  PenpotLogo,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+} from '@ds-project/components';
 
 import {
   Sidebar,
@@ -34,6 +45,41 @@ const navigationItems = [
   },
 ];
 
+const groupItems = [
+  {
+    title: 'Sources',
+    icon: LucideIcons.Target,
+    items: [
+      {
+        title: 'Figma',
+        url: '/app/sources',
+        icon: LucideIcons.Figma,
+      },
+      {
+        title: 'Penpot',
+        icon: PenpotLogo,
+        disabled: true,
+      },
+    ],
+  },
+  {
+    title: 'Destinations',
+    icon: LucideIcons.Code2,
+    items: [
+      {
+        title: 'GitHub',
+        url: '/app/destinations',
+        icon: LucideIcons.Github,
+      },
+      {
+        title: 'GitLab',
+        icon: LucideIcons.Gitlab,
+        disabled: true,
+      },
+    ],
+  },
+];
+
 export function AppSidebar({ email }: { email: string }) {
   return (
     <Sidebar collapsible="icon">
@@ -51,15 +97,48 @@ export function AppSidebar({ email }: { email: string }) {
         <SidebarGroup>
           <SidebarGroupLabel>Connections</SidebarGroupLabel>
           <SidebarMenu>
-            {navigationItems.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title} asChild>
-                  <Link href={item.url}>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+            {groupItems.map((groupItem) => (
+              <Collapsible
+                key={groupItem.title}
+                asChild
+                defaultOpen={true}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton tooltip={groupItem.title}>
+                      <groupItem.icon />
+                      <span>{groupItem.title}</span>
+                      <LucideIcons.ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {groupItem.items.map((subItem) => (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          {subItem.disabled ? (
+                            <SidebarMenuSubButton
+                              className={cn({
+                                ['opacity-55']: subItem.disabled,
+                              })}
+                            >
+                              <subItem.icon />
+                              <span>{subItem.title}</span>
+                            </SidebarMenuSubButton>
+                          ) : (
+                            <SidebarMenuSubButton asChild>
+                              <a href={subItem.url}>
+                                <subItem.icon />
+                                <span>{subItem.title}</span>
+                              </a>
+                            </SidebarMenuSubButton>
+                          )}
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
             ))}
           </SidebarMenu>
         </SidebarGroup>
@@ -68,6 +147,14 @@ export function AppSidebar({ email }: { email: string }) {
         <SidebarGroup>
           <SidebarGroupLabel>Shortcuts</SidebarGroupLabel>
           <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/#faq" target="_blank">
+                  <LucideIcons.ShieldQuestion />
+                  <span>FAQs</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href={config.discordInviteUrl} target="_blank">
