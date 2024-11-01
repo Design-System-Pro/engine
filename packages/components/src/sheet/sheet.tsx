@@ -7,7 +7,6 @@ import type { VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 
 import { cn } from '@/utils';
-import { Text } from '@/text';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -106,33 +105,25 @@ SheetFooter.displayName = 'SheetFooter';
 
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof Text>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn('ds-text-foreground', className)}
-    asChild
-  >
-    <Text size="lg" weight="semibold" {...props}>
-      {children}
-    </Text>
-  </SheetPrimitive.Title>
+    className={cn('ds-text-lg ds-font-semibold ds-text-foreground', className)}
+    {...props}
+  />
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
 const SheetDescription = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof Text>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('ds-text-muted-foreground', className)}
-    asChild
-  >
-    <Text size="sm" {...props}>
-      {children}
-    </Text>
-  </SheetPrimitive.Description>
+    className={cn('ds-text-sm ds-text-muted-foreground', className)}
+    {...props}
+  />
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 

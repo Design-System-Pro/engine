@@ -2,10 +2,11 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
+
 import { cn } from '@/utils';
 
 const buttonVariants = cva(
-  'ds-inline-flex ds-items-center ds-justify-center ds-whitespace-nowrap ds-rounded-md ds-text-sm ds-font-medium ds-ring-offset-background ds-transition-colors focus-visible:ds-outline-none focus-visible:ds-ring-2 focus-visible:ds-ring-ring focus-visible:ds-ring-offset-2 disabled:ds-pointer-events-none disabled:ds-opacity-50 ds-cursor-pointer',
+  'ds-inline-flex ds-items-center ds-justify-center ds-gap-2 ds-whitespace-nowrap ds-rounded-md ds-text-sm ds-font-medium ds-ring-offset-background ds-transition-colors focus-visible:ds-outline-none focus-visible:ds-ring-2 focus-visible:ds-ring-ring focus-visible:ds-ring-offset-2 disabled:ds-pointer-events-none disabled:ds-opacity-50 [&_svg]:ds-pointer-events-none [&_svg]:ds-size-4 [&_svg]:ds-shrink-0',
   {
     variants: {
       variant: {

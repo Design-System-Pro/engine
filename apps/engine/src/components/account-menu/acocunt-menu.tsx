@@ -6,17 +6,16 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Button,
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Icons,
-  Text,
+  LucideIcons,
+  SidebarMenuButton,
 } from '@ds-project/components';
-import Link from 'next/link';
 import { useMemo } from 'react';
 
 interface AccountMenuProps {
@@ -35,36 +34,67 @@ export function AccountMenu({ email }: AccountMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="space-x-4">
-          <Avatar className="size-8">
-            <AvatarImage src={avatarUri} />
-            <AvatarFallback>{email}</AvatarFallback>
+        <SidebarMenuButton
+          size="lg"
+          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+        >
+          <Avatar className="h-8 w-8 rounded-lg">
+            {/* TODO: improve alt description, perhaps with user name when we ask for it */}
+            <AvatarImage src={avatarUri} alt={'User avatar'} />
+            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
           </Avatar>
-
-          <Text size="sm">
-            <span>Account</span>
-          </Text>
-        </Button>
+          <div className="grid flex-1 text-left text-sm leading-tight">
+            <span className="truncate font-semibold">{email}</span>
+            <span className="truncate text-xs">{email}</span>
+          </div>
+          <LucideIcons.ChevronsUpDown className="ml-auto size-4" />
+        </SidebarMenuButton>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuLabel>
-          <Text mood="muted" weight="normal">
-            <span>{email}</span>
-          </Text>
+      <DropdownMenuContent
+        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+        side="bottom"
+        align="end"
+        sideOffset={4}
+      >
+        <DropdownMenuLabel className="p-0 font-normal">
+          <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+            <Avatar className="h-8 w-8 rounded-lg">
+              {/* TODO: improve alt description, perhaps with user name when we ask for it */}
+              <AvatarImage src={avatarUri} alt={'User avatar'} />
+              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+            </Avatar>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="truncate font-semibold">{email}</span>
+              <span className="truncate text-xs">{email}</span>
+            </div>
+          </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/">
-            <Icons.HomeIcon className="mr-2 h-4 w-4" />
-            <span>Home Page</span>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/auth/logout">
-            <Icons.ExitIcon className="mr-2 h-4 w-4" />
-            <span>Log Out</span>
-          </Link>
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <LucideIcons.Sparkles />
+            Upgrade to Pro
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <LucideIcons.BadgeCheck />
+            Account
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <LucideIcons.CreditCard />
+            Billing
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <LucideIcons.Bell />
+            Notifications
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <LucideIcons.LogOut />
+          Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

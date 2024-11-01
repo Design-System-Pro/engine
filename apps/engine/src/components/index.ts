@@ -1,4 +1,5 @@
 export * from './app-navigation';
+export * from './app-sidebar';
 export * from './copy-to-clipboard';
 export * from './diff-block';
 export * from './favicon';
