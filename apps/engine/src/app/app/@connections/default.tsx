@@ -1,3 +1,3 @@
-import DefaultPage from './sources/page';
+import DefaultPage from './destinations/page';
 
 export default DefaultPage;
