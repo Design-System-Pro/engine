@@ -53,18 +53,14 @@ export function IntegrationSettings({
         </SheetTrigger>
         <SheetContent className="flex flex-col">
           <SheetHeader>
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center gap-2">
               {integrationLogo}
-              <SheetTitle size="base">
+              <SheetTitle>
                 <h3>Integration settings</h3>
               </SheetTitle>
             </div>
-            <SheetTitle size="base">
-              <h4>{name}</h4>
-            </SheetTitle>
-            <SheetDescription size="sm">
-              <p>Configure integration</p>
-            </SheetDescription>
+            <SheetTitle>{name}</SheetTitle>
+            <SheetDescription>Configure integration</SheetDescription>
           </SheetHeader>
           {children}
         </SheetContent>

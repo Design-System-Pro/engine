@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <section className="flex flex-wrap gap-2">
       <Figma />
-      <Penpot />
+      {/* <Penpot /> */}
     </section>
   );
 }

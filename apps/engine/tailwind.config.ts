@@ -4,11 +4,7 @@ const config: Config = {
   corePlugins: {
     preflight: false, // Usage of packages/components includes preflight already
   },
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       backgroundImage: {

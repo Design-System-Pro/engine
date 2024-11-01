@@ -7,7 +7,6 @@ import type { VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 
 import { cn } from '@/utils';
-import { Text } from '@/text';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -33,7 +32,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  'ds-fixed ds-z-50 ds-gap-4 ds-bg-background ds-p-6 ds-shadow-lg ds-transition ds-ease-in-out data-[state=open]:ds-animate-in data-[state=closed]:ds-animate-out data-[state=closed]:ds-duration-300 data-[state=open]:ds-duration-500',
+  'ds-fixed ds-z-50 ds-gap-4 ds-bg-background ds-p-6 ds-shadow-lg ds-transition ds-ease-in-out data-[state=closed]:ds-duration-300 data-[state=open]:ds-duration-500 data-[state=open]:ds-animate-in data-[state=closed]:ds-animate-out',
   {
     variants: {
       side: {
@@ -42,7 +41,7 @@ const sheetVariants = cva(
           'ds-inset-x-0 ds-bottom-0 ds-border-t data-[state=closed]:ds-slide-out-to-bottom data-[state=open]:ds-slide-in-from-bottom',
         left: 'ds-inset-y-0 ds-left-0 ds-h-full ds-w-3/4 ds-border-r data-[state=closed]:ds-slide-out-to-left data-[state=open]:ds-slide-in-from-left sm:ds-max-w-sm',
         right:
-          'ds-inset-y-0 ds-right-0 ds-h-full ds-w-3/4 ds- ds-border-l data-[state=closed]:ds-slide-out-to-right data-[state=open]:ds-slide-in-from-right sm:ds-max-w-sm',
+          'ds- ds-inset-y-0 ds-right-0 ds-h-full ds-w-3/4 ds-border-l data-[state=closed]:ds-slide-out-to-right data-[state=open]:ds-slide-in-from-right sm:ds-max-w-sm',
       },
     },
     defaultVariants: {
@@ -106,33 +105,25 @@ SheetFooter.displayName = 'SheetFooter';
 
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof Text>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Title
     ref={ref}
-    className={cn('ds-text-foreground', className)}
-    asChild
-  >
-    <Text size="lg" weight="semibold" {...props}>
-      {children}
-    </Text>
-  </SheetPrimitive.Title>
+    className={cn('ds-text-lg ds-font-semibold ds-text-foreground', className)}
+    {...props}
+  />
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
 const SheetDescription = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof Text>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
+>(({ className, ...props }, ref) => (
   <SheetPrimitive.Description
     ref={ref}
-    className={cn('ds-text-muted-foreground', className)}
-    asChild
-  >
-    <Text size="sm" {...props}>
-      {children}
-    </Text>
-  </SheetPrimitive.Description>
+    className={cn('ds-text-sm ds-text-muted-foreground', className)}
+    {...props}
+  />
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 

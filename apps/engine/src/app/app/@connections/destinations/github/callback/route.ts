@@ -43,5 +43,5 @@ export async function GET(request: NextRequest) {
     console.error('Failed to connect GitHub app.');
   }
 
-  return NextResponse.redirect(`${origin}/app/integrations/outputs`);
+  return NextResponse.redirect(`${origin}/app/destinations`);
 }

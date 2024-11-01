@@ -15,7 +15,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/css';
 import { HomeButton } from '../home-button';
 import type { SelectProjects } from '@ds-project/database/schema';
-import { AccountMenu } from '../account-menu/acocunt-menu';
+import { AccountMenu } from '../../modules/app-layout/acocunt-menu';
 import { config } from '@/config';
 
 interface AppNavigationProps {
