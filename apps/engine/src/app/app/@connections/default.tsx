@@ -1,3 +1,3 @@
-import DefaultPage from './inputs/page';
+import DefaultPage from './sources/page';
 
 export default DefaultPage;

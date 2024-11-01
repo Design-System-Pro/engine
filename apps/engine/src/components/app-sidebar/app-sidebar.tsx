@@ -38,10 +38,11 @@ const data = {
       title: 'Sources',
       url: '#',
       icon: LucideIcons.BookOpen,
+      isActive: true,
       items: [
         {
           title: 'Figma',
-          url: '/app/inputs',
+          url: '/app/sources',
         },
       ],
     },
@@ -52,7 +53,7 @@ const data = {
       items: [
         {
           title: 'GitHub',
-          url: '/app/outputs',
+          url: '/app/destinations',
         },
       ],
     },
