@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { LucideIcons } from '@ds-project/components';
+import { Icons, LucideIcons } from '@ds-project/components';
 
 import {
   Sidebar,
@@ -19,21 +19,20 @@ import {
 
 import Link from 'next/link';
 import { AccountMenu } from './acocunt-menu';
-// This is sample data.
-const data = {
-  navMain: [
-    {
-      title: 'GitHub',
-      url: '/app/destinations',
-      icon: LucideIcons.Github,
-    },
-    {
-      title: 'Figma',
-      url: '/app/sources',
-      icon: LucideIcons.Figma,
-    },
-  ],
-};
+import { config } from '@/config';
+
+const navigationItems = [
+  {
+    title: 'GitHub',
+    url: '/app/destinations',
+    icon: LucideIcons.Github,
+  },
+  {
+    title: 'Figma',
+    url: '/app/sources',
+    icon: LucideIcons.Figma,
+  },
+];
 
 export function AppSidebar({ email }: { email: string }) {
   return (
@@ -52,7 +51,7 @@ export function AppSidebar({ email }: { email: string }) {
         <SidebarGroup>
           <SidebarGroupLabel>Connections</SidebarGroupLabel>
           <SidebarMenu>
-            {data.navMain.map((item) => (
+            {navigationItems.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton tooltip={item.title} asChild>
                   <Link href={item.url}>
@@ -66,6 +65,26 @@ export function AppSidebar({ email }: { email: string }) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
+        <SidebarGroup>
+          <SidebarGroupLabel>Shortcuts</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={config.discordInviteUrl} target="_blank">
+                  <Icons.DiscordLogoIcon />
+                  <span>Discord</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={config.feedbackUrl} target="_blank">
+                  <LucideIcons.MessageSquareDot /> <span>Feedback</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
         <SidebarMenu>
           <SidebarMenuItem>
             <AccountMenu email={email} />
