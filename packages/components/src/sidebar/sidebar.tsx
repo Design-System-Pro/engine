@@ -218,7 +218,7 @@ const Sidebar = React.forwardRef<
     return (
       <div
         ref={ref}
-        className="ds-group ds-peer ds-hidden md:ds-block ds-text-sidebar-foreground"
+        className="ds-group ds-peer ds-hidden ds-text-sidebar-foreground md:ds-block"
         data-state={state}
         data-collapsible={state === 'collapsed' ? collapsible : ''}
         data-variant={variant}
@@ -521,7 +521,7 @@ const SidebarMenuItem = React.forwardRef<
 SidebarMenuItem.displayName = 'SidebarMenuItem';
 
 const sidebarMenuButtonVariants = cva(
-  'ds-peer/menu-button ds-flex ds-w-full ds-items-center ds-gap-2 ds-overflow-hidden ds-rounded-md ds-p-2 ds-text-left ds-text-sm ds-outline-none ds-ring-sidebar-ring ds-transition-[width,height,padding] hover:ds-bg-sidebar-accent hover:ds-text-sidebar-accent-foreground focus-visible:ds-ring-2 active:ds-bg-sidebar-accent active:ds-text-sidebar-accent-foreground disabled:ds-pointer-events-none disabled:ds-opacity-50 ds-group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:ds-pointer-events-none aria-disabled:ds-opacity-50 data-[active=true]:ds-bg-sidebar-accent data-[active=true]:ds-font-medium data-[active=true]:ds-text-sidebar-accent-foreground data-[state=open]:hover:ds-bg-sidebar-accent data-[state=open]:hover:ds-text-sidebar-accent-foreground group-data-[collapsible=icon]:ds-!size-8 group-data-[collapsible=icon]:ds-!p-2 [&>span:last-child]:ds-truncate [&>svg]:ds-size-4 [&>svg]:ds-shrink-0',
+  'ds-peer/menu-button ds-flex ds-w-full ds-items-center ds-gap-2 ds-overflow-hidden ds-rounded-md ds-p-2 ds-text-left ds-text-sm ds-outline-none ds-ring-sidebar-ring ds-transition-[width,height,padding] hover:ds-bg-sidebar-accent hover:ds-text-sidebar-accent-foreground focus-visible:ds-ring-2 active:ds-bg-sidebar-accent active:ds-text-sidebar-accent-foreground disabled:ds-pointer-events-none disabled:ds-opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:ds-pr-8 aria-disabled:ds-pointer-events-none aria-disabled:ds-opacity-50 data-[active=true]:ds-bg-sidebar-accent data-[active=true]:ds-font-medium data-[active=true]:ds-text-sidebar-accent-foreground data-[state=open]:hover:ds-bg-sidebar-accent data-[state=open]:hover:ds-text-sidebar-accent-foreground group-data-[collapsible=icon]:!ds-size-8 group-data-[collapsible=icon]:!ds-p-2 [&>span:last-child]:ds-truncate [&>svg]:ds-size-4 [&>svg]:ds-shrink-0',
   {
     variants: {
       variant: {
@@ -533,7 +533,7 @@ const sidebarMenuButtonVariants = cva(
       size: {
         default: 'ds-h-8 ds-text-sm',
         sm: 'ds-h-7 ds-text-xs',
-        lg: 'ds-h-12 ds-text-sm group-data-[collapsible=icon]:ds-!p-0',
+        lg: 'ds-h-12 ds-text-sm group-data-[collapsible=icon]:!ds-p-0',
       },
     },
     defaultVariants: {
@@ -682,7 +682,7 @@ const SidebarMenuSkeleton = React.forwardRef<
         />
       )}
       <Skeleton
-        className="ds-h-4 ds-flex-1 ds-max-w-[--skeleton-width]"
+        className="ds-h-4 ds-max-w-[--skeleton-width] ds-flex-1"
         data-sidebar="menu-skeleton-text"
         style={
           {

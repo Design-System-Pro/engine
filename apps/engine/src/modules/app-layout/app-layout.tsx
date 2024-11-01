@@ -1,4 +1,3 @@
-import { AppSidebar } from '@/components';
 import {
   Separator,
   SidebarInset,
@@ -6,6 +5,7 @@ import {
   SidebarTrigger,
 } from '@ds-project/components';
 import { BreadcrumbNav } from './breadcrumb-nav';
+import { AppSidebar } from './app-sidebar';
 
 export function AppLayout({
   children,
@@ -25,7 +25,7 @@ export function AppLayout({
             <BreadcrumbNav />
           </div>
         </header>
-        {children}
+        <div className="p-4">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -19,6 +19,6 @@ export const disableIntegration = authorizedAction
       .delete(Integrations)
       .where(and(eq(Integrations.type, integrationType.Enum.github)));
 
-    revalidatePath('/app/integrations/outputs');
+    revalidatePath('/app/destinations');
     return { success: true };
   });

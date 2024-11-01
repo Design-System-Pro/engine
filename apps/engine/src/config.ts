@@ -23,7 +23,7 @@ export const config = {
   isSentryEnabled: isProduction,
   FIGMA_QUERY_KEY: 'figma_key',
   FIGMA_COOKIE_KEY: 'figma.key',
-  figmaRedirectUri: `${pageUrl}/integrations/inputs/figma/callback`,
+  figmaRedirectUri: `${pageUrl}/app/sources/figma/callback`,
   defaultGitTokensPath: '',
   defaultTargetGitBranch: 'ds-pro/sync-tokens',
   defaultCommitMessage: 'feat(tokens): [ds-pro] 💅 Sync Tokens',

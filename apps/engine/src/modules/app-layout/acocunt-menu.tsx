@@ -8,7 +8,6 @@ import {
   AvatarImage,
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -16,6 +15,7 @@ import {
   LucideIcons,
   SidebarMenuButton,
 } from '@ds-project/components';
+import Link from 'next/link';
 import { useMemo } from 'react';
 
 interface AccountMenuProps {
@@ -38,7 +38,7 @@ export function AccountMenu({ email }: AccountMenuProps) {
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
         >
-          <Avatar className="h-8 w-8 rounded-lg">
+          <Avatar className="size-8 rounded-lg">
             {/* TODO: improve alt description, perhaps with user name when we ask for it */}
             <AvatarImage src={avatarUri} alt={'User avatar'} />
             <AvatarFallback className="rounded-lg">CN</AvatarFallback>
@@ -58,7 +58,7 @@ export function AccountMenu({ email }: AccountMenuProps) {
       >
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-            <Avatar className="h-8 w-8 rounded-lg">
+            <Avatar className="size-8 rounded-lg">
               {/* TODO: improve alt description, perhaps with user name when we ask for it */}
               <AvatarImage src={avatarUri} alt={'User avatar'} />
               <AvatarFallback className="rounded-lg">CN</AvatarFallback>
@@ -70,31 +70,17 @@ export function AccountMenu({ email }: AccountMenuProps) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <LucideIcons.Sparkles />
-            Upgrade to Pro
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <LucideIcons.BadgeCheck />
-            Account
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <LucideIcons.CreditCard />
-            Billing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <LucideIcons.Bell />
-            Notifications
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LucideIcons.LogOut />
-          Log out
+        <DropdownMenuItem asChild>
+          <Link href="/">
+            <LucideIcons.Home className="mr-2" />
+            Home
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/auth/logout">
+            <LucideIcons.LogOut className="mr-2" />
+            Log out
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

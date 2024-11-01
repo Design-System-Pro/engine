@@ -24,8 +24,8 @@ export function BreadcrumbNav() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        <BreadcrumbItem className="hidden md:block capitalize">
-          {connectionGroup}
+        <BreadcrumbItem className="hidden capitalize md:block">
+          Connections
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
         <BreadcrumbItem>

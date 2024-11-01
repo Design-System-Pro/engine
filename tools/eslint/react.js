@@ -1,5 +1,6 @@
 import reactPlugin from 'eslint-plugin-react';
 import hooksPlugin from 'eslint-plugin-react-hooks';
+import tailwindPlugin from 'eslint-plugin-tailwindcss';
 
 /** @type {Awaited<import('typescript-eslint').Config>} */
 export default [
@@ -19,4 +20,5 @@ export default [
       },
     },
   },
+  ...tailwindPlugin.configs['flat/recommended'],
 ];
