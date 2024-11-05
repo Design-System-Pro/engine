@@ -38,7 +38,6 @@
     "@tanstack/react-query": "^5.51.24",
     "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
-    "zod-form-data": "^2.0.2",
     "@vercel/flags": "^2.6.0",
     "@vercel/kv": "^2.0.0",
     "@vercel/og": "^0.6.2",
@@ -66,7 +65,8 @@
     "standardwebhooks": "^1.0.0",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-form-data": "^2.0.2"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
@@ -77,6 +77,7 @@
     "@octokit/types": "^13.5.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/fs-extra": "^11.0.4",
+    "@types/mdx": "^2.0.13",
     "@types/node": "catalog:",
     "@types/object-hash": "^3.0.6",
     "@types/react": "catalog:",
@@ -89,7 +90,6 @@
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
     "tsx": "^4.19.1",
-    "typescript": "catalog:",
-    "@types/mdx": "^2.0.13"
+    "typescript": "catalog:"
   }
 }
