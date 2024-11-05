@@ -1,4 +1,4 @@
-import { Button, Icons, Text } from '@ds-project/components';
+import { Button, Icons, Text } from '@ds-project/components/server';
 
 interface InstallReleaseProps {
   packageName: string;

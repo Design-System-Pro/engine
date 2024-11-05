@@ -1,7 +1,7 @@
 'use client';
 
 import { IntegrationCard } from '@/components';
-import { Button, Icons } from '@ds-project/components';
+import { Button, Icons } from '@ds-project/components/server';
 import { IntegrationLogo } from '@/components/integration-logo/integration-logo';
 import Link from 'next/link';
 import { config } from '@/config';

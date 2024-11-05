@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import { useCallback } from 'react';
 import { useProjects } from '../providers/projects-provider';
 

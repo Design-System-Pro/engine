@@ -1,10 +1,10 @@
-import { Button, Icons, Text } from '@ds-project/components';
+import { Button, Icons, Text } from '@ds-project/components/server';
 import Link from 'next/link';
 import { CloseWindowButton } from './_components/close-window-button';
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
+    <div className="flex h-screen flex-col items-center justify-center gap-4">
       <Text size="2xl" weight="medium">
         <h1>Figma Widget is connected!</h1>
       </Text>

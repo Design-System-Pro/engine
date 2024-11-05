@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { Link as StyledLink } from '@ds-project/components';
+import { Link as StyledLink } from '@ds-project/components/server';
 import type { ComponentProps } from 'react';
 
 type LinkProps = ComponentProps<typeof NextLink>;

@@ -1,16 +1,18 @@
 import {
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
   Icons,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@ds-project/components/client';
 import Link from 'next/link';
 import { cn } from '@/lib/css';
 import { HomeButton } from '../home-button';

@@ -13,7 +13,7 @@ class ActionError extends Error {}
 
 // Base client.
 const actionClient = createSafeActionClient({
-  handleReturnedServerError(e) {
+  handleServerError(e) {
     if (e instanceof ActionError) {
       return e.message;
     }
@@ -49,7 +49,7 @@ const actionClient = createSafeActionClient({
   })
   .use(async ({ ctx, next }) => {
     // Provide the auth client to the action.
-    const authClient = createServerClient<Database>();
+    const authClient = await createServerClient<Database>();
 
     return next({ ctx: { ...ctx, authClient } });
   });

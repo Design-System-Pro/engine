@@ -1,7 +1,7 @@
 'use client';
 
 import { IntegrationCard } from '@/components';
-import { Button, PenpotLogo } from '@ds-project/components';
+import { Button, PenpotLogo } from '@ds-project/components/server';
 import { IntegrationLogo } from '@/components/integration-logo/integration-logo';
 
 export function PenpotCard() {

@@ -8,15 +8,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-  Icons,
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import { Button, Icons } from '@ds-project/components/server';
 import type { ReactNode } from 'react';
 
 interface IntegrationSettingsProps {
@@ -55,9 +54,7 @@ export function IntegrationSettings({
               <SheetHeader>
                 <div className="flex items-center gap-2">
                   {integrationLogo}
-                  <SheetTitle>
-                    <h3>Integration settings</h3>
-                  </SheetTitle>
+                  <SheetTitle>Integration settings</SheetTitle>
                 </div>
                 <SheetTitle>{name}</SheetTitle>
                 <SheetDescription>Configure integration</SheetDescription>

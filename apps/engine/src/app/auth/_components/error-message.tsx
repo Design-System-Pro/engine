@@ -5,7 +5,7 @@ import {
   AlertDescription,
   AlertTitle,
   Icons,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export const ErrorMessage = ({ error }: { error?: string }) => (

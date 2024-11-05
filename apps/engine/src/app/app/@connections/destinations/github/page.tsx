@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
   Text,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import { JsonBlock } from '@/components';
 import { api } from '@ds-project/api/rsc';
 

@@ -1,5 +1,5 @@
 import { config } from '@/config';
-import { Button, LucideIcons } from '@ds-project/components';
+import { Button, LucideIcons } from '@ds-project/components/server';
 import Link from 'next/link';
 
 export function SupportButton() {

@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import { useCallback, useEffect, useState } from 'react';
 import type { JSONTokenTree } from 'design-tokens-format-module';
 import { InstallRelease, JsonBlock } from '@/components';

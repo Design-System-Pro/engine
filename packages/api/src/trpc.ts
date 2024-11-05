@@ -35,7 +35,7 @@ export const createTRPCContext = async (opts: {
   headers: Headers;
   account: Account | null;
 }) => {
-  const supabase = createServerClient<Database>();
+  const supabase = await createServerClient<Database>();
   const keyHippo = new KeyHippo(supabase);
   const { userId } = await keyHippo.authenticate(opts.headers);
 

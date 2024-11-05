@@ -1,4 +1,4 @@
-import { Icons } from '@ds-project/components';
+import { Icons } from '@ds-project/components/server';
 import { Message } from './_components';
 
 export default function Page() {

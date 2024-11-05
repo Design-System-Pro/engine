@@ -2,6 +2,7 @@
 
 import { shapes } from '@dicebear/collection';
 import { createAvatar } from '@dicebear/core';
+import { LucideIcons } from '@ds-project/components/server';
 import {
   Avatar,
   AvatarFallback,
@@ -12,9 +13,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  LucideIcons,
   SidebarMenuButton,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import Link from 'next/link';
 import { useMemo } from 'react';
 

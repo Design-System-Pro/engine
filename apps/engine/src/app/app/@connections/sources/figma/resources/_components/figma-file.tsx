@@ -1,11 +1,11 @@
 import {
-  AspectRatio,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
+import { AspectRatio } from '@ds-project/components/client';
 import { formatDistance, subDays } from 'date-fns';
 import Image from 'next/image';
 import { cn } from '@/lib/css';

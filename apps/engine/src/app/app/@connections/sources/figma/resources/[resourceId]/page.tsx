@@ -4,15 +4,14 @@ import {
   CardHeader,
   CardTitle,
   Text,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import { JsonBlock } from '@/components';
 import { getResource } from './_actions/resource.action';
 
-export default async function Page({
-  params,
-}: {
-  params: { resourceId: string };
+export default async function Page(props: {
+  params: Promise<{ resourceId: string }>;
 }) {
+  const params = await props.params;
   const resource = await getResource(params.resourceId);
 
   return (

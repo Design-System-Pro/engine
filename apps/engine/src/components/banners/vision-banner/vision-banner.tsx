@@ -1,4 +1,4 @@
-import { Text } from '@ds-project/components';
+import { Text } from '@ds-project/components/server';
 import { Card } from './_components/card';
 import { Pill } from '@/components/pill';
 
@@ -31,9 +31,9 @@ export function VisionBanner() {
   return (
     <section
       id="about"
-      className="flex w-full flex-col gap-11 py-10 min-h-[80vh] text-zinc-950 justify-center items-center"
+      className="flex min-h-[80vh] w-full flex-col items-center justify-center gap-11 py-10 text-zinc-950"
     >
-      <div className="w-full flex flex-col items-center gap-4">
+      <div className="flex w-full flex-col items-center gap-4">
         <Pill>Reduce complexity</Pill>
         <Text size="2xl" weight={'medium'} align={'center'}>
           <h2>
@@ -42,7 +42,7 @@ export function VisionBanner() {
           </h2>
         </Text>
       </div>
-      <ul className="grid grid-cols-1 md:grid-cols-3 auto-rows-fr gap-4 w-full">
+      <ul className="grid w-full auto-rows-fr grid-cols-1 gap-4 md:grid-cols-3">
         {cards.map((card, index) => (
           <li key={index} className="flex flex-col">
             <Card {...card} />

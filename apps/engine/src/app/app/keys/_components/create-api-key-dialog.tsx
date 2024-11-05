@@ -5,6 +5,11 @@ import {
   AlertDescription,
   AlertTitle,
   Button,
+  Icons,
+  Input,
+  Text,
+} from '@ds-project/components/server';
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -12,10 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Icons,
-  Input,
-  Text,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import { createApiKeyAction } from '../_actions/create-api-key';
 import type { FormEvent } from 'react';
 import { useState } from 'react';

@@ -1,4 +1,4 @@
-import { Button, Icons, Text } from '@ds-project/components';
+import { Button, Icons, Text } from '@ds-project/components/server';
 import Link from 'next/link';
 import { getFigma } from '@/lib/figma';
 import { api } from '@ds-project/api/rsc';

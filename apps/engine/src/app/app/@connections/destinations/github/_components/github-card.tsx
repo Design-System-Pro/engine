@@ -1,7 +1,7 @@
 'use client';
 
 import { IntegrationCard } from '@/components';
-import { Icons, Text, useToast } from '@ds-project/components';
+import { Icons, Text } from '@ds-project/components/server';
 import { useCallback, useState } from 'react';
 import { SettingsForm } from './settings-form';
 import { disableIntegration } from '../_actions/disable-integration.action';
@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { IntegrationLogo } from '@/components/integration-logo/integration-logo';
 import { IntegrationSettings } from '@/components/integration-settings/integration-settings';
 import type { api } from '@ds-project/api/rsc';
+import { useToast } from '@ds-project/components/client';
 
 interface GithubCardProps {
   isEnabled: boolean;

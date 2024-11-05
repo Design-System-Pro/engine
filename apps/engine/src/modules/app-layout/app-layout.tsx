@@ -3,7 +3,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import { BreadcrumbNav } from './breadcrumb-nav';
 import { AppSidebar } from './app-sidebar';
 

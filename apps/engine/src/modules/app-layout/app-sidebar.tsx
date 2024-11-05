@@ -3,13 +3,9 @@
 import * as React from 'react';
 
 import {
-  Badge,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-  Icons,
-  LucideIcons,
-  PenpotLogo,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
@@ -17,7 +13,13 @@ import {
   TooltipContent,
   TooltipPortal,
   TooltipTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import {
+  Icons,
+  LucideIcons,
+  PenpotLogo,
+  Badge,
+} from '@ds-project/components/server';
 
 import {
   Sidebar,
@@ -30,7 +32,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 
 import Link from 'next/link';
 import { AccountMenu } from './acocunt-menu';

@@ -1,4 +1,9 @@
-import { DSProIcon, Icons, RedditIcon, Text } from '@ds-project/components';
+import {
+  DSProIcon,
+  Icons,
+  RedditIcon,
+  Text,
+} from '@ds-project/components/server';
 import { Button } from '../button';
 import { CommunityBanner } from '../banners/community-banner';
 import { config } from '@/config';
@@ -7,9 +12,9 @@ import { Link } from './_components/link';
 export function Footer() {
   return (
     <footer className="flex w-full">
-      <div className="flex w-full bg-zinc-950 py-16 rounded-t-xl justify-center">
-        <div className="w-full max-w-screen-lg flex flex-col gap-6 mx-4">
-          <div className="flex w-full justify-between items-start gap-24">
+      <div className="flex w-full justify-center rounded-t-xl bg-zinc-950 py-16">
+        <div className="mx-4 flex w-full max-w-screen-lg flex-col gap-6">
+          <div className="flex w-full items-start justify-between gap-24">
             <div>
               <DSProIcon width={72} height={72} className="text-white" />
               <div className="flex gap-2">

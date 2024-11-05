@@ -6,7 +6,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import { useSelectedLayoutSegment } from 'next/navigation';
 
 export function BreadcrumbNav() {

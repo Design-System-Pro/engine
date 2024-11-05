@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Button,
   Form,
   FormControl,
   FormDescription,
@@ -9,8 +8,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import { Button, Input } from '@ds-project/components/server';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
@@ -41,7 +40,6 @@ export function FigmaForm() {
         form.setValue('thumbnailUrl', file.thumbnailUrl);
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console -- TODO: replace with monitoring
         console.error('Failed to get file preview', error);
       });
   }, [form, url]);

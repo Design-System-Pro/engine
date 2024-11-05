@@ -1,15 +1,16 @@
 import type { VariantProps } from '@ds-project/components';
-import { cn, cva, Slot } from '@ds-project/components';
+import { Slot } from '@ds-project/components';
+import { cn, cva } from '@ds-project/components';
 import { forwardRef } from 'react';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ds-ring-offset-background transition-colors focus-visible:outline-none focus-visible:ds-ring-2 focus-visible:ds-ring-ring focus-visible:ds-ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  'ds-ring-offset-background focus-visible:ds-ring-2 focus-visible:ds-ring-ring focus-visible:ds-ring-offset-2 inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       mode: {
         light:
-          'bg-zinc-50 border border-zinc-600 text-zinc-950 hover:bg-zinc-200/90',
-        dark: 'bg-zinc-900 border border-zinc-600 text-zinc-50 hover:bg-zinc-700/90',
+          'border border-zinc-600 bg-zinc-50 text-zinc-950 hover:bg-zinc-200/90',
+        dark: 'border border-zinc-600 bg-zinc-900 text-zinc-50 hover:bg-zinc-700/90',
       },
       size: {
         default: 'px-4 py-2',

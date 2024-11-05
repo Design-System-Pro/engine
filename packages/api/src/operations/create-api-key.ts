@@ -7,7 +7,7 @@ export async function createApiKey({
   userId,
   description,
 }: {
-  supabase: ReturnType<typeof createServerClient<Database>>;
+  supabase: Awaited<ReturnType<typeof createServerClient<Database>>>;
   userId: string;
   description: string;
 }): Promise<Awaited<ReturnType<typeof KeyHippo.prototype.createApiKey>>> {

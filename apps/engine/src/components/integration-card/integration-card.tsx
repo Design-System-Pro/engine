@@ -6,8 +6,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  cn,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
+import { cn } from '@ds-project/components';
 import type { ReactNode } from 'react';
 
 interface IntegrationCardProps {

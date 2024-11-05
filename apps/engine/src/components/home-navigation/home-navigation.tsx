@@ -1,4 +1,4 @@
-import { Button } from '@ds-project/components';
+import { Button } from '@ds-project/components/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import logoSvg from './assets/ds-logo.svg';
@@ -20,7 +20,7 @@ const navigationItems = [
 ];
 export function HomeNavigation() {
   return (
-    <nav className="bg-white border border-gray-300 rounded-xl flex p-2 shadow m-3 justify-between max-w-screen-sm gap-4">
+    <nav className="m-3 flex max-w-screen-sm justify-between gap-4 rounded-xl border border-gray-300 bg-white p-2 shadow">
       <Button variant="ghost">
         <Image src={logoSvg} alt="DS Pro Logo - Redirects to Homepage" />
       </Button>

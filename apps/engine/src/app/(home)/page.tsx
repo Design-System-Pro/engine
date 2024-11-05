@@ -10,7 +10,7 @@ export default function Home() {
       <div className="mx-4">
         <Hero />
       </div>
-      <div className="flex-col gap-4 max-w-screen-lg m-4">
+      <div className="m-4 max-w-screen-lg flex-col gap-4">
         <VisionBanner />
 
         <SyncFigmaBanner />
