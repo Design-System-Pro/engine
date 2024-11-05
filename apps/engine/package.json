@@ -38,7 +38,7 @@
     "@tanstack/react-query": "^5.51.24",
     "@trpc/react-query": "catalog:",
     "@trpc/server": "catalog:",
-    "@types/mdx": "^2.0.13",
+    "zod-form-data": "^2.0.2",
     "@vercel/flags": "^2.6.0",
     "@vercel/kv": "^2.0.0",
     "@vercel/og": "^0.6.2",
@@ -66,8 +66,7 @@
     "standardwebhooks": "^1.0.0",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
-    "zod": "^3.23.8",
-    "zod-form-data": "^2.0.2"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
@@ -90,6 +89,7 @@
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
     "tsx": "^4.19.1",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/mdx": "^2.0.13"
   }
 }
