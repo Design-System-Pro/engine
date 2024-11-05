@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import {
-  cn,
+  Badge,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -13,6 +13,10 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  Tooltip,
+  TooltipContent,
+  TooltipPortal,
+  TooltipTrigger,
 } from '@ds-project/components';
 
 import {
@@ -32,19 +36,6 @@ import Link from 'next/link';
 import { AccountMenu } from './acocunt-menu';
 import { config } from '@/config';
 
-const navigationItems = [
-  {
-    title: 'GitHub',
-    url: '/app/destinations',
-    icon: LucideIcons.Github,
-  },
-  {
-    title: 'Figma',
-    url: '/app/sources',
-    icon: LucideIcons.Figma,
-  },
-];
-
 const groupItems = [
   {
     title: 'Sources',
@@ -58,7 +49,8 @@ const groupItems = [
       {
         title: 'Penpot',
         icon: PenpotLogo,
-        disabled: true,
+        notImplemented: true,
+        roadmapLink: 'https://ds-project.supahub.com/p/integration-with-penpot',
       },
     ],
   },
@@ -74,7 +66,8 @@ const groupItems = [
       {
         title: 'GitLab',
         icon: LucideIcons.Gitlab,
-        disabled: true,
+        notImplemented: true,
+        roadmapLink: 'https://ds-project.supahub.com/p/integration-with-gitlab',
       },
     ],
   },
@@ -94,6 +87,18 @@ export function AppSidebar({ email }: { email: string }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Getting Started</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/app/getting-started/quickstart">
+                  <LucideIcons.Rocket /> Quickstart
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel>Connections</SidebarGroupLabel>
           <SidebarMenu>
@@ -116,15 +121,27 @@ export function AppSidebar({ email }: { email: string }) {
                     <SidebarMenuSub>
                       {groupItem.items.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
-                          {subItem.disabled ? (
-                            <SidebarMenuSubButton
-                              className={cn({
-                                ['opacity-55']: subItem.disabled,
-                              })}
-                            >
-                              <subItem.icon />
-                              <span>{subItem.title}</span>
-                            </SidebarMenuSubButton>
+                          {subItem.notImplemented ? (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <SidebarMenuSubButton
+                                  className="opacity-55"
+                                  asChild
+                                >
+                                  <Link href={subItem.roadmapLink}>
+                                    <subItem.icon />
+                                    <span>{subItem.title}</span>
+                                    <Badge variant="outline">Roadmap</Badge>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </TooltipTrigger>
+                              <TooltipPortal>
+                                <TooltipContent>
+                                  Click on this feature to up vote on our
+                                  roadmap
+                                </TooltipContent>
+                              </TooltipPortal>
+                            </Tooltip>
                           ) : (
                             <SidebarMenuSubButton asChild>
                               <a href={subItem.url}>
@@ -157,9 +174,9 @@ export function AppSidebar({ email }: { email: string }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href={config.discordInviteUrl} target="_blank">
+                <Link href={config.communityInviteUrl} target="_blank">
                   <Icons.DiscordLogoIcon />
-                  <span>Discord</span>
+                  <span>Community</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
