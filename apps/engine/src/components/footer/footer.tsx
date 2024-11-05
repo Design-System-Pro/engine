@@ -24,7 +24,7 @@ export function Footer() {
                   </Link>
                 </Button>
                 <Button asChild mode="dark" size="icon" title="Discord">
-                  <Link href={config.discordInviteUrl}>
+                  <Link href={config.communityInviteUrl}>
                     <Icons.DiscordLogoIcon />
                   </Link>
                 </Button>

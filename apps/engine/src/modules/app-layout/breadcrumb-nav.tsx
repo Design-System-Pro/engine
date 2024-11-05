@@ -10,26 +10,31 @@ import {
 import { useSelectedLayoutSegment } from 'next/navigation';
 
 export function BreadcrumbNav() {
-  const connectionGroup = useSelectedLayoutSegment('connections');
+  const groupKey = useSelectedLayoutSegment('connections');
 
-  if (!connectionGroup) {
-    return null;
-  }
+  const groupName = {
+    null: 'Getting Started',
+    quickstart: 'Getting Started',
+    sources: 'Sources',
+    destinations: 'Destinations',
+  }[String(groupKey)];
 
-  const connectionPage = {
+  const pageName = {
+    null: 'Quickstart',
     sources: 'Figma',
     destinations: 'GitHub',
-  }[connectionGroup];
+    quickstart: 'Quickstart',
+  }[String(groupKey)];
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className="hidden capitalize md:block">
-          {connectionGroup}
+          {groupName}
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
         <BreadcrumbItem>
-          <BreadcrumbPage>{connectionPage}</BreadcrumbPage>
+          <BreadcrumbPage>{pageName}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

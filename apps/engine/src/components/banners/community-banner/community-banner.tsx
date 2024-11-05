@@ -8,7 +8,7 @@ export function CommunityBanner() {
   return (
     <article
       id="community"
-      className="w-full relative overflow-hidden flex flex-col gap-4 border border-zinc-600 rounded-md p-10 bg-zinc-900 text-zinc-50"
+      className="relative flex w-full flex-col gap-4 overflow-hidden rounded-md border border-zinc-600 bg-zinc-900 p-10 text-zinc-50"
     >
       <header>
         <Text size="lg">
@@ -17,7 +17,7 @@ export function CommunityBanner() {
       </header>
       <div className="flex gap-2">
         <Button asChild>
-          <Link href={config.discordInviteUrl}>
+          <Link href={config.communityInviteUrl}>
             <Icons.DiscordLogoIcon className="mr-2" /> Join our Discord
           </Link>
         </Button>
@@ -32,7 +32,7 @@ export function CommunityBanner() {
         alt=""
         width={128}
         height={97}
-        className="absolute -right-14 -bottom-12 size-80 opacity-35"
+        className="absolute -bottom-12 -right-14 size-80 opacity-35"
       />
     </article>
   );

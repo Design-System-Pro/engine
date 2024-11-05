@@ -1,4 +1,5 @@
 import { withSentryConfig } from '@sentry/nextjs';
+import createMDX from '@next/mdx';
 import { fileURLToPath } from 'node:url';
 import createJiti from 'jiti';
 const jiti = createJiti(fileURLToPath(import.meta.url));
@@ -9,7 +10,8 @@ jiti('./src/env/client-env');
 const { serverEnv } = jiti('./src/env/server-env');
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const baseNextConfig = {
+  pageExtensions: ['md', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
       {
@@ -24,6 +26,21 @@ const nextConfig = {
 
   rewrites,
 
+  async redirects() {
+    return [
+      {
+        source: '/community',
+        destination: 'https://discord.gg/FQSYMapc76',
+        permanent: false,
+      },
+      {
+        source: '/feedback',
+        destination: 'https://ds-project.supahub.com',
+        permanent: false,
+      },
+    ];
+  },
+
   skipTrailingSlashRedirect: true,
 
   reactStrictMode: true,
@@ -36,7 +53,13 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
 };
 
-export default withSentryConfig(nextConfig, {
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+});
+
+const combinedNextConfig = withMDX(baseNextConfig);
+
+export default withSentryConfig(combinedNextConfig, {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 

@@ -93,7 +93,7 @@ export function AppNavigation({
           </Link>
         </Button>
         <Button variant="ghost" size="icon" title="Discord" asChild>
-          <Link href={config.discordInviteUrl} target="_blank">
+          <Link href={config.communityInviteUrl} target="_blank">
             <Icons.DiscordLogoIcon />
           </Link>
         </Button>
