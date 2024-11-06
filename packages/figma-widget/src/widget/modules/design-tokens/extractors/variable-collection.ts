@@ -1,7 +1,7 @@
 import { nonNullable } from '../utils/non-nullable';
 import { extractVariable } from './extract-variable';
 import { combinePaths } from '../utils/combine-paths';
-import { JSONTokenTree } from 'design-tokens-format-module';
+import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export const extractVariableCollection = async (
   variableCollection: VariableCollection

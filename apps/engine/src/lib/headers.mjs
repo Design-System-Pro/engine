@@ -18,7 +18,7 @@ const headers = async () => {
         },
         {
           key: 'Access-Control-Allow-Headers',
-          value: 'Content-Type, Authorization',
+          value: 'Content-Type, Authorization, x-trpc-source, trpc-accept',
         },
       ],
     },
