@@ -9,8 +9,13 @@ export const getModeKey = async ({
 }) => {
   const variableCollection = await collectionById(variableCollectionId);
 
-  return (
+  const modeKey = (
     variableCollection?.modes.find((mode) => mode.modeId === modeId)?.name ??
-    modeId
+    variableCollection?.modes.find(
+      (mode) => mode.modeId === variableCollection.defaultModeId
+    )?.name ??
+    '--error--'
   ).toLowerCase();
+
+  return modeKey;
 };
