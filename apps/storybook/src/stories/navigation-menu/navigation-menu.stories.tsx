@@ -1,8 +1,5 @@
 import {
-  Button,
-  cn,
   DSLogo,
-  Icons,
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -10,7 +7,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
+import { cn } from '@ds-project/components';
 import type { Meta } from '@storybook/react';
 import React from 'react';
 
@@ -68,7 +66,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
             {children}
           </p>
         </a>
@@ -91,12 +89,12 @@ export default {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="from-muted/50 to-muted flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    <DSLogo className="h-6 w-6" />
+                    <DSLogo className="size-6" />
                     <div className="mb-2 mt-4 text-lg font-medium">DS Pro</div>
-                    <p className="text-sm leading-tight text-muted-foreground">
+                    <p className="text-muted-foreground text-sm leading-tight">
                       Beautifully designed components that you can copy and
                       paste into your apps. Accessible. Customizable. Open
                       Source.

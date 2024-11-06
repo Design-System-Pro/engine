@@ -1,13 +1,13 @@
 import { getInstallationOctokit, pushFile } from '@ds-project/services/github';
 import { selectGithubIntegration } from '../queries/integrations';
-import type { DSContext } from '../types/context';
+import type { BaseContext } from '../types/context';
 import type { JSONTokenTree } from 'design-tokens-format-module';
 
 export async function release({
   ctx,
   designTokens,
 }: {
-  ctx: DSContext;
+  ctx: BaseContext;
   designTokens: JSONTokenTree | null;
 }) {
   const githubIntegration = await selectGithubIntegration({ ctx });

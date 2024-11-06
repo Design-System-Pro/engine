@@ -1,4 +1,4 @@
-import { Button } from '@ds-project/components';
+import { Button } from '@ds-project/components/server';
 import type { Meta } from '@storybook/react';
 
 export default {

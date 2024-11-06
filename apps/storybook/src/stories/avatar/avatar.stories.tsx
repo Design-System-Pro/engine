@@ -2,9 +2,8 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Button,
-} from '@ds-project/components';
-import { Meta } from '@storybook/react';
+} from '@ds-project/components/client';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Avatar',

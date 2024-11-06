@@ -1,5 +1,5 @@
+import { Button, Input, Label } from '@ds-project/components/server';
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -7,10 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Input,
-  Label,
-} from '@ds-project/components';
-import { Meta } from '@storybook/react';
+} from '@ds-project/components/client';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Dialog',

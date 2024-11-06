@@ -8,11 +8,13 @@ import {
   CardTitle,
   Input,
   Label,
+} from '@ds-project/components/server';
+import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 export default {

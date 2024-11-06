@@ -18,6 +18,7 @@ import { eq, sql } from '@ds-project/database';
 import type { Account } from '@ds-project/database/schema';
 import type { Database } from '@ds-project/database';
 import { KeyHippo } from 'keyhippo';
+import type { AuthenticatedContext, BaseContext } from './types/context';
 
 /**
  * 1. CONTEXT
@@ -34,7 +35,7 @@ import { KeyHippo } from 'keyhippo';
 export const createTRPCContext = async (opts: {
   headers: Headers;
   account: Account | null;
-}) => {
+}): Promise<BaseContext> => {
   const supabase = await createServerClient<Database>();
   const keyHippo = new KeyHippo(supabase);
   const { userId } = await keyHippo.authenticate(opts.headers);
@@ -163,14 +164,13 @@ export const authenticatedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
     return ctx.database.transaction(async (tx) => {
-      if (!ctx.userId) {
+      const { userId } = ctx;
+      if (!userId) {
         throw new TRPCError({ code: 'UNAUTHORIZED' });
       }
 
       await tx.execute(
-        sql.raw(
-          `SELECT set_config('request.jwt.claim.sub', '${ctx.userId}', TRUE)`
-        )
+        sql.raw(`SELECT set_config('request.jwt.claim.sub', '${userId}', TRUE)`)
       );
 
       await tx.execute(
@@ -181,9 +181,9 @@ export const authenticatedProcedure = t.procedure
 
       await tx.execute(sql.raw(`SET ROLE 'authenticated'`));
 
-      const account = ctx.userId
+      const account = userId
         ? ((await tx.query.Accounts.findFirst({
-            where: (accounts) => eq(accounts.userId, ctx.userId),
+            where: (accounts) => eq(accounts.userId, userId),
           })) ?? null)
         : null;
 
@@ -199,7 +199,7 @@ export const authenticatedProcedure = t.procedure
           ...ctx,
           database: tx,
           account,
-        },
+        } satisfies AuthenticatedContext,
       });
 
       await tx.execute(

@@ -1,10 +1,10 @@
+import { Button } from '@ds-project/components/server';
 import {
-  Button,
   Toast,
   ToastAction,
   Toaster,
   useToast,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 function ToastStory() {

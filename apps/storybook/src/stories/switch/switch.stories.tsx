@@ -1,4 +1,5 @@
-import { Label, Switch } from '@ds-project/components';
+import { Label } from '@ds-project/components/server';
+import { Switch } from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 export default {

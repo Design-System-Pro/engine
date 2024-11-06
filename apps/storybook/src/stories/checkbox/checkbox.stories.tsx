@@ -1,4 +1,4 @@
-import { Button, Checkbox } from '@ds-project/components';
+import { Checkbox } from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 export default {

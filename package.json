@@ -28,7 +28,9 @@
     "overrides": {
       "@trpc/client": "11.0.0-rc.482",
       "@trpc/server": "11.0.0-rc.482",
-      "typescript": "5.5.4"
+      "typescript": "5.5.4",
+      "react": "19.0.0-rc-02c0e824-20241028",
+      "react-dom": "19.0.0-rc-02c0e824-20241028"
     }
   }
 }
