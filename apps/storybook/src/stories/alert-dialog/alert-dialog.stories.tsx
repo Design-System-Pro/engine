@@ -8,8 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-  Button,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import { Button } from '@ds-project/components/server';
 import type { Meta } from '@storybook/react';
 
 export default {

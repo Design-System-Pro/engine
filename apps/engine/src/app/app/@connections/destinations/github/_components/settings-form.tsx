@@ -1,6 +1,6 @@
 'use client';
+import { Button, Input } from '@ds-project/components/server';
 import {
-  Button,
   Form,
   FormControl,
   FormDescription,
@@ -8,14 +8,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
   useToast,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -94,10 +93,10 @@ export function SettingsForm({
   return (
     <Form {...form}>
       <form
-        className="flex flex-col grow"
+        className="flex grow flex-col"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col grow gap-4">
+        <div className="flex grow flex-col gap-4">
           <FormField
             control={form.control}
             name="repositoryId"
@@ -105,7 +104,6 @@ export function SettingsForm({
               <FormItem>
                 <FormLabel>Repository</FormLabel>
                 <Select
-                  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                   defaultValue={field.value?.toString()}
                   onValueChange={field.onChange}
                 >
@@ -193,7 +191,7 @@ export function SettingsForm({
             )}
           />
         </div>
-        <div className="flex gap-2 justify-between items-center place-self-end">
+        <div className="flex items-center justify-between gap-2 place-self-end">
           <SupportButton />
           <Button type="button" variant="outline" onClick={onCancel}>
             Cancel

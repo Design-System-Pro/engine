@@ -1,5 +1,4 @@
 import {
-  Button,
   Menubar,
   MenubarCheckboxItem,
   MenubarContent,
@@ -13,7 +12,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 export default {

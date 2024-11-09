@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 export default {

@@ -1,4 +1,4 @@
-import { Button } from '@ds-project/components';
+import { Button } from '@ds-project/components/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/css';

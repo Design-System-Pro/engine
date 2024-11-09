@@ -1,5 +1,4 @@
 import {
-  Badge,
   Breadcrumb,
   BreadcrumbEllipsis,
   BreadcrumbItem,
@@ -7,13 +6,14 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-  Button,
+} from '@ds-project/components/server';
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@ds-project/components';
-import { Meta } from '@storybook/react';
+} from '@ds-project/components/client';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Breadcrumb',
@@ -28,7 +28,7 @@ export default {
         <BreadcrumbItem>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1">
-              <BreadcrumbEllipsis className="h-4 w-4" />
+              <BreadcrumbEllipsis className="size-4" />
               <span className="sr-only">Toggle menu</span>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">

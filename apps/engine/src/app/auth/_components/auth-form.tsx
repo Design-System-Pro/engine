@@ -1,8 +1,6 @@
 'use client';
 
 import {
-  Button,
-  cn,
   Form,
   FormControl,
   FormDescription,
@@ -10,12 +8,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Icons,
-  Input,
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import { Icons, Input, Button } from '@ds-project/components/server';
 import { authAction } from '../_actions/auth.action';
 import { ErrorMessage } from './error-message';
 import { verifyOtpAction } from '../_actions/verify-otp.action';
@@ -24,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { cn } from '@ds-project/components';
 
 const FormSchema = z.object({
   email: z.string().email({

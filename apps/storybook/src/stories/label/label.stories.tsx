@@ -1,4 +1,5 @@
-import { Checkbox, Label } from '@ds-project/components';
+import { Checkbox } from '@ds-project/components/client';
+import { Label } from '@ds-project/components/server';
 import type { Meta } from '@storybook/react';
 
 export default {

@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import { ResourcesList } from './_components/resources-list';
 import { getResources } from './_actions/resources.action';
 

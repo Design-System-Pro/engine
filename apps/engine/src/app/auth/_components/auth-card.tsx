@@ -5,16 +5,16 @@ import {
   CardHeader,
   CardTitle,
   DSLogo,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import Image from 'next/image';
-import authBackground from '../_assets/auth-bg.svg';
-import { AuthForm } from './auth-form';
 import { Suspense } from 'react';
+import { AuthForm } from './auth-form';
+import authBackground from '../_assets/auth-bg.svg';
 
 export function AuthCard() {
   return (
     <Card className="w-full max-w-sm">
-      <CardHeader className="flex flex-col items-center relative">
+      <CardHeader className="relative flex flex-col items-center">
         <Image
           src={authBackground}
           alt="auth background"

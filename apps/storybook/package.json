@@ -16,7 +16,7 @@
     "@hookform/resolvers": "^3.9.0",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "^7.52.2"
+    "react-hook-form": "catalog:"
   },
   "devDependencies": {
     "@ds-project/components": "workspace:*",

@@ -8,13 +8,15 @@ import {
   CardTitle,
   Input,
   Label,
+} from '@ds-project/components/server';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@ds-project/components';
-import { Meta } from '@storybook/react';
+} from '@ds-project/components/client';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Card',

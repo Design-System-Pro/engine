@@ -12,7 +12,7 @@ import { createCaller } from '.';
  * handling a tRPC call from a React Server Component.
  */
 const createContext = cache(async () => {
-  const _headers = new Headers(headers());
+  const _headers = new Headers(await headers());
   _headers.set('x-trpc-source', 'rsc');
 
   return createTRPCContext({

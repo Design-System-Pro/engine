@@ -2,7 +2,7 @@ import { MainContent } from '@/components';
 import { fetchReleases } from './_actions';
 import { SelectReleases } from './_components';
 import { getMetadata } from '@/lib/metadata';
-import { Text } from '@ds-project/components';
+import { Text } from '@ds-project/components/server';
 
 export const metadata = getMetadata({ title: 'Tokens' });
 

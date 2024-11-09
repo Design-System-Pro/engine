@@ -1,4 +1,5 @@
-import { AspectRatio, Text } from '@ds-project/components';
+import { Text } from '@ds-project/components/server';
+import { AspectRatio } from '@ds-project/components/client';
 import Image from 'next/image';
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
@@ -9,10 +10,10 @@ interface CardProps {
 }
 export function Card({ description, title, coverImage }: CardProps) {
   return (
-    <div className="h-full p-4 rounded-md border bg-white border-zinc-300 flex gap-4 flex-col">
+    <div className="flex h-full flex-col gap-4 rounded-md border border-zinc-300 bg-white p-4">
       <AspectRatio
         ratio={16 / 9}
-        className="w-full h-44 rounded-md overflow-hidden"
+        className="h-44 w-full overflow-hidden rounded-md"
       >
         <Image
           src={coverImage}

@@ -3,10 +3,10 @@ import { cookies } from 'next/headers';
 import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { env } from '../config';
 
-export function createServerClient<Database>(): ReturnType<
-  typeof createClient<Database>
+export async function createServerClient<Database>(): Promise<
+  ReturnType<typeof createClient<Database>>
 > {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   return createClient<Database>(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {

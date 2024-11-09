@@ -1,11 +1,9 @@
+import { Button, Input, Label } from '@ds-project/components/server';
 import {
-  Button,
-  Input,
-  Label,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import type { Meta } from '@storybook/react';
 
 export default {
@@ -20,7 +18,7 @@ export default {
         <div className="grid gap-4">
           <div className="space-y-2">
             <h4 className="font-medium leading-none">Dimensions</h4>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Set the dimensions for the layer.
             </p>
           </div>

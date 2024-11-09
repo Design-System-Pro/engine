@@ -1,5 +1,5 @@
 import type { InferSelectModel } from 'drizzle-orm';
-import { Text } from '@ds-project/components';
+import { Text } from '@ds-project/components/server';
 import Link from 'next/link';
 import { FigmaFile } from './figma-file';
 import type { Resources } from '@ds-project/database/schema';

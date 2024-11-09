@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
 import type { ReactNode } from 'react';
 import { forwardRef } from 'react';
-import { cn } from '../utils/utils';
+import { cn } from '@/utils';
 
 // TODO: Text fluid sizes use line-heights already and tailwind isn't able to override them
 const textVariations = cva('', {

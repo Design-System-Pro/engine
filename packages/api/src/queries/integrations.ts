@@ -1,12 +1,16 @@
 import { eq } from '@ds-project/database';
-import type { DSContext } from '../types/context';
+import type { AuthenticatedContext, BaseContext } from '../types/context';
 import {
   AccountsToProjects,
   Integrations,
   integrationType,
 } from '@ds-project/database/schema';
 
-export const selectGithubIntegration = async ({ ctx }: { ctx: DSContext }) => {
+export const selectGithubIntegration = async ({
+  ctx,
+}: {
+  ctx: BaseContext;
+}) => {
   const queryResult = await ctx.database.query.Integrations.findFirst({
     where: () => eq(Integrations.type, integrationType.Enum.github),
     columns: {
@@ -24,7 +28,11 @@ export const selectGithubIntegration = async ({ ctx }: { ctx: DSContext }) => {
   return undefined;
 };
 
-export const selectFigmaIntegration = async ({ ctx }: { ctx: DSContext }) => {
+export const selectFigmaIntegration = async ({
+  ctx,
+}: {
+  ctx: AuthenticatedContext;
+}) => {
   const [queryResult] = await ctx.database
     .select({
       data: Integrations.data,

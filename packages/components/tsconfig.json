@@ -1,29 +1,8 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@ds-project/typescript/internal-package.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "lib": ["dom"],
     "jsx": "react-jsx",
-    "typeRoots": ["./dist/index.d.ts"],
-    "declarationMap": true,
-    "inlineSources": false,
-    "preserveWatchOutput": true,
-
-    "strict": true,
-    "declaration": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

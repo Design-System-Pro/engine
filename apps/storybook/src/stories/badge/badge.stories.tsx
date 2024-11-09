@@ -1,5 +1,5 @@
-import { Badge, Button } from '@ds-project/components';
-import { Meta } from '@storybook/react';
+import { Badge } from '@ds-project/components/server';
+import type { Meta } from '@storybook/react';
 
 export default {
   title: 'Components/Badge',

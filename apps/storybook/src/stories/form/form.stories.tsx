@@ -1,5 +1,4 @@
 import {
-  Button,
   Form,
   FormControl,
   FormDescription,
@@ -7,13 +6,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import { Button } from '@ds-project/components/server';
 import type { Meta } from '@storybook/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { toast } from '@ds-project/components';
-import { Input } from '@ds-project/components';
+import { toast } from '@ds-project/components/client';
+import { Input } from '@ds-project/components/server';
 
 const FormSchema = z.object({
   username: z.string().min(2, {

@@ -1,12 +1,12 @@
 import { Link } from '@/components/link';
 import { config } from '@/config';
+import { Text } from '@ds-project/components/server';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  Text,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 
 const items = [
   {
@@ -91,7 +91,7 @@ export function FaqBanner() {
       </Text>
       <Accordion type="single" collapsible className="w-full max-w-screen-md">
         {items.map((item, index) => (
-          <AccordionItem value={index.toString()}>
+          <AccordionItem key={index} value={index.toString()}>
             <AccordionTrigger>{item.title}</AccordionTrigger>
             <AccordionContent>{item.content}</AccordionContent>
           </AccordionItem>

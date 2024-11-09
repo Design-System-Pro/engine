@@ -1,7 +1,7 @@
 'use client';
 
+import { Button, Icons, Input, Text } from '@ds-project/components/server';
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -9,10 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  Icons,
-  Input,
-  Text,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
 import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { revokeApiKeyAction } from '../_actions/revoke-api-key';

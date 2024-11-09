@@ -1,6 +1,8 @@
 'use client';
 
-import { Button, cn, Icons, useToast } from '@ds-project/components';
+import { Button, Icons } from '@ds-project/components/server';
+import { useToast } from '@ds-project/components/client';
+import { cn } from '@ds-project/components';
 
 interface CopyToClipboardProps {
   content: string;
@@ -36,7 +38,7 @@ export function CopyToClipboard(
       onClick={copyToClipboard}
     >
       <span className="truncate">{content}</span>
-      <Icons.CopyIcon className="h-4 w-4 flex-shrink-0" />
+      <Icons.CopyIcon className="size-4 shrink-0" />
     </Button>
   );
 }

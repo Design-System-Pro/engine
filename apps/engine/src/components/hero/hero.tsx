@@ -4,7 +4,7 @@ import {
   GithubLogo,
   Icons,
   Text,
-} from '@ds-project/components';
+} from '@ds-project/components/server';
 import Image from 'next/image';
 import { Pill } from '../pill';
 import Link from 'next/link';
@@ -24,7 +24,7 @@ const compatibleWith = [
 
 export function Hero() {
   return (
-    <section className="min-h-[70vh] w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 gap-6 items-center justify-items-center h-full py-4">
+    <section className="grid size-full min-h-[70vh] max-w-screen-lg grid-cols-1 items-center justify-items-center gap-6 py-4 md:grid-cols-2">
       <div className="space-y-24">
         <div className="space-y-6">
           <div className="space-y-2">
@@ -77,10 +77,10 @@ export function Hero() {
           </ul>
         </div>
       </div>
-      <div className="w-7/12 md:w-full overflow-hidden rounded-md">
+      <div className="w-7/12 overflow-hidden rounded-md md:w-full">
         <Image src={frameImage} alt="" />
       </div>
-      <svg className="absolute w-0 h-0">
+      <svg className="absolute size-0">
         <clipPath id="frame-path" clipPathUnits="objectBoundingBox">
           <path d="M1,0.041 V0.961 C1,0.983,0.985,1,0.965,1 H0.036 C0.017,1,0.001,0.983,0.001,0.961 V0.523 C0.001,0.501,0.017,0.483,0.036,0.483 H0.143 C0.163,0.483,0.18,0.464,0.18,0.441 V0.041 C0.18,0.019,0.196,0.001,0.215,0.001 H0.965 C0.985,0.001,1,0.019,1,0.041"></path>
         </clipPath>

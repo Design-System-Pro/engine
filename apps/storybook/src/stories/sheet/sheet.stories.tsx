@@ -1,7 +1,4 @@
 import {
-  Button,
-  Input,
-  Label,
   Sheet,
   SheetClose,
   SheetContent,
@@ -10,7 +7,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@ds-project/components';
+} from '@ds-project/components/client';
+import { Button, Input, Label } from '@ds-project/components/server';
 import type { Meta } from '@storybook/react';
 
 export default {

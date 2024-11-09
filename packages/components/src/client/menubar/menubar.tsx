@@ -6,7 +6,7 @@ import { Check, ChevronRight, Circle } from 'lucide-react';
 import { cn } from '@/utils';
 
 const MenubarMenu: {
-  (props: MenubarPrimitive.MenubarMenuProps): JSX.Element;
+  (props: MenubarPrimitive.MenubarMenuProps): React.JSX.Element;
   displayName: string;
 } = MenubarPrimitive.Menu;
 
