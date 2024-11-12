@@ -1,8 +1,8 @@
-import type { JSONTokenTree } from 'design-tokens-format-module';
+import type { Group } from '@terrazzo/token-tools';
 import { mergeDeepRight, reduce } from 'rambda';
 
-export const combinePaths = (tokens: NonNullable<JSONTokenTree>[]) => {
-  return reduce<NonNullable<JSONTokenTree>, JSONTokenTree>(
+export const combinePaths = (tokens: Group[]) => {
+  return reduce<Group, Group>(
     (accumulator, variable) => mergeDeepRight(accumulator, variable),
     {}
   )(tokens);

@@ -7,10 +7,10 @@ import {
   SelectValue,
 } from '@ds-project/components';
 import { useCallback, useEffect, useState } from 'react';
-import type { JSONTokenTree } from 'design-tokens-format-module';
 import { InstallRelease, JsonBlock } from '@/components';
 import type { fetchReleases } from '../_actions';
 import { fetchReleaseTokens } from '../_actions/fetch-release-tokens.action';
+import type { Group } from '@terrazzo/token-tools';
 
 interface SelectReleasesProps {
   releases: Awaited<ReturnType<typeof fetchReleases>>;
@@ -19,7 +19,7 @@ interface SelectReleasesProps {
 export function SelectReleases({ releases }: SelectReleasesProps) {
   const [selectedRelease, setSelectedRelease] =
     useState<NonNullable<SelectReleasesProps['releases']>[number]>();
-  const [tokens, setTokens] = useState<JSONTokenTree>();
+  const [tokens, setTokens] = useState<Group>();
 
   const onReleaseChange = useCallback(
     (selectedReleaseId: string) => {

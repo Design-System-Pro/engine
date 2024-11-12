@@ -1,18 +1,19 @@
-import type {
-  AliasValue,
-  Dimension,
-  FontWeight,
-  JSONTokenTree,
-  Number,
-} from 'design-tokens-format-module';
-import { extractAlias } from './extract-alias';
+import { extractAlias } from './alias';
 import { config } from '../../../config';
 import { tokenizeVariable } from '../utils/tokenize-variable';
+import type {
+  AliasValue,
+  DimensionToken,
+  DimensionValue,
+  FontWeightToken,
+  Group,
+  NumberToken,
+} from '@terrazzo/token-tools';
 
 export async function extractFloat(
   variable: Variable,
   modeId: string
-): Promise<JSONTokenTree> {
+): Promise<Group> {
   const value = variable.valuesByMode[modeId];
 
   if (
@@ -46,13 +47,41 @@ export async function extractFloat(
           scopes: variable.scopes,
         },
       },
-    } satisfies FontWeight.Token;
+    } satisfies FontWeightToken;
 
     return tokenizeVariable(variable.name)(token);
   }
 
   if (
     variable.scopes.includes('LINE_HEIGHT') ||
+    variable.scopes.includes('CORNER_RADIUS')
+  ) {
+    let $value: number | DimensionValue | AliasValue;
+
+    if (typeof value === 'object' && 'id' in value) {
+      $value = await extractAlias(value.id, modeId);
+    } else {
+      $value = {
+        value,
+        unit: 'px',
+      };
+    }
+
+    const token = {
+      $type: 'dimension',
+      $value,
+      $description: variable.description,
+      $extensions: {
+        [config.extensionPluginKey]: {
+          scopes: variable.scopes,
+        },
+      },
+    } satisfies DimensionToken;
+
+    return tokenizeVariable(variable.name)(token);
+  }
+
+  if (
     variable.scopes.includes('LETTER_SPACING') ||
     variable.scopes.includes('PARAGRAPH_SPACING') ||
     variable.scopes.includes('PARAGRAPH_INDENT') ||
@@ -78,7 +107,7 @@ export async function extractFloat(
           scopes: variable.scopes,
         },
       },
-    } satisfies Number.Token;
+    } satisfies NumberToken;
 
     return tokenizeVariable(variable.name)(token);
   }
@@ -89,12 +118,15 @@ export async function extractFloat(
     variable.scopes.includes('WIDTH_HEIGHT') ||
     variable.scopes.includes('ALL_SCOPES')
   ) {
-    let $value: Dimension.RawValue | AliasValue;
+    let $value: DimensionToken['$value'];
 
     if (typeof value === 'object' && 'id' in value) {
       $value = await extractAlias(value.id, modeId);
     } else {
-      $value = `${value}px`;
+      $value = {
+        value: value,
+        unit: 'px',
+      };
     }
 
     const token = {
@@ -106,19 +138,22 @@ export async function extractFloat(
           scopes: variable.scopes,
         },
       },
-    } satisfies Dimension.Token;
+    } satisfies DimensionToken;
 
     return tokenizeVariable(variable.name)(token);
   }
 
   // Any other scope by default will be a dimension
 
-  let floatOrAlias: Dimension.Value | undefined;
+  let floatOrAlias: DimensionToken['$value'] | undefined;
 
   if (typeof value === 'object' && 'id' in value) {
     floatOrAlias = await extractAlias(value.id, modeId);
   } else {
-    floatOrAlias = `${value}px`;
+    floatOrAlias = {
+      value: value,
+      unit: 'px',
+    };
   }
 
   const token = {
@@ -130,7 +165,7 @@ export async function extractFloat(
         scopes: variable.scopes,
       },
     },
-  } satisfies Dimension.Token;
+  } satisfies DimensionToken;
 
   return tokenizeVariable(variable.name)(token);
 }

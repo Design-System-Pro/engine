@@ -1,12 +1,10 @@
-import { extractModeVariable } from './extract-mode-variable';
+import { extractModeVariable } from './mode-variable';
 import { nonNullable } from '../utils/non-nullable';
 import { combinePaths } from '../utils/combine-paths';
 import { getModeKey } from '../utils/get-mode-key';
-import type { JSONTokenTree } from 'design-tokens-format-module';
+import type { Group } from '@terrazzo/token-tools';
 
-export const extractVariable = async (
-  variableId: string
-): Promise<JSONTokenTree> => {
+export const extractVariable = async (variableId: string): Promise<Group> => {
   const variable = await figma.variables.getVariableByIdAsync(variableId);
 
   if (!variable) {

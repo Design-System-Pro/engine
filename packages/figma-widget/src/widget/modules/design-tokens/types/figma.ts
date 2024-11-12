@@ -21,5 +21,5 @@ export type FigmaExtractedVariableCollection = Omit<
   | 'addMode'
   | 'renameMode'
 > & {
-  variables: Array<FigmaExtractedVariable>;
+  variables: FigmaExtractedVariable[];
 };

@@ -1,6 +1,11 @@
-import { Color } from 'design-tokens-format-module';
+import type { ColorToken } from '@terrazzo/token-tools';
 
-export function rgbToHex({ r, g, b, ...rest }: RGB | RGBA): Color.RawValue {
+export function rgbToHex({
+  r,
+  g,
+  b,
+  ...rest
+}: RGB | RGBA): ColorToken['$value'] {
   const a = 'a' in rest ? rest.a : 1;
 
   const toHex = (value: number) => {

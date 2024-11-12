@@ -20,7 +20,7 @@
   "prettier": "@ds-project/prettier",
   "dependencies": {
     "@create-figma-plugin/utilities": "^3.2.0",
-    "design-tokens-format-module": "catalog:",
+    "@terrazzo/token-tools": "catalog:",
     "object-hash": "^3.0.0",
     "zod": "^3.23.8"
   },

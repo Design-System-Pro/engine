@@ -1,5 +1,5 @@
-import type { Color, JSONTokenTree } from 'design-tokens-format-module';
-import { extractAlias } from './extract-alias';
+import type { ColorToken, ColorValue, Group } from '@terrazzo/token-tools';
+import { extractAlias } from './alias';
 import { config } from '../../../config';
 import { rgbToHex } from '../transformers/color';
 import { tokenizeVariable } from '../utils/tokenize-variable';
@@ -7,7 +7,7 @@ import { tokenizeVariable } from '../utils/tokenize-variable';
 export async function extractColor(
   variable: Variable,
   modeId: string
-): Promise<JSONTokenTree> {
+): Promise<Group> {
   const value = variable.valuesByMode[modeId];
 
   if (
@@ -20,7 +20,7 @@ export async function extractColor(
     throw new Error('Unexpected color type');
   }
 
-  let colorOrAlias: Color.Value | undefined;
+  let colorOrAlias: ColorValue | undefined;
 
   if ('a' in value || 'r' in value) {
     // RGB | RGBA
@@ -46,7 +46,7 @@ export async function extractColor(
         scopes: variable.scopes,
       },
     },
-  } satisfies Color.Token;
+  } satisfies ColorToken;
 
   return tokenizeVariable(variable.name)(token);
 }
