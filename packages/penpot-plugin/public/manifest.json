@@ -1,0 +1,6 @@
+{
+  "name": "DS Pro",
+  "code": "plugin.js",
+  "description": "Transform and synchronize your design tokens with GitHub",
+  "permissions": ["content:read", "content:write"]
+}
