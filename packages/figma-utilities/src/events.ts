@@ -4,7 +4,7 @@ import {
   once as defaultOnce,
 } from '@create-figma-plugin/utilities';
 import type { Credentials } from './credentials';
-import type { JSONTokenTree } from 'design-tokens-format-module';
+import type { Group } from '@terrazzo/token-tools';
 
 const DEFAULT_EVENT_TIMEOUT = 10 * 1000; // 10 seconds
 
@@ -32,7 +32,7 @@ type Event = Implements<
     };
 
     'sync-variables': {
-      request: { variables: JSONTokenTree };
+      request: { variables: Group };
       response: {
         lastSyncedAt: string | null;
       };

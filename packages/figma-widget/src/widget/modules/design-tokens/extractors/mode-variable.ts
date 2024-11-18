@@ -1,15 +1,13 @@
+import type { Group } from '@terrazzo/token-tools';
 import { extractColor } from './color';
 import { extractFloat } from './float';
-import type {
-  GroupProperties,
-  JSONTokenTree,
-} from 'design-tokens-format-module';
+
 import { extractString } from './string';
 
 export async function extractModeVariable(
   variable: Variable,
   modeId: string
-): Promise<JSONTokenTree> {
+): Promise<Group> {
   switch (variable.resolvedType) {
     case 'COLOR':
       return extractColor(variable, modeId);
@@ -24,6 +22,6 @@ export async function extractModeVariable(
         $extensions: {
           figmaType: `figma-variable-type:${variable.resolvedType}`,
         },
-      } satisfies GroupProperties;
+      } satisfies Group;
   }
 }

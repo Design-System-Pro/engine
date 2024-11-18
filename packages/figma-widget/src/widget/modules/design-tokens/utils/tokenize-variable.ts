@@ -1,10 +1,11 @@
-import type { JSONTokenTree } from 'design-tokens-format-module';
+import type { Group, GroupOrToken, Token } from '@terrazzo/token-tools';
 
 export const tokenizeVariable =
-  (variableName: string) => (token: JSONTokenTree) => {
+  (variableName: string) =>
+  (token: Token): Group => {
     const paths = [...variableName.split('/')];
 
-    return paths.reduceRight((accumulator, path) => {
+    return paths.reduceRight<GroupOrToken>((accumulator, path) => {
       return {
         [path.toLowerCase()]: accumulator,
       };

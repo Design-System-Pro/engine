@@ -1,18 +1,16 @@
-import type {
-  AliasValue,
-  FontFamily,
-  FontWeight,
-  fontWeightValues,
-  JSONTokenTree,
-} from 'design-tokens-format-module';
-import { extractAlias } from './extract-alias';
+import { extractAlias } from './alias';
 import { config } from '../../../config';
 import { tokenizeVariable } from '../utils/tokenize-variable';
+import type {
+  FontFamilyToken,
+  FontWeightToken,
+  Group,
+} from '@terrazzo/token-tools';
 
 export async function extractString(
   variable: Variable,
   modeId: string
-): Promise<JSONTokenTree> {
+): Promise<Group> {
   const value = variable.valuesByMode[modeId];
 
   if (
@@ -56,19 +54,19 @@ export async function extractString(
           scopes: variable.scopes,
         },
       },
-    } satisfies FontFamily.Token);
+    } satisfies FontFamilyToken);
   }
 
   if (
     variable.scopes.includes('FONT_WEIGHT') ||
     variable.scopes.includes('FONT_STYLE')
   ) {
-    let $value: (typeof fontWeightValues)[number] | AliasValue;
+    let $value: FontWeightToken['$value'];
 
     if (typeof value === 'object' && 'id' in value) {
       $value = await extractAlias(value.id, modeId);
     } else {
-      $value = value as (typeof fontWeightValues)[number];
+      $value = value;
     }
 
     return tokenizeVariable(variable.name)({
@@ -80,7 +78,7 @@ export async function extractString(
           scopes: variable.scopes,
         },
       },
-    } satisfies FontWeight.Token);
+    } satisfies FontWeightToken);
   }
 
   // Any other scope by default will be ignored

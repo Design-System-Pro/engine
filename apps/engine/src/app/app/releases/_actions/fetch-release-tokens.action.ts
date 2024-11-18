@@ -3,8 +3,7 @@ import type { Octokit } from '@octokit/core';
 
 import { api } from '@ds-project/api/rsc';
 import { getInstallationOctokit } from '@ds-project/services/github';
-import type { JSONTokenTree } from 'design-tokens-format-module';
-
+import type { Group } from '@terrazzo/token-tools';
 async function searchFileSha({
   octokit,
   owner,
@@ -52,7 +51,7 @@ async function searchFileSha({
 
 export async function fetchReleaseTokens(
   releaseId: number
-): Promise<JSONTokenTree | null> {
+): Promise<Group | null> {
   const githubIntegration = await api.integrations.github();
 
   if (!githubIntegration) {
@@ -138,5 +137,5 @@ export async function fetchReleaseTokens(
     file.encoding as BufferEncoding
   ).toString();
 
-  return JSON.parse(tokens) as JSONTokenTree;
+  return JSON.parse(tokens) as Group;
 }

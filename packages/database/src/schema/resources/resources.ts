@@ -8,14 +8,7 @@ import {
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { Projects } from '../projects';
-import type { JSONTokenTree } from 'design-tokens-format-module';
-import { parseJSONTokenTree } from '@nclsndr/design-tokens-library';
-export const PreprocessedTokensSchema = {
-  parse: (jsonTokenTree: unknown): JSONTokenTree => {
-    const tokenTree = parseJSONTokenTree(jsonTokenTree, { throwOnError: true });
-    return tokenTree.toJSON() satisfies JSONTokenTree;
-  },
-};
+import type { Group } from '@terrazzo/token-tools';
 
 /**
  * Represents the resources linked to a design system.
@@ -35,11 +28,12 @@ export const Resources = pgTable(
       .references(() => Projects.id, { onDelete: 'cascade' })
       .notNull(),
     name: text('name').notNull(),
-    designTokens: json('design_tokens').$type<JSONTokenTree>(),
+    designTokens: json('design_tokens').$type<Group>(),
   },
   (resource) => ({
     unique: unique().on(resource.name, resource.projectId),
   })
 );
 
+// TODO: improve design tokens validation when errors can be seen in the figma widget
 export const InsertResourcesSchema = createInsertSchema(Resources);

@@ -39,11 +39,11 @@
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
-    "@nclsndr/design-tokens-library": "^0.0.1",
     "@next/env": "^14.2.13",
     "@t3-oss/env-core": "^0.11.1",
     "@t3-oss/env-nextjs": "^0.11.1",
-    "design-tokens-format-module": "catalog:",
+    "@terrazzo/parser": "^0.1.0",
+    "@terrazzo/token-tools": "catalog:",
     "drizzle-kit": "^0.24.2",
     "drizzle-orm": "^0.32.2",
     "drizzle-zod": "^0.5.1",

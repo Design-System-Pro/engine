@@ -1,4 +1,4 @@
-# Supported scopes its extractor
+# Supported scopes and its extractor
 
 - [ ] `ALL_SCOPES`
 - [ ] `TEXT_CONTENT`
@@ -22,3 +22,10 @@
 - [x] `LETTER_SPACING` via **[float]** extractor
 - [x] `PARAGRAPH_SPACING` via **[float]** extractor
 - [x] `PARAGRAPH_INDENT` via **[float]** extractor
+
+# Supported styles and its extractor
+
+- [x] `TextStyle` via **[text-style]** extractor
+- [] `GridStyle`
+- [] `PaintStyle`
+- [-] `EffectStyle` via **[effect-style]** extractor (only dropshadow tested, outer and inset)

@@ -3,12 +3,9 @@ import { z } from 'zod';
 import { eq } from '@ds-project/database';
 
 import { authenticatedProcedure, createTRPCRouter } from '../trpc';
-import {
-  InsertResourcesSchema,
-  PreprocessedTokensSchema,
-  Resources,
-} from '@ds-project/database/schema';
+import { InsertResourcesSchema, Resources } from '@ds-project/database/schema';
 import { release } from '../operations/release';
+import type { Group } from '@terrazzo/token-tools';
 
 export const resourcesRouter = createTRPCRouter({
   getById: authenticatedProcedure
@@ -49,10 +46,9 @@ export const resourcesRouter = createTRPCRouter({
 
   updateDesignTokens: authenticatedProcedure
     .input(
-      z.object({
-        name: z.string(),
-        designTokens: z.any(),
-        projectId: z.string(),
+      InsertResourcesSchema.pick({ name: true, projectId: true }).extend({
+        // TODO: remove casting when zod validation is in place
+        designTokens: z.unknown(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -61,14 +57,14 @@ export const resourcesRouter = createTRPCRouter({
         .values({
           name: input.name,
           projectId: input.projectId,
-          // For some reason, if the validation happens at the input level, it gets a max stack call error.
-          // But moving it here it works 🤷🏻‍♂️
-          designTokens: PreprocessedTokensSchema.parse(input.designTokens),
+          // TODO: remove casting when zod validation is in place
+          designTokens: input.designTokens as Group,
         })
         .onConflictDoUpdate({
           target: [Resources.name, Resources.projectId],
           set: {
-            designTokens: PreprocessedTokensSchema.parse(input.designTokens),
+            // TODO: remove casting when zod validation is in place
+            designTokens: input.designTokens as Group,
           },
         })
         .returning({
@@ -92,7 +88,8 @@ export const resourcesRouter = createTRPCRouter({
       return ctx.database.insert(Resources).values({
         name: input.name,
         projectId: input.projectId,
-        designTokens: PreprocessedTokensSchema.parse(input.designTokens),
+        // TODO: remove casting when zod validation is in place
+        designTokens: input.designTokens as Group,
       });
     }),
 
