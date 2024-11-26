@@ -6,6 +6,7 @@ import light from '@ds-project/components/light-theme.css?inline';
 import dark from '@ds-project/components/dark-theme.css?inline';
 
 import type { Decorator, Preview } from '@storybook/react';
+import { IFrameStorybook } from './iframe-storybook';
 
 // Vite hack for storybook
 // https://github.com/etchteam/storybook-addon-css-variables-theme/issues/20#issuecomment-1555243720
@@ -25,7 +26,7 @@ const makeCssFiles = (themes: Record<string, string>) => {
   );
 };
 
-export const decorators: Decorator[] = [cssVariablesTheme];
+export const decorators: Decorator[] = [cssVariablesTheme, IFrameStorybook];
 
 const preview: Preview = {
   parameters: {

@@ -6,7 +6,7 @@ import { Icons, LucideIcons } from '@ds-project/components';
 <IconGallery>
   {Object.entries(Icons).map(([name, Icon]) => {
     return (
-      <IconItem name={name}>
+      <IconItem key={name} name={name}>
         <Icon />
       </IconItem>
     );
@@ -16,7 +16,7 @@ import { Icons, LucideIcons } from '@ds-project/components';
 <IconGallery>
   {Object.entries(LucideIcons).map(([name, Icon]) => {
     return (
-      <IconItem name={name}>
+      <IconItem key={name} name={name}>
         <Icon />
       </IconItem>
     );

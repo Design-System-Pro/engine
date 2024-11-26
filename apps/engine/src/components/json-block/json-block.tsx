@@ -15,7 +15,7 @@ const DynamicReactJson = dynamic(() => import('react-json-view'), {
 
 export function JsonBlock(props: ComponentProps<typeof DynamicReactJson>) {
   return (
-    <div className="rounded-md border border-slate-100 p-4 w-full overflow-scroll">
+    <div className="w-full overflow-scroll rounded-md border border-slate-100 p-4">
       <DynamicReactJson {...props} />
     </div>
   );
