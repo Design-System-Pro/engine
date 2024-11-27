@@ -136,7 +136,7 @@ export function AppSidebar({ email }: { email: string }) {
                                 </SidebarMenuSubButton>
                               </TooltipTrigger>
                               <TooltipPortal>
-                                <TooltipContent>
+                                <TooltipContent side="right">
                                   Click on this feature to up vote on our
                                   roadmap
                                 </TooltipContent>
