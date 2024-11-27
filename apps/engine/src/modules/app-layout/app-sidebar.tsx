@@ -75,7 +75,7 @@ const groupItems = [
 
 export function AppSidebar({ email }: { email: string }) {
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="none" className="h-screen">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
