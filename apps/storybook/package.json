@@ -23,6 +23,7 @@
     "react-hook-form": "^7.52.2"
   },
   "devDependencies": {
+    "@ds-pro/storybook-addon-design-tokens": "workspace:*",
     "@ds-project/components": "workspace:*",
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",

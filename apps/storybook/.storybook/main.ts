@@ -16,6 +16,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@etchteam/storybook-addon-css-variables-theme'),
+    getAbsolutePath('@ds-pro/storybook-addon-design-tokens'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/react-vite'),

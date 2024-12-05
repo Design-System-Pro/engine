@@ -6,7 +6,7 @@
     "build": "turbo run build",
     "dev:engine": "turbo run dev --filter=engine --filter=@ds-project/database --filter=@ds-project/components",
     "dev:widget": "turbo run dev --filter=@ds-project/figma-widget --filter=@ds-project/components",
-    "dev:components": "turbo run dev --filter=@ds-project/components --filter=storybook",
+    "dev:components": "turbo run dev --filter=@ds-project/components --filter=storybook --filter=@ds-pro/storybook-addon-design-tokens",
     "clean": "turbo run clean && rm -rf node_modules",
     "type-check": "turbo run type-check",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",

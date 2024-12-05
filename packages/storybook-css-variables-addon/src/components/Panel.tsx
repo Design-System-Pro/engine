@@ -36,6 +36,22 @@ export const Panel: React.FC<PanelProps> = memo(function MyPanel(props) {
     emit(EVENTS.REQUEST);
   }, [emit]);
 
+  const designTokens = {
+    theme: {
+      "mode 1": {
+        primary: {
+          background: {
+            default: {
+              $type: "color",
+              $value: "#18181be5",
+              $description: "Primary color used by many components",
+            },
+          },
+        },
+      },
+    },
+  };
+
   return (
     <AddonPanel {...props}>
       <TabsState
