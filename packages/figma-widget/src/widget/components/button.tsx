@@ -27,7 +27,7 @@ export const Button = ({
       case 'outline':
         return {
           textStyles: {
-            fill: '#ffffff',
+            fill: '#0F172A',
           },
           wrapperStyles: {
             fill: '#00000000',

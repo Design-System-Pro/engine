@@ -11,15 +11,3 @@ export type FigmaExtractedVariable = Omit<
 > & {
   publishStatus?: PublishStatus;
 };
-
-export type FigmaExtractedVariableCollection = Omit<
-  VariableCollection,
-  | keyof PluginDataMixin
-  | 'getPublishStatusAsync'
-  | 'remove'
-  | 'removeMode'
-  | 'addMode'
-  | 'renameMode'
-> & {
-  variables: FigmaExtractedVariable[];
-};

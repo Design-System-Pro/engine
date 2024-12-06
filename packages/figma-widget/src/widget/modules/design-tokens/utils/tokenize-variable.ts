@@ -7,7 +7,7 @@ export const tokenizeVariable =
 
     return paths.reduceRight<GroupOrToken>((accumulator, path) => {
       return {
-        [path.toLowerCase()]: accumulator,
+        [path]: accumulator,
       };
     }, token);
   };

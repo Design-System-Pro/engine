@@ -4,7 +4,7 @@ import {
   once as defaultOnce,
 } from '@create-figma-plugin/utilities';
 import type { Credentials } from './credentials';
-import type { Group } from '@terrazzo/token-tools';
+import type { Group, TokenNormalized } from '@terrazzo/token-tools';
 
 const DEFAULT_EVENT_TIMEOUT = 10 * 1000; // 10 seconds
 
@@ -36,6 +36,11 @@ type Event = Implements<
       response: {
         lastSyncedAt: string | null;
       };
+    };
+
+    'get-normalized-tokens': {
+      request: undefined;
+      response: { normalizedTokens: Record<string, TokenNormalized> | null };
     };
 
     'set-credentials': {

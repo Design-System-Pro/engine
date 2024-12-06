@@ -1,11 +1,12 @@
 import { z } from 'zod';
 
-import { eq } from '@ds-project/database';
+import { and, eq } from '@ds-project/database';
 
 import { authenticatedProcedure, createTRPCRouter } from '../trpc';
 import { InsertResourcesSchema, Resources } from '@ds-project/database/schema';
 import { release } from '../operations/release';
 import type { Group } from '@terrazzo/token-tools';
+import { parse } from '@terrazzo/parser';
 
 export const resourcesRouter = createTRPCRouter({
   getById: authenticatedProcedure
@@ -42,6 +43,30 @@ export const resourcesRouter = createTRPCRouter({
     .input(InsertResourcesSchema.pick({ name: true, projectId: true }))
     .mutation(async ({ ctx, input }) => {
       return ctx.database.insert(Resources).values(input).onConflictDoNothing();
+    }),
+
+  getNormalizedTokens: authenticatedProcedure
+    .input(InsertResourcesSchema.pick({ projectId: true, name: true }))
+    .query(async ({ ctx, input }) => {
+      const [resource] = await ctx.database.query.Resources.findMany({
+        columns: {
+          designTokens: true,
+        },
+        where: and(
+          eq(Resources.name, input.name),
+          eq(Resources.projectId, input.projectId)
+        ),
+      });
+
+      if (!resource) return null;
+
+      console.log('>>>> designTokens', resource.designTokens);
+
+      const { tokens } = await parse([{ src: resource.designTokens }]);
+
+      console.log('>>>> normalizedTokens', tokens);
+
+      return tokens;
     }),
 
   updateDesignTokens: authenticatedProcedure

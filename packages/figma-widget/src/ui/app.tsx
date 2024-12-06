@@ -4,6 +4,7 @@ import { emit } from '@ds-project/figma-utilities';
 import { VariablesUI } from './modules/variables.ui';
 import { ProjectUI } from './modules/project/project.ui';
 import { Container } from './components/container';
+import { NormalizedTokensUI } from './modules/normalized-tokens.ui';
 
 export function App() {
   useEffect(() => {
@@ -16,6 +17,7 @@ export function App() {
       <Auth />
       <ProjectUI />
       <VariablesUI />
+      <NormalizedTokensUI />
     </Container>
   );
 }

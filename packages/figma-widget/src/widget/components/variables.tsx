@@ -6,11 +6,13 @@ import { format } from 'date-fns';
 interface VariablesProps {
   lastSyncedAt: string | null;
   onSyncVariablesClick: () => void;
+  onInjectVariableClick: () => void;
 }
 
 export function Variables({
   lastSyncedAt,
   onSyncVariablesClick,
+  onInjectVariableClick,
 }: VariablesProps) {
   const formatDate = (date: string) => {
     return format(date, 'dd/MM/yyyy, HH:mm');
@@ -43,6 +45,9 @@ export function Variables({
       <AutoLayout horizontalAlignItems="end" width="fill-parent">
         <Button variant="outline" onClick={onSyncVariablesClick}>
           <SVG width={15} height={15} src={updateIcon} />
+        </Button>
+        <Button variant="outline" onClick={onInjectVariableClick}>
+          Inject Variable
         </Button>
       </AutoLayout>
     </AutoLayout>

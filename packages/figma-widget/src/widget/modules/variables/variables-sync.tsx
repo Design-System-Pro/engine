@@ -2,7 +2,8 @@ import { Variables } from '../../components/variables';
 import { useVariablesActions } from './variables.actions';
 
 export function VariablesSync() {
-  const { syncVariables, isReady, lastSyncedAt } = useVariablesActions();
+  const { syncVariables, injectVariables, isReady, lastSyncedAt } =
+    useVariablesActions();
 
   if (!isReady) {
     return null;
@@ -11,6 +12,7 @@ export function VariablesSync() {
   return (
     <Variables
       onSyncVariablesClick={syncVariables}
+      onInjectVariableClick={injectVariables}
       lastSyncedAt={lastSyncedAt}
     />
   );

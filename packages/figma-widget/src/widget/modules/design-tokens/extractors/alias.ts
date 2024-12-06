@@ -35,10 +35,9 @@ export async function extractAlias(
     ? await getModeKey({ modeId, variableCollectionId })
     : '';
 
-  const collectionKey = collection ? collection.name.toLowerCase() : '';
+  const collectionKey = collection ? collection.name : '';
 
-  const aliasValue =
-    `${collectionKey}.${modeKey}.${variable.name.split('/').join('.')}`.toLocaleLowerCase();
+  const aliasValue = `${collectionKey}.${modeKey}.${variable.name.split('/').join('.')}`;
 
   return `{${aliasValue}}`;
 }

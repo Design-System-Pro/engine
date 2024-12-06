@@ -30,6 +30,7 @@
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
+    "@terrazzo/parser": "catalog:",
     "@ds-project/auth": "workspace:*",
     "@ds-project/database": "workspace:*",
     "@ds-project/services": "workspace:*",

@@ -10,5 +10,5 @@ export const extractVariableCollection = async (
     await Promise.all(variableCollection.variableIds.map(extractVariable))
   ).filter(nonNullable);
 
-  return { [variableCollection.name.toLowerCase()]: combinePaths(variables) };
+  return { [variableCollection.name]: combinePaths(variables) };
 };
