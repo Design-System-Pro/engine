@@ -42,16 +42,6 @@ type Event = Implements<
       request: undefined;
       response: { credentials: Credentials | null };
     };
-
-    'set-project': {
-      request: undefined;
-      response: { id: string; name: string };
-    };
-
-    'open-projects-ui': {
-      request: undefined;
-      response: undefined;
-    };
   }
 >;
 

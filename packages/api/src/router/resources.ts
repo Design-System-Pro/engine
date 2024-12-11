@@ -46,7 +46,7 @@ export const resourcesRouter = createTRPCRouter({
 
   updateDesignTokens: authenticatedProcedure
     .input(
-      InsertResourcesSchema.pick({ name: true, projectId: true }).extend({
+      InsertResourcesSchema.pick({ name: true }).extend({
         // TODO: remove casting when zod validation is in place
         designTokens: z.unknown(),
       })
@@ -56,7 +56,7 @@ export const resourcesRouter = createTRPCRouter({
         .insert(Resources)
         .values({
           name: input.name,
-          projectId: input.projectId,
+          projectId: ctx.projectId,
           // TODO: remove casting when zod validation is in place
           designTokens: input.designTokens as Group,
         })
