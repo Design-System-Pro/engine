@@ -1,8 +1,7 @@
-import { useSyncedCredentials, useSyncedLinkedProject } from '../modules/state';
+import { useSyncedCredentials } from '../modules/state';
 import { once } from '@ds-project/figma-utilities';
 
 export function useUI() {
-  const [syncedLinkedProject] = useSyncedLinkedProject();
   const [syncedCredentials] = useSyncedCredentials();
 
   const open = async (options: ShowUIOptions = {}) => {
@@ -20,7 +19,6 @@ export function useUI() {
         __html__.replace(
           '%__SHOW_UI_DATA__%',
           JSON.stringify({
-            projectId: syncedLinkedProject?.id ?? null,
             fileName: figma.root.name,
             credentials: syncedCredentials,
           })

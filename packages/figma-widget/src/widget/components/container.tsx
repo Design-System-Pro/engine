@@ -3,15 +3,9 @@ import { ConnectButton } from '../modules/auth/connect-button';
 import { Divider } from './divider';
 import { Link } from './link';
 
-interface ContainerProps extends AutoLayoutProps {
-  projectNode?: FigmaDeclarativeNode | FigmaDeclarativeNode[];
-}
+type ContainerProps = AutoLayoutProps;
 
-export const Container = ({
-  children,
-  projectNode,
-  ...props
-}: ContainerProps) => {
+export const Container = ({ children, ...props }: ContainerProps) => {
   return (
     <AutoLayout
       name="Container"
@@ -40,8 +34,6 @@ export const Container = ({
           verticalAlignItems="center"
         >
           <Text fontWeight="bold">DS Pro</Text>
-          <Text fontWeight="extra-light">/</Text>
-          {projectNode}
         </AutoLayout>
 
         <AutoLayout width="fill-parent" height={1} />

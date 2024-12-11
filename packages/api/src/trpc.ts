@@ -184,10 +184,17 @@ export const authenticatedProcedure = t.procedure
       const account = ctx.userId
         ? ((await tx.query.Accounts.findFirst({
             where: (accounts) => eq(accounts.userId, ctx.userId),
+            with: {
+              accountsToProjects: {
+                columns: {
+                  projectId: true,
+                },
+              },
+            },
           })) ?? null)
         : null;
 
-      if (!account) {
+      if (!account?.accountsToProjects[0]?.projectId) {
         throw new TRPCError({
           code: 'UNAUTHORIZED',
           message: "User doesn't have a valid account.",
@@ -199,6 +206,7 @@ export const authenticatedProcedure = t.procedure
           ...ctx,
           database: tx,
           account,
+          projectId: account.accountsToProjects[0].projectId,
         },
       });
 
