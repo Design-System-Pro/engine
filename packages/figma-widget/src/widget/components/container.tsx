@@ -34,7 +34,7 @@ export const Container = ({ children, ...props }: ContainerProps) => {
           spacing={4}
           verticalAlignItems="center"
         >
-          <Text href={`${config.HOST_URL}/app`} fontWeight="bold">
+          <Text href={config.HOST_URL} fontWeight="bold">
             DS Pro
           </Text>
         </AutoLayout>
