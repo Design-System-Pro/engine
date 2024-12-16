@@ -65,7 +65,7 @@ export const Container = ({ children, ...props }: ContainerProps) => {
       >
         <Link href="https://ds-project.supahub.com">Feedback</Link>
         <AutoLayout width="fill-parent" height={1} />
-        <Link href={`${config.HOST_URL}/app}`}>Configure</Link>
+        <Link href={`${config.HOST_URL}/app`}>Configure</Link>
       </AutoLayout>
     </AutoLayout>
   );
