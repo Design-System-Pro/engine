@@ -1,3 +1,4 @@
+import { config } from '../config';
 import { AutoLayout, Text } from '../lib/widget';
 import { ConnectButton } from '../modules/auth/connect-button';
 import { Divider } from './divider';
@@ -33,7 +34,9 @@ export const Container = ({ children, ...props }: ContainerProps) => {
           spacing={4}
           verticalAlignItems="center"
         >
-          <Text fontWeight="bold">DS Pro</Text>
+          <Text href={`${config.HOST_URL}/app`} fontWeight="bold">
+            DS Pro
+          </Text>
         </AutoLayout>
 
         <AutoLayout width="fill-parent" height={1} />
@@ -62,6 +65,7 @@ export const Container = ({ children, ...props }: ContainerProps) => {
       >
         <Link href="https://ds-project.supahub.com">Feedback</Link>
         <AutoLayout width="fill-parent" height={1} />
+        <Link href={`${config.HOST_URL}/app}`}>Configure</Link>
       </AutoLayout>
     </AutoLayout>
   );
