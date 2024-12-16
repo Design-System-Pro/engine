@@ -9,7 +9,7 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
     <TRPCReactProvider
       accessToken={credentials?.apiKey}
       source="figma"
-      baseUrl={config.API_HOST}
+      baseUrl={config.HOST_URL}
     >
       {children}
     </TRPCReactProvider>

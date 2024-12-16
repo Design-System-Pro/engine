@@ -85,7 +85,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setState('authorizing');
     setShouldUpdatePlugin(true);
 
-    const startResponse = await fetch(`${config.API_HOST}/api/auth/start`, {
+    const startResponse = await fetch(`${config.HOST_URL}/api/auth/start`, {
       method: 'POST',
     });
 
@@ -97,13 +97,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { writeKey, readKey } =
       (await startResponse.json()) as AuthStartResponse;
 
-    window.open(`${config.API_HOST}/auth/sign-in?figma_key=${writeKey}`);
+    window.open(`${config.HOST_URL}/auth/sign-in?figma_key=${writeKey}`);
 
     return new Promise((resolve, reject) => {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises -- we want to use async function with interval
       const interval = setInterval(async () => {
         const exchangeResponse = await fetch(
-          `${config.API_HOST}/api/auth/exchange`,
+          `${config.HOST_URL}/api/auth/exchange`,
           {
             method: 'POST',
             body: JSON.stringify({ readKey }),

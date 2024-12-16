@@ -19,7 +19,7 @@
     "SEND_EMAIL_HOOK_SECRET",
     "SUPABASE_ANON_KEY",
     "SUPABASE_URL",
-    "VITE_API_HOST"
+    "VITE_HOST_URL"
   ],
   "tasks": {
     "topo": {

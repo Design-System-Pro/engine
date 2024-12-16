@@ -13,5 +13,6 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"]
 }
