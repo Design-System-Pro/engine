@@ -30,7 +30,7 @@ export function Variables({
     >
       <AutoLayout direction="vertical" verticalAlignItems="center" spacing={8}>
         <Text fontSize={16} fontWeight="bold">
-          🧩 Local variables
+          🧩 Local styles & variables
         </Text>
 
         <Text fontSize={14} fill="#808080">
