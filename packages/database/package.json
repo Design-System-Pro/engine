@@ -57,7 +57,7 @@
     "@ds-project/typescript": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "supabase": "^1.200.3",
+    "supabase": "^1.226.4",
     "typescript": "catalog:"
   }
 }

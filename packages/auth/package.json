@@ -30,6 +30,7 @@
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.0",
     "@t3-oss/env-core": "^0.11.1",
+    "@t3-oss/env-nextjs": "^0.11.1",
     "next": "catalog:",
     "zod": "catalog:"
   },
