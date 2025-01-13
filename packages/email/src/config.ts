@@ -6,9 +6,7 @@ loadEnvConfig(process.cwd());
 
 export const env = createEnv({
   server: {
-    SUPABASE_URL: z.string().url(),
-    SUPABASE_ANON_KEY: z.string().min(1),
-    SUPABASE_SERVICE_KEY: z.string().min(1),
+    RESEND_API_KEY: z.string().min(1),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

@@ -1,10 +1,11 @@
 'use server';
 
 import { z } from 'zod';
-import { unprotectedAction } from '@/lib/safe-action';
+import { publicAction } from '@/lib/safe-action';
 import { zfd } from 'zod-form-data';
+import { scheduleOnboardingEmails } from '../_utils/schedule-onboarding-emails';
 
-export const verifyOtpAction = unprotectedAction
+export const verifyOtpAction = publicAction
   .metadata({ actionName: 'verifyOtpAction' })
   .schema(
     z.object({
@@ -17,20 +18,41 @@ export const verifyOtpAction = unprotectedAction
     })
   )
   .action(async ({ ctx, parsedInput: { email, token } }) => {
-    const { error } = await ctx.authClient.auth.verifyOtp({
+    const { error, data } = await ctx.authClient.auth.verifyOtp({
       email,
       token,
       type: 'email',
     });
 
     if (!error) {
-      return {
-        ok: true,
-      };
+      if (
+        data.user?.id &&
+        data.user.email_confirmed_at &&
+        new Date(data.user.email_confirmed_at).getTime() <
+          new Date().getTime() + 1000 * 60 * 1 // 1 minute
+      ) {
+        const result = await ctx.authClient
+          .from('accounts')
+          .select('id')
+          .eq('user_id', data.user.id)
+          .single();
+
+        if (result.error) {
+          return {
+            error: result.error,
+            ok: false,
+          };
+        }
+
+        await scheduleOnboardingEmails(result.data.id);
+        return {
+          ok: true,
+        };
+      }
     }
 
     return {
-      error: error.message,
+      error: error?.message ?? 'Error verifying OTP',
       ok: false,
     };
   });

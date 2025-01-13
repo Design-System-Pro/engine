@@ -18,6 +18,10 @@
       "types": "./dist/react.d.ts",
       "default": "./src/react.tsx"
     },
+    "./service": {
+      "types": "./dist/service.d.ts",
+      "default": "./src/service.tsx"
+    },
     "./operations": {
       "types": "./dist/operations.d.ts",
       "default": "./src/operations/index.ts"

@@ -2,6 +2,7 @@ import { accountsRouter } from './router/accounts';
 import { apiKeysRouter } from './router/api-keys';
 import { githubRouter } from './router/github';
 import { integrationsRouter } from './router/integrations';
+import { jobsRouter } from './router/jobs';
 import { projectsRouter } from './router/projects';
 import { resourcesRouter } from './router/resources';
 import { usersRouter } from './router/users';
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
   resources: resourcesRouter,
   projects: projectsRouter,
   github: githubRouter,
+  jobs: jobsRouter,
 });
 
 // export type definition of API

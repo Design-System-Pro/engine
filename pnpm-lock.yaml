@@ -12,6 +12,15 @@ catalogs:
     '@figma/widget-typings':
       specifier: ^1.9.1
       version: 1.9.1
+    '@next/env':
+      specifier: ^14.2.13
+      version: 14.2.13
+    '@t3-oss/env-core':
+      specifier: ^0.11.1
+      version: 0.11.1
+    '@t3-oss/env-nextjs':
+      specifier: ^0.11.1
+      version: 0.11.1
     '@terrazzo/token-tools':
       specifier: ^0.1.3
       version: 0.1.3
@@ -663,13 +672,13 @@ importers:
   packages/database:
     dependencies:
       '@next/env':
-        specifier: ^14.2.13
+        specifier: 'catalog:'
         version: 14.2.13
       '@t3-oss/env-core':
-        specifier: ^0.11.1
+        specifier: 'catalog:'
         version: 0.11.1(typescript@5.5.4)(zod@3.23.8)
       '@t3-oss/env-nextjs':
-        specifier: ^0.11.1
+        specifier: 'catalog:'
         version: 0.11.1(typescript@5.5.4)(zod@3.23.8)
       '@terrazzo/parser':
         specifier: ^0.1.0
@@ -720,18 +729,27 @@ importers:
 
   packages/email:
     dependencies:
+      '@next/env':
+        specifier: 'catalog:'
+        version: 14.2.13
       '@react-email/components':
         specifier: 0.0.24
         version: 0.0.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-email/render':
         specifier: ^1.0.1
         version: 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@t3-oss/env-core':
+        specifier: 'catalog:'
+        version: 0.11.1(typescript@5.5.4)(zod@3.24.1)
       react:
         specifier: 'catalog:'
         version: 18.3.1
       resend:
         specifier: ^4.0.0
         version: 4.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@ds-project/eslint':
         specifier: workspace:*
@@ -742,6 +760,9 @@ importers:
       '@ds-project/typescript':
         specifier: workspace:*
         version: link:../../tools/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.7.8
       '@types/react':
         specifier: 'catalog:'
         version: 18.3.3
@@ -4256,9 +4277,6 @@ packages:
 
   '@types/node@18.19.39':
     resolution: {integrity: sha512-nPwTRDKUctxw3di5b4TfT3I0sWDiWoPQCZjXhvdkINntwr8lcoVCKsTgnXeRubKIlfnV+eN/HYk6Jb40tbcEAQ==}
-
-  '@types/node@22.5.5':
-    resolution: {integrity: sha512-Xjs4y5UPO/CLdzpgR6GirZJx36yScjh73+2NlLlkFRSoQN8B0DpfXPdZGnvVmLRLOsqDpOfTNv7D9trgGhmOIA==}
 
   '@types/node@22.7.8':
     resolution: {integrity: sha512-a922jJy31vqR5sk+kAdIENJjHblqcZ4RmERviFsER4WJcEONqxKcjNOlk0q7OUfrF5sddT+vng070cdfMlrPLg==}
@@ -8873,6 +8891,9 @@ packages:
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -11891,6 +11912,12 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
+  '@t3-oss/env-core@0.11.1(typescript@5.5.4)(zod@3.24.1)':
+    dependencies:
+      zod: 3.24.1
+    optionalDependencies:
+      typescript: 5.5.4
+
   '@t3-oss/env-nextjs@0.11.1(typescript@5.5.4)(zod@3.23.8)':
     dependencies:
       '@t3-oss/env-core': 0.11.1(typescript@5.5.4)(zod@3.23.8)
@@ -12048,7 +12075,7 @@ snapshots:
 
   '@types/cors@2.8.17':
     dependencies:
-      '@types/node': 22.5.5
+      '@types/node': 22.7.8
 
   '@types/culori@2.1.1': {}
 
@@ -12092,7 +12119,7 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 22.5.5
+      '@types/node': 22.7.8
 
   '@types/hast@3.0.4':
     dependencies:
@@ -12131,10 +12158,6 @@ snapshots:
   '@types/node@18.19.39':
     dependencies:
       undici-types: 5.26.5
-
-  '@types/node@22.5.5':
-    dependencies:
-      undici-types: 6.19.8
 
   '@types/node@22.7.8':
     dependencies:
@@ -13601,7 +13624,7 @@ snapshots:
     dependencies:
       '@types/cookie': 0.4.1
       '@types/cors': 2.8.17
-      '@types/node': 22.5.5
+      '@types/node': 22.7.8
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.4.2
@@ -17694,5 +17717,7 @@ snapshots:
       zod: 3.23.8
 
   zod@3.23.8: {}
+
+  zod@3.24.1: {}
 
   zwitch@2.0.4: {}

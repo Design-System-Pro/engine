@@ -1,9 +1,9 @@
 'use server';
 
 import { z } from 'zod';
-import { unprotectedAction } from '@/lib/safe-action';
+import { publicAction } from '@/lib/safe-action';
 
-export const authAction = unprotectedAction
+export const authAction = publicAction
   .metadata({ actionName: 'authAction' })
   .schema(
     z.object({

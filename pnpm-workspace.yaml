@@ -4,6 +4,9 @@ packages:
   - tools/*
 
 catalog:
+  "@next/env": ^14.2.13
+  "@t3-oss/env-core": ^0.11.1
+  "@t3-oss/env-nextjs": ^0.11.1
   "@figma/plugin-typings": ^1.99.0
   "@figma/widget-typings": ^1.9.1
   "@terrazzo/token-tools": ^0.1.3
