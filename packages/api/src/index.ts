@@ -2,7 +2,7 @@ import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 
 import type { AppRouter } from './app-router';
 import { appRouter } from './app-router';
-import { createTRPCContext, createCallerFactory } from './trpc';
+import { createClientTRPCContext, createCallerFactory } from './trpc';
 
 /**
  * Create a server-side caller for the tRPC API
@@ -29,5 +29,9 @@ type RouterInputs = inferRouterInputs<AppRouter>;
  **/
 type RouterOutputs = inferRouterOutputs<AppRouter>;
 
-export { createTRPCContext, appRouter, createCaller };
+export {
+  createClientTRPCContext as createTRPCContext,
+  appRouter,
+  createCaller,
+};
 export type { AppRouter, RouterInputs, RouterOutputs };

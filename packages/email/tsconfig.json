@@ -22,9 +22,7 @@
     "declaration": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
-    "baseUrl": "."
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

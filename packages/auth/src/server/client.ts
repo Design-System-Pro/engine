@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { env } from '../config';
 
+import { createClient as createJsClient } from '@supabase/supabase-js';
+
 export function createServerClient<Database>(): ReturnType<
   typeof createClient<Database>
 > {
@@ -26,4 +28,20 @@ export function createServerClient<Database>(): ReturnType<
       },
     },
   });
+}
+
+export function createServiceClient<Database>(): ReturnType<
+  typeof createClient<Database>
+> {
+  return createJsClient<Database>(
+    env.SUPABASE_URL,
+    env.SUPABASE_SERVICE_ROLE_KEY,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+        detectSessionInUrl: false,
+      },
+    }
+  );
 }

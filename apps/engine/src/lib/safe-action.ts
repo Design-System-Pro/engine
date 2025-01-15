@@ -54,7 +54,7 @@ const actionClient = createSafeActionClient({
     return next({ ctx: { ...ctx, authClient } });
   });
 
-export const unprotectedAction = actionClient;
+export const publicAction = actionClient;
 
 // Auth client defined by extending the base one.
 // Note that the same initialization options and middleware functions of the base client

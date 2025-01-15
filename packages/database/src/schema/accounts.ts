@@ -1,5 +1,6 @@
 import { pgTable, uuid, varchar } from 'drizzle-orm/pg-core';
 import { usersTable } from './_auth/users';
+import { createSelectSchema } from 'drizzle-zod';
 
 export const Accounts = pgTable('accounts', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -15,3 +16,4 @@ export const Accounts = pgTable('accounts', {
 });
 
 export type Account = typeof Accounts.$inferSelect;
+export const SelectAccountsSchema = createSelectSchema(Accounts);
