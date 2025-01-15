@@ -40,7 +40,6 @@ export const verifyOtpAction = publicAction
       new Date(data.user.email_confirmed_at).getTime() + 5 * 60 * 1000 > // within five minutes
         new Date(data.user.last_sign_in_at).getTime();
 
-    // Check if user has any previous activity in accounts table
     if (data.user && isFirstTimeSignIn) {
       const result = await ctx.authClient
         .from('accounts')
