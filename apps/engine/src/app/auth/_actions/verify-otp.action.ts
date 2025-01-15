@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { publicAction } from '@/lib/safe-action';
 import { zfd } from 'zod-form-data';
 import { scheduleOnboardingEmails } from '../_utils/schedule-onboarding-emails';
+import { sendEmail } from '@ds-project/email';
+import { config } from '@/config';
 
 export const verifyOtpAction = publicAction
   .metadata({ actionName: 'verifyOtpAction' })
@@ -39,10 +41,22 @@ export const verifyOtpAction = publicAction
 
         if (result.error) {
           return {
-            error: result.error,
+            error: result.error.message,
             ok: false,
           };
         }
+
+        await sendEmail({
+          accountId: result.data.id,
+          subject: 'Welcome to DS Pro',
+          template: {
+            key: 'welcome',
+            props: {
+              staticPathUrl: `${config.pageUrl}/static/email`,
+            },
+          },
+          scheduledAt: 'in 5 minutes',
+        });
 
         await scheduleOnboardingEmails(result.data.id);
         return {

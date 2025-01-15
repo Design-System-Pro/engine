@@ -6,12 +6,65 @@ import { z } from 'zod';
 export const jobTypeEnum = pgEnum('job_type', ['email']);
 
 export const jobType = z.enum(jobTypeEnum.enumValues);
-export const emailDataSchema = z.object({
-  type: z.literal(jobType.Enum.email),
-  templateKey: z.enum(['onboarding-24h', 'onboarding-48h']),
-  templateProps: z.record(z.unknown()),
-  subject: z.string().min(1),
+
+export const emailTemplateKeySchema = z.enum([
+  'verify-otp',
+  'welcome',
+  'onboarding-1d',
+  'onboarding-3d',
+]);
+
+export type EmailTemplateKey = z.infer<typeof emailTemplateKeySchema>;
+
+const verifyOtpEmailTemplatePropsSchema = z.object({
+  otpCode: z.string(),
+  staticPathUrl: z.string(),
 });
+
+export const emailTemplatePropsSchema = z.object({
+  staticPathUrl: z.string(),
+});
+
+export type EmailTemplateType =
+  | {
+      key: 'verify-otp';
+      props: z.infer<typeof verifyOtpEmailTemplatePropsSchema>;
+    }
+  | {
+      key: 'welcome';
+      props: z.infer<typeof emailTemplatePropsSchema>;
+    }
+  | {
+      key: 'onboarding-1d';
+      props: z.infer<typeof emailTemplatePropsSchema>;
+    }
+  | {
+      key: 'onboarding-3d';
+      props: z.infer<typeof emailTemplatePropsSchema>;
+    };
+
+export const emailDataSchema = z.union([
+  z.object({
+    type: z.literal(jobType.Enum.email),
+    template: z.object({
+      key: z.literal(emailTemplateKeySchema.Enum['verify-otp']),
+      props: verifyOtpEmailTemplatePropsSchema,
+    }),
+    subject: z.string().min(1),
+  }),
+  z.object({
+    type: z.literal(jobType.Enum.email),
+    template: z.object({
+      key: z.enum([
+        emailTemplateKeySchema.Enum.welcome,
+        emailTemplateKeySchema.Enum['onboarding-1d'],
+        emailTemplateKeySchema.Enum['onboarding-3d'],
+      ]),
+      props: emailTemplatePropsSchema,
+    }),
+    subject: z.string().min(1),
+  }),
+]);
 
 type JobData = z.infer<typeof emailDataSchema>;
 

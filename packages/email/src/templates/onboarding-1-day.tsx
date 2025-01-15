@@ -12,15 +12,15 @@ import {
   Hr,
 } from '@react-email/components';
 
-interface Onboarding24EmailProps {
+interface Onboarding1DayEmailProps {
   username?: string;
   staticPathUrl?: string;
 }
 
-export const Onboarding24Email = ({
+export const Onboarding1DayEmail = ({
   username = 'there',
   staticPathUrl = '/static',
-}: Onboarding24EmailProps) => (
+}: Onboarding1DayEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
@@ -51,12 +51,12 @@ export const Onboarding24Email = ({
         <Section style={contentSection}>
           <Text style={sectionTitle}>Quick Start Your Token Sync</Text>
           <Text style={paragraph}>
-            In just 5 minutes, you can set up automated synchronization between
+            In just 3 minutes, you can set up automated synchronization between
             your Figma design tokens and GitHub repository. Our quick start
             guide will show you exactly how.
           </Text>
-          <Button style={button} href="https://example.com/quick-start">
-            Start 5-min Setup
+          <Button style={button} href="https://go.getds.pro/walkthrough">
+            Start 3-min Setup
           </Button>
         </Section>
 
@@ -69,7 +69,7 @@ export const Onboarding24Email = ({
             system generation. Want to learn more? Let's hop on a quick call
             where I can share our roadmap and get your input.
           </Text>
-          <Button style={button} href="https://calendly.com/dspro/onboarding">
+          <Button style={button} href="https://go.getds.pro/intro-ds-pro">
             Book 15-min Call
           </Button>
         </Section>
@@ -100,11 +100,11 @@ export const Onboarding24Email = ({
   </Html>
 );
 
-Onboarding24Email.PreviewProps = {
+Onboarding1DayEmail.PreviewProps = {
   username: 'John',
-} as Onboarding24EmailProps;
+} as Onboarding1DayEmailProps;
 
-export default Onboarding24Email;
+export default Onboarding1DayEmail;
 
 const main = {
   backgroundColor: '#ffffff',

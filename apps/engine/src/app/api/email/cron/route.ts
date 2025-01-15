@@ -1,9 +1,9 @@
 import { serverEnv } from '@/env/server-env';
 import { api } from '@ds-project/api/service';
+import { sendEmail } from '@ds-project/email';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { Webhook } from 'standardwebhooks';
-import { sendEmail } from './_utils/send-email';
 
 /**
  * Checks the scheduled emails in the database and sends the emails that are due
@@ -13,11 +13,6 @@ export async function POST(request: NextRequest) {
   const wh = new Webhook(serverEnv.SERVICE_HOOK_SECRET);
   const payload = await request.text();
   const headers = Object.fromEntries(request.headers);
-
-  // Get due jobs of type email
-  // Iterate over the due jobs
-  // Per each job, send the email
-  // Mark the job as done
 
   // Verify the request is coming from an authorized source
   try {
@@ -33,29 +28,32 @@ export async function POST(request: NextRequest) {
 
   const dueEmailJobs = await api.jobs.getDueEmailList();
 
-  console.log('dueEmailJobs', dueEmailJobs);
-
+  console.log(`👀 ${dueEmailJobs.length} due email jobs found.`);
   // Run all the possible jobs, don't break if one fails. This way we can process all the jobs
   await Promise.allSettled(
-    dueEmailJobs.map(async (job) => {
+    dueEmailJobs.map(async (job, jobIndex) => {
+      console.log(
+        `⚙️ (${jobIndex + 1}/${dueEmailJobs.length}) Processing job ${job.id}.`
+      );
+      // Only process jobs of type email
       if (job.data?.type !== 'email') {
-        // TODO: Handle error
-        return;
-      }
-
-      const account = await api.accounts.get({ id: job.accountId });
-
-      if (!account) {
-        // TODO: Handle error
+        console.log(
+          `⏭️ (${jobIndex + 1}/${dueEmailJobs.length}) Skipped job ${job.id}.`
+        );
         return;
       }
 
       await sendEmail({
         accountId: job.accountId,
         subject: job.data.subject,
-        templateKey: job.data.templateKey,
-        templateProps: job.data.templateProps,
+        template: job.data.template,
       });
+
+      await api.jobs.markCompleted({ id: job.id });
+
+      console.log(
+        `📧 (${jobIndex + 1}/${dueEmailJobs.length}) Email job ${job.id} processed successfully.`
+      );
     })
   );
 

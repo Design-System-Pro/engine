@@ -10,15 +10,15 @@ import {
   Text,
 } from '@react-email/components';
 
-interface SignUpEmailProps {
+interface VerifyOTPEmailProps {
   otpCode?: string;
   staticPathUrl?: string;
 }
 
-export const SignUpEmail = ({
+export const VerifyOTPEmail = ({
   otpCode,
   staticPathUrl = '/static',
-}: SignUpEmailProps) => (
+}: VerifyOTPEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
@@ -50,11 +50,11 @@ export const SignUpEmail = ({
   </Html>
 );
 
-SignUpEmail.PreviewProps = {
+VerifyOTPEmail.PreviewProps = {
   otpCode: '000000',
-} as SignUpEmailProps;
+} as VerifyOTPEmailProps;
 
-export default SignUpEmail;
+export default VerifyOTPEmail;
 
 const main = {
   backgroundColor: '#ffffff',

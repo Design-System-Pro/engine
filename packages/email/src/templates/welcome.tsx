@@ -53,7 +53,7 @@ export const WelcomeEmail = ({
             Watch our quick setup guide to connect your Figma design tokens with
             your GitHub repository. It's easier than you think!
           </Text>
-          <Button style={button} href="https://example.com/getting-started">
+          <Button style={button} href="https://go.getds.pro/walkthrough">
             Watch Setup Guide
           </Button>
         </Section>
@@ -68,7 +68,7 @@ export const WelcomeEmail = ({
             and upcoming features like NPM registry publishing and one-click
             design system generation.
           </Text>
-          <Button style={button} href="https://calendly.com/dspro/onboarding">
+          <Button style={button} href="https://go.getds.pro/intro-ds-pro">
             Schedule Demo
           </Button>
         </Section>

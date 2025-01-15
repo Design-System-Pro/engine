@@ -1,3 +1,4 @@
+import { config } from '@/config';
 import { api } from '@ds-project/api/service';
 
 export async function scheduleOnboardingEmails(accountId: string) {
@@ -8,20 +9,28 @@ export async function scheduleOnboardingEmails(accountId: string) {
       dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours
       data: {
         type: 'email',
-        subject: 'Welcome to DS Pro',
-        templateKey: 'onboarding-24h',
-        templateProps: {},
+        subject: 'DS Pro - Ready to sync?',
+        template: {
+          key: 'onboarding-1d',
+          props: {
+            staticPathUrl: `${config.pageUrl}/static/email`,
+          },
+        },
       },
     },
     {
       type: 'email',
       accountId,
-      dueDate: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString(), // 48 hours
+      dueDate: new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString(), // 72 hours
       data: {
         type: 'email',
-        subject: 'Welcome to DS Pro',
-        templateKey: 'onboarding-24h',
-        templateProps: {},
+        subject: 'DS Pro - The Future of Design Tokens',
+        template: {
+          key: 'onboarding-3d',
+          props: {
+            staticPathUrl: `${config.pageUrl}/static/email`,
+          },
+        },
       },
     },
   ]);

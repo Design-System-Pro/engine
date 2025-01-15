@@ -12,15 +12,15 @@ import {
   Hr,
 } from '@react-email/components';
 
-interface Onboarding3DEmailProps {
+interface Onboarding3DaysEmailProps {
   username?: string;
   staticPathUrl?: string;
 }
 
-export const Onboarding3DEmail = ({
+export const Onboarding3DaysEmail = ({
   username = 'there',
   staticPathUrl = '/static',
-}: Onboarding3DEmailProps) => (
+}: Onboarding3DaysEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
@@ -52,7 +52,7 @@ export const Onboarding3DEmail = ({
             NPM registry. Want early access? Join our Discord community to be
             the first to know when it's ready.
           </Text>
-          <Button style={button} href="https://discord.gg/dspro">
+          <Button style={button} href="https://getds.pro/community">
             Join Discord Community
           </Button>
         </Section>
@@ -66,7 +66,7 @@ export const Onboarding3DEmail = ({
             click. Book a call to see an early demo and share your thoughts on
             what would make this feature perfect for your workflow.
           </Text>
-          <Button style={button} href="https://calendly.com/dspro/feedback">
+          <Button style={button} href="https://go.getds.pro/intro-ds-pro">
             Book Preview & Share Feedback
           </Button>
         </Section>
@@ -101,11 +101,11 @@ export const Onboarding3DEmail = ({
   </Html>
 );
 
-Onboarding3DEmail.PreviewProps = {
+Onboarding3DaysEmail.PreviewProps = {
   username: 'John',
-} as Onboarding3DEmailProps;
+} as Onboarding3DaysEmailProps;
 
-export default Onboarding3DEmail;
+export default Onboarding3DaysEmail;
 
 const main = {
   backgroundColor: '#ffffff',

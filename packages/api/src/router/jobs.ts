@@ -50,7 +50,7 @@ export const jobsRouter = createTRPCRouter({
         })
         .onConflictDoNothing();
     }),
-  getDueEmailList: serviceProcedure.query(async ({ ctx, input }) => {
+  getDueEmailList: serviceProcedure.query(async ({ ctx }) => {
     return ctx.database.query.Jobs.findMany({
       where: (jobs) =>
         and(

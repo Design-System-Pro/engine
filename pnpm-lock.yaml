@@ -729,6 +729,12 @@ importers:
 
   packages/email:
     dependencies:
+      '@ds-project/api':
+        specifier: workspace:*
+        version: link:../api
+      '@ds-project/database':
+        specifier: workspace:*
+        version: link:../database
       '@next/env':
         specifier: 'catalog:'
         version: 14.2.13
