@@ -7,7 +7,7 @@ import type { NextRequest } from 'next/server';
  * Checks the scheduled emails in the database and sends the emails that are due
  */
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   // Verify the request is coming from an authorized source
   if (authHeader !== `Bearer ${serverEnv.CRON_SECRET}`) {
