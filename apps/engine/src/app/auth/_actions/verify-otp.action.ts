@@ -67,9 +67,9 @@ export const verifyOtpAction = publicAction
       });
 
       await scheduleOnboardingEmails(result.data.id);
-
-      return {
-        ok: true,
-      };
     }
+
+    return {
+      ok: true,
+    };
   });
