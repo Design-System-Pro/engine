@@ -23,7 +23,7 @@ export const serverEnv = createEnv({
     SENTRY_AUTH_TOKEN: z.string().min(1).optional(),
     RESEND_API_KEY: z.string().min(1),
     SEND_EMAIL_HOOK_SECRET: z.string().min(1),
-    SERVICE_HOOK_SECRET: z.string().min(1),
+    CRON_SECRET: z.string().min(1),
     // Feature Flags
     ENABLE_RELEASES_FLAG: z.coerce.boolean(),
   },

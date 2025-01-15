@@ -10,7 +10,7 @@ import { Webhook } from 'standardwebhooks';
  */
 
 export async function POST(request: NextRequest) {
-  const wh = new Webhook(serverEnv.SERVICE_HOOK_SECRET);
+  const wh = new Webhook(serverEnv.CRON_SECRET);
   const payload = await request.text();
   const headers = Object.fromEntries(request.headers);
 
