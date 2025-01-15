@@ -33,7 +33,7 @@ export const verifyOtpAction = publicAction
       };
     }
 
-    // Check if this is a fresh email confirmation (within last minute)
+    // Check if this is a fresh email confirmation (within last 5 minute)
     const isFirstTimeSignIn =
       data.user?.last_sign_in_at &&
       data.user.email_confirmed_at &&
