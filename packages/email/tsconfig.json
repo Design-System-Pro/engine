@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    // "typeRoots": ["./dist/index.d.ts"],
+    "typeRoots": ["./dist/index.d.ts"],
     "declarationMap": true,
     "inlineSources": false,
     "preserveWatchOutput": true,

@@ -13,12 +13,10 @@ import {
 } from '@react-email/components';
 
 interface Onboarding1DayEmailProps {
-  username?: string;
   staticPathUrl?: string;
 }
 
 export const Onboarding1DayEmail = ({
-  username = 'there',
   staticPathUrl = '/static',
 }: Onboarding1DayEmailProps) => (
   <Html>
@@ -37,7 +35,7 @@ export const Onboarding1DayEmail = ({
         </Heading>
 
         <Section style={contentSection}>
-          <Text style={paragraph}>Hi {username},</Text>
+          <Text style={paragraph}>Hi there,</Text>
           <Text style={paragraph}>
             I noticed you signed up for DS Pro yesterday. Have you had a chance
             to set up your first Figma to GitHub sync? If not, I'd love to help

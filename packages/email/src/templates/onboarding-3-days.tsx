@@ -13,12 +13,10 @@ import {
 } from '@react-email/components';
 
 interface Onboarding3DaysEmailProps {
-  username?: string;
   staticPathUrl?: string;
 }
 
 export const Onboarding3DaysEmail = ({
-  username = 'there',
   staticPathUrl = '/static',
 }: Onboarding3DaysEmailProps) => (
   <Html>
@@ -35,7 +33,7 @@ export const Onboarding3DaysEmail = ({
         <Heading style={secondary}>Help Shape What's Coming Next</Heading>
 
         <Section style={contentSection}>
-          <Text style={paragraph}>Hi {username},</Text>
+          <Text style={paragraph}>Hi there,</Text>
           <Text style={paragraph}>
             As one of our early users, I wanted to give you a sneak peek into
             what we're building next at DS Pro. Your feedback on these upcoming

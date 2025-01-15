@@ -13,12 +13,10 @@ import {
 } from '@react-email/components';
 
 interface WelcomeEmailProps {
-  username?: string;
   staticPathUrl?: string;
 }
 
 export const WelcomeEmail = ({
-  username = 'there',
   staticPathUrl = '/static',
 }: WelcomeEmailProps) => (
   <Html>
@@ -37,7 +35,7 @@ export const WelcomeEmail = ({
         </Heading>
 
         <Section style={contentSection}>
-          <Text style={paragraph}>Hi {username},</Text>
+          <Text style={paragraph}>Hi there,</Text>
           <Text style={paragraph}>
             Thank you for joining DS Pro! I'm excited to help you streamline
             your design token workflow between Figma and GitHub. Let's get you
