@@ -22,7 +22,7 @@
     "@create-figma-plugin/utilities": "^3.2.0",
     "@terrazzo/token-tools": "catalog:",
     "object-hash": "^3.0.0",
-    "zod": "^3.23.8"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
