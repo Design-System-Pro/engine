@@ -33,11 +33,15 @@ export function createServerClient<Database>(): ReturnType<
 export function createServiceClient<Database>(): ReturnType<
   typeof createClient<Database>
 > {
-  return createJsClient<Database>(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-      detectSessionInUrl: false,
-    },
-  });
+  return createJsClient<Database>(
+    env.SUPABASE_URL,
+    env.SUPABASE_SERVICE_ROLE_KEY,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+        detectSessionInUrl: false,
+      },
+    }
+  );
 }
