@@ -2,30 +2,19 @@ import { serverEnv } from '@/env/server-env';
 import { api } from '@ds-project/api/service';
 import { sendEmail } from '@ds-project/email';
 import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
-import { Webhook } from 'standardwebhooks';
 
 /**
  * Checks the scheduled emails in the database and sends the emails that are due
  */
 
 export async function POST(request: NextRequest) {
-  const wh = new Webhook(serverEnv.CRON_SECRET);
-  const payload = await request.text();
-  const headers = Object.fromEntries(request.headers);
-
+  const authHeader = request.headers.get('authorization');
   // Verify the request is coming from an authorized source
-  try {
-    wh.verify(payload, headers);
-  } catch (error) {
-    return NextResponse.json(
-      { error },
-      {
-        status: 401,
-      }
-    );
+  if (authHeader !== `Bearer ${serverEnv.CRON_SECRET}`) {
+    return new Response('Unauthorized', {
+      status: 401,
+    });
   }
-
   const dueEmailJobs = await api.jobs.getDueEmailList();
 
   console.log(`👀 ${dueEmailJobs.length} due email jobs found.`);
@@ -57,10 +46,5 @@ export async function POST(request: NextRequest) {
     })
   );
 
-  return NextResponse.json(
-    {},
-    {
-      status: 200,
-    }
-  );
+  return Response.json({ success: true });
 }
