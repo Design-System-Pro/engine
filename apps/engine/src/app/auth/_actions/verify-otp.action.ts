@@ -26,47 +26,50 @@ export const verifyOtpAction = publicAction
       type: 'email',
     });
 
-    if (!error) {
-      if (
-        data.user?.id &&
-        data.user.email_confirmed_at &&
-        new Date(data.user.email_confirmed_at).getTime() <
-          new Date().getTime() + 1000 * 60 * 1 // 1 minute
-      ) {
-        const result = await ctx.authClient
-          .from('accounts')
-          .select('id')
-          .eq('user_id', data.user.id)
-          .single();
-
-        if (result.error) {
-          return {
-            error: result.error.message,
-            ok: false,
-          };
-        }
-
-        await sendEmail({
-          accountId: result.data.id,
-          subject: 'Welcome to DS Pro',
-          template: {
-            key: 'welcome',
-            props: {
-              staticPathUrl: `${config.pageUrl}/static/email`,
-            },
-          },
-          scheduledAt: 'in 5 minutes',
-        });
-
-        await scheduleOnboardingEmails(result.data.id);
-        return {
-          ok: true,
-        };
-      }
+    if (error) {
+      return {
+        error: error.message,
+        ok: false,
+      };
     }
 
-    return {
-      error: error?.message ?? 'Error verifying OTP',
-      ok: false,
-    };
+    // Check if this is a fresh email confirmation (within last 5 minute)
+    const isFirstTimeSignIn =
+      data.user?.last_sign_in_at &&
+      data.user.email_confirmed_at &&
+      new Date(data.user.email_confirmed_at).getTime() + 5 * 60 * 1000 > // within five minutes
+        new Date(data.user.last_sign_in_at).getTime();
+
+    if (data.user && isFirstTimeSignIn) {
+      const result = await ctx.authClient
+        .from('accounts')
+        .select('id')
+        .eq('user_id', data.user.id)
+        .single();
+
+      if (result.error) {
+        return {
+          error: 'Error with the user account',
+          ok: false,
+        };
+      }
+
+      await sendEmail({
+        accountId: result.data.id,
+        subject: 'Welcome to DS Pro',
+        template: {
+          key: 'welcome',
+          props: {
+            staticPathUrl: `${config.pageUrl}/static/email`,
+          },
+        },
+        scheduledAt: 'in 5 minutes',
+      });
+
+      await scheduleOnboardingEmails(result.data.id);
+
+      return {
+        ok: true,
+      };
+    }
   });
