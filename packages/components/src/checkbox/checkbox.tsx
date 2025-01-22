@@ -23,7 +23,7 @@ const Checkbox = React.forwardRef<
         'ds-flex ds-items-center ds-justify-center ds-text-current'
       )}
     >
-      <Check className="ds-h-4 ds-w-4" />
+      <Check className="ds-size-4" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
 ));

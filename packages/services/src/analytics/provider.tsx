@@ -1,11 +1,13 @@
 'use client';
 
-import { config } from '@/config';
-import { clientEnv } from '@/env/client-env';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
+import { clientEnv } from './env/client-env';
 
-if (config.areAnalyticsEnabled && typeof window !== 'undefined') {
+if (
+  clientEnv.NEXT_PUBLIC_ARE_ANALYTICS_ENABLED &&
+  typeof window !== 'undefined'
+) {
   posthog.init(clientEnv.NEXT_PUBLIC_POSTHOG_KEY, {
     api_host: '/_proxy/a',
     ui_host: 'https://eu.posthog.com',

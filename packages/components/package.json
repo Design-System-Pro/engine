@@ -13,9 +13,9 @@
       "import": "./dist/index.es.js",
       "types": "./dist/index.d.ts"
     },
+    "./dark-theme.css": "./dist/dark-theme.css",
     "./globals.css": "./dist/globals.css",
-    "./light-theme.css": "./dist/light-theme.css",
-    "./dark-theme.css": "./dist/dark-theme.css"
+    "./light-theme.css": "./dist/light-theme.css"
   },
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -55,7 +55,6 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
     "@radix-ui/react-tooltip": "^1.1.2",
-    "@vitejs/plugin-react": "catalog:",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "input-otp": "^1.2.4",
@@ -74,15 +73,16 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vercel/style-guide": "^5.2.0",
+    "@vitejs/plugin-react": "catalog:",
     "autoprefixer": "^10.4.19",
     "concurrently": "catalog:",
     "eslint": "catalog:",
     "postcss": "catalog:",
     "rollup-preserve-directives": "^1.1.1",
     "tailwindcss": "catalog:",
-    "typescript": "^5.5.4",
+    "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^4.5.0"
   },
   "peerDependencies": {
     "react": "catalog:",

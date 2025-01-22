@@ -10,9 +10,13 @@ export function AnalyticsPageView(): null {
   const posthog = usePostHog();
 
   useEffect(() => {
-    // Track pageviews
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (pathname && posthog) {
+    if (!pathname) {
+      // Do not track pageviews if pathname is not available
+      return;
+    }
+
+    // Track pageview
+    if (pathname) {
       let url = window.origin + pathname;
       if (searchParams.toString()) {
         url = url + `?${searchParams.toString()}`;

@@ -26,10 +26,10 @@
   },
   "prettier": "@ds-project/prettier",
   "dependencies": {
-    "@next/env": "^14.2.13",
+    "@next/env": "catalog:",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.45.0",
-    "@t3-oss/env-core": "^0.11.1",
+    "@t3-oss/env-core": "catalog:",
     "next": "catalog:",
     "zod": "catalog:"
   },

@@ -100,7 +100,7 @@ const BreadcrumbEllipsis = ({
     )}
     {...props}
   >
-    <MoreHorizontal className="ds-h-4 ds-w-4" />
+    <MoreHorizontal className="ds-size-4" />
     <span className="ds-sr-only">More</span>
   </span>
 );
