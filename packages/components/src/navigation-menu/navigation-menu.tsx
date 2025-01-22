@@ -55,7 +55,7 @@ const NavigationMenuTrigger = React.forwardRef<
     {children}{' '}
     <ChevronDown
       aria-hidden="true"
-      className="ds-relative ds-top-px ds-ml-1 ds-h-3 ds-w-3 ds-transition ds-duration-200 group-data-[state=open]:ds-rotate-180"
+      className="ds-relative ds-top-px ds-ml-1 ds-size-3 ds-transition ds-duration-200 group-data-[state=open]:ds-rotate-180"
     />
   </NavigationMenuPrimitive.Trigger>
 ));
@@ -112,7 +112,7 @@ const NavigationMenuIndicator = React.forwardRef<
     ref={ref}
     {...props}
   >
-    <div className="ds-relative ds-top-[60%] ds-h-2 ds-w-2 ds-rotate-45 ds-rounded-tl-sm ds-bg-border ds-shadow-md" />
+    <div className="ds-relative ds-top-[60%] ds-size-2 ds-rotate-45 ds-rounded-tl-sm ds-bg-border ds-shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ));
 NavigationMenuIndicator.displayName =

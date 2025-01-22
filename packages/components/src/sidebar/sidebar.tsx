@@ -207,9 +207,7 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
-            <div className="ds-flex ds-h-full ds-w-full ds-flex-col">
-              {children}
-            </div>
+            <div className="ds-flex ds-size-full ds-flex-col">{children}</div>
           </SheetContent>
         </Sheet>
       );
@@ -251,7 +249,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar="sidebar"
-            className="ds-flex ds-h-full ds-w-full ds-flex-col ds-bg-sidebar group-data-[variant=floating]:ds-rounded-lg group-data-[variant=floating]:ds-border group-data-[variant=floating]:ds-border-sidebar-border group-data-[variant=floating]:ds-shadow"
+            className="ds-flex ds-size-full ds-flex-col ds-bg-sidebar group-data-[variant=floating]:ds-rounded-lg group-data-[variant=floating]:ds-border group-data-[variant=floating]:ds-border-sidebar-border group-data-[variant=floating]:ds-shadow"
           >
             {children}
           </div>

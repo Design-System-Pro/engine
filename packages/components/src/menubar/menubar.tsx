@@ -64,7 +64,7 @@ const MenubarSubTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <ChevronRight className="ds-ml-auto ds-h-4 ds-w-4" />
+    <ChevronRight className="ds-ml-auto ds-size-4" />
   </MenubarPrimitive.SubTrigger>
 ));
 MenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName;
@@ -140,9 +140,9 @@ const MenubarCheckboxItem = React.forwardRef<
     checked={checked}
     {...props}
   >
-    <span className="ds-absolute ds-left-2 ds-flex ds-h-3.5 ds-w-3.5 ds-items-center ds-justify-center">
+    <span className="ds-absolute ds-left-2 ds-flex ds-size-3.5 ds-items-center ds-justify-center">
       <MenubarPrimitive.ItemIndicator>
-        <Check className="ds-h-4 ds-w-4" />
+        <Check className="ds-size-4" />
       </MenubarPrimitive.ItemIndicator>
     </span>
     {children}
@@ -162,9 +162,9 @@ const MenubarRadioItem = React.forwardRef<
     )}
     {...props}
   >
-    <span className="ds-absolute ds-left-2 ds-flex ds-h-3.5 ds-w-3.5 ds-items-center ds-justify-center">
+    <span className="ds-absolute ds-left-2 ds-flex ds-size-3.5 ds-items-center ds-justify-center">
       <MenubarPrimitive.ItemIndicator>
-        <Circle className="ds-h-2 ds-w-2 ds-fill-current" />
+        <Circle className="ds-size-2 ds-fill-current" />
       </MenubarPrimitive.ItemIndicator>
     </span>
     {children}

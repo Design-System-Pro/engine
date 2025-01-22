@@ -6,6 +6,14 @@
   "author": "",
   "type": "module",
   "exports": {
+    "./analytics": {
+      "types": "./dist/analytics/index.d.ts",
+      "default": "./src/analytics/index.ts"
+    },
+    "./analytics/rewrites.mjs": {
+      "types": "./dist/analytics/rewrites/index.d.ts",
+      "default": "./src/analytics/rewrites.mjs"
+    },
     "./github": {
       "types": "./dist/github/index.d.ts",
       "default": "./src/github/index.ts"
@@ -19,13 +27,20 @@
   "prettier": "@ds-project/prettier",
   "dependencies": {
     "@octokit/app": "^15.1.0",
-    "@octokit/core": "^6.1.2"
+    "@octokit/core": "^6.1.2",
+    "@t3-oss/env-nextjs": "catalog:",
+    "next": "catalog:",
+    "posthog-js": "^1.190.2",
+    "react": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@ds-project/eslint": "workspace:*",
     "@ds-project/prettier": "workspace:*",
     "@ds-project/typescript": "workspace:*",
     "@octokit/types": "^13.5.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:"
   }

@@ -11,9 +11,17 @@ import { database } from '@ds-project/database/client';
 
 class ActionError extends Error {}
 
+const MetadataSchema = z.object({
+  actionName: z.string(),
+});
+
 // Base client.
-const actionClient = createSafeActionClient({
-  handleReturnedServerError(e) {
+const actionClient = createSafeActionClient<
+  undefined,
+  string,
+  typeof MetadataSchema
+>({
+  handleServerError(e) {
     if (e instanceof ActionError) {
       return e.message;
     }
