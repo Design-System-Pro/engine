@@ -3,6 +3,7 @@ import { Fira_Sans, Fira_Mono } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/footer';
 import { Toaster } from '@/components/ui/sonner';
+import { AnalyticsProvider, PageTracker } from '@ds-project/services/analytics';
 
 const fontSans = Fira_Sans({
   variable: '--font-sans',
@@ -28,13 +29,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fontSans.variable} ${fontMono.variable} antialiased font-[family-name:var(--font-sans)]`}
-      >
-        <main className="mx-auto max-w-2xl px-4 py-16">{children}</main>
-        <Footer />
-        <Toaster />
-      </body>
+      <AnalyticsProvider>
+        <body
+          className={`${fontSans.variable} ${fontMono.variable} antialiased font-[family-name:var(--font-sans)]`}
+        >
+          <main className="mx-auto max-w-2xl px-4 py-16">{children}</main>
+          <Footer />
+          <Toaster />
+          <PageTracker />
+        </body>
+      </AnalyticsProvider>
     </html>
   );
 }

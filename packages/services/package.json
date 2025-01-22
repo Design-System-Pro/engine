@@ -6,10 +6,6 @@
   "author": "",
   "type": "module",
   "exports": {
-    "./github": {
-      "types": "./dist/github/index.d.ts",
-      "default": "./src/github/index.ts"
-    },
     "./analytics": {
       "types": "./dist/analytics/index.d.ts",
       "default": "./src/analytics/index.ts"
@@ -17,6 +13,10 @@
     "./analytics/rewrites.mjs": {
       "types": "./dist/analytics/rewrites/index.d.ts",
       "default": "./src/analytics/rewrites.mjs"
+    },
+    "./github": {
+      "types": "./dist/github/index.d.ts",
+      "default": "./src/github/index.ts"
     }
   },
   "scripts": {

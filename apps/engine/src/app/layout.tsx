@@ -4,22 +4,11 @@ import { Inter } from 'next/font/google';
 import { cn } from '@/lib/css';
 import { Toaster } from '@ds-project/components';
 import { Favicon } from '@/components';
-import dynamic from 'next/dynamic';
 import { getMetadata } from '@/lib/metadata';
 import { TooltipProvider } from '@ds-project/components';
-import { AnalyticsProvider } from '@ds-project/services/analytics';
+import { AnalyticsProvider, PageTracker } from '@ds-project/services/analytics';
 
 const inter = Inter({ subsets: ['latin'] });
-
-const AnalyticsPageView = dynamic(
-  () =>
-    import('@ds-project/services/analytics').then(
-      (module) => module.AnalyticsPageView
-    ),
-  {
-    ssr: false,
-  }
-);
 
 export const metadata = getMetadata();
 
@@ -41,7 +30,7 @@ export default function RootLayout({
               inter.className
             )}
           >
-            <AnalyticsPageView />
+            <PageTracker />
             {children}
             <Toaster />
           </body>

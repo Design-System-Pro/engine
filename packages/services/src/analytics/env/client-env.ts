@@ -7,7 +7,7 @@ export const clientEnv = createEnv({
       .enum(['development', 'preview', 'production'])
       .optional(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
-    NEXT_PUBLIC_ARE_ANALYTICS_ENABLED: z.boolean().optional(),
+    NEXT_PUBLIC_ARE_ANALYTICS_ENABLED: z.boolean(),
   },
   runtimeEnv: {
     NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
