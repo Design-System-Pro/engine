@@ -78,7 +78,7 @@ export const Onboarding3DaysEmail = ({
             quick call to get you up and running, and I can show you some tips
             for managing your design tokens effectively.
           </Text>
-          <Button style={button} href="https://calendly.com/dspro/onboarding">
+          <Button style={button} href="https://go.getds.pro/intro-ds-pro">
             Schedule Quick Setup Call
           </Button>
         </Section>
